@@ -74,6 +74,12 @@ Pipe.prototype.reverse = function() {
   return this;
 }
 
+Pipe.prototype.wipe = function() {
+  delete this.__array__;
+  this.__array__ = [];
+  return this;
+}
+
 global.Pipe = Pipe;
 
 })(this)
