@@ -19,6 +19,6 @@ Path.prototype.printify = function() {
   return (new ARRAY(this.outputs.__array__)).printify();
 }
   
-global.noodel = function noodel(code) { if(typeof code === "string") return new Path(code) };
+global.noodel = function noodel(code) { if(typeof code === "string" && code.length) return new Path(code) };
 
 })(this, this.Pipe, this.Command, this.Token, this.Path, this.types.CHAR, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
