@@ -39,6 +39,10 @@ Token.prototype.tokenize = function() {
   return (this.end === this.code.length - 1) ? this : (new Token(this.end+1,this.code,this)).tokenize();
 }
 
+Token.prototype.next = function() {
+  return this.branches.first();
+}
+
 Token.parse = function(tkn) {
   var result = {end:tkn.start,cmd:new Command(),literal:tkn.code[tkn.start]};
   
