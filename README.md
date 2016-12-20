@@ -5,6 +5,7 @@
 <script src="src/js/pipe.js"></script>
 <script src="src/js/token.js"></script>
 <script src="src/js/path.js"></script>
+<script src="src/js/types.js"></script>
 
 
 <textarea class="noodel-editor"></textarea>
