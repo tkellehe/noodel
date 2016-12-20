@@ -16,10 +16,10 @@ $(function(){
 /// Handle all editors in the window.
 $(".noodel-exec").each(function(){
   var $this = $(this),
-      $editor = $this.children(".noodel-editor")[0],
-      $input = $this.children(".noodel-editor")[0],
-      $output = $this.children(".noodel-editor")[0],
-      $button = $this.children("button")[0];
+      $editor = $($this.children(".noodel-editor")[0]),
+      $input = $($this.children(".noodel-editor")[0]),
+      $output = $($this.children(".noodel-editor")[0]),
+      $button = $($this.children("button")[0]);
   
   $button.text("RUN");
   
