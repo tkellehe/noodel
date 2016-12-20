@@ -8,9 +8,9 @@
 <script src="src/js/types.js"></script>
 <script src="src/noodel.js"></script>
 
-
+<span>
 <textarea class="noodel-editor"></textarea>
-
+</span>
 
 ## Basic Commands
 
