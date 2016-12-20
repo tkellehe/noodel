@@ -1,8 +1,6 @@
 (function(global, Pipe){
 
 function Command(f) {
-  if(f) f(this);
-
   this.methods = [];
   var self = this;
   function invoke() {
@@ -13,6 +11,8 @@ function Command(f) {
     get: function() { return invoke },
     set: function(v) { self.methods.push(v) }
   });
+  
+  if(f) f(this);
 };
 
 Command.commands = {};
