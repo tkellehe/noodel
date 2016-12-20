@@ -17,8 +17,8 @@ $(function(){
 $(".noodel-exec").each(function(){
   var $this = $(this),
       $editor = $($this.children(".noodel-editor")[0]),
-      $input = $($this.children(".noodel-editor")[0]),
-      $output = $($this.children(".noodel-editor")[0]),
+      $input = $($this.children(".noodel-input")[0]),
+      $output = $($this.children(".noodel-output")[0]),
       $button = $($this.children("button")[0]);
   
   $output.prop("readonly",true);
