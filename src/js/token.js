@@ -1,7 +1,7 @@
 (function(global, Pipe){
 
 function Command(f) {
-  if(f) f.call(this);
+  if(f) f(this);
 
   this.methods = [];
   var self = this;
