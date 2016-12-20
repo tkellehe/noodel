@@ -5,7 +5,9 @@ function move_inputs(tkn, path) {
 }
 
 /// NOPs
-Command.commands[" "] = function(cmd) {};
+Command.commands[" "] = function(cmd) {
+  cmd.exec = move_inputs;
+};
 
 global.noodel = function noodel(code) { if(typeof code === "string") return new Path(code) };
 
