@@ -9,6 +9,10 @@ Command.commands[" "] = function(cmd) {
   cmd.exec = move_inputs;
 };
 
+Path.prototype.printify = function() {
+  return (new ARRAY(this.outputs.__array__)).printify();
+}
+  
 global.noodel = function noodel(code) { if(typeof code === "string") return new Path(code) };
 
 })(this, this.Pipe, this.Command, this.Token, this.Path, this.types.CHAR, this.types.NUMBER, this.types.STRING)
