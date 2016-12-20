@@ -36,7 +36,7 @@ Token.prototype.tokenize = function() {
   this.cmd = ecl.cmd;
   this.literal = ecl.cmd;
   this.cmd.tokenize(this);
-  return (end === this.code.length - 1) ? this : (new Token(this.end+1,this.code,this)).tokenize();
+  return (this.end === this.code.length - 1) ? this : (new Token(this.end+1,this.code,this)).tokenize();
 }
 
 Token.parse = function(tkn) {
