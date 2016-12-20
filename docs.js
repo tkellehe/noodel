@@ -21,15 +21,33 @@ $(".noodel-exec").each(function(){
       $output = $($this.children(".noodel-editor")[0]),
       $button = $($this.children("button")[0]);
   
+  $output.prop("readonly",true);
   $button.text("RUN");
   
   function clickRun() {
+    prgm = noodel(nbsRemove($editor.val()));
+    if(prgm === undefined) return;
+    
+    $input.prop("readonly",true);
+    $editor.prop("readonly",true);
+    
+    prgm.onstep = function() {
+      $output.val(prgm.printify());
+    }
+    prgm.onend = function() {
+      $output.val(prgm.printify());
+      clickStop();
+    }
     
     $button.text("STOP").unbind("click").click(clickStop);
   };
   function clickStop() {
+    prgm.stop();
     
-    $button.text("STOP").unbind("click").click(clickRun);
+    $input.prop("readonly",false);
+    $editor.prop("readonly",false);
+    
+    $button.text("RUN").unbind("click").click(clickRun);
   };
   
   $button.click(clickRun);
