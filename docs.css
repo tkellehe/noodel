@@ -13,7 +13,7 @@ textarea.noodel-output {
   box-sizing: border-box;         /* For IE and modern versions of Chrome */
   -moz-box-sizing: border-box;    /* For Firefox                          */
   -webkit-box-sizing: border-box; /* For Safari                           */
-  resize: none;
+  resize: vertical;
 }
 
 textarea.noodel-input {
