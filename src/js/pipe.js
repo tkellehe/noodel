@@ -44,10 +44,34 @@ Pipe.prototype.last = function() {
 
 Pipe.prototype.pipe = function(other) {
   while(other.length()) this.back(other.front());
+  return this;
 }
 
 Pipe.prototype.rpipe = function(other) {
   while(other.length()) this.front(other.back());
+  return this;
+}
+
+Pipe.prototype.at = function(i, v) {
+  if(arguments.length === 1) {
+    return this.__array__[i];
+  } else if(arguments.length === 2 && 0 <= i && i < this.length()) {
+    this.__array__[i] = v;
+    return this;
+  }
+}
+
+Pipe.prototype.each = function(f) {
+  var r = undefined;
+  for(var i = 0, l = this.length(); i < l && (r === undefined || (typeof r === "boolean" && r)); ++i)
+    r = f.call(this, this.at(i));
+  return this;
+}
+
+Pipe.prototype.reverse = function() {
+  for(var i = 0, l = this.length(); i < l; ++i)
+    this.front(this.back());
+  return this;
 }
 
 global.Pipe = Pipe;
