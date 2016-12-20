@@ -2,14 +2,9 @@
 
 
 <link rel="stylesheet" type="text/css" href="docs.css">
-
-
-<script src="src/js/pipe.js">
-</script>
-
-
-<script src="src/js/token.js">
-</script>
+<script src="src/js/pipe.js"></script>
+<script src="src/js/token.js"></script>
+<script src="src/js/path.js"></script>
 
 
 <textarea class="noodel-editor"></textarea>
