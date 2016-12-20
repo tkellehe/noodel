@@ -42,7 +42,7 @@ function Path(code) {
 }
 
 Path.prototype.step = function() {
-  this.current.cmd.exec();
+  this.current.cmd.exec(this.current, this);
   this.previous = this.current;
   this.current = this.current.next();
   this.onstep();
