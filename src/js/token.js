@@ -1,16 +1,7 @@
 (function(global, Pipe){
 
 function Command(f) {
-  if(typeof f === "string") {
-    // Command is made up of code itself.
-    this.tokenize = function(tkn) {
-      
-    }
-  } else if(f === undefined) {
-    this.tokenize = function(tkn) {}
-  } else {
-    this.tokenize = f;
-  }
+  f.call(this);
 
   this.methods = [];
   var self = this;
@@ -22,9 +13,14 @@ function Command(f) {
     get: function() { return invoke },
     set: function(v) { self.methods.push(v) }
   });
-}
+};
 
 Command.commands = {};
+
+Command.prototype.tokenize = function(tkn) {
+  tkn.branches.back(new Token(tkn.end+1, tkn.code, tkn));
+  return tkn.branches.last();
+}
 
 global.Command = Command;
 
@@ -44,8 +40,8 @@ Token.prototype.tokenize = function() {
   this.end = ecl.end;
   this.cmd = ecl.cmd;
   this.literal = ecl.cmd;
-  this.cmd.tokenize(this);
-  return (this.end === this.code.length - 1) ? this : (new Token(this.end+1,this.code,this)).tokenize();
+  var spawned = this.cmd.tokenize(this);
+  return (spawned.literal === undefined) ? this : spawned.tokenize();
 }
 
 Token.prototype.next = function() {
