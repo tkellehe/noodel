@@ -18,8 +18,8 @@ function Command(f) {
 Command.commands = {};
 
 Command.prototype.tokenize = function(tkn) {
-  tkn.branches.back(new Token(tkn.end+1, tkn.code, tkn));
-  return tkn.branches.last();
+  tkn.branches.front(new Token(tkn.end+1, tkn.code, tkn));
+  return tkn.branches.first();
 }
 
 global.Command = Command;
@@ -41,7 +41,12 @@ Token.prototype.tokenize = function() {
   this.cmd = ecl.cmd;
   this.literal = ecl.cmd;
   var spawned = this.cmd.tokenize(this);
-  return (spawned.literal === undefined) ? this : spawned.tokenize();
+  if(spawned.literal === undefined) {
+    this.branches.remove(spawned);
+    return this;
+  } else {
+    return spawned.tokenize();
+  }
 }
 
 Token.prototype.next = function() {
