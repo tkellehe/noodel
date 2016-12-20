@@ -80,6 +80,15 @@ Pipe.prototype.wipe = function() {
   return this;
 }
 
+Pipe.prototype.remove = function(v) {
+  for(var i = 0, l = this.length(); i < l; ++i)
+    if(v === this.__array__[i]) {
+      this.__array__.splice(i, 1);
+      return true;
+    }
+  return false;
+}
+
 global.Pipe = Pipe;
 
 })(this)
