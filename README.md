@@ -8,9 +8,11 @@
 <script src="src/js/types.js"></script>
 <script src="src/noodel.js"></script>
 
-<div>
+<div class="noodel-exec">
 <textarea class="noodel-editor"></textarea>
 <input type="submit" value="RUN"/>
+<textarea class="noodel-input"></textarea>
+<textarea class="noodel-output"></textarea>
 </div>
 
 ## Basic Commands
