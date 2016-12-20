@@ -39,6 +39,8 @@ $(".noodel-exec").each(function(){
       clickStop();
     }
     
+    prgm.exec();
+    
     $button.text("STOP").unbind("click").click(clickStop);
   };
   function clickStop() {
