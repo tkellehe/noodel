@@ -116,6 +116,21 @@ CHAR.prototype.copy = function() {
   return new CHAR(this.value);
 }
 
+/// CHAR helpers
+CHAR.int_to_char = function(i) { return int_to_char[i] };
+CHAR.char_to_int = function(c) { return char_to_int[c] };
+  
+CHAR.printable = [];
+(function(){
+  for(var i = 0; i < 97; ++i) CHAR.printable.push(int_to_char[i]);
+})();
+
+CHAR.is_printable = function(o) {
+  if(!is_char(o)) return false;
+  if(is_char_code(o)) o = char_to_int[o];
+  return 0 <= o && o < 97;
+}
+
 /// Conversions
 CHAR.prototype.valueify = function() {
   return this.value;
