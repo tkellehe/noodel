@@ -39,7 +39,7 @@ function is_invalid(o) { return is_nan(o) || is_undefined(o) || is_null(o) };
 function is_string(o) { return typeof(o) === "string" };
 function is_number(o) { return typeof(o) === "number" && !is_nan(o) };
 function is_integer(o) { return is_number(o) && (Math.floor(o) === o) };
-function is_array(o) { return typeof(o) === "array" };
+function is_array(o) { return o instanceof Array };
 function is_char_code(o) { return (is_string(o) && !is_undefined(char_to_int[o])) };
 function is_char(o) { return is_char_code(o) || (is_integer(o) && 0 <= o && o < 256) };
 
