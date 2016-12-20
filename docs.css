@@ -5,6 +5,7 @@ textarea.noodel-editor {
   -moz-box-sizing: border-box;    /* For Firefox                          */
   -webkit-box-sizing: border-box; /* For Safari                           */
   resize: none;
+  font-family: monospace;
 }
 
 textarea.noodel-output {
@@ -14,6 +15,7 @@ textarea.noodel-output {
   -moz-box-sizing: border-box;    /* For Firefox                          */
   -webkit-box-sizing: border-box; /* For Safari                           */
   resize: vertical;
+  font-family: monospace;
 }
 
 textarea.noodel-input {
@@ -23,4 +25,5 @@ textarea.noodel-input {
   -moz-box-sizing: border-box;    /* For Firefox                          */
   -webkit-box-sizing: border-box; /* For Safari                           */
   resize: none;
+  font-family: monospace;
 }
