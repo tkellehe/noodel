@@ -58,10 +58,10 @@ Token.parse = function(tkn) {
   
   var i = tkn.start, string = tkn.code[i], literal = undefined;
   while(tkn.code[i] !== "\n" && i < tkn.code.length) {
+    string += tkn.code[++i];
     if(Command.commands[string] !== undefined) {
       literal = string;
     }
-    string += tkn.code[++i];
   }
   
   if(literal) {
