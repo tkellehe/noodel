@@ -12,10 +12,10 @@ function Path(code) {
   this.onstops = [];
   
   var self = this;
-  function invoke_onsteps() { for(var i = 0, l = self.length; i < l; ++i) self.onsteps[i].call(self) };
-  function invoke_onstarts() { for(var i = 0, l = self.length; i < l; ++i) self.onstarts[i].call(self) };
-  function invoke_onends() { for(var i = 0, l = self.length; i < l; ++i) self.onends[i].call(self) };
-  function invoke_onstops() { for(var i = 0, l = self.length; i < l; ++i) self.onstops[i].call(self) };
+  function invoke_onsteps() { for(var i = 0, l = self.onsteps.length; i < l; ++i) self.onsteps[i].call(self) };
+  function invoke_onstarts() { for(var i = 0, l = self.onstarts.length; i < l; ++i) self.onstarts[i].call(self) };
+  function invoke_onends() { for(var i = 0, l = self.onends.length; i < l; ++i) self.onends[i].call(self) };
+  function invoke_onstops() { for(var i = 0, l = self.onstops.length; i < l; ++i) self.onstops[i].call(self) };
   
   Object.defineProperty(self, "onstep", {
     get: function() { return invoke_onsteps },
