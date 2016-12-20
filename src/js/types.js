@@ -109,7 +109,7 @@ function CHAR(v) {
 CHAR.prototype.type = "CHAR";
 
 CHAR.prototype.toString = function() {
-  return to_string(int_to_char[this.value]);
+  return int_to_char[this.value];
 }
 
 CHAR.prototype.copy = function() {
@@ -134,6 +134,12 @@ CHAR.prototype.numberify = function() {
 }
 CHAR.prototype.integerify = function() {
   return new NUMBER(this.value);
+}
+CHAR.prototype.printify = function() {
+  if(this.value === 0) return "\t";
+  if(this.value === 1) return "\n";
+  if(this.value === 2) return " ";
+  return this.toString();
 }
 
 /// Operators
@@ -185,6 +191,9 @@ NUMBER.prototype.numberify = function() {
 NUMBER.prototype.integerify = function() {
   return new NUMBER(to_integer(this.value));
 }
+NUMBER.prototype.printify = function() {
+  return this.toString();
+}
 
 /// Operators
 NUMBER.prototype.add = function(rhs, tkn) {
@@ -227,13 +236,18 @@ STRING.prototype.stringify = function() {
   return this.copy();
 }
 STRING.prototype.arrayify = function() {
-  return new ARRAY(string_to_array(this.value));
+  var a = [];
+  for(var i = 0; i < this.value.length; ++i) a.push(new CHAR(this.value[i]));
+  return new ARRAY(a);
 }
 STRING.prototype.numberify = function() {
   return new NUMBER(to_number(this.value));
 }
 STRING.prototype.integerify = function() {
   return new NUMBER(to_integer(this.value));
+}
+STRING.prototype.printify = function() {
+  return this.arrayify().printify();
 }
 
 /// Operators
@@ -280,7 +294,7 @@ ARRAY.prototype.charify = function() {
 ARRAY.prototype.stringify = function() {
   var s = "";
   for(var i = 0; i < this.value.length; ++i) s += this.value[i].stringify().toString();
-  return s;
+  return new STRING(s);
 }
 ARRAY.prototype.arrayify = function() {
   return this.copy();
@@ -290,6 +304,11 @@ ARRAY.prototype.numberify = function() {
 }
 ARRAY.prototype.integerify = function() {
   return new NUMBER(to_integer(this.valueify()));
+}
+ARRAY.prototype.printify = function() {
+  var s = "";
+  for(var i = 0; i < this.value.length; ++i) s += this.value[i].printify();
+  return s;
 }
 
 /// Operators
