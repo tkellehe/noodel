@@ -3,12 +3,14 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
-<link rel="stylesheet" type="text/css" href="docs.css">
 <script src="src/js/pipe.js"></script>
 <script src="src/js/token.js"></script>
 <script src="src/js/path.js"></script>
 <script src="src/js/types.js"></script>
 <script src="src/noodel.js"></script>
+
+<link rel="stylesheet" type="text/css" href="docs.css">
+<script src="docs.js"></script>
 
 <div class="noodel-exec">
 <textarea class="noodel-editor"></textarea>
