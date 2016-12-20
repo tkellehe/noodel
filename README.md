@@ -10,7 +10,7 @@
 <script src="src/noodel.js"></script>
 
 <link rel="stylesheet" type="text/css" href="docs.css">
-<script src="docs.js"></script>
+<script type="text/javascript" src="docs.js"></script>
 
 <div class="noodel-exec">
 <textarea class="noodel-editor"></textarea>
