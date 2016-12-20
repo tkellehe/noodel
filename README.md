@@ -10,7 +10,7 @@
 
 <div>
 <textarea class="noodel-editor"></textarea>
-<button value="RUN"></button>
+<input type="submit" value="RUN"/>
 </div>
 
 ## Basic Commands
