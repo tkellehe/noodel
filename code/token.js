@@ -59,4 +59,6 @@ Token.parse = function(tkn) {
   return result;
 }
 
+global.Token = Token;
+
 })(this)
