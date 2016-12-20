@@ -14,7 +14,7 @@
 
 <div class="noodel-exec">
 <textarea class="noodel-editor"></textarea>
-<input type="submit" value="RUN"/>
+<button></button>
 <textarea class="noodel-input"></textarea>
 <textarea class="noodel-output"></textarea>
 </div>
