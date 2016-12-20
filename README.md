@@ -9,7 +9,11 @@
 <script src="src/noodel.js"></script>
 
 <span>
+
+
 <textarea class="noodel-editor"></textarea>
+
+
 </span>
 
 ## Basic Commands
