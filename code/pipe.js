@@ -12,7 +12,7 @@ function Pipe() {
     self.__array__.unshift(v);
     return self;
   }
-  self.front.pop = function(v) {
+  self.front.pop = function() {
     return self.__array__.shift();
   }
   
@@ -22,11 +22,11 @@ function Pipe() {
     return self;
   }
   self.back.push = function(v) {
-    self.__array__.unshift(v);
+    self.__array__.push(v);
     return self;
   }
-  self.back.pop = function(v) {
-    return self.__array__.shift();
+  self.back.pop = function() {
+    return self.__array__.pop();
   }
 }
 
