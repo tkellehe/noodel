@@ -11,9 +11,18 @@ function Command(f) {
   } else {
     this.tokenize = f;
   }
-}
 
-Command.prototype.exec = function() {}
+  this.methods = [];
+  var self = this;
+  function invoke() {
+    for(var i = 0, l = self.methods.length; i < l; ++i)
+      self.methods[i].apply(self, Array.prototype.slice.call(arguments))
+  }
+  Object.defineProperty(self, "exec", {
+    get: function() { return invoke },
+    set: function(v) { self.methods.push(v) }
+  });
+}
 
 Command.commands = {};
 
