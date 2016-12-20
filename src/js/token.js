@@ -22,11 +22,6 @@ function Command(f) {
     get: function() { return invoke },
     set: function(v) { self.methods.push(v) }
   });
-  
-  this.exec = function(tkn) {
-    if(tkn.parent)
-      tkn.inputs.pipe(tkn.parent.outputs);
-  }
 }
 
 Command.commands = {};
