@@ -1,4 +1,4 @@
-(function(global){
+(function(global, Pipe){
 
 function Command(f) {
   if(typeof f === "string") {
@@ -65,4 +65,4 @@ Token.parse = function(tkn) {
 
 global.Token = Token;
 
-})(this)
+})(this, this.Pipe)
