@@ -35,8 +35,8 @@ function Token(start, code, parent) {
   this.code = code;
   this.parent = parent;
   this.branches = new Pipe();
-  this.input = new Pipe();
-  this.output = new Pipe();
+  this.inputs = new Pipe();
+  this.outputs = new Pipe();
 }
 
 Token.prototype.tokenize = function() {
