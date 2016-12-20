@@ -8,6 +8,12 @@ function move_inputs(tkn, path) {
 Command.commands[" "] = function(cmd) {
   cmd.exec = move_inputs;
 };
+Command.commands["\t"] = function(cmd) {
+  cmd.exec = move_inputs;
+};
+Command.commands["\n"] = function(cmd) {
+  cmd.exec = move_inputs;
+};
 
 Path.prototype.printify = function() {
   return (new ARRAY(this.outputs.__array__)).printify();
