@@ -2,7 +2,7 @@
 
 var nbs = String.fromCharCode(160);
   
-var nbsRemoveRegex = new RegExp(nbs,"g");
+var nbsRemoveRegex = new RegExp(String.fromCharCode(160),"g");
 function nbsRemove(string) {
   return string.replace(nbsRemoveRegex, " ");
 };
