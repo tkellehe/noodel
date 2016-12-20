@@ -1,4 +1,4 @@
-(function(global, $, noodel){
+(function(global, $, noodel, STRING){
 
 var nbs = String.fromCharCode(160);
   
@@ -27,6 +27,8 @@ $(".noodel-exec").each(function(){
   function clickRun() {
     prgm = noodel(nbsRemove($editor.val()));
     if(prgm === undefined) return;
+    
+    prgm.inputs.back(new STRING(nbsRemove($input.val())));
     
     $input.prop("readonly",true);
     $editor.prop("readonly",true);
@@ -58,4 +60,4 @@ $(".noodel-exec").each(function(){
 
 });
 
-})(this, this.$, this.noodel)
+})(this, this.$, this.noodel, this.types.STRING)
