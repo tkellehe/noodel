@@ -71,4 +71,6 @@ Path.prototype.exec = function() {
   })()
 }
 
+global.Path = Path;
+
 })(this, this.Pipe, this.Command, this.Token)
