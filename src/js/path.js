@@ -5,18 +5,25 @@ function Path(code) {
   this.start = new Token(0, this.code, undefined);
   this.current = this.start;
   this.end = this.start.tokenize();
+  this.previous = this.end;
   this.onsteps = [];
+  this.onstarts = [];
   this.onends = [];
   this.onstops = [];
   
   var self = this;
-  function invoke_onsteps() { for(var i = 0, l = self.length; i < l; ++i) self.onsteps[i]() };
-  function invoke_onends() { for(var i = 0, l = self.length; i < l; ++i) self.onends[i]() };
-  function invoke_onstops() { for(var i = 0, l = self.length; i < l; ++i) self.onstops[i]() };
+  function invoke_onsteps() { for(var i = 0, l = self.length; i < l; ++i) self.onsteps[i].call(self) };
+  function invoke_onstarts() { for(var i = 0, l = self.length; i < l; ++i) self.onstarts[i].call(self) };
+  function invoke_onends() { for(var i = 0, l = self.length; i < l; ++i) self.onends[i].call(self) };
+  function invoke_onstops() { for(var i = 0, l = self.length; i < l; ++i) self.onstops[i].call(self) };
   
   Object.defineProperty(self, "onstep", {
     get: function() { return invoke_onsteps },
     set: function(v) { self.onsteps.push(v) }
+  });
+  Object.defineProperty(self, "onstart", {
+    get: function() { return invoke_onstarts },
+    set: function(v) { self.onstarts.push(v) }
   });
   Object.defineProperty(self, "onend", {
     get: function() { return invoke_onends },
@@ -26,10 +33,17 @@ function Path(code) {
     get: function() { return invoke_onstops },
     set: function(v) { self.onstops.push(v) }
   });
+  
+  this.inputs = new Pipe();
+  this.outputs = new Pipe();
+  
+  this.onstart = function() { this.start.inputs.pipe(this.inputs) };
+  this.onend = function() { this.outputs.pipe(this.previous.outputs) };
 }
 
 Path.prototype.step = function() {
   this.current.cmd.exec();
+  this.previous = this.current;
   this.current = this.current.next();
   this.onstep();
   return !!this.current;
