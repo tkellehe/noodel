@@ -330,9 +330,10 @@ ARRAY.prototype.toString = function() {
 }
 
 ARRAY.prototype.copy = function() {
-  var a = [];
-  for(var i = 0; i < this.value.length; ++i) a.push(this.value[i].copy());
-  return new ARRAY(a);
+  // var a = [];
+  // for(var i = 0; i < this.value.length; ++i) a.push(this.value[i].copy());
+  // return new ARRAY(a);
+  return this;
 }
 
 /// Conversions
