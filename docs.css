@@ -30,12 +30,12 @@ textarea.noodel-input {
 
 div.noodel-chars {
   width:100%;
-  height:2em; 
+  height:4em; 
   box-sizing: border-box;         /* For IE and modern versions of Chrome */
   -moz-box-sizing: border-box;    /* For Firefox                          */
   -webkit-box-sizing: border-box; /* For Safari                           */
   font-family: monospace;
-  overflow-y: none;
+  overflow-y: hidden;
   overflow-x: auto;
 }
 
