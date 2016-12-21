@@ -15,8 +15,21 @@ function Command(f) {
   if(f) f(this);
 };
 
-Command.commands = {};
-
+Command.commands = [];
+Command.add = function(r) {
+  Command.commands.push(r);
+};
+Command.find = function(text) {
+  for(var i = Command.commands.length; i--;) {
+    var res = Command.commands[i].exec(text);
+    if(res) {
+      var p = [];
+      for(var i = 1; i < res.length; ++i) p.push(c[i]);
+      return { literal: res[1], params: p };
+    }
+  }
+};
+  
 Command.prototype.tokenize = function(tkn) {
   tkn.branches.front(new Token(tkn.end+1, tkn.code, tkn));
   return tkn.branches.first();
@@ -40,6 +53,7 @@ Token.prototype.tokenize = function() {
   this.end = ecl.end;
   this.cmd = ecl.cmd;
   this.literal = ecl.literal;
+  this.params = ecl.params;
   if(this.cmd) {
     var spawned = this.cmd.tokenize(this);
     return spawned.tokenize();
@@ -54,12 +68,14 @@ Token.prototype.next = function() {
 }
 
 Token.parse = function(tkn) {
-  var result = {end:-1,cmd:undefined,literal:undefined};
+  var result = {end:-1,cmd:undefined,literal:undefined,params:undefined};
   
-  var i = tkn.start, string = tkn.code[i], literal = undefined;
+  var i = tkn.start, string = tkn.code[i], literal = undefined, params = undefined;
   while(tkn.code[i] !== "\n" && i < tkn.code.length) {
-    if(Command.commands[string] !== undefined) {
-      literal = string;
+    var get = Command.find(string);
+    if(get !== undefined) {
+      literal = get.literal;
+      params = get.params;
     }
     string += tkn.code[++i];
   }
@@ -68,6 +84,7 @@ Token.parse = function(tkn) {
     result.literal = literal;
     result.end = tkn.start + literal.length - 1;
     result.cmd = new Command(Command.commands[literal]);
+    result.params = params;
   }
   
   return result;
