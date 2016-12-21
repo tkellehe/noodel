@@ -73,7 +73,8 @@ $(".noodel-exec").each(function(){
     
   for(var i = 0; i < char_codes.length; ++i) {
     var $letter = $("<a href=''>"+HtmlEncode(char_codes[i])+"</a>");
-    $letter.click(function(){
+    $letter.click(function(e){
+      e.preventDefault();
       $editor.val($editor.val() + $letter.text());
     });
     $chars.append($letter);
