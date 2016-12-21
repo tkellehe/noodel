@@ -5,9 +5,9 @@ var nbs = String.fromCharCode(160),
   
 var nbsRemoveRegex = new RegExp(String.fromCharCode(160),"g");
 function nbsRemove(string) {
-  return string.replace(nbsRemoveRegex, " ");
+  return string.replace(nbsRemoveRegex, space);
 };
-var nbsAddRegex = new RegExp(" ","g");
+var nbsAddRegex = new RegExp(space,"g");
 function nbsRemove(string) {
   return string.replace(nbsAddRegex, nbs);
 };
