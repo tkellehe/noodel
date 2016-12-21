@@ -3,7 +3,7 @@
 var nbs = String.fromCharCode(160),
     space = String.fromCharCode(32);
   
-var nbsRemoveRegex = new RegExp(String.fromCharCode(160),"g");
+var nbsRemoveRegex = new RegExp(nbs,"g");
 function nbsRemove(string) {
   return string.replace(nbsRemoveRegex, space);
 };
