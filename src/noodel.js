@@ -200,6 +200,30 @@ Command.commands[char_codes[106]] = function(cmd) {
   
   cmd.exec = in_to_out;
 };
+
+/// Conditionals and loops.
+Command.commands[char_codes[187]] = function(cmd) {
+  cmd.exec = out_to_in;
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function(tkn) {
+    tkn.content = "";
+    for(var i = tkn.end+1; i < tkn.code.length && tkn.code[i] !== "\n"; ++i)
+      tkn.content += tkn.code[i];
+    if(tkn.code[i] === "\n") tkn.content += "\n";
+    tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
+    tkn.path = new Path(tkn.content);
+    tkn.path.start.parent = tkn;
+    tkn.banches.front(tkn.path.start);
+    tkn.path.end.branches.front(tkn);
+    
+    tkn.next = function() { return tkn.path.start };
+    
+    return old.call(this, tkn);
+  };
+  
+  cmd.exec = in_to_out;
+};  
   
 Path.prototype.printify = function() {
   return (new ARRAY(this.outputs.__array__)).printify();
