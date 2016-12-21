@@ -172,6 +172,18 @@ CHAR.prototype.sub = function(rhs, tkn) {
   return new CHAR((this.value - to_char(v)) % 256);
 }
 
+CHAR.prototype.add_flip = function(lhs, tkn) {
+  var v = lhs;
+  if(is_TYPE(v)) v = v.valueify();
+  return new CHAR((to_char(v) + this.value) % 256);
+}
+
+CHAR.prototype.sub_flip = function(lhs, tkn) {
+  var v = lhs;
+  if(is_TYPE(v)) v = v.valueify();
+  return new CHAR((to_char(v) - this.value) % 256);
+}
+
 types.CHAR = CHAR;
 
 //------------------------------------------------------------------------------------------------------------
@@ -223,6 +235,18 @@ NUMBER.prototype.sub = function(rhs, tkn) {
   var v = rhs;
   if(is_TYPE(v)) v = v.valueify();
   return new NUMBER(this.value - to_number(v));
+}
+
+NUMBER.prototype.add_flip = function(lhs, tkn) {
+  var v = lhs;
+  if(is_TYPE(v)) v = v.valueify();
+  return new NUMBER(to_number(v) + this.value);
+}
+
+NUMBER.prototype.sub_flip = function(lhs, tkn) {
+  var v = lhs;
+  if(is_TYPE(v)) v = v.valueify();
+  return new NUMBER(to_number(v) - this.value);
 }
 
 types.NUMBER = NUMBER;
@@ -278,6 +302,18 @@ STRING.prototype.sub = function(rhs, tkn) {
   var v = rhs;
   if(is_TYPE(v)) v = v.valueify();
   return new STRING(this.value.replace(to_string(v), ""));
+}
+
+STRING.prototype.add_flip = function(lhs, tkn) {
+  var v = lhs;
+  if(is_TYPE(v)) v = v.valueify();
+  return new STRING(to_string(v) + this.value);
+}
+
+STRING.prototype.sub_flip = function(lhs, tkn) {
+  var v = lhs;
+  if(is_TYPE(v)) v = v.valueify();
+  return new STRING(to_string(v).replace(this.value, ""));
 }
 
 types.STRING = STRING;
@@ -339,6 +375,20 @@ ARRAY.prototype.add = function(rhs, tkn) {
 ARRAY.prototype.sub = function(rhs, tkn) {
   for(var i = 0; i < this.value.length; ++i) {
     this.value[i] = this.value[i].sub(rhs, tkn);
+  }
+  return this;
+}
+
+ARRAY.prototype.add_flip = function(lhs, tkn) {
+  for(var i = 0; i < this.value.length; ++i) {
+    this.value[i] = this.value[i].add_flip(lhs, tkn);
+  }
+  return this;
+}
+
+ARRAY.prototype.sub_flip = function(lhs, tkn) {
+  for(var i = 0; i < this.value.length; ++i) {
+    this.value[i] = this.value[i].sub_flip(lhs, tkn);
   }
   return this;
 }
