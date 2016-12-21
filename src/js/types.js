@@ -330,24 +330,23 @@ ARRAY.prototype.printify = function() {
 
 /// Operators
 ARRAY.prototype.add = function(rhs, tkn) {
-  var c = [];
   for(var i = 0; i < this.value.length; ++i) {
-    c.push(this.value[i].add(rhs, tkn));
+    this.value[i] = this.value[i].add(rhs, tkn);
   }
-  return new ARRAY(c);
+  return this;
 }
 
 ARRAY.prototype.sub = function(rhs, tkn) {
-  var c = [];
   for(var i = 0; i < this.value.length; ++i) {
-    c.push(this.value[i].sub(rhs, tkn));
+    this.value[i] = this.value[i].sub(rhs, tkn);
   }
-  return new ARRAY(c);
+  return this;
 }
 
 types.ARRAY = ARRAY;
 
 //------------------------------------------------------------------------------------------------------------
 global.types = types;
+global.char_codes = int_to_char;
 
 })(this, this.Pipe, this.Command, this.Token, this.Path)
