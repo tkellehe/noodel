@@ -8,18 +8,18 @@ function out_to_in(tkn, path) {
 }
 
 /// NOPs
-Command.commands[" "] = function(cmd) {
+Command.add(/( )/, function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = in_to_out;
-};
-Command.commands["\t"] = function(cmd) {
+});
+Command.add(/(\t)/, function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = in_to_out;
-};
-Command.commands["\n"] = function(cmd) {
+});
+Command.add(/(\n)/, function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = in_to_out;
-};
+});
   
 /// Literals
 Command.commands[char_codes[239]] = function(cmd) {
