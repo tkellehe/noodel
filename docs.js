@@ -22,6 +22,8 @@ function HtmlDecode(string) {
   el.innerHTML = string;
   return el.innerText;
 };
+
+global.forceReload = function() { window.location.reload(true) };
   
 $(function(){
 
