@@ -153,7 +153,21 @@ Command.commands[char_codes[233]+char_codes[252]] = function(cmd) {
   
   cmd.exec = in_to_out;
 };
-
+  
+/// Array specific operators
+Command.commands["_"] = function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    var f = tkn.inputs.front();
+    if(f && f.type === "ARRAY") {
+      for(var i = 0; i < f.value.length; ++i) tkn.outputs.back(f.value[i]);
+    } else tkn.inputs.front(f);
+  }
+  
+  cmd.exec = in_to_out;
+};
+  
 Path.prototype.printify = function() {
   return (new ARRAY(this.outputs.__array__)).printify();
 }
