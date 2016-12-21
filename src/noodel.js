@@ -30,7 +30,7 @@ Command.commands[char_codes[239]] = function(cmd) {
     tkn.content = "";
     for(var i = tkn.end+1; i < tkn.code.length && CHAR.is_printable(tkn.code[i]); ++i)
       tkn.content += tkn.code[i];
-    tkn.end = tkn.literal.length + tkn.start + tkn.content.length;
+    tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
     return old.call(this, tkn);
   };
   
@@ -48,7 +48,7 @@ Command.commands[char_codes[237]] = function(cmd) {
     tkn.content = "";
     for(var i = tkn.end+1; i < tkn.code.length && CHAR.is_printable(tkn.code[i]); ++i)
       tkn.content += tkn.code[i];
-    tkn.end = tkn.literal.length + tkn.start + tkn.content.length;
+    tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
     return old.call(this, tkn);
   };
   
