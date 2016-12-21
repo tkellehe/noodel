@@ -72,10 +72,11 @@ $(".noodel-exec").each(function(){
   $button.click(clickRun);
     
   for(var i = 0; i < char_codes.length; ++i) {
-    var $letter = $("<a href=''>"+HtmlEncode(char_codes[i])+"</a>");
+    var char = char_codes[i];
+    var $letter = $("<a href=''>"+HtmlEncode(char)+"</a>");
     $letter.click(function(e){
       e.preventDefault();
-      $editor.val($editor.val() + $letter.text());
+      $editor.val($editor.val() + char);
     });
     $chars.append($letter);
   }
