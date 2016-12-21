@@ -206,6 +206,9 @@ Command.commands[char_codes[106]] = function(cmd) {
 /// Conditionals and loops.
 Command.commands[char_codes[187]] = function(cmd) {
   cmd.exec = out_to_in;
+  cmd.exec = function(tkn, path) {
+    tkn.inputs.pipe(tkn.path.outputs);
+  }
   
   var old = cmd.tokenize;
   cmd.tokenize = function(tkn) {
