@@ -8,7 +8,7 @@ function nbsRemove(string) {
   return string.replace(nbsRemoveRegex, space);
 };
 var nbsAddRegex = new RegExp(space,"g");
-function nbsRemove(string) {
+function nbsAdd(string) {
   return string.replace(nbsAddRegex, nbs);
 };
   
