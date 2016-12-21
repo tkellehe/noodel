@@ -37,6 +37,8 @@ $(".noodel-exec").each(function(){
   $output.prop("readonly",true);
   $button.text("RUN");
   
+  var prgm;
+    
   function clickRun() {
     prgm = noodel(nbsRemove($editor.val()));
     if(prgm === undefined) return;
