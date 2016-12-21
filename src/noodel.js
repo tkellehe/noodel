@@ -207,7 +207,7 @@ Command.commands[char_codes[106]] = function(cmd) {
 Command.commands[char_codes[187]] = function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = function(tkn, path) {
-    tkn.inputs.pipe(tkn.path.outputs);
+    tkn.inputs.pipe(tkn.path.end.outputs);
   }
   
   var old = cmd.tokenize;
