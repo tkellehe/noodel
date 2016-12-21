@@ -22,7 +22,7 @@ Command.add(/(\n)/, function(cmd) {
 });
   
 /// Literals
-Command.commands[char_codes[239]] = function(cmd) {
+Command.add(new RegExp("("+char_codes[239]]+")"), function(cmd) {
   cmd.exec = out_to_in;
   
   var old = cmd.tokenize;
@@ -39,8 +39,8 @@ Command.commands[char_codes[239]] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
-Command.commands[char_codes[237]] = function(cmd) {
+});
+Command.add(new RegExp("("+char_codes[237]]+")"), function(cmd) {
   cmd.exec = out_to_in;
   
   var old = cmd.tokenize;
@@ -60,10 +60,10 @@ Command.commands[char_codes[237]] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
+});
   
 /// Operands
-Command.commands[char_codes[251]] = function(cmd) {
+Command.add(new RegExp("("+char_codes[251]]+")"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -77,8 +77,8 @@ Command.commands[char_codes[251]] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
-Command.commands[char_codes[252]] = function(cmd) {
+});
+Command.add(new RegExp("("+char_codes[252]]+")"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -92,8 +92,8 @@ Command.commands[char_codes[252]] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
-Command.commands[char_codes[251]+char_codes[233]] = function(cmd) {
+});
+Command.add(new RegExp("("+char_codes[251]+char_codes[233]+")"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -107,8 +107,8 @@ Command.commands[char_codes[251]+char_codes[233]] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
-Command.commands[char_codes[252]+char_codes[233]] = function(cmd) {
+});
+Command.add(new RegExp("("+char_codes[252]+char_codes[233]+")"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -122,8 +122,8 @@ Command.commands[char_codes[252]+char_codes[233]] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
-Command.commands[char_codes[233]+char_codes[251]] = function(cmd) {
+});
+Command.add(new RegExp("("+char_codes[233]+char_codes[251]+")"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -137,8 +137,8 @@ Command.commands[char_codes[233]+char_codes[251]] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
-Command.commands[char_codes[233]+char_codes[252]] = function(cmd) {
+});
+Command.add(new RegExp("("+char_codes[233]+char_codes[252]+")"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -152,10 +152,10 @@ Command.commands[char_codes[233]+char_codes[252]] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
+});
   
 /// Array specific operators
-Command.commands["_"] = function(cmd) {
+Command.add(/(_)/, function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -166,10 +166,10 @@ Command.commands["_"] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
+});
   
 /// Operations directly to the Pipe
-Command.commands[char_codes[200]] = function(cmd) {
+Command.add(new RegExp("("+char_codes[200]+")"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -177,8 +177,8 @@ Command.commands[char_codes[200]] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
-Command.commands[char_codes[202]] = function(cmd) {
+});
+Command.add(new RegExp("("+char_codes[202]+")"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -186,8 +186,8 @@ Command.commands[char_codes[202]] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
-Command.commands[char_codes[203]] = function(cmd) {
+});
+Command.add(new RegExp("("+char_codes[203]+")"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -196,10 +196,10 @@ Command.commands[char_codes[203]] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
+});
 
 /// Operations for printing.
-Command.commands[char_codes[106]] = function(cmd) {
+Command.add(new RegExp("("+char_codes[106]+")"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -211,10 +211,10 @@ Command.commands[char_codes[106]] = function(cmd) {
   }
   
   cmd.exec = in_to_out;
-};
+});
 
 /// Conditionals and loops.
-Command.commands[char_codes[187]] = function(cmd) {
+Command.add(new RegExp("("+char_codes[187]+")"), function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = function(tkn, path) {
     tkn.inputs.pipe(tkn.path.end.outputs);
@@ -238,7 +238,7 @@ Command.commands[char_codes[187]] = function(cmd) {
   };
   
   cmd.exec = in_to_out;
-};  
+});  
   
 Path.prototype.printify = function() {
   return (new ARRAY(this.outputs.__array__)).printify();
