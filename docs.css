@@ -38,3 +38,19 @@ div.noodel-chars {
   overflow-y: none;
   overflow-x: auto;
 }
+
+div.noodel-chars a {
+  padding-left: 5px;
+      padding-right: 5px;
+      cursor: pointer;
+      border-radius: 3px;
+      background-color: #dddddd;
+      color: black;
+      
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Chrome/Safari/Opera */
+       -khtml-user-select: none; /* Konqueror */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none;
+}
