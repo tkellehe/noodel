@@ -74,8 +74,10 @@ function to_number(o) {
 function to_integer(o) { return Math.floor(to_number(o)) };
 function to_char(o) {
   var c = 0;
-  if(is_string(o)) c = to_integer(string_to_array(o)) % 256;
-  else c = to_integer(o) % 256;
+  if(is_string(o)) c = o.length ? char_to_int[o[0]] : 0;
+  else if(is_array(o)) c = o.length ? to_char(o[0]) : 0;
+  else if(is_number(o)) c = to_integer(o);
+  
   return c;
 };
 function to_number_packed(o) {
