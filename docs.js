@@ -42,10 +42,11 @@ $(".noodel-exec").each(function(){
       $output.val(prgm.printify());
       clickStop();
     }
+    prgm.onstart = function() {
+      $button.text("STOP").unbind("click").click(clickStop);
+    }
     
     prgm.exec();
-    
-    $button.text("STOP").unbind("click").click(clickStop);
   };
   function clickStop() {
     prgm.stop();
