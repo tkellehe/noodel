@@ -14,6 +14,7 @@
 
 <div class="noodel-exec">
 <textarea class="noodel-editor"></textarea>
+<div class="noodel-chars"></div>
 <button></button>
 <textarea class="noodel-input"></textarea>
 <textarea class="noodel-output"></textarea>
