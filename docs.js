@@ -71,6 +71,12 @@ $(".noodel-exec").each(function(){
   
   $button.click(clickRun);
     
+  var $bs = $("<a href=''>bs</a>");
+  $bs.click(function(e){
+    e.preventDefault();
+    $editor.val($editor.val().slice(0,$editor.val().length-1));
+  });
+    
   for(var i = 0; i < char_codes.length; ++i) {(function(){
     var char = nbsRemove(char_codes[i]),
         echar = nbsAdd(char_codes[i]);
