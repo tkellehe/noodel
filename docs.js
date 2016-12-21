@@ -1,4 +1,4 @@
-(function(global, $, noodel, STRING){
+(function(global, $, noodel, STRING, char_codes){
 
 var nbs = String.fromCharCode(160),
     space = String.fromCharCode(32);
@@ -11,16 +11,28 @@ var nbsAddRegex = new RegExp(space,"g");
 function nbsAdd(string) {
   return string.replace(nbsAddRegex, nbs);
 };
+    
+function HtmlEncode(string) {
+  var el = document.createElement("div");
+  el.innerText = string;
+  return el.innerHTML;
+};
+function HtmlDecode(string) {
+  var el = document.createElement("div");
+  el.innerHTML = string;
+  return el.innerText;
+};
   
 $(function(){
 
 /// Handle all editors in the window.
 $(".noodel-exec").each(function(){
-  var $this = $(this),
+  var $this   = $(this),
       $editor = $($this.children(".noodel-editor")[0]),
-      $input = $($this.children(".noodel-input")[0]),
+      $input  = $($this.children(".noodel-input")[0]),
       $output = $($this.children(".noodel-output")[0]),
-      $button = $($this.children("button")[0]);
+      $button = $($this.children("button")[0]),
+      $chars  = $($this.children(".noodel-chars")[0]);
   
   $output.prop("readonly",true);
   $button.text("RUN");
@@ -58,9 +70,17 @@ $(".noodel-exec").each(function(){
   };
   
   $button.click(clickRun);
+    
+  for(var i = 0; i < char_codes.length; ++i) {
+    var $letter = $("<a href=''>"+HtmlEncode(char_codes[i])+"</a>");
+    $letter.click(function(){
+      $editor.val($editor.val() + $letter.text());
+    });
+    $chars.append($letter);
+  }
 });
 
 
 });
 
-})(this, this.$, this.noodel, this.types.STRING)
+})(this, this.$, this.noodel, this.types.STRING, this.char_codes)
