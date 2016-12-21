@@ -8,21 +8,21 @@ function out_to_in(tkn, path) {
 }
 
 /// NOPs
-Command.add(/( )/, function(cmd) {
+Command.add(/^( )$/, function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = in_to_out;
 });
-Command.add(/(\t)/, function(cmd) {
+Command.add(/^(\t)$/, function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = in_to_out;
 });
-Command.add(/(\n)/, function(cmd) {
+Command.add(/^(\n)$/, function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = in_to_out;
 });
   
 /// Literals
-Command.add(new RegExp("("+char_codes[239]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[239]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   var old = cmd.tokenize;
@@ -40,7 +40,7 @@ Command.add(new RegExp("("+char_codes[239]+")"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("("+char_codes[237]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[237]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   var old = cmd.tokenize;
@@ -63,7 +63,7 @@ Command.add(new RegExp("("+char_codes[237]+")"), function(cmd) {
 });
   
 /// Operands
-Command.add(new RegExp("("+char_codes[251]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[251]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -78,7 +78,7 @@ Command.add(new RegExp("("+char_codes[251]+")"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("("+char_codes[252]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[252]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -93,7 +93,7 @@ Command.add(new RegExp("("+char_codes[252]+")"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("("+char_codes[251]+char_codes[233]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[251]+char_codes[233]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -108,7 +108,7 @@ Command.add(new RegExp("("+char_codes[251]+char_codes[233]+")"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("("+char_codes[252]+char_codes[233]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[252]+char_codes[233]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -123,7 +123,7 @@ Command.add(new RegExp("("+char_codes[252]+char_codes[233]+")"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("("+char_codes[233]+char_codes[251]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[233]+char_codes[251]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -138,7 +138,7 @@ Command.add(new RegExp("("+char_codes[233]+char_codes[251]+")"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("("+char_codes[233]+char_codes[252]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[233]+char_codes[252]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -155,7 +155,7 @@ Command.add(new RegExp("("+char_codes[233]+char_codes[252]+")"), function(cmd) {
 });
   
 /// Array specific operators
-Command.add(/(_)/, function(cmd) {
+Command.add(/^(_)$/, function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -169,7 +169,7 @@ Command.add(/(_)/, function(cmd) {
 });
   
 /// Operations directly to the Pipe
-Command.add(new RegExp("("+char_codes[200]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[200]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -178,7 +178,7 @@ Command.add(new RegExp("("+char_codes[200]+")"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("("+char_codes[202]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[202]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -187,7 +187,7 @@ Command.add(new RegExp("("+char_codes[202]+")"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("("+char_codes[203]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[203]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -199,7 +199,7 @@ Command.add(new RegExp("("+char_codes[203]+")"), function(cmd) {
 });
 
 /// Operations for printing.
-Command.add(new RegExp("("+char_codes[106]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[106]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -214,7 +214,7 @@ Command.add(new RegExp("("+char_codes[106]+")"), function(cmd) {
 });
 
 /// Conditionals and loops.
-Command.add(new RegExp("("+char_codes[187]+")"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[187]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = function(tkn, path) {
     tkn.inputs.pipe(tkn.path.end.outputs);
