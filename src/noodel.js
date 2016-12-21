@@ -25,11 +25,13 @@ Command.commands["\n"] = function(cmd) {
 Command.commands[char_codes[239]] = function(cmd) {
   cmd.exec = out_to_in;
   
+  var old = cmd.tokenize;
   cmd.tokenize = function(tkn) {
     tkn.content = "";
     for(var i = tkn.end+1; i < tkn.code.length && CHAR.is_printable(tkn.code[i]); ++i)
       tkn.content += tkn.code[i];
     tkn.end = tkn.literal.length + tkn.start + tkn.content.length;
+    return old.call(this, tkn);
   };
   
   cmd.exec = function(tkn, path) {
