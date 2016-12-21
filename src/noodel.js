@@ -193,9 +193,11 @@ Command.commands[char_codes[106]] = function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
-    var f = tkn.inputs.front();
+    var f = tkn.inputs.first();
     path.outputs.wipe();
-    if(f) path.outputs.back(f);
+    if(f) {
+      path.outputs.back(f.copy());
+    }
   }
   
   cmd.exec = in_to_out;
