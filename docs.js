@@ -76,6 +76,7 @@ $(".noodel-exec").each(function(){
     e.preventDefault();
     $editor.val($editor.val().slice(0,$editor.val().length-1));
   });
+  $chars.append($bs);
     
   for(var i = 0; i < char_codes.length; ++i) {(function(){
     var char = nbsRemove(char_codes[i]),
