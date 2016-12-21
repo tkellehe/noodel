@@ -1,6 +1,7 @@
 (function(global, $, noodel, STRING){
 
-var nbs = String.fromCharCode(160);
+var nbs = String.fromCharCode(160),
+    space = String.fromCharCode(32);
   
 var nbsRemoveRegex = new RegExp(String.fromCharCode(160),"g");
 function nbsRemove(string) {
@@ -29,7 +30,7 @@ $(".noodel-exec").each(function(){
     if(prgm === undefined) return;
     
     var i = nbsRemove($input.val());
-    if(i.length) prgm.inputs.back(new STRING());
+    if(i.length) prgm.inputs.back(new STRING(i));
     
     $input.prop("readonly",true);
     $editor.prop("readonly",true);
