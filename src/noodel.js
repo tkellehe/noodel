@@ -55,7 +55,7 @@ Command.commands[char_codes[237]] = function(cmd) {
   cmd.exec = function(tkn, path) {
     var a = [];
     for(var i = 0; i < tkn.content.length; ++i)
-      a.push(new CHAR(tkn.content[i]));
+      a.push(new STRING(tkn.content[i]));
     tkn.outputs.back(new ARRAY(a));
   }
   
