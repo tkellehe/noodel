@@ -39,13 +39,13 @@ Token.prototype.tokenize = function() {
   var ecl = Token.parse(this);
   this.end = ecl.end;
   this.cmd = ecl.cmd;
-  this.literal = ecl.cmd;
-  var spawned = this.cmd.tokenize(this);
-  if(spawned.literal === undefined) {
-    this.branches.remove(spawned);
-    return this;
-  } else {
+  this.literal = ecl.literal;
+  if(this.cmd) {
+    var spawned = this.cmd.tokenize(this);
     return spawned.tokenize();
+  } else if(this.parent) {
+    this.parent.banches.remove(this);
+    return this.parent;
   }
 }
 
@@ -54,7 +54,7 @@ Token.prototype.next = function() {
 }
 
 Token.parse = function(tkn) {
-  var result = {end:tkn.start,cmd:new Command(),literal:tkn.code[tkn.start]};
+  var result = {end:-1,cmd:undefined,literal:undefined};
   
   var i = tkn.start, string = tkn.code[i], literal = undefined;
   while(tkn.code[i] !== "\n" && i < tkn.code.length) {
