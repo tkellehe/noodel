@@ -71,15 +71,18 @@ $(".noodel-exec").each(function(){
   
   $button.click(clickRun);
     
-  for(var i = 0; i < char_codes.length; ++i) {
-    var char = char_codes[i];
-    var $letter = $("<a href=''>"+HtmlEncode(char)+"</a>");
+  for(var i = 0; i < char_codes.length; ++i) {(function(){
+    var char = nbsRemove(char_codes[i]),
+        echar = nbsAdd(char_codes[i]);
+    if(char === "\n") echar = "\\n";
+    else if(char === "\t") echar = "\\t";
+    var $letter = $("<a href=''>"+HtmlEncode(echar)+"</a>");
     $letter.click(function(e){
       e.preventDefault();
       $editor.val($editor.val() + char);
     });
     $chars.append($letter);
-  }
+  })()}
 });
 
 
