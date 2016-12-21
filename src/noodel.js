@@ -214,7 +214,7 @@ Command.commands[char_codes[187]] = function(cmd) {
     tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
     tkn.path = new Path(tkn.content);
     tkn.path.start.parent = tkn;
-    tkn.banches.front(tkn.path.start);
+    tkn.branches.front(tkn.path.start);
     tkn.path.end.branches.front(tkn);
     
     tkn.next = function() { return tkn.path.start };
