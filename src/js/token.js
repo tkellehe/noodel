@@ -24,7 +24,7 @@ Command.find = function(text) {
     var res = Command.commands[i].regex.exec(text);
     if(res) {
       var p = [];
-      for(var j = 1; j < res.length; ++j) p.push(c[j]);
+      for(var j = 1; j < res.length; ++j) p.push(res[j]);
       return { literal: res[1], params: p, index:i };
     }
   }
