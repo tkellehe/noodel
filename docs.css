@@ -42,8 +42,10 @@ div.noodel-chars {
 }
 
 div.noodel-chars a {
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
   cursor: pointer;
   border-radius: 3px;
   background-color: #dddddd;
