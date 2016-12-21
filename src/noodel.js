@@ -93,6 +93,66 @@ Command.commands[char_codes[252]] = function(cmd) {
   
   cmd.exec = in_to_out;
 };
+Command.commands[char_codes[251]+char_codes[233]] = function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    var lhs = tkn.inputs.front();
+    if(lhs) {
+      var rhs = tkn.inputs.front();
+      if(rhs) {
+        tkn.outputs.back(lhs.add_flip(rhs, tkn));
+      } else tkn.outputs.back(lhs);
+    }
+  }
+  
+  cmd.exec = in_to_out;
+};
+Command.commands[char_codes[252]+char_codes[233]] = function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    var lhs = tkn.inputs.front();
+    if(lhs) {
+      var rhs = tkn.inputs.front();
+      if(rhs) {
+        tkn.outputs.back(lhs.sub_flip(rhs, tkn));
+      } else tkn.outputs.back(lhs);
+    }
+  }
+  
+  cmd.exec = in_to_out;
+};
+Command.commands[char_codes[233]+char_codes[251]] = function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    var rhs = tkn.inputs.front();
+    if(rhs) {
+      var lhs = tkn.inputs.front();
+      if(lhs) {
+        tkn.outputs.back(lhs.add(rhs, tkn));
+      } else tkn.outputs.back(rhs);
+    }
+  }
+  
+  cmd.exec = in_to_out;
+};
+Command.commands[char_codes[233]+char_codes[252]] = function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    var lhs = tkn.inputs.front();
+    if(lhs) {
+      var rhs = tkn.inputs.front();
+      if(rhs) {
+        tkn.outputs.back(lhs.sub(rhs, tkn));
+      } else tkn.outputs.back(lhs);
+    }
+  }
+  
+  cmd.exec = in_to_out;
+};
 
 Path.prototype.printify = function() {
   return (new ARRAY(this.outputs.__array__)).printify();
