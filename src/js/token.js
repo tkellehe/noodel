@@ -16,16 +16,16 @@ function Command(f) {
 };
 
 Command.commands = [];
-Command.add = function(r) {
-  Command.commands.push(r);
+Command.add = function(r, f) {
+  Command.commands.push({regex:r, f:f});
 };
 Command.find = function(text) {
   for(var i = Command.commands.length; i--;) {
-    var res = Command.commands[i].exec(text);
+    var res = Command.commands[i].regex.exec(text);
     if(res) {
       var p = [];
-      for(var i = 1; i < res.length; ++i) p.push(c[i]);
-      return { literal: res[1], params: p };
+      for(var j = 1; j < res.length; ++j) p.push(c[j]);
+      return { literal: res[1], params: p, index:i };
     }
   }
 };
@@ -70,12 +70,13 @@ Token.prototype.next = function() {
 Token.parse = function(tkn) {
   var result = {end:-1,cmd:undefined,literal:undefined,params:undefined};
   
-  var i = tkn.start, string = tkn.code[i], literal = undefined, params = undefined;
+  var i = tkn.start, string = tkn.code[i], literal = undefined, params = undefined, index = undefined;
   while(tkn.code[i] !== "\n" && i < tkn.code.length) {
     var get = Command.find(string);
     if(get !== undefined) {
       literal = get.literal;
       params = get.params;
+      index = get.index;
     }
     string += tkn.code[++i];
   }
@@ -83,7 +84,7 @@ Token.parse = function(tkn) {
   if(literal) {
     result.literal = literal;
     result.end = tkn.start + literal.length - 1;
-    result.cmd = new Command(Command.commands[literal]);
+    result.cmd = new Command(Command.commands[index].f);
     result.params = params;
   }
   
