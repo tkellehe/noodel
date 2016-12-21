@@ -168,6 +168,39 @@ Command.commands["_"] = function(cmd) {
   cmd.exec = in_to_out;
 };
   
+/// Operations directly to the Pipe
+Command.commands[char_codes[200]] = function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    tkn.inputs.wipe();
+  }
+  
+  cmd.exec = in_to_out;
+};
+Command.commands[char_codes[202]] = function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    tkn.inputs.front();
+  }
+  
+  cmd.exec = in_to_out;
+};
+
+/// Operations for printing.
+Command.commands[char_codes[106]] = function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    var f = tkn.inputs.front();
+    path.outputs.wipe();
+    if(f) path.outputs.back(f);
+  }
+  
+  cmd.exec = in_to_out;
+};
+  
 Path.prototype.printify = function() {
   return (new ARRAY(this.outputs.__array__)).printify();
 }
