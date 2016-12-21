@@ -1,5 +1,22 @@
 (function(global, $, noodel, STRING, char_codes){
 
+(function ($, undefined) {
+    $.fn.getCursorPosition = function() {
+        var el = $(this).get(0);
+        var pos = 0;
+        if('selectionStart' in el) {
+            pos = el.selectionStart;
+        } else if('selection' in document) {
+            el.focus();
+            var Sel = document.selection.createRange();
+            var SelLength = document.selection.createRange().text.length;
+            Sel.moveStart('character', -el.value.length);
+            pos = Sel.text.length - SelLength;
+        }
+        return pos;
+    }
+})(jQuery);
+
 var nbs = String.fromCharCode(160),
     space = String.fromCharCode(32);
   
@@ -36,6 +53,7 @@ $(".noodel-exec").each(function(){
       $button = $($this.children("button")[0]),
       $chars  = $($this.children(".noodel-chars")[0]);
   
+  /// Code Execution.
   $output.prop("readonly",true);
   $button.text("RUN");
   
@@ -74,7 +92,8 @@ $(".noodel-exec").each(function(){
   };
   
   $button.click(clickRun);
-    
+  
+  /// Character selector.
   var $bs = $("<a href=''>bs</a>");
   $bs.click(function(e){
     e.preventDefault();
@@ -90,12 +109,12 @@ $(".noodel-exec").each(function(){
     var $letter = $("<a href=''>"+HtmlEncode(echar)+"</a>");
     $letter.click(function(e){
       e.preventDefault();
-      $editor.val($editor.val() + char);
+      var text = $editor.val(), pos = $editor.getCursorPosition();
+      $editor.val(text.slice(0, pos) + char + text.slice(pos, text.length));
     });
     $chars.append($letter);
   })()}
-});
-
+}); // End of .noodel-exec regions.
 
 });
 
