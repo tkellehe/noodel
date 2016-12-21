@@ -44,7 +44,7 @@ Token.prototype.tokenize = function() {
     var spawned = this.cmd.tokenize(this);
     return spawned.tokenize();
   } else if(this.parent) {
-    this.parent.banches.remove(this);
+    this.parent.branches.remove(this);
     return this.parent;
   }
 }
