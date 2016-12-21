@@ -75,8 +75,7 @@ Pipe.prototype.reverse = function() {
 }
 
 Pipe.prototype.wipe = function() {
-  delete this.__array__;
-  this.__array__ = [];
+  while(this.front());
   return this;
 }
 
