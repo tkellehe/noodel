@@ -61,7 +61,7 @@ characters.compressables.min = 0;
 characters.compressables.max = 224;
 (function(){
   for(var i = characters.compressables.min; i <= characters.compressables.max; ++i) {
-    characters.compessables.push(int_to_char[i]);
+    characters.compressables.push(int_to_char[i]);
   }
 })();
 characters.compressables.string = characters.compressables.join("");
