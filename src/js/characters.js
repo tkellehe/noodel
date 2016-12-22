@@ -94,7 +94,7 @@ characters.printify_char = function(c) {
 
 characters.printify_string = function(s) {
   var r = "";
-  for(var i = 0; i < s.length; ++i) r += characters.printify_char(s);
+  for(var i = 0; i < s.length; ++i) r += characters.printify_char(s[i]);
   return r;
 };
   
