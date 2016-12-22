@@ -312,7 +312,7 @@ Command.add(new RegExp("^("+characters.chars[182]+")(\\d*)/(\\d*)$"), function(c
       if(tkn.params[0].length) {
         num *= +tkn.params[0];
       }
-      if(tkn.paras[1].length) {
+      if(tkn.params[1].length) {
         den = +tkn.params[1];
       }
       path.rate = Math.floor(num / den);
