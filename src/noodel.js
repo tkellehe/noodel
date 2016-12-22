@@ -1,4 +1,4 @@
-(function(global, Pipe, Command, Token, Path, char_codes, CHAR, NUMBER, STRING, ARRAY){
+(function(global, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 function in_to_out(tkn, path) {
   tkn.outputs.pipe(tkn.inputs);
@@ -28,13 +28,13 @@ Command.add(/^(\n)$/, function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Handles simple string literals of printable characters.
-Command.add(new RegExp("^("+char_codes[239]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[239]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   var old = cmd.tokenize;
   cmd.tokenize = function(tkn) {
     tkn.content = "";
-    for(var i = tkn.end+1; i < tkn.code.length && CHAR.is_printable(tkn.code[i]); ++i)
+    for(var i = tkn.end+1; i < tkn.code.length && characters.printables.is(tkn.code[i]); ++i)
       tkn.content += tkn.code[i];
     tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
     return old.call(this, tkn);
@@ -49,13 +49,13 @@ Command.add(new RegExp("^("+char_codes[239]+")$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Creates and array of strings from each printable character following it.
-Command.add(new RegExp("^("+char_codes[237]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[237]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   var old = cmd.tokenize;
   cmd.tokenize = function(tkn) {
     tkn.content = "";
-    for(var i = tkn.end+1; i < tkn.code.length && CHAR.is_printable(tkn.code[i]); ++i)
+    for(var i = tkn.end+1; i < tkn.code.length && characters.printables.is(tkn.code[i]); ++i)
       tkn.content += tkn.code[i];
     tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
     return old.call(this, tkn);
@@ -77,7 +77,7 @@ Command.add(new RegExp("^("+char_codes[237]+")$"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Adds two items in the pipe where the first is the lhs and the second is the rhs.
-Command.add(new RegExp("^("+char_codes[251]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[251]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -92,7 +92,7 @@ Command.add(new RegExp("^("+char_codes[251]+")$"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+char_codes[252]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[252]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -107,7 +107,7 @@ Command.add(new RegExp("^("+char_codes[252]+")$"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+char_codes[251]+char_codes[136]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[251]+characters.chars[136]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -122,7 +122,7 @@ Command.add(new RegExp("^("+char_codes[251]+char_codes[136]+")$"), function(cmd)
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+char_codes[252]+char_codes[136]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[252]+characters.chars[136]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -137,7 +137,7 @@ Command.add(new RegExp("^("+char_codes[252]+char_codes[136]+")$"), function(cmd)
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+char_codes[136]+char_codes[251]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[136]+characters.chars[251]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -152,7 +152,7 @@ Command.add(new RegExp("^("+char_codes[136]+char_codes[251]+")$"), function(cmd)
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+char_codes[136]+char_codes[252]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[136]+characters.chars[252]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -188,7 +188,7 @@ Command.add(/^(_)$/, function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Blocks the pipe preventing all items from moving on.
-Command.add(new RegExp("^("+char_codes[200]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[200]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -200,7 +200,7 @@ Command.add(new RegExp("^("+char_codes[200]+")$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Removes the item in the front of the pipe.
-Command.add(new RegExp("^("+char_codes[202]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[202]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -212,7 +212,7 @@ Command.add(new RegExp("^("+char_codes[202]+")$"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Places what is in the front of the pipe to the back.
-Command.add(new RegExp("^("+char_codes[203]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[203]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -229,7 +229,7 @@ Command.add(new RegExp("^("+char_codes[203]+")$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Clears the path's outputs and copies what is in the front of the pipe into the path's output.
-Command.add(new RegExp("^("+char_codes[106]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[106]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -249,7 +249,7 @@ Command.add(new RegExp("^("+char_codes[106]+")$"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Contiously loops the code following it up to a new line.
-Command.add(new RegExp("^("+char_codes[187]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[187]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = function(tkn, path) {
     tkn.inputs.pipe(tkn.path.end.outputs);
@@ -277,7 +277,7 @@ Command.add(new RegExp("^("+char_codes[187]+")$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps.
-Command.add(new RegExp("^("+char_codes[182]+")(\\d+)$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[182]+")(\\d+)$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -299,7 +299,7 @@ Command.add(new RegExp("^("+char_codes[182]+")(\\d+)$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps using fractions
-Command.add(new RegExp("^("+char_codes[182]+")(\\d*)/(\\d+)$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[182]+")(\\d*)/(\\d+)$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -325,7 +325,7 @@ Command.add(new RegExp("^("+char_codes[182]+")(\\d*)/(\\d+)$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps using decimals
-Command.add(new RegExp("^("+char_codes[182]+")(\\d*)\\.(\\d*)$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[182]+")(\\d*)\\.(\\d*)$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -352,4 +352,4 @@ Path.prototype.printify = function() {
   
 global.noodel = function noodel(code) { if(typeof code === "string" && code.length) return new Path(code) };
 
-})(this, this.Pipe, this.Command, this.Token, this.Path, this.char_codes, this.types.CHAR, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
+})(this, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
