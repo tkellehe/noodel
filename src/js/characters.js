@@ -85,6 +85,19 @@ characters.noncompressables.is = function(c) {
 };
 
 
+characters.printify_char = function(c) {
+  if(c === characters.chars[0]) return "\t";
+  if(c === characters.chars[1]) return "\n";
+  if(c === characters.chars[2]) return " ";
+  return c;
+}
+
+characters.printify_string = function(s) {
+  var r = "";
+  for(var i = 0; i < s.length; ++i) r += characters.printify_char(s);
+  return r;
+};
+  
 global.characters = characters;
 
 })(this)
