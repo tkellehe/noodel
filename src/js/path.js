@@ -11,7 +11,7 @@ function Path(code) {
   this.onends = [];
   this.onstops = [];
   this.timeout = undefined;
-  this.rate = 1;
+  this.rate = 0;
   
   var self = this;
   function invoke_onsteps() { for(var i = 0, l = self.onsteps.length; i < l; ++i) self.onsteps[i].call(self) };
