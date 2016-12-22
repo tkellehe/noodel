@@ -99,6 +99,7 @@ $(".noodel-exec").each(function(){
   $bs.click(function(e){
     e.preventDefault();
     $editor.val($editor.val().slice(0,$editor.val().length-1));
+    $editor.trigger("input");
   });
   $chars.append($bs);
     
@@ -112,6 +113,7 @@ $(".noodel-exec").each(function(){
       e.preventDefault();
       var text = $editor.val(), pos = $editor.getCursorPosition();
       $editor.val(text.slice(0, pos) + char + text.slice(pos, text.length));
+      $editor.trigger("input");
     });
     $chars.append($letter);
   })()}
