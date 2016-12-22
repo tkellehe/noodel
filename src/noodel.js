@@ -299,7 +299,7 @@ Command.add(new RegExp("^("+characters.chars[182]+")(\\d+)$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps using fractions
-Command.add(new RegExp("^("+characters.chars[182]+")(\\d*)/(\\d+)$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[182]+")(\\d*)/(\\d*)$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -308,9 +308,12 @@ Command.add(new RegExp("^("+characters.chars[182]+")(\\d*)/(\\d+)$"), function(c
       tkn.next = function() { return tkn };
       tkn.ran = true;
       tkn.old_rate = path.rate;
-      var num = 1000, den = +tkn.params[1];
+      var num = 1000, den = 1;
       if(tkn.params[0].length) {
         num *= +tkn.params[0];
+      }
+      if(tkn.paras[1].length) {
+        den = +tkn.params[1];
       }
       path.rate = Math.floor(num / den);
     } else {
