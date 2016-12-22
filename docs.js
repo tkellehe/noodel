@@ -117,7 +117,8 @@ $(".noodel-exec").each(function(){
   })()}
     
   /// Byte Count
-  $editor.on("input", function() { $bytes.text($editor.val().length) });
+  $bytes.text($editor.val().length + " bytes");
+  $editor.on("input", function() { $bytes.text($editor.val().length + " bytes") });
     
 }); // End of .noodel-exec regions.
 
