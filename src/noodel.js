@@ -7,6 +7,7 @@ function out_to_in(tkn, path) {
   if(tkn.parent) tkn.inputs.pipe(tkn.parent.outputs);
 }
 
+//------------------------------------------------------------------------------------------------------------
 /// NOPs
 Command.add(/^( )$/, function(cmd) {
   cmd.exec = out_to_in;
@@ -20,8 +21,13 @@ Command.add(/^(\n)$/, function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = in_to_out;
 });
-  
+
+//------------------------------------------------------------------------------------------------------------
 /// Literals
+//------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// Handles simple string literals of printable characters.
 Command.add(new RegExp("^("+char_codes[239]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
@@ -40,6 +46,9 @@ Command.add(new RegExp("^("+char_codes[239]+")$"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
+
+//------------------------------------------------------------------------------------------------------------
+// Creates and array of strings from each printable character following it.
 Command.add(new RegExp("^("+char_codes[237]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
@@ -61,8 +70,13 @@ Command.add(new RegExp("^("+char_codes[237]+")$"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-  
+
+//------------------------------------------------------------------------------------------------------------
 /// Operands
+//------------------------------------------------------------------------------------------------------------
+  
+//------------------------------------------------------------------------------------------------------------
+// Adds two items in the pipe where the first is the lhs and the second is the rhs.
 Command.add(new RegExp("^("+char_codes[251]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
@@ -167,8 +181,13 @@ Command.add(/^(_)$/, function(cmd) {
   
   cmd.exec = in_to_out;
 });
-  
+
+//------------------------------------------------------------------------------------------------------------
 /// Operations directly to the Pipe
+//------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// Blocks the pipe preventing all items from moving on.
 Command.add(new RegExp("^("+char_codes[200]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
@@ -178,6 +197,9 @@ Command.add(new RegExp("^("+char_codes[200]+")$"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
+
+//------------------------------------------------------------------------------------------------------------
+// Removes the item in the front of the pipe.
 Command.add(new RegExp("^("+char_codes[202]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
@@ -187,6 +209,9 @@ Command.add(new RegExp("^("+char_codes[202]+")$"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
+  
+//------------------------------------------------------------------------------------------------------------
+// Places what is in the front of the pipe to the back.
 Command.add(new RegExp("^("+char_codes[203]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
@@ -198,7 +223,12 @@ Command.add(new RegExp("^("+char_codes[203]+")$"), function(cmd) {
   cmd.exec = in_to_out;
 });
 
+//------------------------------------------------------------------------------------------------------------
 /// Operations for printing.
+//------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// Clears the path's outputs and copies what is in the front of the pipe into the path's output.
 Command.add(new RegExp("^("+char_codes[106]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
@@ -213,7 +243,12 @@ Command.add(new RegExp("^("+char_codes[106]+")$"), function(cmd) {
   cmd.exec = in_to_out;
 });
 
+//------------------------------------------------------------------------------------------------------------
 /// Conditionals and loops.
+//------------------------------------------------------------------------------------------------------------
+  
+//------------------------------------------------------------------------------------------------------------
+// Contiously loops the code following it up to a new line.
 Command.add(new RegExp("^("+char_codes[187]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = function(tkn, path) {
@@ -238,7 +273,25 @@ Command.add(new RegExp("^("+char_codes[187]+")$"), function(cmd) {
   };
   
   cmd.exec = in_to_out;
-});  
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Delay for number of steps.
+Command.add(new RegExp("^("+char_codes[182]+")(\d+)$"), function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    if(tkn.counter === undefined) {
+      tkn.next = function() { return tkn };
+      tkn.counter = +tkn.params[0];
+    } else if(!(--tkn.counter)) {
+      tkn.counter = undefined;
+      tkn.next = function() { return tkn.branches.first() }
+    }
+  }
+  
+  cmd.exec = in_to_out;
+});
   
 Path.prototype.printify = function() {
   return (new ARRAY(this.outputs.__array__)).printify();
