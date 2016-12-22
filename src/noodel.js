@@ -248,10 +248,43 @@ Command.add(new RegExp("^("+characters.chars[106]+")$"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
+  
 
 //------------------------------------------------------------------------------------------------------------
-// Copies what is in the front of the pipe into the path's output.
+// Clears the path's outputs and places what is in the front of the pipe into the path's output.
+Command.add(new RegExp("^("+characters.chars[98]+")$"), function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    var f = tkn.inputs.front();
+    path.outputs.wipe();
+    if(f) {
+      path.outputs.back(f);
+    }
+  }
+  
+  cmd.exec = in_to_out;
+});
+
+
+//------------------------------------------------------------------------------------------------------------
+// Places what is in the front of the pipe into the path's output.
 Command.add(new RegExp("^("+characters.chars[103]+")$"), function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    var f = tkn.inputs.front();
+    if(f) {
+      path.outputs.back(f);
+    }
+  }
+  
+  cmd.exec = in_to_out;
+});
+  
+//------------------------------------------------------------------------------------------------------------
+// Copies what is in the front of the pipe into the path's output.
+Command.add(new RegExp("^("+characters.chars[112]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -263,6 +296,7 @@ Command.add(new RegExp("^("+characters.chars[103]+")$"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
+  
 
 //------------------------------------------------------------------------------------------------------------
 /// Conditionals and loops.
