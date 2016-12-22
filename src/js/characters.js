@@ -90,11 +90,24 @@ characters.printify_char = function(c) {
   if(c === characters.chars[1]) return "\n";
   if(c === characters.chars[2]) return " ";
   return c;
-}
+};
 
 characters.printify_string = function(s) {
   var r = "";
   for(var i = 0; i < s.length; ++i) r += characters.printify_char(s[i]);
+  return r;
+};
+  
+characters.deprintify_char = function(c) {
+  if(c === "\t") return characters.chars[0];
+  if(c === "\n") return characters.chars[1];
+  if(c === " ") return characters.chars[2];
+  return c;
+};
+  
+characters.deprintify_string = function(s) {
+  var r = "";
+  for(var i = 0; i < s.length; ++i) r += characters.deprintify_char(s[i]);
   return r;
 };
   
