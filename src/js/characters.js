@@ -98,6 +98,8 @@ characters.printify_string = function(s) {
   return r;
 };
   
+characters.correct = handleBug;
+  
 global.characters = characters;
 
 })(this)
