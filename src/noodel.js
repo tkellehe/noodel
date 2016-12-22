@@ -277,7 +277,7 @@ Command.add(new RegExp("^("+char_codes[187]+")$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps.
-Command.add(new RegExp("^("+char_codes[182]+")(\d+)$"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[182]+")(\\d+)$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
