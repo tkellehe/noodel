@@ -292,10 +292,55 @@ Command.add(new RegExp("^("+char_codes[182]+")(\\d+)$"), function(cmd) {
       tkn.next = tkn.old_next;
       path.rate = tkn.old_rate;
     }
-    //} else if(!(--tkn.counter)) {
-    //  tkn.counter = undefined;
-    //  tkn.next = function() { return tkn.branches.first() }
-    //}
+  }
+  
+  cmd.exec = in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Delay for number of steps using fractions
+Command.add(new RegExp("^("+char_codes[182]+")(\\d*)/(\\d+)$"), function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    if(!tkn.ran) {
+      tkn.old_next = tkn.next;
+      tkn.next = function() { return tkn };
+      tkn.ran = true;
+      tkn.old_rate = path.rate;
+      var num = 1000, den = +tkn.params[1];
+      if(tkn.params[0].length) {
+        num *= +tkn.params[0];
+      }
+      path.rate = Math.floor(num / den);
+    } else {
+      tkn.ran = false;
+      tkn.next = tkn.old_next;
+      path.rate = tkn.old_rate;
+    }
+  }
+  
+  cmd.exec = in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Delay for number of steps using decimals
+Command.add(new RegExp("^("+char_codes[182]+")(\\d*)\\.(\\d*)$"), function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(tkn, path) {
+    if(!tkn.ran) {
+      tkn.old_next = tkn.next;
+      tkn.next = function() { return tkn };
+      tkn.ran = true;
+      tkn.old_rate = path.rate;
+      var num = (+("0"+tkn.params[0]+"."+tkn.params[1]+"0")) * 1000;
+      path.rate = Math.floor(num);
+    } else {
+      tkn.ran = false;
+      tkn.next = tkn.old_next;
+      path.rate = tkn.old_rate;
+    }
   }
   
   cmd.exec = in_to_out;
