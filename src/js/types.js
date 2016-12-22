@@ -1,35 +1,6 @@
-(function(global){
+(function(global, characters){
 
 var types = {};
-
-function hr(s) { return s[s.length-1] };
-var int_to_char = [
-'ð','¶','¤','!','"','#','$','%','&',"'",'(',')','*','+',',','-',
-'.','/','0','1','2','3','4','5','6','7','8','9',':',';','<','=',
-'>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M',
-'N','O','P','Q','R','S','T','U','V','W','X','Y','Z','[','\\',']',
-'^','_','`','a','b','c','d','e','f','g','h','i','j','k','l','m',
-'n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}',
-'~','Æ','Ç','Ð','Ñ','Ø','Œ','Þ','ß','æ','ç','ı','ȷ','ñ','ø','œ',
-'þ','Ɓ','Ƈ','Ɗ','Ƒ','Ɠ','Ƙ','Ɲ','Ƥ','Ƭ','Ʋ','Ȥ','ɓ','ƈ','ɗ','ƒ',
-'ɠ','ɦ','ƙ','ɱ','ɲ','ƥ','ʠ','ɼ','ʂ','ƭ','ʋ','ȥ','Ạ','Ḅ','Ḍ','Ẹ',
-'Ḥ','Ị','Ḳ','Ḷ','Ṃ','Ṇ','Ọ','Ṛ','Ṣ','Ṭ','Ụ','Ṿ','Ẉ','Ỵ','Ẓ','Ȧ',
-'Ḃ','Ċ','Ḋ','Ė','Ḟ','Ġ','Ḣ','İ','Ŀ','Ṁ','Ṅ','Ȯ','Ṗ','Ṙ','Ṡ','Ṫ',
-'Ẇ','Ẋ','Ẏ','Ż','ạ','ḅ','ḍ','ẹ','ḥ','ị','ḳ','ḷ','ṃ','ṇ','ọ','ṛ',
-'ṣ','ṭ','ụ','ṿ','ẉ','ỵ','ẓ','ȧ','ḃ','ċ','ḋ','ė','ḟ','ġ','ḣ','ŀ',
-'ṁ','ṅ','ȯ','ṗ','ṙ','ṡ','ṫ','ẇ','ẋ','ẏ','ż','µ','€','¢','£','¥',
-'\t','\n',' ','¡','¿','×','÷','¦','©','¬','®','«','»','‘','’','“',
-'”','°','¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹','⁺','⁻','⁼','⁽','⁾'
-];
-
-var char_to_int = {};
-
-(function(){
-  for(var i = int_to_char.length; i--;) {
-    int_to_char[i] = hr(int_to_char[i]);
-    char_to_int[int_to_char[i]] = i;
-  }
-})()
 
 function is_nan(o) { return o !== o; };
 function is_undefined(o) { return o === undefined };
@@ -40,8 +11,7 @@ function is_string(o) { return typeof(o) === "string" };
 function is_number(o) { return typeof(o) === "number" && !is_nan(o) };
 function is_integer(o) { return is_number(o) && (Math.floor(o) === o) };
 function is_array(o) { return o instanceof Array };
-function is_char_code(o) { return (is_string(o) && !is_undefined(char_to_int[o])) };
-function is_char(o) { return is_char_code(o) || (is_integer(o) && 0 <= o && o < 256) };
+function is_char_code(o) { return (is_string(o) && characters.is_valid_char(o)) };
 
 function string_to_array(o) {
   var a = [];
@@ -72,119 +42,18 @@ function to_number(o) {
   return v;
 };
 function to_integer(o) { return Math.floor(to_number(o)) };
-function to_char(o) {
-  var c = 0;
-  if(is_string(o)) c = o.length ? char_to_int[o[0]] : 0;
-  else if(is_array(o)) c = o.length ? to_char(o[0]) : 0;
-  else if(is_number(o)) c = to_integer(o);
-  
-  return c;
-};
-function to_number_packed(o) {
-  var n = 0;
-  if(is_number(o)) n = o;
-  else {
-    if(is_string(o)) o = string_to_array(o);
-    for(var l = o.length, i = l; i--;) n += Math.pow(to_char(o[i]), l - i);
-  }
-  return n;
-}
 function to_array(o) {
   var a = o;
   if(is_string(o)) a = string_to_array(o);
   else if(is_invalid(o)) a = [];
   else if(!is_array(o)) a = [o];
   return a;
-}
+};
 
-function is_CHAR(o) { return o.type === "CHAR" };
 function is_STRING(o) { return o.type === "STRING" };
 function is_ARRAY(o) { return o.type === "ARRAY" };
 function is_NUMBER(o) { return o.type === "NUMBER" };
-function is_TYPE(o) { return is_CHAR(o) || is_STRING(o) || is_ARRAY(o) || is_NUMBER(o) };
-
-//------------------------------------------------------------------------------------------------------------
-function CHAR(v) {
-  this.value = to_char(v);
-}
-
-CHAR.prototype.type = "CHAR";
-
-CHAR.prototype.toString = function() {
-  return int_to_char[this.value];
-}
-
-CHAR.prototype.copy = function() {
-  return new CHAR(this.value);
-}
-
-/// CHAR helpers
-CHAR.int_to_char = function(i) { return int_to_char[i] };
-CHAR.char_to_int = function(c) { return char_to_int[c] };
-  
-CHAR.printable = [];
-(function(){
-  for(var i = 0; i < 97; ++i) CHAR.printable.push(int_to_char[i]);
-})();
-
-CHAR.is_printable = function(o) {
-  if(!is_char(o)) return false;
-  if(is_char_code(o)) o = char_to_int[o];
-  return 0 <= o && o < 97;
-}
-
-/// Conversions
-CHAR.prototype.valueify = function() {
-  return this.value;
-}
-CHAR.prototype.charify = function() {
-  return this.copy();
-}
-CHAR.prototype.stringify = function() {
-  return new STRING(int_to_char[this.value]);
-}
-CHAR.prototype.arrayify = function() {
-  return new ARRAY([this.copy()]);
-}
-CHAR.prototype.numberify = function() {
-  return new NUMBER(this.value);
-}
-CHAR.prototype.integerify = function() {
-  return new NUMBER(this.value);
-}
-CHAR.prototype.printify = function() {
-  if(this.value === 0) return "\t";
-  if(this.value === 1) return "\n";
-  if(this.value === 2) return " ";
-  return this.toString();
-}
-
-/// Operators
-CHAR.prototype.add = function(rhs, tkn) {
-  var v = rhs;
-  if(is_TYPE(v)) v = v.valueify();
-  return new CHAR((this.value + to_char(v)) % 256);
-}
-
-CHAR.prototype.sub = function(rhs, tkn) {
-  var v = rhs;
-  if(is_TYPE(v)) v = v.valueify();
-  return new CHAR((this.value - to_char(v)) % 256);
-}
-
-CHAR.prototype.add_flip = function(lhs, tkn) {
-  var v = lhs;
-  if(is_TYPE(v)) v = v.valueify();
-  return new CHAR((to_char(v) + this.value) % 256);
-}
-
-CHAR.prototype.sub_flip = function(lhs, tkn) {
-  var v = lhs;
-  if(is_TYPE(v)) v = v.valueify();
-  return new CHAR((to_char(v) - this.value) % 256);
-}
-
-types.CHAR = CHAR;
+function is_TYPE(o) { return is_STRING(o) || is_ARRAY(o) || is_NUMBER(o) };
 
 //------------------------------------------------------------------------------------------------------------
 function NUMBER(v) {
@@ -194,7 +63,7 @@ function NUMBER(v) {
 NUMBER.prototype.type = "NUMBER";
 
 NUMBER.prototype.toString = function() {
-  return to_string(int_to_char[this.value]);
+  return this.value+"";
 }
 
 NUMBER.prototype.copy = function() {
@@ -204,9 +73,6 @@ NUMBER.prototype.copy = function() {
 /// Conversions
 NUMBER.prototype.valueify = function() {
   return this.value;
-}
-NUMBER.prototype.charify = function() {
-  return new CHAR(to_char(this.value));
 }
 NUMBER.prototype.stringify = function() {
   return new STRING(this.value+"");
@@ -270,15 +136,12 @@ STRING.prototype.copy = function() {
 STRING.prototype.valueify = function() {
   return this.value;
 }
-STRING.prototype.charify = function() {
-  return new CHAR(to_char(this.value));
-}
 STRING.prototype.stringify = function() {
   return this.copy();
 }
 STRING.prototype.arrayify = function() {
   var a = [];
-  for(var i = 0; i < this.value.length; ++i) a.push(new CHAR(this.value[i]));
+  for(var i = 0; i < this.value.length; ++i) a.push(new STRING(this.value[i]));
   return new ARRAY(a);
 }
 STRING.prototype.numberify = function() {
@@ -288,7 +151,7 @@ STRING.prototype.integerify = function() {
   return new NUMBER(to_integer(this.value));
 }
 STRING.prototype.printify = function() {
-  return this.arrayify().printify();
+  return characters.printify_string(this.value);
 }
 
 /// Operators
@@ -330,9 +193,6 @@ ARRAY.prototype.toString = function() {
 }
 
 ARRAY.prototype.copy = function() {
-  // var a = [];
-  // for(var i = 0; i < this.value.length; ++i) a.push(this.value[i].copy());
-  // return new ARRAY(a);
   return this;
 }
 
@@ -341,9 +201,6 @@ ARRAY.prototype.valueify = function() {
   var a = [];
   for(var i = 0; i < this.value.length; ++i) a.push(this.value[i].valueify());
   return a;
-}
-ARRAY.prototype.charify = function() {
-  return new CHAR(to_char(this.valueify()));
 }
 ARRAY.prototype.stringify = function() {
   var s = "";
@@ -400,4 +257,4 @@ types.ARRAY = ARRAY;
 global.types = types;
 global.char_codes = int_to_char;
 
-})(this, this.Pipe, this.Command, this.Token, this.Path)
+})(this, this.characters)
