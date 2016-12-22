@@ -251,7 +251,7 @@ Command.add(new RegExp("^("+characters.chars[106]+")$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Copies what is in the front of the pipe into the path's output.
-Command.add(new RegExp("^("+characters.chars[134]+")$"), function(cmd) {
+Command.add(new RegExp("^("+characters.chars[103]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
