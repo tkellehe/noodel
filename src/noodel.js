@@ -174,8 +174,14 @@ Command.add(/^(_)$/, function(cmd) {
   
   cmd.exec = function(tkn, path) {
     var f = tkn.inputs.front();
-    if(f && f.type === "ARRAY") {
-      for(var i = 0; i < f.value.length; ++i) tkn.outputs.back(f.value[i]);
+    if(f) {
+      if(f.type === "ARRAY") {
+        for(var i = 0; i < f.value.length; ++i) tkn.outputs.back(f.value[i]);
+      } else if(f.type === "NUMBER") {
+        tkn.outputs.back(f.integerify());
+      } else if(f.type === "STRING") {
+        tkn.outputs.back(f.arrayify());
+      }
     } else tkn.inputs.front(f);
   }
   
