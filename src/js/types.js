@@ -255,6 +255,5 @@ types.ARRAY = ARRAY;
 
 //------------------------------------------------------------------------------------------------------------
 global.types = types;
-global.char_codes = int_to_char;
 
 })(this, this.characters)
