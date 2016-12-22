@@ -1,4 +1,4 @@
-(function(global, $, noodel, STRING, char_codes){
+(function(global, $, noodel, STRING, characters){
 
 (function ($, undefined) {
     $.fn.getCursorPosition = function() {
@@ -103,9 +103,9 @@ $(".noodel-exec").each(function(){
   });
   $chars.append($bs);
     
-  for(var i = 0; i < char_codes.length; ++i) {(function(){
-    var char = nbsRemove(char_codes[i]),
-        echar = nbsAdd(char_codes[i]);
+  for(var i = 0; i < characters.chars.length; ++i) {(function(){
+    var char = nbsRemove(characters.chars[i]),
+        echar = nbsAdd(characters.chars[i]);
     if(char === "\n") echar = "\\n";
     else if(char === "\t") echar = "\\t";
     var $letter = $("<a href=''>"+HtmlEncode(echar)+"</a>");
@@ -126,4 +126,4 @@ $(".noodel-exec").each(function(){
 
 });
 
-})(this, this.$, this.noodel, this.types.STRING, this.char_codes)
+})(this, this.$, this.noodel, this.types.STRING, this.characters)
