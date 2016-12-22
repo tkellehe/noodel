@@ -51,7 +51,8 @@ $(".noodel-exec").each(function(){
       $input  = $($this.children(".noodel-input")[0]),
       $output = $($this.children(".noodel-output")[0]),
       $button = $($this.children("button")[0]),
-      $chars  = $($this.children(".noodel-chars")[0]);
+      $chars  = $($this.children(".noodel-chars")[0]),
+      $bytes  = $($this.children("p")[0]);
   
   /// Code Execution.
   $output.prop("readonly",true);
@@ -114,6 +115,10 @@ $(".noodel-exec").each(function(){
     });
     $chars.append($letter);
   })()}
+    
+  /// Byte Count
+  $editor.on("input", function() { $bytes.text($editor.val().length) });
+    
 }); // End of .noodel-exec regions.
 
 });
