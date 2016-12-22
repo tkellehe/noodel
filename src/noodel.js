@@ -107,7 +107,7 @@ Command.add(new RegExp("^("+char_codes[252]+")$"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+char_codes[251]+char_codes[233]+")$"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[251]+char_codes[136]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -122,7 +122,7 @@ Command.add(new RegExp("^("+char_codes[251]+char_codes[233]+")$"), function(cmd)
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+char_codes[252]+char_codes[233]+")$"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[252]+char_codes[136]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -137,7 +137,7 @@ Command.add(new RegExp("^("+char_codes[252]+char_codes[233]+")$"), function(cmd)
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+char_codes[233]+char_codes[251]+")$"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[136]+char_codes[251]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -152,7 +152,7 @@ Command.add(new RegExp("^("+char_codes[233]+char_codes[251]+")$"), function(cmd)
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+char_codes[233]+char_codes[252]+")$"), function(cmd) {
+Command.add(new RegExp("^("+char_codes[136]+char_codes[252]+")$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
