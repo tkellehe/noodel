@@ -281,13 +281,21 @@ Command.add(new RegExp("^("+char_codes[182]+")(\\d+)$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
-    if(tkn.counter === undefined) {
+    if(!tkn.ran) {
+      tkn.old_next = tkn.next;
       tkn.next = function() { return tkn };
-      tkn.counter = +tkn.params[0];
-    } else if(!(--tkn.counter)) {
-      tkn.counter = undefined;
-      tkn.next = function() { return tkn.branches.first() }
+      tkn.ran = true;
+      tkn.old_rate = path.rate;
+      path.rate = +tkn.params[0];
+    } else {
+      tkn.ran = false;
+      tkn.next = tkn.old_next;
+      path.rate = tkn.old_rate;
     }
+    //} else if(!(--tkn.counter)) {
+    //  tkn.counter = undefined;
+    //  tkn.next = function() { return tkn.branches.first() }
+    //}
   }
   
   cmd.exec = in_to_out;
