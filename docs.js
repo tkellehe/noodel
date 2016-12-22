@@ -64,7 +64,7 @@ $(".noodel-exec").each(function(){
     prgm = noodel(nbsRemove($editor.val()));
     if(prgm === undefined) return;
     
-    var i = nbsRemove($input.val());
+    var i = characters.deprintify(nbsRemove($input.val()));
     if(i.length) prgm.inputs.back(new STRING(i));
     
     $input.prop("readonly",true);
