@@ -215,7 +215,7 @@ Command.add(noodel.commandify("ạ"), function(cmd) {
         if(f.frame === undefined) f.frame = index;
         if(f.frame === undefined) f.frame = 0;
         this.tkn.outputs.back(f.access(f.frame));
-        this.frame = (this.frame + 1) % f.length();
+        f.frame = (f.frame + 1) % f.length();
         if(saved !== undefined) {
           this.tkn.outputs.back(saved);
         }
