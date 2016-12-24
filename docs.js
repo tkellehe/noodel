@@ -1,22 +1,42 @@
 (function(global, $, noodel, STRING, characters){
 
-(function ($, undefined) {
-    $.fn.getCursorPosition = function() {
-        var el = $(this).get(0);
-        var pos = 0;
-        if('selectionStart' in el) {
-            pos = el.selectionStart;
-        } else if('selection' in document) {
-            el.focus();
-            var Sel = document.selection.createRange();
-            var SelLength = document.selection.createRange().text.length;
-            Sel.moveStart('character', -el.value.length);
-            pos = Sel.text.length - SelLength;
-        }
-        return pos;
+(function ($) {
+  $.fn.getCursorPosition = function() {
+    var el = $(this).get(0);
+    var pos = 0;
+    if('selectionStart' in el) {
+      pos = el.selectionStart;
+    } else if('selection' in document) {
+      el.focus();
+      var Sel = document.selection.createRange();
+      var SelLength = document.selection.createRange().text.length;
+      Sel.moveStart('character', -el.value.length);
+      pos = Sel.text.length - SelLength;
     }
+    return pos;
+  };
+  $.fn.setCursorPosition = function(pos) {
+    if (this.setSelectionRange) {
+      this.setSelectionRange(pos, pos);
+    } else if (this.createTextRange) {
+      var range = this.createTextRange();
+      range.collapse(true);
+      if(pos < 0) {
+        pos = $(this).val().length + pos;
+      }
+      range.moveEnd('character', pos);
+      range.moveStart('character', pos);
+      range.select();
+    }
+    return this;
+  };
+  $.fn.moveCursorPosition = function(offset) {
+    var $this = $(this);
+    return $this.setCursorPosition($this.getCursorPosition() + offset);
+  };
 })(jQuery);
 
+    
 var nbs = String.fromCharCode(160),
     space = String.fromCharCode(32);
   
@@ -117,10 +137,12 @@ $(".noodel-exec").each(function(){
   var $larrow = $("<a href=''>&larr;</a>");
   $larrow.click(function(e){
     e.preventDefault();
+    $editor.moveCursorPosition(-1);
   });
   var $rarrow = $("<a href=''>&rarr;</a>");
   $rarrow.click(function(e){
     e.preventDefault();
+    $editor.moveCursorPosition(1);
   });
     
   $chars.append($larrow).append($bs).append($rarrow).append("<br>");
