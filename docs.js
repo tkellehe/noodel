@@ -117,7 +117,8 @@ $(".noodel-exec").each(function(){
       $editor.val(text.slice(0, pos) + char + text.slice(pos, text.length));
       $editor.trigger("input");
     });
-    $chars.append($letter);
+    if((i+1) % 16) $chars.append($letter);
+    else $chars.append($letter).append("<br>");
   })()}
     
   /// Byte Count
