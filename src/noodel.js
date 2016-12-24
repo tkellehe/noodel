@@ -187,7 +187,7 @@ Command.add(noodel.commandify("_"), function(cmd) {
       } else if(f.type === "STRING") {
         this.tkn.outputs.back(f.arrayify());
       }
-    } else this.tkn.inputs.front(f);
+    }
   }
   
   cmd.exec = in_to_out;
@@ -252,7 +252,7 @@ Command.add(noodel.commandify("ạ"), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
-/// Operations directly to the Pipe
+/// Operations directly to the Pipe.
 //------------------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------------------
@@ -465,6 +465,25 @@ Command.add(new RegExp("^("+characters.correct("ḍ")+")(\\d*)\\.(\\d*)$"), func
       tkn.ran = false;
       tkn.next = tkn.old_next;
       path.rate = tkn.old_rate;
+    }
+  }
+  
+  cmd.exec = in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Type operations.
+//------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+/// Stringifies the first item in the pipe.
+Command.add(noodel.commandify("'"), function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      this.tkn.outputs.back(f.stringify());
     }
   }
   
