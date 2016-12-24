@@ -405,7 +405,7 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
       p = p.parent;
     }
     
-    tkn.next = function() { return p.branches.last() }
+    tkn.next = function() { return p.branches.first() }
     
     return old.call(this);
   };
