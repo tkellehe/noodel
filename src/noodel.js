@@ -316,12 +316,12 @@ Command.add(noodel.commandify(characters.correct("ḷ")), function(cmd) {
       tkn.content += tkn.code[i];
     if(tkn.code[i] === "\n") tkn.content += "\n";
     tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
-    tkn.path = new Path(tkn.content);
-    tkn.path.start.parent = tkn;
-    tkn.branches.front(tkn.path.start);
-    tkn.path.end.branches.front(tkn);
+    tkn.sub_path = new Path(tkn.content);
+    tkn.sub_path.start.parent = tkn;
+    tkn.branches.front(tkn.sub_path.start);
+    tkn.sub_path.end.branches.front(tkn);
     
-    tkn.next = function() { return tkn.path.start };
+    tkn.next = function() { return tkn.sub_path.start };
     
     return old.call(this, tkn);
   };
