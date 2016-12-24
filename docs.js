@@ -19,7 +19,7 @@
     var $this = $(this);
     if(pos !== undefined) {
       var l = $this.val().length;
-      $this.prop("cursor_pos", pos < 0 ? 0 : (pos < l ? pos : (l-1)));
+      $this.prop("cursor_pos", pos < 0 ? 0 : (pos < l ? pos : l));
       return this;
     } else {
       pos = $this.prop("cursor_pos");
