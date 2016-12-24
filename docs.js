@@ -115,7 +115,13 @@ $(".noodel-exec").each(function(){
   });
   
   var $larrow = $("<a href=''>&larr;</a>");
+  $larrow.click(function(e){
+    e.preventDefault();
+  });
   var $rarrow = $("<a href=''>&rarr;</a>");
+  $rarrow.click(function(e){
+    e.preventDefault();
+  });
     
   $chars.append($larrow).append($bs).append($rarrow).append("<br>");
     
