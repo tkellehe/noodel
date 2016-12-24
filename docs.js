@@ -52,10 +52,10 @@ $(".noodel-exec").each(function(){
       $output = $('<textarea class="noodel-output"></textarea>'),
       $button = $('<button></button>'),
       $chars  = $('<div class="noodel-chars"><center></center></div>'),
-      $bytes  = $('<p></p>');
+      $bytes  = $('<p></p>'),
+      $toggle = $("<a href=''>-</a>");
   
-  $this.append($bytes).append($editor).append($chars).append($button).append($input).append($output);
-  $chars = $($chars.children()[0]);
+  $this.append($bytes).append($editor).append($toggle).append($chars).append($button).append($input).append($output);
   
   /// Code Execution.
   $output.prop("readonly",true);
@@ -98,6 +98,14 @@ $(".noodel-exec").each(function(){
   $button.click(clickRun);
   
   /// Character selector.
+  (function(){ 
+    $toggle.click(function() {
+      $chars.toggle(400);
+    });
+  })();
+  
+  $chars = $($chars.children("center")[0]);
+  
   var $bs = $("<a href=''>bs</a>");
   $bs.click(function(e){
     e.preventDefault();
