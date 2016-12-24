@@ -51,7 +51,7 @@ $(".noodel-exec").each(function(){
       $input  = $('<textarea class="noodel-input"></textarea>'),
       $output = $('<textarea class="noodel-output"></textarea>'),
       $button = $('<button></button>'),
-      $chars  = $('<div class="noodel-chars"><center></center></div>'),
+      $chars  = $('<div class="noodel-chars" hidden><center></center></div>'),
       $bytes  = $('<p></p>'),
       $toggle = $("<center><a href=''>character selector</a></center>");
   
