@@ -1,8 +1,8 @@
 (function(global, Pipe, Command, Token){
 
-function Path(code) {
+function Path(code, tkn) {
   this.code = code;
-  this.start = new Token(0, this.code, undefined);
+  this.start = new Token(0, this.code, tkn);
   this.start.path = this;
   this.current = this.start;
   this.end = this.start.tokenize();
