@@ -35,14 +35,14 @@ Command.add(noodel.commandify(characters.correct("“"), characters.regex.a_prin
   cmd.exec = out_to_in;
   
   var old = cmd.tokenize;
-  cmd.tokenize = function(tkn) {
-    tkn.content = tkn.params[0];
-    tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
-    return old.call(this, tkn);
+  cmd.tokenize = function() {
+    this.tkn.content = this.tkn.params[0];
+    this.tkn.end = this.tkn.literal.length + this.tkn.start + this.tkn.content.length - 1;
+    return old.call(this, this.tkn);
   };
   
-  cmd.exec = function(tkn, path) {
-    tkn.outputs.back(new STRING(tkn.content));
+  cmd.exec = function(path) {
+    this.tkn.outputs.back(new STRING(this.tkn.content));
   }
   
   cmd.exec = in_to_out;
@@ -54,10 +54,10 @@ Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_prin
   cmd.exec = out_to_in;
   
   var old = cmd.tokenize;
-  cmd.tokenize = function(tkn) {
-    tkn.content = tkn.params[0];
-    tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
-    return old.call(this, tkn);
+  cmd.tokenize = function() {
+    this.tkn.content = this.tkn.params[0];
+    this.tkn.end = this.tkn.literal.length + this.tkn.start + this.tkn.content.length - 1;
+    return old.call(this, this.tkn);
   };
   
   cmd.exec = function(tkn, path) {
