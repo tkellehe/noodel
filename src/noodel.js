@@ -194,6 +194,30 @@ Command.add(noodel.commandify("_"), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
+/// Takes the first element of strings/arrays and places it into the back. For numbers, it reciprocals.
+Command.add(noodel.commandify("ẹ"), function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      if(f.type === "ARRAY") {
+        var e = f.value.shift();
+        if(e) f.value.push(e);
+        this.tkn.outputs.back(f);
+      } else if(f.type === "NUMBER") {
+        this.tkn.outputs.back(new NUMBER(1/f.valueify()));
+      } else if(f.type === "STRING") {
+        var s = f.valueify();
+        this.tkn.outputs.back(new STRING(s.slice(1, s.length) + s.slice(0, 1)));
+      }
+    } else this.tkn.inputs.front(f);
+  }
+  
+  cmd.exec = in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
 /// Accesses a particular frame of an array/string. If is an integer in the pipe then it will use that as
 /// the index and place the accessed first and increment the index for the next frame.
 Command.add(noodel.commandify("ạ"), function(cmd) {
