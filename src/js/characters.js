@@ -51,6 +51,9 @@ characters.printables.max = 96;
   }
 })();
 characters.printables.string = characters.printables.join("");
+characters.printables.regex = {};
+characters.regex.a_printable = "[" + characters.printables.string + "]";
+characters.regex.not_a_printable = "[^" + characters.printables.string + "]";
 characters.printables.is = function(c) {
   c = char_to_int[c];
   return characters.printables.min <= c && c <= characters.printables.max;
