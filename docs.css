@@ -30,7 +30,7 @@ textarea.noodel-input {
 
 div.noodel-chars {
   width:100%;
-  height:4em; 
+  height:34em; /* A single line works well with 2em then to support the scroll bar add 2em. */
   box-sizing: border-box;         /* For IE and modern versions of Chrome */
   -moz-box-sizing: border-box;    /* For Firefox                          */
   -webkit-box-sizing: border-box; /* For Safari                           */
