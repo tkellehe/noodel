@@ -1,5 +1,16 @@
 (function(global, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
+Path.prototype.printify = function() {
+  return (new ARRAY(this.outputs.__array__)).printify();
+}
+  
+global.noodel = function noodel(code) { if(typeof code === "string" && code.length) return new Path(code) };
+noodel.commandify = function(cmd) {
+  if(arguments.length > 1)
+    cmd = Array.prototype.join.call(arguments, ")(");
+  return new RegExp("^(" + cmd + ")$");
+};
+
 function in_to_out(tkn, path) {
   tkn.outputs.pipe(tkn.inputs);
 }
@@ -9,15 +20,7 @@ function out_to_in(tkn, path) {
 
 //------------------------------------------------------------------------------------------------------------
 /// NOPs
-Command.add(/^( )$/, function(cmd) {
-  cmd.exec = out_to_in;
-  cmd.exec = in_to_out;
-});
-Command.add(/^(\t)$/, function(cmd) {
-  cmd.exec = out_to_in;
-  cmd.exec = in_to_out;
-});
-Command.add(/^(\n)$/, function(cmd) {
+Command.add(noodel.commandify("[ \t\n]"), function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = in_to_out;
 });
@@ -28,14 +31,12 @@ Command.add(/^(\n)$/, function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Handles simple string literals of printable characters.
-Command.add(new RegExp("^("+characters.correct("“")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("“"), characters.regex.a_printable + "*"), function(cmd) {
   cmd.exec = out_to_in;
   
   var old = cmd.tokenize;
   cmd.tokenize = function(tkn) {
-    tkn.content = "";
-    for(var i = tkn.end+1; i < tkn.code.length && characters.printables.is(tkn.code[i]); ++i)
-      tkn.content += tkn.code[i];
+    tkn.content = tkn.params[0];
     tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
     return old.call(this, tkn);
   };
@@ -49,14 +50,12 @@ Command.add(new RegExp("^("+characters.correct("“")+")$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Creates and array of strings from each printable character following it.
-Command.add(new RegExp("^("+characters.correct("‘")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_printable + "*"), function(cmd) {
   cmd.exec = out_to_in;
   
   var old = cmd.tokenize;
   cmd.tokenize = function(tkn) {
-    tkn.content = "";
-    for(var i = tkn.end+1; i < tkn.code.length && characters.printables.is(tkn.code[i]); ++i)
-      tkn.content += tkn.code[i];
+    tkn.content = tkn.params[0];
     tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
     return old.call(this, tkn);
   };
@@ -77,7 +76,7 @@ Command.add(new RegExp("^("+characters.correct("‘")+")$"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Adds two items in the pipe where the first is the lhs and the second is the rhs.
-Command.add(new RegExp("^("+characters.correct("⁺")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("⁺")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -92,7 +91,7 @@ Command.add(new RegExp("^("+characters.correct("⁺")+")$"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+characters.correct("⁻")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("⁻")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -107,7 +106,7 @@ Command.add(new RegExp("^("+characters.correct("⁻")+")$"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+characters.correct("⁺")+characters.correct("ʂ")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("⁺")+characters.correct("ʂ")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -122,7 +121,7 @@ Command.add(new RegExp("^("+characters.correct("⁺")+characters.correct("ʂ")+"
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+characters.correct("⁻")+characters.correct("ʂ")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("⁻")+characters.correct("ʂ")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -137,7 +136,7 @@ Command.add(new RegExp("^("+characters.correct("⁻")+characters.correct("ʂ")+"
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+characters.correct("ʂ")+characters.correct("⁺")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("ʂ")+characters.correct("⁺")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -152,7 +151,7 @@ Command.add(new RegExp("^("+characters.correct("ʂ")+characters.correct("⁺")+"
   
   cmd.exec = in_to_out;
 });
-Command.add(new RegExp("^("+characters.correct("ʂ")+characters.correct("⁻")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("ʂ")+characters.correct("⁻")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -169,7 +168,7 @@ Command.add(new RegExp("^("+characters.correct("ʂ")+characters.correct("⁻")+"
 });
   
 /// Array specific operators
-Command.add(/^(_)$/, function(cmd) {
+Command.add(noodel.commandify("_"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -194,7 +193,7 @@ Command.add(/^(_)$/, function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Blocks the pipe preventing all items from moving on.
-Command.add(new RegExp("^("+characters.correct("ḃ")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("ḃ")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -206,7 +205,7 @@ Command.add(new RegExp("^("+characters.correct("ḃ")+")$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Removes the item in the front of the pipe.
-Command.add(new RegExp("^("+characters.correct("ḋ")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("ḋ")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -218,7 +217,7 @@ Command.add(new RegExp("^("+characters.correct("ḋ")+")$"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Places what is in the front of the pipe to the back.
-Command.add(new RegExp("^("+characters.correct("ė")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("ė")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -235,7 +234,7 @@ Command.add(new RegExp("^("+characters.correct("ė")+")$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Clears the path's outputs and copies what is in the front of the pipe into the path's output.
-Command.add(new RegExp("^("+characters.correct("ç")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("ç")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -252,7 +251,7 @@ Command.add(new RegExp("^("+characters.correct("ç")+")$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Clears the path's outputs and places what is in the front of the pipe into the path's output.
-Command.add(new RegExp("^("+characters.correct("Ç")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("Ç")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -269,7 +268,7 @@ Command.add(new RegExp("^("+characters.correct("Ç")+")$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Places what is in the front of the pipe into the path's output.
-Command.add(new RegExp("^("+characters.correct("þ")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("þ")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -284,7 +283,7 @@ Command.add(new RegExp("^("+characters.correct("þ")+")$"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Copies what is in the front of the pipe into the path's output.
-Command.add(new RegExp("^("+characters.correct("Þ")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("Þ")), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -304,7 +303,7 @@ Command.add(new RegExp("^("+characters.correct("Þ")+")$"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Contiously loops the code following it up to a new line.
-Command.add(new RegExp("^("+characters.correct("ḷ")+")$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("ḷ")), function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = function(tkn, path) {
     tkn.inputs.pipe(tkn.path.end.outputs);
@@ -332,7 +331,7 @@ Command.add(new RegExp("^("+characters.correct("ḷ")+")$"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps.
-Command.add(new RegExp("^("+characters.correct("ḍ")+")(\\d+)$"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("ḍ"), "\\d+"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(tkn, path) {
@@ -403,11 +402,5 @@ Command.add(new RegExp("^("+characters.correct("ḍ")+")(\\d*)\\.(\\d*)$"), func
   
   cmd.exec = in_to_out;
 });
-  
-Path.prototype.printify = function() {
-  return (new ARRAY(this.outputs.__array__)).printify();
-}
-  
-global.noodel = function noodel(code) { if(typeof code === "string" && code.length) return new Path(code) };
 
 })(this, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
