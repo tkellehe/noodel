@@ -219,6 +219,7 @@ Command.add(noodel.commandify("ạ"), function(cmd) {
         if(saved !== undefined) {
           this.tkn.outputs.back(saved);
         }
+        this.tkn.outputs.back(f);
       }
     }
   }
