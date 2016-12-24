@@ -68,7 +68,7 @@ $(".noodel-exec").each(function(){
   $this.append($bytes).append($editor).append($toggle).append($chars).append($button).append($input).append($output);
   
   $editor.focus(function(){
-    $editor.cusorPos($editor.getCursorPosition());
+    $editor.cursorPos($editor.getCursorPosition());
   });
   $editor.cursorPos(0);
   
