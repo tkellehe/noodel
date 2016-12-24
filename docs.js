@@ -103,7 +103,7 @@ $(".noodel-exec").each(function(){
     $editor.val($editor.val().slice(0,$editor.val().length-1));
     $editor.trigger("input");
   });
-  $chars.append($bs);
+  $chars.append($bs).append("<br>");
     
   for(var i = 0; i < characters.chars.length; ++i) {(function(){
     var char = nbsRemove(characters.chars[i]),
