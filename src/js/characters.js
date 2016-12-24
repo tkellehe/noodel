@@ -32,6 +32,7 @@ var char_to_int = {};
 
 
 var characters = {};
+characters.regex = {};
 characters.chars = int_to_char;
 characters.chars.min = 0;
 characters.chars.max = 255;
@@ -51,7 +52,6 @@ characters.printables.max = 96;
   }
 })();
 characters.printables.string = characters.printables.join("");
-characters.printables.regex = {};
 characters.regex.a_printable = "[" + characters.printables.string + "]";
 characters.regex.not_a_printable = "[^" + characters.printables.string + "]";
 characters.printables.is = function(c) {
