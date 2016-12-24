@@ -98,12 +98,12 @@ $(".noodel-exec").each(function(){
   $button.click(clickRun);
   
   /// Character selector.
-  (function(){ 
+  (function(c){ 
     $toggle.click(function(e) {
       e.preventDefault();
-      $chars.toggle(400);
+      c.toggle(400);
     });
-  })();
+  })($chars);
   
   $chars = $($chars.children("center")[0]);
   
