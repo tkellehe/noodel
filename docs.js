@@ -26,6 +26,13 @@
       return pos ? pos : 0;
     }
   };
+  $.fn.typeInput = function(char) {
+    var $this = $(this);
+    var text = $this.val(), pos = $this.cursorPos();
+    $this.val(text.slice(0, pos) + char + text.slice(pos, text.length));
+    $this.cursorPos(pos+char.length);
+    $this.trigger("input");
+  };
 })(jQuery);
 
     
@@ -153,9 +160,7 @@ $(".noodel-exec").each(function(){
     var $letter = $("<a href=''>"+HtmlEncode(echar)+"</a>");
     $letter.click(function(e){
       e.preventDefault();
-      var text = $editor.val(), pos = $editor.cursorPos();
-      $editor.val(text.slice(0, pos) + char + text.slice(pos, text.length));
-      $editor.trigger("input");
+      $editor.typeInput(char);
     });
     if((i+1) % 16) $chars.append($letter);
     else $chars.append($letter).append("<br>");
