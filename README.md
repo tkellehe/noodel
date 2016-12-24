@@ -13,14 +13,7 @@
 <link rel="stylesheet" type="text/css" href="docs.css">
 <script type="text/javascript" src="docs.js"></script>
 
-<div class="noodel-exec">
-<p></p>
-<textarea class="noodel-editor"></textarea>
-<div class="noodel-chars"></div>
-<button></button>
-<textarea class="noodel-input"></textarea>
-<textarea class="noodel-output"></textarea>
-</div>
+<div class="noodel-exec"></div>
 
 ## Basic Commands
 
