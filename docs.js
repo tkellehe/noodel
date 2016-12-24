@@ -136,7 +136,7 @@ $(".noodel-exec").each(function(){
     e.preventDefault();
     var t = $editor.val(), pos = $editor.cursorPos();
     if(pos > 0) {
-      $editor.val(t.slice(0,pos-1) + t.slice(pos-2, t.length));
+      $editor.val(t.slice(0,pos-1) + t.slice(pos, t.length));
       $editor.cursorPos(pos - 1);
       $editor.trigger("input");
     }
