@@ -69,7 +69,9 @@ Token.parse = function(tkn) {
   var result = {end:-1,cmd:undefined,literal:undefined,params:undefined};
   
   var i = tkn.start, string = tkn.code[i], literal = undefined, params = undefined, index = undefined;
-  while(tkn.code[i] !== "\n" && i < tkn.code.length) {
+  //while(tkn.code[i] !== "\n" && i < tkn.code.length) {
+  // Parses entire script to find the best command.
+  while(i < tkn.code.length) {
     var get = Command.find(string);
     if(get !== undefined) {
       literal = get.literal;
