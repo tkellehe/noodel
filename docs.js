@@ -47,12 +47,14 @@ $(function(){
 /// Handle all editors in the window.
 $(".noodel-exec").each(function(){
   var $this   = $(this),
-      $editor = $($this.children(".noodel-editor")[0]),
-      $input  = $($this.children(".noodel-input")[0]),
-      $output = $($this.children(".noodel-output")[0]),
-      $button = $($this.children("button")[0]),
-      $chars  = $($this.children(".noodel-chars")[0]),
-      $bytes  = $($this.children("p")[0]);
+      $editor = $('<textarea class="noodel-editor"></textarea>'),
+      $input  = $('<textarea class="noodel-input"></textarea>'),
+      $output = $('<textarea class="noodel-output"></textarea>'),
+      $button = $('<button></button>'),
+      $chars  = $('<div class="noodel-chars"></div>'),
+      $bytes  = $('<p></p>');
+  
+  $this.append($bytes).append($editor).append($chars).append($button).append($input).append($output);
   
   /// Code Execution.
   $output.prop("readonly",true);
