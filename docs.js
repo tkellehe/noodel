@@ -51,10 +51,11 @@ $(".noodel-exec").each(function(){
       $input  = $('<textarea class="noodel-input"></textarea>'),
       $output = $('<textarea class="noodel-output"></textarea>'),
       $button = $('<button></button>'),
-      $chars  = $('<div class="noodel-chars"></div>'),
+      $chars  = $('<div class="noodel-chars"><center></center></div>'),
       $bytes  = $('<p></p>');
   
   $this.append($bytes).append($editor).append($chars).append($button).append($input).append($output);
+  $chars = $($chars.children()[0]);
   
   /// Code Execution.
   $output.prop("readonly",true);
