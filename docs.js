@@ -16,12 +16,14 @@
     return pos;
   };
   $.fn.cursorPos = function(pos) {
+    var $this = $(this);
     if(pos !== undefined) {
-      var l = $(this).val().length;
-      this.cursor_pos = pos < 0 ? 0 : (pos < l ? pos : (l-1));
+      var l = $this.val().length;
+      $this.prop("cursor_pos", pos < 0 ? 0 : (pos < l ? pos : (l-1)));
       return this;
     } else {
-      return this.cursor_pos ? this.cursor_pos : 0;
+      pos = $this.prop("cursor_pos");
+      return pos ? pos : 0;
     }
   };
 })(jQuery);
