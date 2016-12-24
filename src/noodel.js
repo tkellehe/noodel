@@ -405,12 +405,17 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
       p = p.parent;
     }
     
+    tkn.looper = p;
     tkn.next = function() { return p.branches.first() }
     
     return old.call(this);
   };
   
   cmd.exec = in_to_out;
+  
+  cmd.exec = function(path) {
+    this.tkn.looper.inputs.pipe(this.tkn.outputs);
+  }
 });
 
 //------------------------------------------------------------------------------------------------------------
