@@ -135,9 +135,11 @@ $(".noodel-exec").each(function(){
   $bs.click(function(e){
     e.preventDefault();
     var t = $editor.val(), pos = $editor.cursorPos();
-    $editor.val(t.slice(0,pos) + t.slice(pos-1, t.length));
-    $editor.cursorPos(pos - 1);
-    $editor.trigger("input");
+    if(pos > 0) {
+      $editor.val(t.slice(0,pos-1) + t.slice(pos-2, t.length));
+      $editor.cursorPos(pos - 1);
+      $editor.trigger("input");
+    }
   });
   
   var $larrow = $("<a href=''>&larr;</a>");
