@@ -134,8 +134,9 @@ $(".noodel-exec").each(function(){
   var $bs = $("<a href=''>bs</a>");
   $bs.click(function(e){
     e.preventDefault();
-    var t = $editor.val();
-    $editor.val(t.slice(0,$editor.cursorPos()) + t.slice($editor.cursorPos(), t.length));
+    var t = $editor.val(), pos = $editor.cursorPos();
+    $editor.val(t.slice(0,pos) + t.slice(pos-1, t.length));
+    $editor.cursorPos(pos - 1);
     $editor.trigger("input");
   });
   
