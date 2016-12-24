@@ -1,6 +1,7 @@
 (function(global, Pipe){
 
-function Command(f) {
+function Command(tkn, f) {
+  this.tkn = tkn;
   this.methods = [];
   var self = this;
   function invoke() {
@@ -30,10 +31,10 @@ Command.find = function(text) {
   }
 };
   
-Command.prototype.tokenize = function(tkn) {
-  tkn.branches.front(new Token(tkn.end+1, tkn.code, tkn));
-  return tkn.branches.first();
-}
+Command.prototype.tokenize = function() {
+  this.tkn.branches.front(new Token(this.tkn.end+1, this.tkn.code, this.tkn));
+  return this.tkn.branches.first();
+};
 
 global.Command = Command;
 
@@ -43,19 +44,16 @@ function Token(start, code, parent) {
   this.start = start;
   this.code = code;
   this.parent = parent;
+  if(parent) this.path = parent.path;
   this.branches = new Pipe();
   this.inputs = new Pipe();
   this.outputs = new Pipe();
-}
+};
 
 Token.prototype.tokenize = function() {
-  var ecl = Token.parse(this);
-  this.end = ecl.end;
-  this.cmd = ecl.cmd;
-  this.literal = ecl.literal;
-  this.params = ecl.params;
+  Token.parse(this);
   if(this.cmd) {
-    var spawned = this.cmd.tokenize(this);
+    var spawned = this.cmd.tokenize();
     return spawned.tokenize();
   } else if(this.parent) {
     this.parent.branches.remove(this);
@@ -82,13 +80,11 @@ Token.parse = function(tkn) {
   }
   
   if(literal) {
-    result.literal = literal;
-    result.end = tkn.start + literal.length - 1;
-    result.cmd = new Command(Command.commands[index].f);
-    result.params = params;
+    tkn.literal = literal;
+    tkn.end = tkn.start + literal.length - 1;
+    tkn.cmd = new Command(tkn, Command.commands[index].f);
+    tkn.params = params;
   }
-  
-  return result;
 }
 
 global.Token = Token;
