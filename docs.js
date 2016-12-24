@@ -127,7 +127,7 @@ $(".noodel-exec").each(function(){
     e.preventDefault();
     $editor.trigger("focus");
     var t = $editor.val();
-    $editor.val(t.slice(0,$editor.cursorPos()) + t.slice($editor.cursorPos(), t.length);
+    $editor.val(t.slice(0,$editor.cursorPos()) + t.slice($editor.cursorPos(), t.length));
     $editor.trigger("input");
   });
   
