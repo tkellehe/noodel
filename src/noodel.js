@@ -381,14 +381,33 @@ Command.add(noodel.commandify(characters.correct("ḷ")), function(cmd) {
       tkn.content += tkn.code[i];
     if(tkn.code[i] === "\n") tkn.content += "\n";
     tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
-    tkn.sub_path = new Path(tkn.content);
-    tkn.sub_path.start.parent = tkn;
+    tkn.sub_path = new Path(tkn.content, tkn);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
     tkn.next = function() { return tkn.sub_path.start };
     
-    return old.call(this, tkn);
+    return old.call(this);
+  };
+  
+  cmd.exec = in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Breaks out of a looping command.
+Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
+  cmd.exec = out_to_in;
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var tkn = this.tkn, p = tkn.parent;
+    while(p.literal !== characters.correct("ḷ")) {
+      p = p.parent;
+    }
+    
+    tkn.next = function() { return p.branches.last() }
+    
+    return old.call(this);
   };
   
   cmd.exec = in_to_out;
