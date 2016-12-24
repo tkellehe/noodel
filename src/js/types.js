@@ -179,6 +179,15 @@ STRING.prototype.sub_flip = function(lhs, tkn) {
   return new STRING(to_string(v).replace(this.value, ""));
 }
 
+/// Array specific commands.
+STRING.prototype.access = function(index) {
+  return new STRING(this.value[index]);
+};
+
+STRING.prototype.length = function() {
+  return this.value.length;
+};
+
 types.STRING = STRING;
 
 //------------------------------------------------------------------------------------------------------------
@@ -250,6 +259,15 @@ ARRAY.prototype.sub_flip = function(lhs, tkn) {
   }
   return this;
 }
+
+/// Array specific commands.
+ARRAY.prototype.access = function(index) {
+  return this.value[index];
+};
+
+ARRAY.prototype.length = function() {
+  return this.value.length;
+};
 
 types.ARRAY = ARRAY;
 
