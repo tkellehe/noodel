@@ -3,6 +3,7 @@
 function Path(code) {
   this.code = code;
   this.start = new Token(0, this.code, undefined);
+  this.start.path = this;
   this.current = this.start;
   this.end = this.start.tokenize();
   this.previous = this.end;
