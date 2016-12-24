@@ -127,7 +127,6 @@ $(".noodel-exec").each(function(){
   var $bs = $("<a href=''>bs</a>");
   $bs.click(function(e){
     e.preventDefault();
-    $editor.trigger("focus");
     var t = $editor.val();
     $editor.val(t.slice(0,$editor.cursorPos()) + t.slice($editor.cursorPos(), t.length));
     $editor.trigger("input");
@@ -136,13 +135,11 @@ $(".noodel-exec").each(function(){
   var $larrow = $("<a href=''>&larr;</a>");
   $larrow.click(function(e){
     e.preventDefault();
-    $editor.trigger("focus");
     $editor.cursorPos($editor.cursorPos()-1);
   });
   var $rarrow = $("<a href=''>&rarr;</a>");
   $rarrow.click(function(e){
     e.preventDefault();
-    $editor.trigger("focus");
     $editor.cursorPos($editor.cursorPos()+1);
   });
     
