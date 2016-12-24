@@ -15,24 +15,14 @@
     }
     return pos;
   };
-  $.fn.setCursorPosition = function(pos) {
-    if (this.setSelectionRange) {
-      this.setSelectionRange(pos, pos);
-    } else if (this.createTextRange) {
-      var range = this.createTextRange();
-      range.collapse(true);
-      if(pos < 0) {
-        pos = $(this).val().length + pos;
-      }
-      range.moveEnd('character', pos);
-      range.moveStart('character', pos);
-      range.select();
+  $.fn.cursorPos = function(pos) {
+    if(pos !== undefined) {
+      var l = $(this).val().length;
+      this.cursor_pos = pos < 0 ? 0 : (pos < l ? pos : (l-1));
+      return this;
+    } else {
+      return this.cursor_pos ? this.cursor_pos : 0;
     }
-    return this;
-  };
-  $.fn.moveCursorPosition = function(offset) {
-    var $this = $(this);
-    return $this.setCursorPosition($this.getCursorPosition() + offset);
   };
 })(jQuery);
 
@@ -76,6 +66,11 @@ $(".noodel-exec").each(function(){
       $toggle = $("<center><a href=''>code pad</a></center>");
   
   $this.append($bytes).append($editor).append($toggle).append($chars).append($button).append($input).append($output);
+  
+  $editor.focus(function(){
+    $editor.cusorPos($editor.getCursorPosition());
+  });
+  $editor.cursorPos(0);
   
   /// Code Execution.
   $output.prop("readonly",true);
@@ -131,7 +126,8 @@ $(".noodel-exec").each(function(){
   $bs.click(function(e){
     e.preventDefault();
     $editor.trigger("focus");
-    $editor.val($editor.val().slice(0,$editor.val().length-1));
+    var t = $editor.val();
+    $editor.val(t.slice(0,$editor.cursorPos()) + t.slice($editor.cursorPos(), t.length);
     $editor.trigger("input");
   });
   
@@ -139,13 +135,13 @@ $(".noodel-exec").each(function(){
   $larrow.click(function(e){
     e.preventDefault();
     $editor.trigger("focus");
-    $editor.moveCursorPosition(-1);
+    $editor.cursorPos($editor.cursorPos()-1);
   });
   var $rarrow = $("<a href=''>&rarr;</a>");
   $rarrow.click(function(e){
     e.preventDefault();
     $editor.trigger("focus");
-    $editor.moveCursorPosition(1);
+    $editor.cursorPos($editor.cursorPos()+1);
   });
     
   $chars.append($larrow).append($bs).append($rarrow).append("<br>");
@@ -158,7 +154,7 @@ $(".noodel-exec").each(function(){
     var $letter = $("<a href=''>"+HtmlEncode(echar)+"</a>");
     $letter.click(function(e){
       e.preventDefault();
-      var text = $editor.val(), pos = $editor.getCursorPosition();
+      var text = $editor.val(), pos = $editor.cursorPos();
       $editor.val(text.slice(0, pos) + char + text.slice(pos, text.length));
       $editor.trigger("input");
     });
