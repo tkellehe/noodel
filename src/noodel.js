@@ -167,7 +167,13 @@ Command.add(noodel.commandify(characters.correct("ʂ")+characters.correct("⁻")
   cmd.exec = in_to_out;
 });
   
+//------------------------------------------------------------------------------------------------------------
 /// Array specific operators
+//------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+/// Flattens that particular data type (for arrays places into elements, strings turned into char arrays
+/// and numbers into integers.
 Command.add(noodel.commandify("_"), function(cmd) {
   cmd.exec = out_to_in;
   
@@ -182,6 +188,39 @@ Command.add(noodel.commandify("_"), function(cmd) {
         this.tkn.outputs.back(f.arrayify());
       }
     } else this.tkn.inputs.front(f);
+  }
+  
+  cmd.exec = in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Accesses a particular frame of an array/string. If is an integer in the pipe then it will use that as
+/// the index and place the accessed first and increment the index for the next frame.
+Command.add(noodel.commandify("ạ"), function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      var index = undefined, saved;
+      if(f.type === "NUMBER")
+      {
+        index = f.valueify();
+        saved = f;
+        f = this.tkn.inputs.front();
+        if(!f) return;
+      }
+      
+      if(f.type === "STRING" || f.type === "ARRAY") {
+        if(f.frame === undefined) f.frame = index;
+        if(f.frame === undefined) f.frame = 0;
+        this.tkn.outputs.back(f.access(f.frame));
+        this.frame = (this.frame + 1) % f.length();
+        if(saved !== undefined) {
+          this.tkn.outputs.back(saved);
+        }
+      }
+    }
   }
   
   cmd.exec = in_to_out;
