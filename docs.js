@@ -99,7 +99,8 @@ $(".noodel-exec").each(function(){
   
   /// Character selector.
   (function(){ 
-    $toggle.click(function() {
+    $toggle.click(function(e) {
+      e.preventDefault();
       $chars.toggle(400);
     });
   })();
