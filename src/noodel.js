@@ -306,7 +306,7 @@ Command.add(noodel.commandify(characters.correct("Þ")), function(cmd) {
 Command.add(noodel.commandify(characters.correct("ḷ")), function(cmd) {
   cmd.exec = out_to_in;
   cmd.exec = function(tkn, path) {
-    tkn.inputs.pipe(tkn.path.end.outputs);
+    tkn.inputs.pipe(tkn.sub_path.end.outputs);
   }
   
   var old = cmd.tokenize;
