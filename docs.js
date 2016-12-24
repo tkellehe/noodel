@@ -53,7 +53,7 @@ $(".noodel-exec").each(function(){
       $button = $('<button></button>'),
       $chars  = $('<div class="noodel-chars"><center></center></div>'),
       $bytes  = $('<p></p>'),
-      $toggle = $("<a href=''>-</a>");
+      $toggle = $("<a href=''>character selector</a>");
   
   $this.append($bytes).append($editor).append($toggle).append($chars).append($button).append($input).append($output);
   
