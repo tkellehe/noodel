@@ -16,8 +16,8 @@ var int_to_char = [
 'ż','Æ','Ç','Ð','Ñ','Ø','Œ','Þ','ß','æ','ç','ı','ȷ','ñ','ø','œ',
 'þ','Ɓ','Ƈ','Ɗ','Ƒ','Ɠ','Ƙ','Ɲ','Ƥ','Ƭ','Ʋ','Ȥ','ɓ','ƈ','ɗ','ƒ',
 'ɠ','ɦ','ƙ','ɱ','ɲ','ƥ','ʠ','ɼ','ʂ','ƭ','ʋ','ȥ','€','¢','£','¥',
-'\t','\n',' ','µ','¡','¿','×','÷','¦','©','®','«','»','‘','’','“',
-'”','°','¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹','⁺','⁻','⁼','⁽','⁾'
+'½','µ','¡','¿','×','÷','¦','©','®','«','»','‘','’','“','”','°',
+'¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹','⁺','⁻','⁼','⁽','⁾','\n',' '
 ];
 
 var regexified = [
@@ -35,8 +35,8 @@ var regexified = [
 'ż','Æ','Ç','Ð','Ñ','Ø','Œ','Þ','ß','æ','ç','ı','ȷ','ñ','ø','œ',
 'þ','Ɓ','Ƈ','Ɗ','Ƒ','Ɠ','Ƙ','Ɲ','Ƥ','Ƭ','Ʋ','Ȥ','ɓ','ƈ','ɗ','ƒ',
 'ɠ','ɦ','ƙ','ɱ','ɲ','ƥ','ʠ','ɼ','ʂ','ƭ','ʋ','ȥ','€','¢','£','¥',
-'\t','\n',' ','µ','¡','¿','×','÷','¦','©','®','«','»','‘','’','“',
-'”','°','¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹','⁺','⁻','⁼','⁽','⁾'
+'½','µ','¡','¿','×','÷','¦','©','®','«','»','‘','’','“','”','°',
+'¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹','⁺','⁻','⁼','⁽','⁾','\\n',' '
 ];
 
 var char_to_int = {};
@@ -66,7 +66,7 @@ characters.char_to_int = function(c) { return char_to_int[c] };
 characters.printables = [];
 characters.printables.regexified = [];
 characters.printables.min = 0;
-characters.printables.max = 96;
+characters.printables.max = 97;
 (function(){
   for(var i = characters.printables.min; i <= characters.printables.max; ++i) {
     characters.printables.push(int_to_char[i]);
@@ -83,7 +83,7 @@ characters.printables.is = function(c) {
 
 characters.compressables = [];
 characters.compressables.min = 0;
-characters.compressables.max = 224;
+characters.compressables.max = 225;
 (function(){
   for(var i = characters.compressables.min; i <= characters.compressables.max; ++i) {
     characters.compressables.push(int_to_char[i]);
@@ -96,7 +96,7 @@ characters.compressables.is = function(c) {
 };
 
 characters.noncompressables = [];
-characters.noncompressables.min = 225;
+characters.noncompressables.min = 226;
 characters.noncompressables.max = 255;
 (function(){
   for(var i = characters.noncompressables.min; i <= characters.noncompressables.max; ++i) {
@@ -111,9 +111,8 @@ characters.noncompressables.is = function(c) {
 
 
 characters.printify_char = function(c) {
-  if(c === characters.chars[0]) return "\t";
-  if(c === characters.chars[1]) return "\n";
-  if(c === characters.chars[2]) return " ";
+  if(c === characters.correct("¶")) return "\n";
+  if(c === characters.correct("¤")) return " ";
   return c;
 };
 
@@ -124,9 +123,8 @@ characters.printify_string = function(s) {
 };
   
 characters.deprintify_char = function(c) {
-  if(c === "\t") return characters.chars[0];
-  if(c === "\n") return characters.chars[1];
-  if(c === " ") return characters.chars[2];
+  if(c === "\n") characters.correct("¶");
+  if(c === " ") characters.correct("¤");
   return c;
 };
   
