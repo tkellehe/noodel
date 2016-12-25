@@ -72,9 +72,17 @@ $(".noodel-exec").each(function(){
       $button = $('<button></button>'),
       $chars  = $('<div class="noodel-chars" hidden><center></center></div>'),
       $bytes  = $('<p></p>'),
-      $toggle = $("<center><a href=''>code pad</a></center>");
+      $toggle = $("<center><a href=''>code pad</a></center>"),
+      $container = $("<div hidden></div>"),
+      $hider = $("<center><a href=''>editor</a></center>");
   
-  $this.append($bytes).append($editor).append($toggle).append($chars).append($button).append($input).append($output);
+  $this.append($hider).append($container);
+  $container.append($bytes).append($editor).append($toggle).append($chars).append($button).append($input).append($output);
+  
+  $hider.click(function(e){
+    e.preventDefault();
+    $container.slideToggle(400);
+  });
   
   $editor.val($this.attr("code"));
   $input.val($this.attr("input"));
