@@ -1,4 +1,4 @@
-[_Noodel_](https://tkellehe.github.io/noodel) is a programming language that has the main focus of assisting ASCII Art code golfing challenges (and eventually other art/animation challenges). The main thing to focus on is the memory model of _Noodel_ which acts as a pipe of information moving through the different tokens. (In progress...) There also is a system of arrays that can be utilized and navigated in order to have a persistant memory. Since this has already turned into a paragraph of random information about _Noodel_, it also has its own [256 Unicode character set](code_page.md).
+[_Noodel_](https://tkellehe.github.io/noodel) is a programming language that has the main focus of assisting ASCII Art code golfing challenges (and eventually other art/animation challenges). The main thing to focus on is the memory model of _Noodel_ which acts as a pipe of information moving through the different tokens. There also is a system of arrays that can be utilized and navigated in order to have a persistant memory (In progress...). Since this has already turned into a paragraph of random information about _Noodel_, it also has its own [256 Unicode character set](code_page.md).
 
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -13,7 +13,10 @@
 <link rel="stylesheet" type="text/css" href="docs.css">
 <script type="text/javascript" src="docs.js"></script>
 
-<div class="noodel-exec"></div>
+<div class="noodel-exec" code="“¤noodel¤ḷçẹḍ/4" input="" run></div>
 
-## Basic Commands
+## Introduction
 
+_Noodel_ has three main data types: `NUMBER`s, `STRING`s, and `ARRAY`s. `ARRAY` objects are always passed by reference, but the others are passed by value[...]()
+
+<div class="noodel-exec" code="“Hello,¤World!" input=""></div>
