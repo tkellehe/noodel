@@ -125,7 +125,7 @@ $(".noodel-exec").each(function(){
   (function(c){ 
     $toggle.click(function(e) {
       e.preventDefault();
-      c.toggle(400);
+      c.slideToggle(400);
     });
   })($chars);
   
