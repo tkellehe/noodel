@@ -123,7 +123,7 @@ $(".noodel-exec").each(function(){
   };
   
   $button.click(clickRun);
-  if($this.attr("run")) $button.trigger("click");
+  if($this.attr("run") !== undefined) $button.trigger("click");
   
   /// Character selector.
   (function(c){ 
