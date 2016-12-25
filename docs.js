@@ -158,8 +158,7 @@ $(".noodel-exec").each(function(){
   for(var i = 0; i < characters.chars.length; ++i) {(function(){
     var char = nbsRemove(characters.chars[i]),
         echar = nbsAdd(characters.chars[i]);
-    if(char === "\n") echar = "\\n";
-    else if(char === "\t") echar = "\\t";
+    if(char === "\n") echar = "&#8629;";
     var $letter = $("<a href=''>"+HtmlEncode(echar)+"</a>");
     $letter.click(function(e){
       e.preventDefault();
