@@ -17,6 +17,6 @@
 
 ## Introduction
 
-_Noodel_ has three main data types: __NUMBER__s, __STRING__s, and __ARRAY__s. __ARRAY__ objects are always passed by reference, but the others are passed by value[...]()
+_Noodel_ has three main data types: __NUMBER__ s, __STRING__ s, and __ARRAY__ s. __ARRAY__ objects are always passed by reference, but the others are passed by value[...]()
 
 <div class="noodel-exec" code="“Hello,¤World!" input=""></div>
