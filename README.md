@@ -19,7 +19,7 @@
 
 _Noodel_ has three main data types: `NUMBER`, `STRING`, and `ARRAY`. `ARRAY` objects are always passed by reference, but the others are passed by value [(...)]()
 
-A _Hello World_ in _Noodel_ is pretty [simple](https://tkellehe.github.io/noodel):
+A [_Hello World_](https://tkellehe.github.io/noodel) in _Noodel_ is pretty simple:
 
 <div class="noodel-exec" code="“Hello,¤World!" input=""></div>
 
