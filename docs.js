@@ -19,10 +19,10 @@
     var $this = $(this);
     if(pos !== undefined) {
       var l = $this.val().length;
-      $this.prop("cursor_pos", pos < 0 ? 0 : (pos < l ? pos : l));
+      $this.attr("cursor_pos", pos < 0 ? 0 : (pos < l ? pos : l));
       return this;
     } else {
-      pos = $this.prop("cursor_pos");
+      pos = $this.attr("cursor_pos");
       return pos ? pos : 0;
     }
   };
@@ -76,8 +76,8 @@ $(".noodel-exec").each(function(){
   
   $this.append($bytes).append($editor).append($toggle).append($chars).append($button).append($input).append($output);
   
-  $editor.val($this.prop("code"));
-  $input.val($this.prop("input"));
+  $editor.val($this.attr("code"));
+  $input.val($this.attr("input"));
   
   $editor.focus(function(){
     $editor.cursorPos($editor.getCursorPosition());
@@ -123,7 +123,7 @@ $(".noodel-exec").each(function(){
   };
   
   $button.click(clickRun);
-  if($this.prop("run")) $button.trigger("click");
+  if($this.attr("run")) $button.trigger("click");
   
   /// Character selector.
   (function(c){ 
