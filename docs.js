@@ -1,5 +1,17 @@
 (function(global, $, noodel, STRING, characters){
 
+var nbs = String.fromCharCode(160),
+    space = String.fromCharCode(32);
+  
+var nbsRemoveRegex = new RegExp(nbs,"g");
+function nbsRemove(string) {
+  return string.replace(nbsRemoveRegex, space);
+};
+var nbsAddRegex = new RegExp(space,"g");
+function nbsAdd(string) {
+  return string.replace(nbsAddRegex, nbs);
+};
+  
 (function ($) {
   $.fn.getCursorPosition = function() {
     var el = $(this).get(0);
@@ -33,20 +45,22 @@
     $this.cursorPos(pos+char.length);
     $this.trigger("input");
   };
+  $.makeUrl = function(params) {
+    return window.location.href.replace(window.location.search,'') + "?" + $.param(params);
+  };
+  $.getUrlParam = function(name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results) {
+      return results[1] || "";
+    }
+  };
+  $.getUrlParamDecoded = function(name) {
+    var result = $.urlParam(name);
+    if(result !== undefined) return nbsRemove(decodeURIComponent(result));
+    return "";
+  };
 })(jQuery);
 
-    
-var nbs = String.fromCharCode(160),
-    space = String.fromCharCode(32);
-  
-var nbsRemoveRegex = new RegExp(nbs,"g");
-function nbsRemove(string) {
-  return string.replace(nbsRemoveRegex, space);
-};
-var nbsAddRegex = new RegExp(space,"g");
-function nbsAdd(string) {
-  return string.replace(nbsAddRegex, nbs);
-};
     
 function HtmlEncode(string) {
   var el = document.createElement("div");
@@ -75,6 +89,8 @@ $(".noodel-exec").each(function(){
       $toggle = $("<center><a href=''>code pad</a></center>"),
       $container = $("<div hidden></div>"),
       $hider = $("<center><a href=''>editor</a></center>");
+  
+  if($this.attr("show") !== undefined) $container.prop("hidden", false);
   
   $this.append($hider).append($container);
   $container.append($bytes).append($editor).append($toggle).append($chars).append($button).append($input).append($output);
