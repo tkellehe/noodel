@@ -158,9 +158,12 @@ $(".noodel-exec").each(function(){
   for(var i = 0; i < characters.chars.length; ++i) {(function(){
     var char = nbsRemove(characters.chars[i]),
         echar = nbsAdd(characters.chars[i]);
-    if(char === "\n") echar = "&#8629;";
-    var $letter = $("<a href=''>"+HtmlEncode(echar)+"</a>");
-    $letter.click(function(e){
+      if(char === "\n") {
+        var $letter = $("<a href=''>&#8629;</a>");
+      } else {
+        var $letter = $("<a href=''>"+HtmlEncode(echar)+"</a>");
+      }
+      $letter.click(function(e){
       e.preventDefault();
       $editor.typeInput(char);
     });
