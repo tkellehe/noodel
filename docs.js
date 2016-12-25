@@ -76,6 +76,9 @@ $(".noodel-exec").each(function(){
   
   $this.append($bytes).append($editor).append($toggle).append($chars).append($button).append($input).append($output);
   
+  $editor.val($this.prop("code"));
+  $input.val($this.prop("input"));
+  
   $editor.focus(function(){
     $editor.cursorPos($editor.getCursorPosition());
   });
@@ -120,6 +123,7 @@ $(".noodel-exec").each(function(){
   };
   
   $button.click(clickRun);
+  if($this.prop("run")) $button.trigger("click");
   
   /// Character selector.
   (function(c){ 
