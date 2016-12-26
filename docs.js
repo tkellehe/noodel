@@ -55,7 +55,7 @@ function nbsAdd(string) {
     }
   };
   $.getUrlParamDecoded = function(name) {
-    var result = $.urlParam(name);
+    var result = $.getUrlParam(name);
     if(result !== undefined) return nbsRemove(decodeURIComponent(result));
     return "";
   };
