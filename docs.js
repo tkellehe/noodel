@@ -221,12 +221,16 @@ $(".noodel-share").each(function(){
     
   $share.click(function(){
     var url = $.makeUrl({code:nbsRemove($code.val()), input:nbsRemove($input.val()),
-                         run:$cb_run.is(":checked")});
+                         run:$cb_run.prop("checked")});
     window.location.href = url;
   });
   
   $code.val(nbsAdd($.getUrlParamDecoded("code")));
   $input.val(nbsAdd($.getUrlParamDecoded("input")));
+  if($.getUrlParam("run") === "true") {
+    $cb_run.prop("checked", true);
+    $button.trigger("click");
+  }
   
 }); // End of .noodel-share regions.
     
