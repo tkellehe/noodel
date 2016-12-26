@@ -205,6 +205,31 @@ $(".noodel-exec").each(function(){
     
 }); // End of .noodel-exec regions.
 
-});
+$(".noodel-share").each(function(){
+  var $this = $(this),
+      $container = $("<div></div>"),
+      $share = $("<button class='noodel-share-button'>share</button>"),
+      $cb_run = $("<input type='checkbox'>Start script running.</input>");
+  $container.append($share).append($cb_run);
+  $this.append($container);
+  
+  // Must be at least one editor.
+  var $editor = $($(".noodel-exec")[0]),
+      $input = $($editor.children(".noodel-input")[0]),
+      $button = $($editor.children("button")[0]),
+      $code = $($editor.children(".noodel-editor")[0]);
+    
+  $share.click(function(){
+    var url = $.makeUrl({code:nbsRemove($code.val()), input:nbsRemove($input.val()),
+                         run:$cb_run.is(":checked")});
+    window.location.href = url;
+  });
+  
+  $code.val(nbsAdd($.getUrlParamDecoded("code")));
+  $input.val(nbsAdd($.getUrlParamDecoded("input")));
+  
+}); // End of .noodel-share regions.
+    
+}); // End of the onload function.
 
 })(this, this.$, this.noodel, this.types.STRING, this.characters)
