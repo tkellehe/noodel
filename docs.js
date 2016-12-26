@@ -5,10 +5,12 @@ var nbs = String.fromCharCode(160),
   
 var nbsRemoveRegex = new RegExp(nbs,"g");
 function nbsRemove(string) {
+  if(!string) return "";
   return string.replace(nbsRemoveRegex, space);
 };
 var nbsAddRegex = new RegExp(space,"g");
 function nbsAdd(string) {
+  if(!string) return "";
   return string.replace(nbsAddRegex, nbs);
 };
   
