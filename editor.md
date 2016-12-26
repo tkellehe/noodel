@@ -1,3 +1,5 @@
+[HOME](README.md)
+
 Click [_Noodel_](https://tkellehe.github.io/noodel/editor.html) to actually see the editor if not on the _Noodel_ page:)
 
 
