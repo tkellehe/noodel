@@ -228,6 +228,7 @@ $(".noodel-share").each(function(){
   });
   
   $code.val(nbsAdd($.getUrlParamDecoded("code")));
+  $code.trigger("input");
   $input.val(nbsAdd($.getUrlParamDecoded("input")));
   if($.getUrlParam("run") === "true") {
     $cb_run.prop("checked", true);
