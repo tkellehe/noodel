@@ -217,10 +217,10 @@ $(".noodel-share").each(function(){
   
   // Must be at least one editor.
   var $editor = $($(".noodel-exec")[0]),
-      $input = $($editor.children(".noodel-input")[0]),
-      $button = $($editor.children("button")[0]),
-      $code = $($editor.children(".noodel-editor")[0]);
-  console.log($code);
+      $input = $($(".noodel-exec div .noodel-input")[0]),
+      $button = $($(".noodel-exec div button")[0]),
+      $code = $($(".noodel-exec div .noodel-editor")[0]);
+  
   $share.click(function(){
     var url = $.makeUrl({code:nbsRemove($code.val()), input:nbsRemove($input.val()),
                          run:$cb_run.prop("checked")});
