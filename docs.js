@@ -220,7 +220,7 @@ $(".noodel-share").each(function(){
       $input = $($editor.children(".noodel-input")[0]),
       $button = $($editor.children("button")[0]),
       $code = $($editor.children(".noodel-editor")[0]);
-    
+  console.log($code);
   $share.click(function(){
     var url = $.makeUrl({code:nbsRemove($code.val()), input:nbsRemove($input.val()),
                          run:$cb_run.prop("checked")});
