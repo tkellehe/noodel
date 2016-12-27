@@ -148,7 +148,7 @@ STRING.prototype.type = "STRING";
           }
         }
       }
-      end += string.length;
+      end += add.length;
       string = "";
       res += add;
     }
