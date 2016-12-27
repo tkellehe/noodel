@@ -464,7 +464,7 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
   cmd.exec = noodel.in_to_out;
   
   cmd.exec = function(path) {
-    if(this.next()) this.tkn.looper.outputs.pipe(this.tkn.outputs);
+    if(this.tkn.next()) this.tkn.looper.outputs.pipe(this.tkn.outputs);
   }
 });
 
