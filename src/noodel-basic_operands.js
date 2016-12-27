@@ -5,6 +5,36 @@
 //------------------------------------------------------------------------------------------------------------
   
 //------------------------------------------------------------------------------------------------------------
+// Increments the item in the pipe.
+Command.add(noodel.commandify(characters.correct("+")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      this.tkn.outputs.back(f.increment(this.tkn));
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
+  
+//------------------------------------------------------------------------------------------------------------
+// Decrements the item in the pipe.
+Command.add(noodel.commandify(characters.correct("-")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      this.tkn.outputs.back(f.decrement(this.tkn));
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
+  
+//------------------------------------------------------------------------------------------------------------
 // Adds two items in the pipe where the first is the lhs and the second is the rhs.
 Command.add(noodel.commandify(characters.correct("⁺")), function(cmd) {
   cmd.exec = noodel.out_to_in;
