@@ -42,6 +42,7 @@ Command.add(noodel.commandify(characters.correct("ḷ")), function(cmd) {
 Command.add(noodel.commandify(characters.correct("Ḷ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   cmd.exec = function(path) {
+    this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
     var tkn = this.tkn;
     if(tkn.count === undefined) {
       tkn.next = function() { return tkn.sub_path.start };
@@ -57,7 +58,6 @@ Command.add(noodel.commandify(characters.correct("Ḷ")), function(cmd) {
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
     }
-    this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
   }
   
   var old = cmd.tokenize;
@@ -83,6 +83,7 @@ Command.add(noodel.commandify(characters.correct("Ḷ")), function(cmd) {
 Command.add(noodel.commandify(characters.correct("ṃ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   cmd.exec = function(path) {
+    this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
     var tkn = this.tkn, f = tkn.inputs.front();
     if(f && f.is_truthy().valueify()) {
       tkn.inputs.front(f);
@@ -91,7 +92,6 @@ Command.add(noodel.commandify(characters.correct("ṃ")), function(cmd) {
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
     }
-    this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
   }
   
   var old = cmd.tokenize;
@@ -117,6 +117,7 @@ Command.add(noodel.commandify(characters.correct("ṃ")), function(cmd) {
 Command.add(noodel.commandify(characters.correct("Ṃ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   cmd.exec = function(path) {
+    this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
     var tkn = this.tkn, f = tkn.inputs.front();
     if(f && f.is_truthy().valueify()) {
       tkn.next = function() { return tkn.sub_path.start }
@@ -124,7 +125,6 @@ Command.add(noodel.commandify(characters.correct("Ṃ")), function(cmd) {
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
     }
-    this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
   }
   
   var old = cmd.tokenize;
