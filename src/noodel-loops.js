@@ -107,7 +107,7 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Breaks out of a looping command depending on if the first item in the pipe is falsy which is removed.
-Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
+Command.add(noodel.commandify(characters.correct("Ḅ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   var old = cmd.tokenize;
@@ -132,7 +132,7 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
     this.tkn.next = this.tkn.old_next;
     
     var f = this.tkn.front();
-    if(f && f.is_truthy()) {
+    if(f && f.is_truthy().valueify()) {
       this.tkn.front(f);
     } else {
       this.didBreak = true;
