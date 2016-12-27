@@ -41,4 +41,22 @@ Command.add(noodel.commandify(characters.correct("ė")), function(cmd) {
   cmd.exec = noodel.in_to_out;
 });
 
+//------------------------------------------------------------------------------------------------------------
+Command.add(noodel.commandify(characters.correct("ʂ")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      var g = this.tkn.inputs.front();
+      if(g) {
+        this.tkn.outputs.back(g);
+      }
+      this.tkn.outputs.back(f);
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
