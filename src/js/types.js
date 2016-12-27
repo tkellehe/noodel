@@ -137,19 +137,20 @@ STRING.prototype.type = "STRING";
 (function(){
   STRING.formats = [];
   function format(str) {
-    var string = "", end = 0, res = "", temp;
+    var string = "", end = 0, res = "", add = "", temp;
     while(end < str.length) {
       for(var c = end; c < str.length; ++c) {
         string += str[c];
         for(var i = 0; i < STRING.formats.length; ++i) {
           temp = STRING.formats[i].call(this, string);
           if(temp !== undefined) {
-            res = temp;
+            add = temp;
           }
         }
       }
       end += string.length;
       string = "";
+      res += add;
     }
     return res;
   };
