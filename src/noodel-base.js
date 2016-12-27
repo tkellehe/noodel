@@ -466,7 +466,7 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
     }
     
     tkn.looper = p;
-    tkn.next = function() { return p.branches.first() }
+    tkn.next = function() { var f = p.branches.first(); return f === p.sub_path.end ? undefined : f }
     
     return old.call(this);
   };
