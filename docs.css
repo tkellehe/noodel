@@ -57,3 +57,17 @@ div.noodel-chars a {
       -ms-user-select: none; /* Internet Explorer/Edge */
           user-select: none;
 }
+
+div.noodel-char_table {
+  
+}
+
+div.noodel-char_table a {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+  background-color: #dddddd;
+  color: black;
+}
