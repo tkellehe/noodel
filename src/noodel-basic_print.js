@@ -40,7 +40,7 @@ Command.add(noodel.commandify(characters.correct("Ç")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Places what is in the front of the pipe into the path's output.
-Command.add(noodel.commandify(characters.correct("þ")), function(cmd) {
+Command.add(noodel.commandify(characters.correct("Þ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -55,7 +55,7 @@ Command.add(noodel.commandify(characters.correct("þ")), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Copies what is in the front of the pipe into the path's output.
-Command.add(noodel.commandify(characters.correct("Þ")), function(cmd) {
+Command.add(noodel.commandify(characters.correct("þ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
