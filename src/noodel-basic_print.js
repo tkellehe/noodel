@@ -76,7 +76,7 @@ Command.add(noodel.commandify(characters.correct("€")), function(cmd) {
   cmd.exec = function(path) {
     var f = this.tkn.inputs.first();
     this.tkn.path.exceptions.back(new STRING("¶[EXCEPTION]:"));
-    this.tkn.path.exceptions.back(f ? f : new STRING("STD EMPTY ERROR¶"));
+    this.tkn.path.exceptions.back(f ? f : new STRING("<UNDEFINED>¶"));
   }
         
   var old = cmd.tokenize;
