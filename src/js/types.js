@@ -91,6 +91,14 @@ NUMBER.prototype.printify = function() {
 }
 
 /// Operators
+NUMBER.prototype.increment = function(tkn) {
+  return new NUMBER(this.value + 1);
+}
+
+NUMBER.prototype.decrement = function(tkn) {
+  return new NUMBER(this.value - 1);
+}
+
 NUMBER.prototype.add = function(rhs, tkn) {
   var v = rhs;
   if(is_TYPE(v)) v = v.valueify();
@@ -181,8 +189,8 @@ STRING.prototype.stringify = function() {
   return this.copy();
 }
 STRING.prototype.arrayify = function() {
-  var a = [];
-  for(var i = 0; i < this.value.length; ++i) a.push(new STRING(this.value[i]));
+  var a = [], s = this.value.split(characters.correct("ð"));
+  for(var i = 0; i < s.length; ++i) a.push(new STRING(s[i]));
   return new ARRAY(a);
 }
 STRING.prototype.numberify = function() {
@@ -196,6 +204,20 @@ STRING.prototype.printify = function() {
 }
 
 /// Operators
+STRING.prototype.increment = function(tkn) {
+  var s = "", f = tkn.inputs.front();
+  if(f) {
+    s = f.stringify();
+  }
+  return new STRING(this.value + s);
+}
+
+STRING.prototype.decrement = function(tkn) {
+  var s = this.value.slice(0, 1);
+  tkn.outputs.back(new STRING(s));
+  return new STRING(this.value.slice(1, this.value.length));
+}
+
 STRING.prototype.add = function(rhs, tkn) {
   var v = rhs;
   if(is_TYPE(v)) v = v.valueify();
@@ -264,7 +286,9 @@ ARRAY.prototype.valueify = function() {
 }
 ARRAY.prototype.stringify = function() {
   var s = "";
-  for(var i = 0; i < this.value.length; ++i) s += this.value[i].stringify().toString();
+  for(var i = 0; i < this.value.length; ++i) s += this.value[i].stringify().toString() + characters.correct("ð");
+  // Removes the last block character.
+  s = s.slice(0, s.length - 1);
   return new STRING(s);
 }
 ARRAY.prototype.arrayify = function() {
@@ -285,6 +309,20 @@ ARRAY.prototype.printify = function() {
 }
 
 /// Operators
+ARRAY.prototype.increment = function(tkn) {
+  var f = tkn.inputs.front();
+  if(f) {
+    this.value.push(f);
+  }
+  return this;
+}
+
+ARRAY.prototype.decrement = function(tkn) {
+  var s = this.value.pop();
+  if(s) tkn.outputs.back(s);
+  return this;
+}
+
 ARRAY.prototype.add = function(rhs, tkn) {
   for(var i = 0; i < this.value.length; ++i) {
     this.value[i] = this.value[i].add(rhs, tkn);
