@@ -59,7 +59,7 @@ Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_prin
   cmd.exec = in_to_out;
 });
   
-//------------------------------------------------------------------------------------------------------------
+/*//------------------------------------------------------------------------------------------------------------
 // Creates a number and places it into the pipe.
 Command.add(new RegExp("^((?:\\d*\\.\\d+)|(?:\\d+))$"), function(cmd) {
   cmd.exec = out_to_in;
@@ -69,7 +69,7 @@ Command.add(new RegExp("^((?:\\d*\\.\\d+)|(?:\\d+))$"), function(cmd) {
   }
   
   cmd.exec = in_to_out;
-});
+});*/
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number based off of a fraction and places it into the pipe.
