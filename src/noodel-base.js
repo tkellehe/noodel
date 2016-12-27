@@ -443,7 +443,7 @@ Command.add(noodel.commandify(characters.correct("Ḷ")), function(cmd) {
 Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
-  var old = cmd.tokenize;
+  var old = cmd.tokenize, next;
   cmd.tokenize = function() {
     var tkn = this.tkn, p = tkn.parent;
     while(p.literal !== characters.correct("ḷ") &&
@@ -452,10 +452,9 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
     }
     
     tkn.looper = p;
-    tkn.next = function() {
-      var f = tkn.looper.branches.first();
-      return (f === tkn.looper.sub_path.start) ? undefined : f
-    };
+    next = tkn.looper.branches.first();
+    next = next === tkn.looper.sub_path.start ? undefined : next;
+    tkn.next = function() { return next };
     
     return old.call(this);
   };
@@ -463,7 +462,7 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
   cmd.exec = noodel.in_to_out;
   
   cmd.exec = function(path) {
-    this.tkn.looper.outputs.pipe(this.tkn.outputs);
+    if(next) this.tkn.looper.outputs.pipe(this.tkn.outputs);
   }
 });
 
