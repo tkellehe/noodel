@@ -78,4 +78,5 @@ div.noodel-char_table a {
   border-radius: 3px;
   background-color: #dddddd;
   color: black;
+  cursor: default;
 }
