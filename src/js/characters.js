@@ -129,7 +129,7 @@ characters.printify_string = function(s) {
     }
   }
   r = "";
-  for(var i = 0; i < rows.length; ++i) r += rows[i] === undefined ? "" : rows[i]; 
+  for(var i = 0; i < rows.length; ++i) r += "\n" + (rows[i] === undefined ? "" : rows[i]); 
   return r;
 };
   
