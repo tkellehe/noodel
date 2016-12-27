@@ -3,6 +3,11 @@
 //------------------------------------------------------------------------------------------------------------
 /// Loops.
 //------------------------------------------------------------------------------------------------------------
+
+Command.is_loop = function(literal) {
+  return literal !== characters.correct("ḷ") &&
+         literal !== characters.correct("Ḷ");
+}
   
 //------------------------------------------------------------------------------------------------------------
 // Contiously loops the code following it up to a new line.
@@ -74,6 +79,73 @@ Command.add(noodel.commandify(characters.correct("Ḷ")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
+// Loops as long as there is something in the front of the pipe that is truthy and removes if falsy.
+Command.add(noodel.commandify(characters.correct("ṃ")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  cmd.exec = function(path) {
+    var tkn = this.tkn, f = tkn.inputs.front();
+    if(f && f.is_truthy().valueify()) {
+      tkn.inputs.front(f);
+      tkn.next = function() { return tkn.sub_path.start }
+    } else {
+      // Have to make sure account for if the end if the sub_path is the end of the prgm.
+      tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
+    }
+    this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var tkn = this.tkn;
+    tkn.content = "";
+    for(var i = tkn.end+1; i < tkn.code.length && tkn.code[i] !== "\n"; ++i)
+      tkn.content += tkn.code[i];
+    if(tkn.code[i] === "\n") tkn.content += "\n";
+    tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
+    tkn.sub_path = new Path(tkn.content, tkn);
+    tkn.branches.front(tkn.sub_path.start);
+    tkn.sub_path.end.branches.front(tkn);
+    
+    return old.call(this);
+  };
+  
+  cmd.exec = noodel.in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Loops as long as there is something in the front of the pipe that is truthy and always removes.
+Command.add(noodel.commandify(characters.correct("Ṃ")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  cmd.exec = function(path) {
+    var tkn = this.tkn, f = tkn.inputs.front();
+    if(f && f.is_truthy().valueify()) {
+      tkn.next = function() { return tkn.sub_path.start }
+    } else {
+      // Have to make sure account for if the end if the sub_path is the end of the prgm.
+      tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
+    }
+    this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var tkn = this.tkn;
+    tkn.content = "";
+    for(var i = tkn.end+1; i < tkn.code.length && tkn.code[i] !== "\n"; ++i)
+      tkn.content += tkn.code[i];
+    if(tkn.code[i] === "\n") tkn.content += "\n";
+    tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
+    tkn.sub_path = new Path(tkn.content, tkn);
+    tkn.branches.front(tkn.sub_path.start);
+    tkn.sub_path.end.branches.front(tkn);
+    
+    return old.call(this);
+  };
+  
+  cmd.exec = noodel.in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
 /// Breaks out of a looping command.
 Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
@@ -81,9 +153,7 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     var tkn = this.tkn, p = tkn.parent;
-    while(p.literal !== characters.correct("ḷ") &&
-          p.literal !== characters.correct("Ḷ") &&
-          !p.has_break) {
+    while(Command.is_loop(p.literal) && !p.has_break) {
       p = p.parent;
     }
     
@@ -113,9 +183,7 @@ Command.add(noodel.commandify(characters.correct("Ḅ")), function(cmd) {
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     var tkn = this.tkn, p = tkn.parent;
-    while(p.literal !== characters.correct("ḷ") &&
-          p.literal !== characters.correct("Ḷ") &&
-          !p.has_break) {
+    while(Command.is_loop(p.literal) && !p.has_break) {
       p = p.parent;
     }
     
