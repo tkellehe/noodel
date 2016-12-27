@@ -6,7 +6,13 @@
 <script src="src/js/characters.js"></script>
 <script src="src/js/types.js"></script>
 <script src="src/noodel.js"></script>
-<script src="src/noodel-base.js"></script>
+<script src="src/noodel-basic_array.js"></script>
+<script src="src/noodel-basic_cast.js"></script>
+<script src="src/noodel-basic_operands.js"></script>
+<script src="src/noodel-basic_pipe.js"></script>
+<script src="src/noodel-basic_print.js"></script>
+<script src="src/noodel-literals.js"></script>
+<script src="src/noodel-loops.js"></script>
 
 <link rel="stylesheet" type="text/css" href="docs.css">
 <script type="text/javascript" src="docs.js"></script>
