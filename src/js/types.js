@@ -278,7 +278,9 @@ ARRAY.prototype.integerify = function() {
 }
 ARRAY.prototype.printify = function() {
   var s = "";
-  for(var i = 0; i < this.value.length; ++i) s += this.value[i].printify();
+  for(var i = 0; i < this.value.length; ++i) s += this.value[i].printify() + characters.correct("ð");
+  // Removes the last block character.
+  s = s.slice(0, s.length - 1);
   return s;
 }
 
