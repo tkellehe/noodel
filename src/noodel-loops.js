@@ -82,11 +82,13 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
   cmd.tokenize = function() {
     var tkn = this.tkn, p = tkn.parent;
     while(p.literal !== characters.correct("ḷ") &&
-          p.literal !== characters.correct("Ḷ")) {
+          p.literal !== characters.correct("Ḷ") &&
+          !p.has_break) {
       p = p.parent;
     }
     
     tkn.looper = p;
+    p.has_break = tkn;
     
     tkn.next = function() {
       var next = tkn.looper.branches.first();
@@ -100,6 +102,55 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
   
   cmd.exec = function(path) {
     if(this.tkn.next()) this.tkn.looper.outputs.pipe(this.tkn.outputs);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Breaks out of a looping command depending on if the first item in the pipe is falsy which is removed.
+Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var tkn = this.tkn, p = tkn.parent;
+    while(p.literal !== characters.correct("ḷ") &&
+          p.literal !== characters.correct("Ḷ") &&
+          !p.has_break) {
+      p = p.parent;
+    }
+    
+    tkn.looper = p;
+    p.has_break = tkn;
+    this.tkn.old_next = this.tkn.next;
+    
+    return old.call(this);
+  };
+  
+  cmd.exec = function(path) {
+    // Must reset everything.
+    this.tkn.didBreak = false;
+    this.tkn.next = this.tkn.old_next;
+    
+    var f = this.tkn.front();
+    if(f && f.is_truthy()) {
+      this.tkn.front(f);
+    } else {
+      this.didBreak = true;
+      this.tkn.old_next = this.tkn.next;
+      var tkn = this.tkn;
+      tkn.next = function() {
+        var next = tkn.looper.branches.first();
+        return next === tkn.looper.sub_path.start ? undefined : next
+      };
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+  
+  cmd.exec = function(path) {
+    if(this.tkn.didBreak && this.tkn.next()) {
+      this.tkn.looper.outputs.pipe(this.tkn.outputs);
+    }
   }
 });
 
