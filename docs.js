@@ -244,22 +244,23 @@ $(".noodel-share").each(function(){
 }); // End of .noodel-share regions.
 
 $(".noodel-char_table").each(function(){
-  var $this = $(this);
+  var $this = $(this),
+      $container = $("<center></center>");
+  $this.append($container);
   
   for(var i = 0; i < characters.chars.length; ++i) {(function(){
     var char = nbsRemove(characters.chars[i]),
         echar = nbsAdd(characters.chars[i]);
-      if(char === "\n") {
-        var $letter = $("<a href=''>&#8629;</a>");
-      } else {
-        var $letter = $("<a href=''>"+HtmlEncode(echar)+"</a>");
-      }
-      $letter.click(function(e){
+    if(char === "\n") {
+      var $letter = $("<a href=''>&#8629;</a>");
+    } else {
+      var $letter = $("<a href=''>"+HtmlEncode(echar)+"</a>");
+    }
+    $letter.click(function(e){
       e.preventDefault();
-      $editor.typeInput(char);
     });
-    if((i+1) % 16) $this.append($letter);
-    else $this.append($letter).append("<br>");
+    if((i+1) % 16) $container.append($letter);
+    else $container.append($letter).append("<br>");
   })()}
   
 }); // End of .noodel-char_table regions.
