@@ -25,6 +25,10 @@ _Noodel_ has three main data types: `NUMBER`, `STRING`, and `ARRAY`. `ARRAY` obj
 
 A _"Hello World"_ in [_Noodel_](https://tkellehe.github.io/noodel#introduction) is pretty simple: `“Hello,¤World!`
 
+---
+
 <div class="noodel-exec" code="“Hello,¤World!" input=""></div>
+
+---
 
 The `STRING` literal is created and placed into the pipe. At the very end, all of the data in the pipe gets pushed into the output of the program. Therein, the `Hello,¤World!` gets printed. But what happened to the `¤`? The `¤` is used to represent a space when handling `STRING` types. This allows for the space character to act as a NOP to seperate commands. The same was done with the line feed character which is represented by `¶`.
