@@ -115,6 +115,16 @@ NUMBER.prototype.sub_flip = function(lhs, tkn) {
   return new NUMBER(to_number(v) - this.value);
 }
 
+/// Misc.
+
+NUMBER.prototype.is_truthy = function() {
+  return new NUMBER(this.value ? 1 : 0);
+}
+
+NUMBER.prototype.is_falsy = function() {
+  return new NUMBER(this.value ? 0 : 1);
+}
+
 types.NUMBER = NUMBER;
 
 //------------------------------------------------------------------------------------------------------------
@@ -123,6 +133,36 @@ function STRING(v) {
 }
 
 STRING.prototype.type = "STRING";
+
+(function(){
+  STRING.formats = [];
+  function format(str) {
+    var string = "", end = 0, res = "", temp;
+    while(end < str.length) {
+      for(var c = end; c < str.length; ++c) {
+        string += str[c];
+        for(var i = 0; i < STRING.formats.length; ++i) {
+          temp = STRING.formats[i].call(this, string);
+          if(temp !== undefined) {
+            res = temp;
+          }
+        }
+      }
+      end += string.length;
+      string = "";
+    }
+    return res;
+  };
+  STRING.prototype.format = format;
+  Object.defineProperty(STRING, "format", {
+    get: function() { return STRING.formats },
+    set: function(v) { STRING.formats.push(v) },
+    enumberable: true
+  });
+  STRING.format = function(str) {
+    if(str.length === 1) return str;
+  }
+})()
 
 STRING.prototype.toString = function() {
   return this.value;
@@ -151,7 +191,7 @@ STRING.prototype.integerify = function() {
   return new NUMBER(to_integer(this.value));
 }
 STRING.prototype.printify = function() {
-  return characters.printify_string(this.value);
+  return this.format(characters.printify_string(this.value));
 }
 
 /// Operators
@@ -187,6 +227,16 @@ STRING.prototype.access = function(index) {
 STRING.prototype.length = function() {
   return this.value.length;
 };
+
+/// Misc.
+
+STRING.prototype.is_truthy = function() {
+  return new NUMBER(this.length() ? 1 : 0);
+}
+
+STRING.prototype.is_falsy = function() {
+  return new NUMBER(this.length() ? 0 : 1);
+}
 
 types.STRING = STRING;
 
@@ -268,6 +318,16 @@ ARRAY.prototype.access = function(index) {
 ARRAY.prototype.length = function() {
   return this.value.length;
 };
+
+/// Misc.
+
+ARRAY.prototype.is_truthy = function() {
+  return new NUMBER(this.length() ? 1 : 0);
+}
+
+ARRAY.prototype.is_falsy = function() {
+  return new NUMBER(this.length() ? 0 : 1);
+}
 
 types.ARRAY = ARRAY;
 
