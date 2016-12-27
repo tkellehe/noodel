@@ -17,6 +17,25 @@ Command.add(noodel.commandify(characters.correct("“"), characters.regex.a_prin
 });
 
 //------------------------------------------------------------------------------------------------------------
+// Handles basic compressed string literals of printable characters.
+Command.add(noodel.commandify(characters.correct("”"), characters.regex.a_compressable + "*"), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    this.tkn.outputs.back(new STRING(this.tkn.content));
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.content = characters.decompress_basic(this.tkn.params[0]);
+    
+    return old.call(this);
+  };
+  
+  cmd.exec = noodel.in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
 // Creates and array of strings from each printable character following it.
 Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_printable + "*"), function(cmd) {
   cmd.exec = noodel.out_to_in;
@@ -27,6 +46,28 @@ Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_prin
       a.push(new STRING(this.tkn.params[0][i]));
     this.tkn.outputs.back(new ARRAY(a));
   }
+  
+  cmd.exec = noodel.in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Creates and array of strings from each printable character following it after basic decompressing.
+Command.add(noodel.commandify(characters.correct("’"), characters.regex.a_compressables + "*"), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var a = [];
+    for(var i = 0; i < this.tkn.content.length; ++i)
+      a.push(new STRING(this.tkn.content[i]));
+    this.tkn.outputs.back(new ARRAY(a));
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.content = characters.decompress_basic(this.tkn.params[0]);
+    
+    return old.call(this);
+  };
   
   cmd.exec = noodel.in_to_out;
 });
