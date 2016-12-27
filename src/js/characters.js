@@ -128,8 +128,8 @@ characters.printify_string = function(s) {
       else rows[row] += block[j];
     }
   }
-  r = "";
-  for(var i = 0; i < rows.length; ++i) r += "\n" + (rows[i] === undefined ? "" : rows[i]); 
+  r = (rows[0] === undefined ? "" : rows[0]);
+  for(var i = 1; i < rows.length; ++i) r += "\n" + (rows[i] === undefined ? "" : rows[i]); 
   return r;
 };
   
