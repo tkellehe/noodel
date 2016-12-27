@@ -6,6 +6,7 @@
 <script src="src/js/characters.js"></script>
 <script src="src/js/types.js"></script>
 <script src="src/noodel.js"></script>
+<script src="src/noodel-base.js"></script>
 
 <link rel="stylesheet" type="text/css" href="docs.css">
 <script type="text/javascript" src="docs.js"></script>
