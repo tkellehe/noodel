@@ -32,4 +32,8 @@ A _"Hello World"_ in [_Noodel_](https://tkellehe.github.io/noodel#introduction) 
 
 ---
 
-The `STRING` literal is created and placed into the pipe. At the very end, all of the data in the pipe gets pushed into the output of the program. Therein, the `Hello,¤World!` gets printed. But what happened to the `¤`? The `¤` is used to represent a space when handling `STRING` types. This allows for the space character to act as a NOP to seperate commands. The same was done with the line feed character which is represented by `¶`.
+The `STRING` literal is created and placed into the pipe. At the very end, all of the data in the pipe gets pushed into the output of the program. Therein, the `Hello,¤World!` gets printed. But what happened to the `¤`? The `¤` is used to represent a space when handling `STRING` types. This allows for the space character to act as a NOP to seperate commands. The same was done with the line feed character which is represented by `¶` [(...)](docs/string_compression.md)
+
+## The Pipe
+
+The main memory model used for _Noodel_ is a pipe. Yes, I totally made that up and it is similar to a Stack Based Language. The reason why I am willing to say that it is not Stack Based is because data flows through the different tokens in the order in which the are executed. The data can diverge or it can converge. It is not one stack sitting somewhere, but rather a constant flow of data. This is why I think _Noodel_ might do well in ASCII Art challenges [(...)](docs/the_pipe.md)
