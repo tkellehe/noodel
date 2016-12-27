@@ -460,7 +460,8 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     var tkn = this.tkn, p = tkn.parent;
-    while(p.literal !== characters.correct("ḷ")) {
+    while(p.literal !== characters.correct("ḷ") ||
+          p.literal !== characters.correct("Ḷ")) {
       p = p.parent;
     }
     
