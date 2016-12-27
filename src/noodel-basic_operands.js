@@ -6,7 +6,7 @@
   
 //------------------------------------------------------------------------------------------------------------
 // Increments the item in the pipe.
-Command.add(noodel.commandify(characters.correct("\\+")), function(cmd) {
+Command.add(noodel.commandify("\\+"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -21,7 +21,7 @@ Command.add(noodel.commandify(characters.correct("\\+")), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Decrements the item in the pipe.
-Command.add(noodel.commandify(characters.correct("-")), function(cmd) {
+Command.add(noodel.commandify("-"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
