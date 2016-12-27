@@ -59,7 +59,16 @@ div.noodel-chars a {
 }
 
 div.noodel-char_table {
-  
+  width:100%;
+  height:26em;
+  box-sizing: border-box;         /* For IE and modern versions of Chrome */
+  -moz-box-sizing: border-box;    /* For Firefox                          */
+  -webkit-box-sizing: border-box; /* For Safari                           */
+  font-family: monospace;
+  overflow-y: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+  word-wrap: none;
 }
 
 div.noodel-char_table a {
