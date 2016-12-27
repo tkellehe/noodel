@@ -415,7 +415,7 @@ Command.add(noodel.commandify(characters.correct("Ḷ")), function(cmd) {
     {
       tkn.count = undefined;
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
-      tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.end ? undefined : f };
+      tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
     }
     this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
   }
@@ -454,7 +454,7 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
     tkn.looper = p;
     tkn.next = function() {
       var f = tkn.looper.branches.first();
-      return (f === tkn.looper.sub_path.end) ? undefined : f
+      return (f === tkn.looper.sub_path.start) ? undefined : f
     };
     
     return old.call(this);
