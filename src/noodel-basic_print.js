@@ -67,5 +67,25 @@ Command.add(noodel.commandify(characters.correct("þ")), function(cmd) {
   
   cmd.exec = noodel.in_to_out;
 });
+  
+//------------------------------------------------------------------------------------------------------------
+// Creates an exception based off of what is in the pipe.
+Command.add(noodel.commandify(characters.correct("€")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.first();
+    this.tkn.path.exceptions.back(f ? f : new STRING("STD ERROR THROWN"));
+  }
+        
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var tkn = this.tkn;
+    tkn.next = function() { return tkn.path.start };
+    return old.call(this);
+  };
+  
+  cmd.exec = noodel.in_to_out;
+});
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
