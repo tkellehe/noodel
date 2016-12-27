@@ -42,4 +42,4 @@ The `STRING` literal is created and placed into the pipe. At the very end, all o
 
 ## The Pipe
 
-The main memory model used for _Noodel_ is a pipe. Yes, I totally made that up and it is similar to a Stack Based Language. The reason why I am willing to say that it is not Stack Based is because data flows through the different tokens in the order in which the are executed. The data can diverge or it can converge. It is not one stack sitting somewhere, but rather a constant flow of data. This is why I think _Noodel_ might do well in ASCII Art challenges [(...)](docs/the_pipe.md)
+The main memory model used for _Noodel_ is a pipe. Yes, I totally made that up and it is similar to a Stack Based Language. The reason why I am willing to say that it is not Stack Based is because data flows through the different tokens in the order in which they are executed. The data can diverge or it can converge. It is not one stack sitting somewhere, but rather a constant flow of data. This is why I think _Noodel_ might do well in ASCII Art challenges [(...)](docs/the_pipe.md)
