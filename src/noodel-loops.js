@@ -133,7 +133,7 @@ Command.add(noodel.commandify(characters.correct("Ḅ")), function(cmd) {
     
     var f = this.tkn.inputs.front();
     if(f && f.is_truthy().valueify()) {
-      this.tkn.front(f);
+      this.tkn.inputs.front(f);
     } else {
       this.didBreak = true;
       this.tkn.old_next = this.tkn.next;
