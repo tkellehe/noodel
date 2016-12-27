@@ -1,7 +1,22 @@
 (function(global, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 Path.prototype.printify = function() {
-  return (new ARRAY(this.outputs.__array__)).printify();
+  var r = (new ARRAY(this.outputs.__array__)).printify();
+  
+  var blocks = r.split(characters.correct("ð")), rows = [];
+  for(var i = 0; i < blocks.length; ++i) {
+    var block = blocks[i], row = 0;
+    for(var j = 0; j < block.length; ++j) {
+      if(rows[row] === undefined) rows[row] = "";
+      if(block[j] === characters.correct("¬")) row++;
+      else rows[row] += block[j];
+    }
+  }
+  
+  r = (rows[0] === undefined ? "" : rows[0]);
+  for(var i = 1; i < rows.length; ++i) r += "\n" + (rows[i] === undefined ? "" : rows[i]);
+  
+  return r;
 }
   
 global.noodel = function noodel(code) { if(typeof code === "string" && code.length) return new Path(code) };
