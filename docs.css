@@ -71,7 +71,7 @@ div.noodel-char_table {
   word-wrap: none;
 }
 
-div.noodel-char_table a {
+div.noodel-char_table span {
   padding-left: 5px;
   padding-right: 5px;
   margin: 5px;
