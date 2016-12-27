@@ -23,15 +23,8 @@ Command.add(noodel.commandify("[ \t\n]"), function(cmd) {
 Command.add(noodel.commandify(characters.correct("“"), characters.regex.a_printable + "*"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
-  var old = cmd.tokenize;
-  cmd.tokenize = function() {
-    this.tkn.content = this.tkn.params[0];
-    this.tkn.end = this.tkn.literal.length + this.tkn.start + this.tkn.content.length - 1;
-    return old.call(this);
-  };
-  
   cmd.exec = function(path) {
-    this.tkn.outputs.back(new STRING(this.tkn.content));
+    this.tkn.outputs.back(new STRING(this.tkn.params[0]));
   }
   
   cmd.exec = noodel.in_to_out;
@@ -42,17 +35,10 @@ Command.add(noodel.commandify(characters.correct("“"), characters.regex.a_prin
 Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_printable + "*"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
-  var old = cmd.tokenize;
-  cmd.tokenize = function() {
-    this.tkn.content = this.tkn.params[0];
-    this.tkn.end = this.tkn.literal.length + this.tkn.start + this.tkn.content.length - 1;
-    return old.call(this);
-  };
-  
   cmd.exec = function(path) {
     var a = [];
-    for(var i = 0; i < this.tkn.content.length; ++i)
-      a.push(new STRING(this.tkn.content[i]));
+    for(var i = 0; i < this.tkn.params[0].length; ++i)
+      a.push(new STRING(this.tkn.params[0][i]));
     this.tkn.outputs.back(new ARRAY(a));
   }
   
@@ -466,7 +452,10 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
     }
     
     tkn.looper = p;
-    tkn.next = function() { var f = p.branches.first(); return f === p.sub_path.end ? undefined : f }
+    tkn.next = function() {
+      var f = tkn.looper.branches.first();
+      return (f === tkn.looper.sub_path.end) ? undefined : f
+    };
     
     return old.call(this);
   };
