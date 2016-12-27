@@ -182,7 +182,8 @@ characters.compress_basic = function(s) {
 characters.decompress_basic = function(s) {
   var bits = characters.bitify_string(s), r = "";
   for(var i = 0; i < bits.length; i += 7) {
-    r += characters.debitify_char(bits.slice(i, 7));
+    var t = bits.slice(i, i+7);
+    if(t.length === 7) r += characters.debitify_char();
   }
   return r;
 };
