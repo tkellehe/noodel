@@ -20,13 +20,19 @@ Command.commands = [];
 Command.add = function(r, f) {
   Command.commands.push({regex:r, f:f});
 };
+function CommandLookUp(res) {
+  this.literal = res[1];
+  this.params = [];
+  for(var i = 2; i < res.length; ++i) this.params.push(res[i]);
+  this.captured = res[0];
+};
 Command.find = function(text) {
   for(var i = Command.commands.length; i--;) {
     var res = Command.commands[i].regex.exec(text);
     if(res) {
-      var p = [];
-      for(var j = 2; j < res.length; ++j) p.push(res[j]);
-      return { literal: res[1], params: p, index:i };
+      var p = new CommandLookUp(res);
+      p.index = i;
+      return p;
     }
   }
 };
@@ -65,27 +71,24 @@ Token.prototype.next = function() {
   return this.branches.first();
 }
 
-Token.parse = function(tkn) {
-  var result = {end:-1,cmd:undefined,literal:undefined,params:undefined};
-  
-  var i = tkn.start, string = tkn.code[i], literal = undefined, params = undefined, index = undefined;
+Token.parse = function(tkn) {  
+  var i = tkn.start, string = tkn.code[i], look = undefined;
   //while(tkn.code[i] !== "\n" && i < tkn.code.length) {
   // Parses entire script to find the best command.
   while(i < tkn.code.length) {
     var get = Command.find(string);
     if(get !== undefined) {
-      literal = get.literal;
-      params = get.params;
-      index = get.index;
+      look = get;
+      look.index = i;
     }
     string += tkn.code[++i];
   }
   
-  if(literal) {
-    tkn.literal = literal;
-    tkn.end = tkn.start + literal.length - 1;
-    tkn.cmd = new Command(tkn, Command.commands[index].f);
-    tkn.params = params;
+  if(look) {
+    tkn.literal = look.literal;
+    tkn.end = tkn.start + look.captured.length - 1;
+    tkn.cmd = new Command(tkn, Command.commands[look.index].f);
+    tkn.params = look.params;
   }
 }
 
