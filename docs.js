@@ -252,13 +252,10 @@ $(".noodel-char_table").each(function(){
     var char = nbsRemove(characters.chars[i]),
         echar = nbsAdd(characters.chars[i]);
     if(char === "\n") {
-      var $letter = $("<a href=''>&#8629;</a>");
+      var $letter = $("<span>&#8629;</span>");
     } else {
-      var $letter = $("<a href=''>"+HtmlEncode(echar)+"</a>");
+      var $letter = $("<span>"+HtmlEncode(echar)+"</span>");
     }
-    $letter.click(function(e){
-      e.preventDefault();
-    });
     if((i+1) % 16) $container.append($letter);
     else $container.append($letter).append("<br>");
   })()}
