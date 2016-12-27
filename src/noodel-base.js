@@ -383,6 +383,46 @@ Command.add(noodel.commandify(characters.correct("ḷ")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
+// Loops the given code up to a new line based off of the integerified value in the pipe which is removed.
+Command.add(noodel.commandify(characters.correct("Ḷ")), function(cmd) {
+  cmd.exec = out_to_in;
+  cmd.exec = function(path) {
+    var tkn = this.tkn;
+    if(tkn.count === undefined) {
+      tkn.next = function() { return tkn.sub_path.start };
+      var f = tkn.inputs.front();
+      if(f) {
+        f = f.integerify();
+        tkn.count = f.valueify();
+      } else tkn.count = 0;
+    }
+    if(tkn.count-- < 1)
+    {
+      tkn.count = undefined;
+      tkn.next = function() { return tkn.branches.first() };
+    }
+    this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var tkn = this.tkn;
+    tkn.content = "";
+    for(var i = tkn.end+1; i < tkn.code.length && tkn.code[i] !== "\n"; ++i)
+      tkn.content += tkn.code[i];
+    if(tkn.code[i] === "\n") tkn.content += "\n";
+    tkn.end = tkn.literal.length + tkn.start + tkn.content.length - 1;
+    tkn.sub_path = new Path(tkn.content, tkn);
+    tkn.branches.front(tkn.sub_path.start);
+    tkn.sub_path.end.branches.front(tkn);
+    
+    return old.call(this);
+  };
+  
+  cmd.exec = in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
 /// Breaks out of a looping command.
 Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
   cmd.exec = out_to_in;
