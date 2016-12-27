@@ -28,4 +28,4 @@ The following is the current 256 different characters that _Noodel_ recognizes.
 
 The first 98 characters _Noodel_ considers normal printable chars (ends at `~`).
 
-The `¶`and `¤` are `\n`, and ` ` respectively. This is done to allow the parser to use the whitespace characters to separate commands.
+The `¶`and `¤` are `\n`, and <code> </code> respectively. This is done to allow the parser to use the whitespace characters to separate commands.
