@@ -64,11 +64,6 @@ Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_prin
 Command.add(new RegExp("^(\\d*\\.\\d+)|(\\d+)$"), function(cmd) {
   cmd.exec = out_to_in;
   
-  var old = cmd.tokenize;
-  cmd.tokenize = function() {
-    return old.call(this);
-  };
-  
   cmd.exec = function(path) {
     this.tkn.outputs.back(new NUMBER(+this.tkn.literal));
   }
