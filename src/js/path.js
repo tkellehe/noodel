@@ -2,6 +2,7 @@
 
 function Path(code, tkn) {
   this.code = code;
+  this.exceptions = new Pipe();
   this.start = new Token(0, this.code, tkn);
   this.start.path = this;
   this.current = this.start;
@@ -51,6 +52,10 @@ Path.prototype.step = function() {
   this.previous = this.current;
   this.current = this.current.next();
   this.onstep();
+  if(this.exceptions.length()) {
+    this.outputs.pipe(this.exceptions);
+    return false;
+  }
   return !!this.current;
 }
 
