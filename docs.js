@@ -108,6 +108,7 @@ $(".noodel-exec").each(function(){
   $editor.focus(function(){
     $editor.cursorPos($editor.getCursorPosition());
   }).click(function(){
+    console.log("here");
     $editor.cursorPos($editor.getCursorPosition());
   }).keydown(function(){
     $editor.cursorPos($editor.getCursorPosition());
