@@ -117,9 +117,11 @@ $(".noodel-exec").each(function(){
   var prgm;
     
   function clickRun() {
+    $button.text("PARSING...");
     prgm = noodel(nbsRemove($editor.val()));
     if(prgm === undefined) return;
     
+    $button.text("LOADING INPUTS...");
     var i = characters.deprintify_string(nbsRemove($input.val()));
     if(i.length) prgm.inputs.back(new STRING(i));
     
