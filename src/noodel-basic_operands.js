@@ -95,12 +95,12 @@ Command.add(noodel.commandify(characters.correct("ʂ")+characters.correct("⁻")
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
-    var lhs = this.tkn.inputs.front();
-    if(lhs) {
-      var rhs = this.tkn.inputs.front();
-      if(rhs) {
+    var rhs = this.tkn.inputs.front();
+    if(rhs) {
+      var lhs = this.tkn.inputs.front();
+      if(lhs) {
         this.tkn.outputs.back(lhs.sub(rhs, this.tkn));
-      } else this.tkn.outputs.back(lhs);
+      } else this.tkn.outputs.back(rhs);
     }
   }
   
