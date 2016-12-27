@@ -75,7 +75,8 @@ Command.add(noodel.commandify(characters.correct("€")), function(cmd) {
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.first();
-    this.tkn.path.exceptions.back(f ? f : new STRING("[STD ERROR THROWN]"));
+    this.tkn.path.exceptions.back(new STRING("[STD ERROR THROWN]:"));
+    if(f) this.tkn.path.exceptions.back(f);
   }
         
   var old = cmd.tokenize;
