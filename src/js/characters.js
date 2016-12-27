@@ -138,6 +138,55 @@ characters.deprintify_string = function(s) {
   return r;
 };
   
+characters.bitify_char = function(c) {
+  var a = [], v = characters.char_to_int(c).toString(2);
+  while(v.length < 8) v = "0" + v;
+  for(var i = v.length; i--;) a.unshift(+v[i]);
+  return a;
+};
+
+characters.debitify_char = function(a) {
+  return characters.int_to_char(parseInt(a.join(""), 2));
+};
+  
+characters.bitify_string = function(s) {
+  var a = [];
+  for(var i = 0, l = s.length; i < l; ++i) {
+    a = a.concat(characters.bitify_char(s[i]));
+  }
+  return a;
+};
+  
+characters.debitify_string = function(a) {
+  var s = "";
+  for(var i = 0, l = a.length; i < l; i += 8) {
+    s += characters.debitify_char(a.slice(i, 8));
+  }
+  return a;
+};
+  
+characters.compress_basic = function(s) {
+  var a = [];
+  for(var i = 0, l = s.length; i < l; ++i) {
+    a = a.concat(characters.bitify_char(s[i]).slice(1, 8));
+  }
+  // Make sure divisable by 8.
+  var diff = a.length % 8;
+  if(diff) {
+    diff = 8 - diff;
+    while(diff--) a.push(0);
+  }
+  return characters.debitify_string(a);
+};
+  
+characters.decompress_basic = function(s) {
+  var bits = characters.bitify_string(s), r = "";
+  for(var i = 0; i < bits.length; i += 7) {
+    r += characters.debitify_char(bits.slice(i, 7));
+  }
+  return r;
+};
+  
 characters.correct = handleBug;
   
 global.characters = characters;
