@@ -162,7 +162,7 @@ characters.debitify_string = function(a) {
   for(var i = 0, l = a.length; i < l; i += 8) {
     s += characters.debitify_char(a.slice(i, 8));
   }
-  return a;
+  return s;
 };
   
 characters.compress_basic = function(s) {
