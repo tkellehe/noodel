@@ -34,6 +34,7 @@ function nbsAdd(string) {
     if(pos !== undefined) {
       var l = $this.val().length;
       $this.attr("cursor_pos", pos < 0 ? 0 : (pos < l ? pos : l));
+      console.log($this.attr("cursor_pos"));
       return this;
     } else {
       pos = $this.attr("cursor_pos");
@@ -108,7 +109,6 @@ $(".noodel-exec").each(function(){
   $editor.focus(function(){
     $editor.cursorPos($editor.getCursorPosition());
   }).click(function(){
-    console.log("here");
     $editor.cursorPos($editor.getCursorPosition());
   }).keydown(function(){
     $editor.cursorPos($editor.getCursorPosition());
