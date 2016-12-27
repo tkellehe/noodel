@@ -119,6 +119,17 @@ characters.printify_char = function(c) {
 characters.printify_string = function(s) {
   var r = "";
   for(var i = 0; i < s.length; ++i) r += characters.printify_char(s[i]);
+  var blocks = r.split(characters.correct("ð")), rows = [];
+  for(var i = 0; i < blocks.length; ++i) {
+    var block = blocks[i], row = 0;
+    for(var j = 0; j < block.length; ++j) {
+      if(rows[row] === undefined) rows[row] = "";
+      if(block[j] === characters.correct("¬")) row++;
+      else rows[row] += block[j];
+    }
+  }
+  r = "";
+  for(var i = 0; i < rows.length; ++i) r += rows[i] === undefined ? "" : rows[i]; 
   return r;
 };
   
