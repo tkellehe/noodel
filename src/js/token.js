@@ -79,7 +79,6 @@ Token.parse = function(tkn) {
     var get = Command.find(string);
     if(get !== undefined) {
       look = get;
-      look.index = i;
     }
     string += tkn.code[++i];
   }
