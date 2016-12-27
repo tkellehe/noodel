@@ -61,7 +61,7 @@ Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_prin
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number and places it into the pipe.
-Command.add(new RegExp("^(\\d*\\.\\d+)|(\\d+)$"), function(cmd) {
+Command.add(new RegExp("^((?:\\d*\\.\\d+)|(?:\\d+))$"), function(cmd) {
   cmd.exec = out_to_in;
   
   cmd.exec = function(path) {
