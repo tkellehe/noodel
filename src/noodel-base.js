@@ -70,6 +70,23 @@ Command.add(new RegExp("^((?:\\d*\\.\\d+)|(?:\\d+))$"), function(cmd) {
   
   cmd.exec = in_to_out;
 });
+  
+//------------------------------------------------------------------------------------------------------------
+// Creates a number based off of a fraction and places it into the pipe.
+Command.add(new RegExp("^(\\d*\/\\d+)$"), function(cmd) {
+  cmd.exec = out_to_in;
+  
+  cmd.exec = function(path) {
+    var a = this.tkn.literal.split("/");
+    var num = 1, den = +a[1];
+    if(a[0].length) {
+      num = +a[0];
+    }
+    this.tkn.outputs.back(new NUMBER(num/den));
+  }
+  
+  cmd.exec = in_to_out;
+});
 
 //------------------------------------------------------------------------------------------------------------
 /// Operands
