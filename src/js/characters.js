@@ -82,14 +82,18 @@ characters.printables.is = function(c) {
 };
 
 characters.compressables = [];
+characters.compressables.regexified = [];
 characters.compressables.min = 0;
 characters.compressables.max = 225;
 (function(){
   for(var i = characters.compressables.min; i <= characters.compressables.max; ++i) {
     characters.compressables.push(int_to_char[i]);
+    characters.compressables.regexified.push(regexified[i]);
   }
 })();
-characters.compressables.string = characters.compressables.join("");
+characters.compressables.string = characters.compressables.regexified.join("");
+characters.regex.a_compressable = "[" + characters.compressables.string + "]";
+characters.regex.not_a_compressable = "[^" + characters.compressables.string + "]";
 characters.compressables.is = function(c) {
   c = char_to_int[c];
   return characters.compressables.min <= c && c <= characters.compressables.max;
