@@ -1,17 +1,17 @@
 (function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
-function in_to_out(path) {
+noodel.in_to_out = function(path) {
   this.tkn.outputs.pipe(this.tkn.inputs);
-}
-function out_to_in(path) {
+};
+noodel.out_to_in = function(path) {
   if(this.tkn.parent) this.tkn.inputs.pipe(this.tkn.parent.outputs);
-}
+};
 
 //------------------------------------------------------------------------------------------------------------
 /// NOPs
 Command.add(noodel.commandify("[ \t\n]"), function(cmd) {
-  cmd.exec = out_to_in;
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.out_to_in;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ Command.add(noodel.commandify("[ \t\n]"), function(cmd) {
 //------------------------------------------------------------------------------------------------------------
 // Handles simple string literals of printable characters.
 Command.add(noodel.commandify(characters.correct("“"), characters.regex.a_printable + "*"), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   var old = cmd.tokenize;
   cmd.tokenize = function() {
@@ -34,13 +34,13 @@ Command.add(noodel.commandify(characters.correct("“"), characters.regex.a_prin
     this.tkn.outputs.back(new STRING(this.tkn.content));
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 // Creates and array of strings from each printable character following it.
 Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_printable + "*"), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   var old = cmd.tokenize;
   cmd.tokenize = function() {
@@ -56,25 +56,25 @@ Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_prin
     this.tkn.outputs.back(new ARRAY(a));
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number and places it into the pipe.
 Command.add(new RegExp("^((?:\\d*\\.\\d+)|(?:\\d+))$"), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     this.tkn.outputs.back(new NUMBER(+this.tkn.literal));
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
   
-/*//------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------
 // Creates a number based off of a fraction and places it into the pipe.
 Command.add(new RegExp("^(\\d*\/\\d+)$"), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var a = this.tkn.literal.split("/");
@@ -85,8 +85,8 @@ Command.add(new RegExp("^(\\d*\/\\d+)$"), function(cmd) {
     this.tkn.outputs.back(new NUMBER(num/den));
   }
   
-  cmd.exec = in_to_out;
-});*/
+  cmd.exec = noodel.in_to_out;
+});
 
 //------------------------------------------------------------------------------------------------------------
 /// Operands
@@ -95,7 +95,7 @@ Command.add(new RegExp("^(\\d*\/\\d+)$"), function(cmd) {
 //------------------------------------------------------------------------------------------------------------
 // Adds two items in the pipe where the first is the lhs and the second is the rhs.
 Command.add(noodel.commandify(characters.correct("⁺")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var lhs = this.tkn.inputs.front();
@@ -107,10 +107,10 @@ Command.add(noodel.commandify(characters.correct("⁺")), function(cmd) {
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 Command.add(noodel.commandify(characters.correct("⁻")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var lhs = this.tkn.inputs.front();
@@ -122,10 +122,10 @@ Command.add(noodel.commandify(characters.correct("⁻")), function(cmd) {
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 Command.add(noodel.commandify(characters.correct("⁺")+characters.correct("ʂ")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var lhs = this.tkn.inputs.front();
@@ -137,10 +137,10 @@ Command.add(noodel.commandify(characters.correct("⁺")+characters.correct("ʂ")
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 Command.add(noodel.commandify(characters.correct("⁻")+characters.correct("ʂ")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var lhs = this.tkn.inputs.front();
@@ -152,10 +152,10 @@ Command.add(noodel.commandify(characters.correct("⁻")+characters.correct("ʂ")
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 Command.add(noodel.commandify(characters.correct("ʂ")+characters.correct("⁺")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var rhs = this.tkn.inputs.front();
@@ -167,10 +167,10 @@ Command.add(noodel.commandify(characters.correct("ʂ")+characters.correct("⁺")
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 Command.add(noodel.commandify(characters.correct("ʂ")+characters.correct("⁻")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var lhs = this.tkn.inputs.front();
@@ -182,7 +182,7 @@ Command.add(noodel.commandify(characters.correct("ʂ")+characters.correct("⁻")
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
@@ -193,7 +193,7 @@ Command.add(noodel.commandify(characters.correct("ʂ")+characters.correct("⁻")
 /// Flattens that particular data type (for arrays places into elements, strings turned into char arrays
 /// and numbers into integers.
 Command.add(noodel.commandify("_"), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
@@ -208,13 +208,13 @@ Command.add(noodel.commandify("_"), function(cmd) {
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 /// Takes the first element of strings/arrays and places it into the back. For numbers, it reciprocals.
 Command.add(noodel.commandify("ẹ"), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
@@ -232,14 +232,14 @@ Command.add(noodel.commandify("ẹ"), function(cmd) {
     } else this.tkn.inputs.front(f);
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 /// Accesses a particular frame of an array/string. If is an integer in the pipe then it will use that as
 /// the index and place the accessed first and increment the index for the next frame.
 Command.add(noodel.commandify("ạ"), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
@@ -266,7 +266,7 @@ Command.add(noodel.commandify("ạ"), function(cmd) {
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
@@ -276,38 +276,38 @@ Command.add(noodel.commandify("ạ"), function(cmd) {
 //------------------------------------------------------------------------------------------------------------
 // Blocks the pipe preventing all items from moving on.
 Command.add(noodel.commandify(characters.correct("ḃ")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     this.tkn.inputs.wipe();
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 // Removes the item in the front of the pipe.
 Command.add(noodel.commandify(characters.correct("ḋ")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     this.tkn.inputs.front();
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
 // Places what is in the front of the pipe to the back.
 Command.add(noodel.commandify(characters.correct("ė")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
     if(f) this.tkn.inputs.back(f);
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
@@ -317,7 +317,7 @@ Command.add(noodel.commandify(characters.correct("ė")), function(cmd) {
 //------------------------------------------------------------------------------------------------------------
 // Clears the path's outputs and copies what is in the front of the pipe into the path's output.
 Command.add(noodel.commandify(characters.correct("ç")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.first();
@@ -327,14 +327,14 @@ Command.add(noodel.commandify(characters.correct("ç")), function(cmd) {
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
   
 
 //------------------------------------------------------------------------------------------------------------
 // Clears the path's outputs and places what is in the front of the pipe into the path's output.
 Command.add(noodel.commandify(characters.correct("Ç")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
@@ -344,14 +344,14 @@ Command.add(noodel.commandify(characters.correct("Ç")), function(cmd) {
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 
 //------------------------------------------------------------------------------------------------------------
 // Places what is in the front of the pipe into the path's output.
 Command.add(noodel.commandify(characters.correct("þ")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
@@ -360,13 +360,13 @@ Command.add(noodel.commandify(characters.correct("þ")), function(cmd) {
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
 // Copies what is in the front of the pipe into the path's output.
 Command.add(noodel.commandify(characters.correct("Þ")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.first();
@@ -375,7 +375,7 @@ Command.add(noodel.commandify(characters.correct("Þ")), function(cmd) {
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
   
 
@@ -386,7 +386,7 @@ Command.add(noodel.commandify(characters.correct("Þ")), function(cmd) {
 //------------------------------------------------------------------------------------------------------------
 // Contiously loops the code following it up to a new line.
 Command.add(noodel.commandify(characters.correct("ḷ")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   cmd.exec = function(path) {
     this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
   }
@@ -408,13 +408,13 @@ Command.add(noodel.commandify(characters.correct("ḷ")), function(cmd) {
     return old.call(this);
   };
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 // Loops the given code up to a new line based off of the integerified value in the pipe which is removed.
 Command.add(noodel.commandify(characters.correct("Ḷ")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   cmd.exec = function(path) {
     var tkn = this.tkn;
     if(tkn.count === undefined) {
@@ -449,13 +449,13 @@ Command.add(noodel.commandify(characters.correct("Ḷ")), function(cmd) {
     return old.call(this);
   };
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 /// Breaks out of a looping command.
 Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   var old = cmd.tokenize;
   cmd.tokenize = function() {
@@ -471,7 +471,7 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
     return old.call(this);
   };
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
   
   cmd.exec = function(path) {
     this.tkn.looper.outputs.pipe(this.tkn.outputs);
@@ -481,7 +481,7 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps.
 Command.add(noodel.commandify(characters.correct("ḍ"), "\\d+"), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var tkn = this.tkn;
@@ -498,13 +498,13 @@ Command.add(noodel.commandify(characters.correct("ḍ"), "\\d+"), function(cmd) 
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps using fractions
 Command.add(new RegExp("^("+characters.correct("ḍ")+")(\\d*)/(\\d*)$"), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var tkn = this.tkn;
@@ -528,13 +528,13 @@ Command.add(new RegExp("^("+characters.correct("ḍ")+")(\\d*)/(\\d*)$"), functi
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps using decimals
 Command.add(new RegExp("^("+characters.correct("ḍ")+")(\\d*)\\.(\\d*)$"), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var tkn = this.tkn;
@@ -552,7 +552,7 @@ Command.add(new RegExp("^("+characters.correct("ḍ")+")(\\d*)\\.(\\d*)$"), func
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
@@ -562,7 +562,7 @@ Command.add(new RegExp("^("+characters.correct("ḍ")+")(\\d*)\\.(\\d*)$"), func
 //------------------------------------------------------------------------------------------------------------
 /// Stringifies the first item in the pipe.
 Command.add(noodel.commandify("'"), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
@@ -571,13 +571,13 @@ Command.add(noodel.commandify("'"), function(cmd) {
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 /// Numberifies the first item in the pipe.
 Command.add(noodel.commandify("#"), function(cmd) {
-  cmd.exec = out_to_in;
+  cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
@@ -586,7 +586,7 @@ Command.add(noodel.commandify("#"), function(cmd) {
     }
   }
   
-  cmd.exec = in_to_out;
+  cmd.exec = noodel.in_to_out;
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
