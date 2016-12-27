@@ -144,10 +144,6 @@ characters.bitify_char = function(c) {
   for(var i = v.length; i--;) a.unshift(+v[i]);
   return a;
 };
-
-characters.debitify_char = function(a) {
-  return characters.int_to_char(parseInt(a.join(""), 2));
-};
   
 characters.bitify_string = function(s) {
   var a = [];
@@ -156,11 +152,15 @@ characters.bitify_string = function(s) {
   }
   return a;
 };
+
+characters.debitify_char = function(a) {
+  return characters.int_to_char(parseInt(a.join(""), 2));
+};
   
 characters.debitify_string = function(a) {
   var s = "";
   for(var i = 0, l = a.length; i < l; i += 8) {
-    s += characters.debitify_char(a.slice(i, 8));
+    s += characters.debitify_char(a.slice(i, i+8));
   }
   return s;
 };
