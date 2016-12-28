@@ -219,7 +219,7 @@ characters.compress_basic = function(s) {
       bits.shift();
       // Tells that there is a character compressed in the next 7 characters.
       a[(i - 8) * 8 + 7] = 1;
-      for(var j = (i - 7) * 8, k = 0, l = (i - 1) * 8; j < l; j+=8) {
+      for(var j = (i - 7) * 8, k = 0, l = (i - 1) * 8; j <= l; j+=8) {
         // Places the bits into the unused bits of the next 7 characters.
         a[j + 7] = bits[k++];
       }
