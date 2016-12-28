@@ -113,6 +113,41 @@ characters.noncompressables.is = function(c) {
   return characters.noncompressables.min <= c && c <= characters.noncompressables.max;
 };
 
+characters.tiny_digits = [handleBug('°'),handleBug('¹'),handleBug('²'),
+                          handleBug('³'),handleBug('⁴'),handleBug('⁵'),
+                          handleBug('⁶'),handleBug('⁷'),handleBug('⁸'),handleBug('⁹')];
+characters.tiny_digits.string = characters.tiny_digits.join("");
+characters.regex.a_tiny_digit = "[" + characters.tiny_digits.string + "]";
+characters.regex.not_a_tiny_digit = "[^" + characters.tiny_digits.string + "]";
+characters.tiny_digits.is = function(c) {
+  for(var i = characters.tiny_digits.length; i--;) {
+    if(characters.tiny_digits[i] === c) return true;
+  }
+  return false;
+};
+var tiny_digit_to_digit = {},
+    digit_to_tiny_digit = {};
+(function(){
+  for(var i = characters.tiny_digits.length; i--;) {
+    tiny_digit_to_digit[characters.tiny_digits[i]] = i+"";
+    digit_to_tiny_digit[i+""] = characters.tiny_digits[i];
+  }
+})()
+characters.tiny_num_to_num = function(s) {
+  var r = "";
+  for(var i = 0, l = s.length; i < l; ++i) {
+    r += tiny_digit_to_digit[s[i]];
+  }
+  return r;
+};
+characters.num_to_tiny_num = function(s) {
+  s = s+"";
+  var r = "";
+  for(var i = 0, l = s.length; i < l; ++i) {
+    r += digit_to_tiny_digit[s[i]];
+  }
+  return r;
+};
 
 characters.printify_char = function(c) {
   if(c === characters.correct("¶")) return "\n";
@@ -186,6 +221,71 @@ characters.decompress_basic = function(s) {
     if(t.length === 7) r += characters.debitify_char(t);
   }
   return r;
+};
+
+characters.compress_occur = function(s) {
+  var key = "", res = "";
+  
+  function find(s, c) { for(var i = s.length; i--;) if(s[i] === c) return i; return -1; }
+  
+  // First get all of the characters for the key.
+  for(var i = s.length; i--;) {
+    if(find(key, s[i]) === -1) key += s[i];
+  }
+  
+  // Now, can assign each character an index based off of the key.
+  for(var i = 0, l = s.length; i < l; ++i) {
+    // Since there are only 98 printable characters we know that the biggest index will be 97.
+    res += int_to_char[find(key, s[i])];
+  }
+  
+  // The result is now made up of the indexes, but we can compress more depending on the size of the key.
+  var max_num_bits = (key.length - 1).toString(2).length;
+  
+  // Turns into bits then compresses based off of the max_num_bits.
+  var a = [];
+  for(var i = 0, l = res.length; i < l; ++i) {
+    a = a.concat(characters.bitify_char(res[i]).slice(8 - max_num_bits, 8));
+  }
+  // Make sure divisable by 8.
+  var diff = a.length % 8, num_bits_added = 0;
+  if(diff) {
+    diff = 8 - diff;
+    num_bits_added = diff;
+    while(diff--) a.push(0);
+  }
+   
+  // The result has now been compressed.
+  res = characters.debitify_string(a);
+  
+  // May be able to compress this better because only need three bits to represent num_bits_added.
+  key = int_to_char[num_bits_added] + key;
+  
+  return { key: characters.compress_basic(key), compressed: res }
+};
+
+characters.decompress_occur = function(key, compressed) {
+  var res = "";
+  key = characters.decompress_basic(key);
+  
+  var num_bits_added = char_to_int[key[0]];
+  key = key.slice(1, key.length);
+  
+  var max_num_bits = (key.length - 1).toString(2).length;
+  var bits = characters.bitify_string(compressed), res = "";
+  
+  for(var i = 0, l = bits.length - num_bits_added; i < l; i += max_num_bits) {
+    var t = bits.slice(i, i+max_num_bits);
+    if(t.length === max_num_bits) res += characters.debitify_char(t);
+  }
+  
+  var decompressed = "";
+  
+  for(var i = 0, l = res.length; i < l; ++i) {
+    decompressed += key[char_to_int[res[i]]];
+  }
+  
+  return decompressed;
 };
   
 characters.correct = handleBug;
