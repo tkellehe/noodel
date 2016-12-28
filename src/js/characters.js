@@ -277,6 +277,7 @@ characters.decompress_occur = function(key, compressed) {
   key = key.slice(1, key.length);
   
   var max_num_bits = (key.length - 1).toString(2).length;
+  if(max_num_bits < 7) max_num_bits++;
   var bits = characters.bitify_string(compressed), res = "";
   
   for(var i = 0, l = bits.length - num_bits_added; i < l; i += max_num_bits) {
