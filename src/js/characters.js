@@ -204,7 +204,7 @@ characters.compress_basic = function(s) {
   var a = [];
   // Every 9th character will get compressed into the previous 7 characters where the 1st
   // gets a bit set indicating that the next eight have a character hidden within.
-  for(var i = 0, l = s.length; i < l; ++i) {
+  for(var i = 0; i < s.length; ++i) {
     // Gets the character in bit form.
     var bits = characters.bitify_char(s[i]);
     
