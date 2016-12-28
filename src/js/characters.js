@@ -202,14 +202,28 @@ characters.debitify_string = function(a) {
   
 characters.compress_basic = function(s) {
   var a = [];
+  // Every 9th character will get compressed into the previous 7 characters where the 1st
+  // gets a bit set indicating that the next eight have a character hidden within.
   for(var i = 0, l = s.length; i < l; ++i) {
-    a = a.concat(characters.bitify_char(s[i]).slice(1, 8));
-  }
-  // Make sure divisable by 8.
-  var diff = a.length % 8;
-  if(diff) {
-    diff = 8 - diff;
-    while(diff--) a.push(0);
+    // Gets the character in bit form.
+    var bits = characters.bitify_char(s[i]);
+    
+    // If the 9th character compress, else do normal left shifting.
+    if((i + 1) % 9) {
+      // Left shift the bits moving the left most to the right most.
+      // This allows for only the compressable characters to be used in the string.
+      bits.push(bits.shift());
+      a = a.concat(bits);
+    } else {
+      // We only need the last seven bits because the largest value is 97.
+      bits.shift();
+      // Tells that there is a character compressed in the next 7 characters.
+      a[(i - 8) * 8 + 7] = 1;
+      for(var j = (i - 7) * 8, k = 0, l = (i - 1) * 8; j < l; j+=8) {
+        // Places the bits into the unused bits of the next 7 characters.
+        a[j + 7] = bits[k++];
+      }
+    }
   }
   return characters.debitify_string(a);
 };
