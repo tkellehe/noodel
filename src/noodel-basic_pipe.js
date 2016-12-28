@@ -40,6 +40,19 @@ Command.add(noodel.commandify(characters.correct("ė")), function(cmd) {
   
   cmd.exec = noodel.in_to_out;
 });
+  
+//------------------------------------------------------------------------------------------------------------
+// Places what is in the back of the pipe to the front.
+Command.add(noodel.commandify(characters.correct("Ė")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.back();
+    if(f) this.tkn.inputs.front(f);
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
 
 //------------------------------------------------------------------------------------------------------------
 Command.add(noodel.commandify(characters.correct("ʂ")), function(cmd) {
