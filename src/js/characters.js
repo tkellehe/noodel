@@ -242,6 +242,11 @@ characters.compress_occur = function(s) {
   // The result is now made up of the indexes, but we can compress more depending on the size of the key.
   var max_num_bits = (key.length - 1).toString(2).length;
   
+  // Because the compressed data can create some characters that are not compressable,
+  // by taking on a zero bit (if max_num_bits < 7) ensures that at least the new line
+  // and space character will not be used when compressing.
+  if(max_num_bits < 7) max_num_bits++;
+  
   // Turns into bits then compresses based off of the max_num_bits.
   var a = [];
   for(var i = 0, l = res.length; i < l; ++i) {
