@@ -25,6 +25,26 @@ Command.add(noodel.commandify("_"), function(cmd) {
   
   cmd.exec = noodel.in_to_out;
 });
+  
+//------------------------------------------------------------------------------------------------------------
+/// Gets magnitude of that particular data type.
+Command.add(noodel.commandify("l"), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      if(f.type === "NUMBER") {
+        this.tkn.outputs.back(new NUMBER(Math.abs(f.value)));
+      } else if(f.type === "STRING" || f.type === "ARRAY") {
+        this.tkn.outputs.back(new NUMBER(f.length()));
+        this.tkn.outputs.back(f);
+      }
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
 
 //------------------------------------------------------------------------------------------------------------
 /// Takes the first element of strings/arrays and places it into the back. For numbers, it reciprocals.
