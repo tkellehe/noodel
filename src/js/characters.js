@@ -230,9 +230,38 @@ characters.compress_basic = function(s) {
   
 characters.decompress_basic = function(s) {
   var bits = characters.bitify_string(s), r = "";
-  for(var i = 0; i < bits.length; i += 7) {
-    var t = bits.slice(i, i+7);
-    if(t.length === 7) r += characters.debitify_char(t);
+  for(var i = 0; i < bits.length;) {
+    if(bits[i+7] === 1) {
+      var first = bits.slice(i, 8);
+      // Correct all of the bits.
+      first.pop();
+      first.unshift(0);
+      r += characters.debitify_char(first);
+      i += 8;
+      // Figure out the compressed character and decode the others.
+      var compressed = [];
+      for(var j = 7; j--;) {
+        var c = bits.slice(i, 8);
+        compressed.push(c.pop());
+        // Correct the bit shift.
+        c.unshift(0);
+        r += characters.debitify_char(c);
+        // Jump to the start of the next character.
+        i += 8;
+      }
+      compressed.unshift(0);
+      r += characters.debitify_char(compressed);
+    } else {
+      // Easiest case and all that is need to is to bit shift then convert back.
+      for(var j = 8; j--;) {
+        var c = bits.slice(i, 8);
+        // Correct the bit shift.
+        c.unshift(c.pop());
+        r += characters.debitify_char(c);
+        // Jump to the start of the next character.
+        i += 8;
+      }
+    }
   }
   return r;
 };
