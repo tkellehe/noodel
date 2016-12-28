@@ -36,7 +36,7 @@ Command.add(noodel.commandify("#"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Arrayifies the first item in the pipe.
-Command.add(noodel.commandify("@"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("ʋ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
