@@ -88,4 +88,34 @@ Command.add(noodel.commandify(characters.correct("€")), function(cmd) {
   cmd.exec = noodel.in_to_out;
 });
 
+//------------------------------------------------------------------------------------------------------------
+// Places what is in the front of the pipe into the path's output followed by a new line.
+Command.add(noodel.commandify(characters.correct("Ñ")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      path.outputs.back(f).back(new STRING("¶"));
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
+  
+//------------------------------------------------------------------------------------------------------------
+// Copies what is in the front of the pipe into the path's output followed by a new line.
+Command.add(noodel.commandify(characters.correct("ñ")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.first();
+    if(f) {
+      path.outputs.back(f.copy()).back(new STRING("¶"));
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
