@@ -74,7 +74,7 @@ Command.add(noodel.commandify(characters.correct("’"), characters.regex.a_comp
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number and places it into the pipe.
-Command.add(new RegExp("^((?:\\d*\\.\\d+)|(?:\\d+))$"), function(cmd) {
+Command.add(/^((?:\-\d+\.\d+)|(?:\d*\.\d+)|(?:\-?\d+))$/, function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -86,14 +86,15 @@ Command.add(new RegExp("^((?:\\d*\\.\\d+)|(?:\\d+))$"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number based off of a fraction and places it into the pipe.
-Command.add(new RegExp("^(\\d*\/\\d+)$"), function(cmd) {
+Command.add(/^(-?\d*\/\d+)$/, function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var a = this.tkn.literal.split("/");
     var num = 1, den = +a[1];
     if(a[0].length) {
-      num = +a[0];
+      if(a[0] === "-") num = -1;
+      else num = +a[0];
     }
     this.tkn.outputs.back(new NUMBER(num/den));
   }
