@@ -41,33 +41,19 @@ Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_prin
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
-    var a = [];
-    for(var i = 0; i < this.tkn.params[0].length; ++i)
-      a.push(new STRING(this.tkn.params[0][i]));
-    this.tkn.outputs.back(new ARRAY(a));
+    var a = this.tkn.params.split(characters.correct("ð"));
+    if(a.length === 1) {
+      a = [];
+      for(var i = 0; i < this.tkn.params[0].length; ++i)
+        a.push(new STRING(this.tkn.params[0][i]));
+      this.tkn.outputs.back(new ARRAY(a));
+    } else {
+      var s = [];
+      for(var i = 0; i < s.length; ++i)
+        s.push(new STRING(a[i]));
+      this.tkn.outputs.back(new ARRAY(s));
+    }
   }
-  
-  cmd.exec = noodel.in_to_out;
-});
-
-//------------------------------------------------------------------------------------------------------------
-// Creates and array of strings from each printable character following it after basic decompressing.
-Command.add(noodel.commandify(characters.correct("’"), characters.regex.a_compressables + "*"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
-  cmd.exec = function(path) {
-    var a = [];
-    for(var i = 0; i < this.tkn.content.length; ++i)
-      a.push(new STRING(this.tkn.content[i]));
-    this.tkn.outputs.back(new ARRAY(a));
-  }
-  
-  var old = cmd.tokenize;
-  cmd.tokenize = function() {
-    this.tkn.content = characters.decompress_basic(this.tkn.params[0]);
-    
-    return old.call(this);
-  };
   
   cmd.exec = noodel.in_to_out;
 });
