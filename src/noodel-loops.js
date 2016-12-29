@@ -79,6 +79,45 @@ Command.add(noodel.commandify(characters.correct("Ḷ")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
+// Loops the given code up to a new line based off of the number placed next to it.
+Command.add(noodel.commandify(characters.correct("Ḷ"), "\\d+"), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  cmd.exec = function(path) {
+    this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
+    var tkn = this.tkn;
+    if(tkn.count === undefined) {
+      tkn.next = function() { return tkn.sub_path.start };
+      tkn.count = tkn.params[0];
+    }
+    if(tkn.count-- < 1)
+    {
+      tkn.count = undefined;
+      // Have to make sure account for if the end if the sub_path is the end of the prgm.
+      tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var tkn = this.tkn;
+    tkn.content = "";
+    for(var i = tkn.end+1; i < tkn.code.length && tkn.code[i] !== "\n"; ++i)
+      tkn.content += tkn.code[i];
+    if(tkn.code[i] === "\n") tkn.content += "\n";
+    tkn.end += tkn.content.length;
+    tkn.sub_path = new Path(tkn.content, tkn);
+    tkn.branches.front(tkn.sub_path.start);
+    tkn.sub_path.end.branches.front(tkn);
+    
+    tkn.params[0] = +tkn.params[0];
+    
+    return old.call(this);
+  };
+  
+  cmd.exec = noodel.in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
 // Loops as long as there is something in the front of the pipe that is truthy and removes if falsy.
 Command.add(noodel.commandify(characters.correct("ṃ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
