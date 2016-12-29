@@ -73,29 +73,55 @@ Command.add(noodel.commandify("ẹ"), function(cmd) {
 //------------------------------------------------------------------------------------------------------------
 /// Accesses a particular frame of an array/string. If is an integer in the pipe then it will use that as
 /// the index and place the accessed first and increment the index for the next frame.
-Command.add(noodel.commandify("ạ"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("ạ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
     if(f) {
-      var index = undefined, saved;
+      var index = undefined, count = undefined;
       if(f.type === "NUMBER") {
         index = f.valueify();
-        saved = f;
         f = this.tkn.inputs.front();
-        if(!f) return;
+        if(!f) {
+          noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."));
+          return;
+        }
+      }
+      
+      // If another number then that is where the animation should stop.
+      if(f.type === "NUMBER") {
+        count = f.valueify();
+        f = this.tkn.inputs.front();
+        if(!f) {
+          noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."));
+          return;
+        }
       }
       
       if(f.type === "STRING" || f.type === "ARRAY") {
         if(f.frame === undefined) f.frame = index;
         if(f.frame === undefined) f.frame = 0;
-        this.tkn.outputs.back(f.access(f.frame));
-        f.frame = (f.frame + 1) % f.length();
-        if(saved !== undefined) {
-          this.tkn.outputs.back(saved);
+        if(f.frame_count === undefined) f.frame_count = count;
+        if(f.frame_count === undefined) f.frame_count = f.length();
+        
+        // If there is a frame_count still then can access.
+        if(f.frame_count !== 0) {
+          this.tkn.outputs.back(f.access(f.frame));
+          f.frame = (f.frame + 1) % f.length();
+          --f.frame_count;
         }
+        
+        // Finished animation sequence therein can reset.
+        if(f.frame_count === 0) {
+          f.frame = undefined;
+          f.frame_count = undefined;
+        }
+        
         this.tkn.outputs.back(f);
+      } else {
+        noodel.make_error(new STRING("¤Expected¤an¤ARRAY¤or¤STRING."));
+        return;
       }
     }
   }
