@@ -107,7 +107,69 @@ Command.add(noodel.commandify(characters.correct("ạ")), function(cmd) {
         
         // If there is a frame_count still then can access.
         if(f.frame_count !== 0) {
-          this.tkn.outputs.back(f.access(f.frame));
+          var item = f.access(f.frame % f.length());
+          if(!item) {
+            noodel.make_error(new STRING("¤Index¤("+f.frame+")¤was¤out¤of¤bounds."), path);
+            return;
+          }
+          this.tkn.outputs.back(item);
+          f.frame = (f.frame + 1) % f.length();
+          --f.frame_count;
+        }
+        
+        // Finished animation sequence therein can reset.
+        if(f.frame_count === 0) {
+          f.frame = undefined;
+          f.frame_count = undefined;
+        }
+        
+        this.tkn.outputs.back(f);
+      } else {
+        noodel.make_error(new STRING("¤Expected¤an¤ARRAY¤or¤STRING."), path);
+        return;
+      }
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
+  
+//------------------------------------------------------------------------------------------------------------
+/// Accesses a particular frame of an array/string. If is an integer in the pipe then it will use that as
+/// the index and place the accessed first and increment the index for the next frame.
+/// The number following the token will be used as the first number.
+Command.add(noodel.commandify(characters.correct("ạ"), "(\\d+)"), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      var index = +this.tkn.params[0], count = undefined;
+     
+      // If another number then that is where the animation should stop.
+      if(f.type === "NUMBER") {
+        count = f.valueify();
+        f = this.tkn.inputs.front();
+        if(!f) {
+          noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."), path);
+          return;
+        }
+      }
+      
+      if(f.type === "STRING" || f.type === "ARRAY") {
+        if(f.frame === undefined) f.frame = index;
+        if(f.frame === undefined) f.frame = 0;
+        if(f.frame_count === undefined) f.frame_count = count;
+        if(f.frame_count === undefined) f.frame_count = f.length();
+        
+        // If there is a frame_count still then can access.
+        if(f.frame_count !== 0) {
+          var item = f.access(f.frame % f.length());
+          if(!item) {
+            noodel.make_error(new STRING("¤Index¤("+f.frame+")¤was¤out¤of¤bounds."), path);
+            return;
+          }
+          this.tkn.outputs.back(item);
           f.frame = (f.frame + 1) % f.length();
           --f.frame_count;
         }
