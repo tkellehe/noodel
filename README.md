@@ -22,7 +22,7 @@
 
 ---
 
-<div class="noodel-exec" code="“¤noodel¤ḷçẹḍ/8" input="" run show></div>
+<div class="noodel-exec" code="“¤noodel¤ḷçẹḍe" input="" run show></div>
 
 ---
 
