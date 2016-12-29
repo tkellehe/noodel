@@ -49,7 +49,7 @@ Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_prin
       this.tkn.outputs.back(new ARRAY(a));
     } else {
       var s = [];
-      for(var i = 0; i < s.length; ++i)
+      for(var i = 0; i < a.length; ++i)
         s.push(new STRING(a[i]));
       this.tkn.outputs.back(new ARRAY(s));
     }
