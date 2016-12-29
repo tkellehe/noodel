@@ -139,7 +139,7 @@ Command.add(noodel.commandify(characters.correct("ạ")), function(cmd) {
 /// Accesses a particular frame of an array/string. If is an integer in the pipe then it will use that as
 /// the index and place the accessed first and increment the index for the next frame.
 /// The number following the token will be used as the first number.
-Command.add(noodel.commandify(characters.correct("ạ"), "(\\d+|\\-\\d*)"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("ạ"), "((?:\\-\\d*)|(?:\\d+))"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
