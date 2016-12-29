@@ -139,14 +139,14 @@ Command.add(noodel.commandify(characters.correct("ạ")), function(cmd) {
 /// Accesses a particular frame of an array/string. If is an integer in the pipe then it will use that as
 /// the index and place the accessed first and increment the index for the next frame.
 /// The number following the token will be used as the first number.
-Command.add(noodel.commandify(characters.correct("ạ"), "(\\d+)"), function(cmd) {
+Command.add(noodel.commandify(characters.correct("ạ"), "(\\d+|\\-\\d*)"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
     if(f) {
-      var index = +this.tkn.params[0], count = undefined;
-     
+      var index = this.tkn.params[0] === "-" ? 0 : +this.tkn.params[0], count = undefined;
+      var direction = this.tkn.params[0] === "-" ? -1 : (index < 0 ? -1 : 1);
       // If another number then that is where the animation should stop.
       if(f.type === "NUMBER") {
         count = f.valueify();
@@ -159,12 +159,7 @@ Command.add(noodel.commandify(characters.correct("ạ"), "(\\d+)"), function(cmd
       
       if(f.type === "STRING" || f.type === "ARRAY") {
         if(f.frame === undefined) f.frame = index;
-        if(f.frame === undefined) {
-          f.frame = 0;
-          f.frame_direction = 1;
-        }
-        // Now can determine which direction that is needed to go.
-        else f.frame_direction = f.frame < 0 ? -1 : 1;
+        this.frame_direction = direction;
         if(f.frame_count === undefined) f.frame_count = count;
         if(f.frame_count === undefined) f.frame_count = f.length();
         
