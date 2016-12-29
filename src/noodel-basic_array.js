@@ -107,11 +107,7 @@ Command.add(noodel.commandify(characters.correct("ạ")), function(cmd) {
         
         // If there is a frame_count still then can access.
         if(f.frame_count !== 0) {
-          var item = f.access(f.frame % f.length());
-          if(!item) {
-            noodel.make_error(new STRING("¤Index¤("+f.frame+")¤was¤out¤of¤bounds."), path);
-            return;
-          }
+          var item = f.access(Math.abs(f.frame % f.length()));
           this.tkn.outputs.back(item);
           f.frame = (f.frame + 1) % f.length();
           --f.frame_count;
@@ -164,11 +160,7 @@ Command.add(noodel.commandify(characters.correct("ạ"), "(\\d+)"), function(cmd
         
         // If there is a frame_count still then can access.
         if(f.frame_count !== 0) {
-          var item = f.access(f.frame % f.length());
-          if(!item) {
-            noodel.make_error(new STRING("¤Index¤("+f.frame+")¤was¤out¤of¤bounds."), path);
-            return;
-          }
+          var item = f.access(Math.abs(f.frame % f.length()));
           this.tkn.outputs.back(item);
           f.frame = (f.frame + 1) % f.length();
           --f.frame_count;
