@@ -61,8 +61,22 @@ Command.add(noodel.commandify("ẹ"), function(cmd) {
       } else if(f.type === "NUMBER") {
         this.tkn.outputs.back(new NUMBER(1/f.valueify()));
       } else if(f.type === "STRING") {
-        var s = f.valueify();
-        this.tkn.outputs.back(new STRING(s.slice(1, s.length) + s.slice(0, 1)));
+        var a = f.arrayify();
+        for(var i = 0; i < a.length(); ++i) {
+          var s = a.value[i].value.split(characters.correct("¬"));
+          for(var j = 0; j < s.length(); ++j) {
+            var t = s[j];
+            s[j] = t.slice(1, t.length) + t.slice(0, 1);
+          }
+          if(s.length > 1) {
+            s = s.join(characters.correct("¬"));
+          } else {
+            s = s[i];
+          }
+          
+          a.value[i] = new STRING(s);
+        }
+        this.tkn.outputs.back(a.stringify());
       }
     } else this.tkn.inputs.front(f);
   }
