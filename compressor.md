@@ -26,6 +26,6 @@ Click [_Noodel_](https://tkellehe.github.io/noodel/compressor.html) to actually 
 
 <div class="noodel-compressor_basic">
 <textarea id="text"></textarea>
-<button click="$('compressed').val(characters.compress_basic($('#text').val()))">COMPRESS</button>
+<button click="$('#compressed').val(characters.compress_basic($('#text').val()))">COMPRESS</button>
 <textarea id="compressed"></textarea>
 </div>
