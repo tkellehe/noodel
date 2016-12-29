@@ -159,7 +159,7 @@ Command.add(new RegExp("^(" + characters.correct("ạ") + ")((?:\\-\\d*)|(?:\\d+
       
       if(f.type === "STRING" || f.type === "ARRAY") {
         if(f.frame === undefined) f.frame = index;
-        this.frame_direction = direction;
+        f.frame_direction = direction;
         if(f.frame_count === undefined) f.frame_count = count;
         if(f.frame_count === undefined) f.frame_count = f.length();
         
