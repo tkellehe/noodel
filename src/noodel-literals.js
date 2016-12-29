@@ -41,7 +41,7 @@ Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_prin
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
-    var a = this.tkn.params.split(characters.correct("ð"));
+    var a = this.tkn.params[0].split(characters.correct("ð"));
     if(a.length === 1) {
       a = [];
       for(var i = 0; i < this.tkn.params[0].length; ++i)
