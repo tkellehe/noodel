@@ -84,7 +84,7 @@ Command.add(noodel.commandify(characters.correct("ạ")), function(cmd) {
         index = f.valueify();
         f = this.tkn.inputs.front();
         if(!f) {
-          noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."));
+          noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."), path);
           return;
         }
       }
@@ -94,7 +94,7 @@ Command.add(noodel.commandify(characters.correct("ạ")), function(cmd) {
         count = f.valueify();
         f = this.tkn.inputs.front();
         if(!f) {
-          noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."));
+          noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."), path);
           return;
         }
       }
@@ -120,7 +120,7 @@ Command.add(noodel.commandify(characters.correct("ạ")), function(cmd) {
         
         this.tkn.outputs.back(f);
       } else {
-        noodel.make_error(new STRING("¤Expected¤an¤ARRAY¤or¤STRING."));
+        noodel.make_error(new STRING("¤Expected¤an¤ARRAY¤or¤STRING."), path);
         return;
       }
     }
