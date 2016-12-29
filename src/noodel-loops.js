@@ -223,6 +223,34 @@ Command.add(noodel.commandify(characters.correct("Ḅ")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
+// Delay for number of steps based off of what is in the pipe.
+Command.add(noodel.commandify(characters.correct("ḍ")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var tkn = this.tkn,
+        f = tkn.inputs.first();
+    if(f) {
+      if(!tkn.ran) {
+        tkn.old_next = tkn.next;
+        tkn.next = function() { return tkn };
+        tkn.ran = true;
+        tkn.old_rate = path.rate;
+        path.rate = +tkn.params[0];
+      } else {
+        tkn.ran = false;
+        tkn.next = tkn.old_next;
+        path.rate = tkn.old_rate;
+      }
+    } else {
+      noodel.make_error(new STRING("¤Expected¤something¤in¤the¤pipe."), path);
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
 // Delay for number of steps.
 Command.add(noodel.commandify(characters.correct("ḍ"), "\\d+"), function(cmd) {
   cmd.exec = noodel.out_to_in;
@@ -235,6 +263,34 @@ Command.add(noodel.commandify(characters.correct("ḍ"), "\\d+"), function(cmd) 
       tkn.ran = true;
       tkn.old_rate = path.rate;
       path.rate = +tkn.params[0];
+    } else {
+      tkn.ran = false;
+      tkn.next = tkn.old_next;
+      path.rate = tkn.old_rate;
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Delay for number of steps.
+Command.add(noodel.commandify(characters.correct("ḍ"), "[shqe]"), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  var map = { s: 1000, h: 500, q: 250, e: 125 };
+  function get_rate(c) {
+    return map[c];
+  };
+  
+  cmd.exec = function(path) {
+    var tkn = this.tkn;
+    if(!tkn.ran) {
+      tkn.old_next = tkn.next;
+      tkn.next = function() { return tkn };
+      tkn.ran = true;
+      tkn.old_rate = path.rate;
+      path.rate = get_rate(tkn.params[0]);
     } else {
       tkn.ran = false;
       tkn.next = tkn.old_next;
