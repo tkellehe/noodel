@@ -34,7 +34,7 @@ noodel.out_to_in = function(path) {
 };
   
 noodel.make_error = function(o, path) {
-  path.exceptions.back(new STRING("[ERROR]:")).back(o);
+  path.exceptions.back(new STRING("¶[EXCEPTION]:")).back(o);
 };
 
 //------------------------------------------------------------------------------------------------------------
