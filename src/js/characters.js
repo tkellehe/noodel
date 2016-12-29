@@ -252,8 +252,8 @@ characters.decompress_basic = function(s) {
       compressed.unshift(0);
       r += characters.debitify_char(compressed);
     } else {
-      // Easiest case and all that is need to is to bit shift then convert back.
-      for(var j = 8; j--;) {
+      // Easiest case.
+      for(var j = 8; j-- && i < bits.length;) {
         var c = bits.slice(i, i+8);
         // Correct the bit shift.
         c.unshift(c.pop());
