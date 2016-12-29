@@ -64,7 +64,7 @@ Command.add(noodel.commandify("ẹ"), function(cmd) {
         var a = f.arrayify();
         for(var i = 0; i < a.length(); ++i) {
           var s = a.value[i].value.split(characters.correct("¬"));
-          for(var j = 0; j < s.length(); ++j) {
+          for(var j = 0; j < s.length; ++j) {
             var t = s[j];
             s[j] = t.slice(1, t.length) + t.slice(0, 1);
           }
