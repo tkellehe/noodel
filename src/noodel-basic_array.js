@@ -101,7 +101,12 @@ Command.add(noodel.commandify(characters.correct("ạ")), function(cmd) {
       
       if(f.type === "STRING" || f.type === "ARRAY") {
         if(f.frame === undefined) f.frame = index;
-        if(f.frame === undefined) f.frame = 0;
+        if(f.frame === undefined) {
+          f.frame = 0;
+          f.frame_direction = 1;
+        }
+        // Now can determine which direction that is needed to go.
+        else f.frame_direction = f.frame < 0 ? -1 : 1;
         if(f.frame_count === undefined) f.frame_count = count;
         if(f.frame_count === undefined) f.frame_count = f.length();
         
@@ -109,7 +114,7 @@ Command.add(noodel.commandify(characters.correct("ạ")), function(cmd) {
         if(f.frame_count !== 0) {
           var item = f.access(Math.abs(f.frame % f.length()));
           this.tkn.outputs.back(item);
-          f.frame = (f.frame + 1) % f.length();
+          f.frame = (f.frame + f.frame_direction) % f.length();
           --f.frame_count;
         }
         
@@ -154,7 +159,12 @@ Command.add(noodel.commandify(characters.correct("ạ"), "(\\d+)"), function(cmd
       
       if(f.type === "STRING" || f.type === "ARRAY") {
         if(f.frame === undefined) f.frame = index;
-        if(f.frame === undefined) f.frame = 0;
+        if(f.frame === undefined) {
+          f.frame = 0;
+          f.frame_direction = 1;
+        }
+        // Now can determine which direction that is needed to go.
+        else f.frame_direction = f.frame < 0 ? -1 : 1;
         if(f.frame_count === undefined) f.frame_count = count;
         if(f.frame_count === undefined) f.frame_count = f.length();
         
@@ -162,7 +172,7 @@ Command.add(noodel.commandify(characters.correct("ạ"), "(\\d+)"), function(cmd
         if(f.frame_count !== 0) {
           var item = f.access(Math.abs(f.frame % f.length()));
           this.tkn.outputs.back(item);
-          f.frame = (f.frame + 1) % f.length();
+          f.frame = (f.frame + f.frame_direction) % f.length();
           --f.frame_count;
         }
         
