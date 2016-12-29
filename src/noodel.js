@@ -32,6 +32,10 @@ noodel.in_to_out = function(path) {
 noodel.out_to_in = function(path) {
   if(this.tkn.parent) this.tkn.inputs.pipe(this.tkn.parent.outputs);
 };
+  
+noodel.make_error = function(o, path) {
+  path.exceptions.back(new STRING("[ERROR]:")).back(o);
+};
 
 //------------------------------------------------------------------------------------------------------------
 /// NOPs
