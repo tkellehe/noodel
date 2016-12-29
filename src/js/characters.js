@@ -232,7 +232,7 @@ characters.decompress_basic = function(s) {
   var bits = characters.bitify_string(s), r = "";
   for(var i = 0; i < bits.length;) {
     if(bits[i+7] === 1) {
-      var first = bits.slice(i, 8);
+      var first = bits.slice(i, i+8);
       // Correct all of the bits.
       first.pop();
       first.unshift(0);
@@ -241,7 +241,7 @@ characters.decompress_basic = function(s) {
       // Figure out the compressed character and decode the others.
       var compressed = [];
       for(var j = 7; j--;) {
-        var c = bits.slice(i, 8);
+        var c = bits.slice(i, i+8);
         compressed.push(c.pop());
         // Correct the bit shift.
         c.unshift(0);
@@ -254,7 +254,7 @@ characters.decompress_basic = function(s) {
     } else {
       // Easiest case and all that is need to is to bit shift then convert back.
       for(var j = 8; j--;) {
-        var c = bits.slice(i, 8);
+        var c = bits.slice(i, i+8);
         // Correct the bit shift.
         c.unshift(c.pop());
         r += characters.debitify_char(c);
