@@ -75,7 +75,7 @@ Command.add(noodel.commandify(characters.correct("€")), function(cmd) {
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.first();
-    noodel.make_error(f ? f : new STRING("<UNDEFINED>¶"));
+    noodel.make_error(f ? f : new STRING("<UNDEFINED>¶"), path);
   }
         
   var old = cmd.tokenize;
