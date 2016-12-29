@@ -18,7 +18,7 @@ Command.add(noodel.commandify("_"), function(cmd) {
       } else if(f.type === "NUMBER") {
         this.tkn.outputs.back(f.integerify());
       } else if(f.type === "STRING") {
-        this.tkn.outputs.back(f.arrayify());
+        for(var i = 0; i < f.value.length; ++i) this.tkn.outputs.back(new STRING(f.value[i]));
       }
     }
   }
@@ -35,7 +35,7 @@ Command.add(noodel.commandify("l"), function(cmd) {
     var f = this.tkn.inputs.front();
     if(f) {
       if(f.type === "NUMBER") {
-        this.tkn.outputs.back(new NUMBER(Math.abs(f.value)));
+        this.tkn.outputs.back(new NUMBER(Math.abs(f.valueify())));
       } else if(f.type === "STRING" || f.type === "ARRAY") {
         this.tkn.outputs.back(new NUMBER(f.length()));
         this.tkn.outputs.back(f);
@@ -47,7 +47,7 @@ Command.add(noodel.commandify("l"), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
-/// Takes the first element of strings/arrays and places it into the back. For numbers, it reciprocals.
+/// Takes the first element of strings/arrays and places it into the back. For numbers, it reciprocates.
 Command.add(noodel.commandify("ẹ"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
@@ -80,8 +80,7 @@ Command.add(noodel.commandify("ạ"), function(cmd) {
     var f = this.tkn.inputs.front();
     if(f) {
       var index = undefined, saved;
-      if(f.type === "NUMBER")
-      {
+      if(f.type === "NUMBER") {
         index = f.valueify();
         saved = f;
         f = this.tkn.inputs.front();
