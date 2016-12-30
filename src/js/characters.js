@@ -155,10 +155,15 @@ characters.printify_char = function(c) {
   return c;
 };
 
+function handleUnicode(s) {
+  return s.replace(/:,(\d+);/g, function(c,n) { return String.fromCharCode(+n); });
+};
+  
 characters.printify_string = function(s) {
   var r = "";
   for(var i = 0; i < s.length; ++i) r += characters.printify_char(s[i]);
-  return r;
+  // Lastly need to handle unicode.
+  return handleUnicode(r);
 };
   
 characters.deprintify_char = function(c) {
