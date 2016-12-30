@@ -475,37 +475,37 @@ characters.compress_occur = function(s) {
   } else if(max_num_bits === 1) {
     var all_bits = [];
     for(var i = 0; i < res.length; ++i) {
-      if(!((i+7)%9)) {
+      if(!((i+6)%8)) {
         // Get the bits of the character to be compressed.
         var bits = characters.bitify_char(res[i]);
         // Indicate that the next 1 chars hold another char.
         all_bits[((i-2)*8) + 1] = 1;
         all_bits[((i-1)*8) + 1] = bits[7];
-      } else if(!((i+6)%9)) {
+      } else if(!((i+5)%8)) {
         // Get the bits of the character to be compressed.
         var bits = characters.bitify_char(res[i]);
         // Indicate that the next 1 chars hold another char.
         all_bits[((i-3)*8) + 2] = 1;
         all_bits[((i-2)*8) + 2] = bits[7];
-      } else if(!((i+5)%9)) {
+      } else if(!((i+4)%8)) {
         // Get the bits of the character to be compressed.
         var bits = characters.bitify_char(res[i]);
         // Indicate that the next 1 chars hold another char.
         all_bits[((i-4)*8) + 3] = 1;
         all_bits[((i-3)*8) + 3] = bits[7];
-      } else if(!((i+4)%9)) {
+      } else if(!((i+3)%8)) {
         // Get the bits of the character to be compressed.
         var bits = characters.bitify_char(res[i]);
         // Indicate that the next 1 chars hold another char.
         all_bits[((i-5)*8) + 4] = 1;
         all_bits[((i-4)*8) + 4] = bits[7];
-      } else if(!((i+3)%9)) {
+      } else if(!((i+2)%8)) {
         // Get the bits of the character to be compressed.
         var bits = characters.bitify_char(res[i]);
         // Indicate that the next 1 chars hold another char.
         all_bits[((i-6)*8) + 5] = 1;
         all_bits[((i-5)*8) + 5] = bits[7];
-      } else if(!((i+2)%9)) {
+      } else if(!((i+1)%8)) {
         // Get the bits of the character to be compressed.
         var bits = characters.bitify_char(res[i]);
         // Indicate that the next 1 chars hold another char.
