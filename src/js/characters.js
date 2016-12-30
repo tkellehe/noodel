@@ -167,6 +167,10 @@ characters.printify_string = function(s) {
 };
   
 characters.deprintify_char = function(c) {
+  // Handles unicode characters.
+  if(!characters.printables.is(c)) {
+    return ":," + c.charCodeAt(0) + ";";
+  }
   if(c === "\n") characters.correct("¶");
   if(c === " ") characters.correct("¤");
   return c;
