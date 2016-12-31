@@ -6,7 +6,7 @@
 
 //------------------------------------------------------------------------------------------------------------
 // Clears the path's outputs and copies what is in the front of the pipe into the path's output.
-Command.add(noodel.commandify(characters.correct("ç")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ç")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -23,7 +23,7 @@ Command.add(noodel.commandify(characters.correct("ç")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Clears the path's outputs and places what is in the front of the pipe into the path's output.
-Command.add(noodel.commandify(characters.correct("Ç")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("Ç")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -40,7 +40,7 @@ Command.add(noodel.commandify(characters.correct("Ç")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Places what is in the front of the pipe into the path's output.
-Command.add(noodel.commandify(characters.correct("Þ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("Þ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -55,7 +55,7 @@ Command.add(noodel.commandify(characters.correct("Þ")), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Copies what is in the front of the pipe into the path's output.
-Command.add(noodel.commandify(characters.correct("þ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("þ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -70,7 +70,7 @@ Command.add(noodel.commandify(characters.correct("þ")), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Creates an exception based off of what is in the pipe.
-Command.add(noodel.commandify(characters.correct("€")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("€")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -90,7 +90,7 @@ Command.add(noodel.commandify(characters.correct("€")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Places what is in the front of the pipe into the path's output followed by a new line.
-Command.add(noodel.commandify(characters.correct("Ñ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("Ñ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -105,7 +105,7 @@ Command.add(noodel.commandify(characters.correct("Ñ")), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Copies what is in the front of the pipe into the path's output followed by a new line.
-Command.add(noodel.commandify(characters.correct("ñ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ñ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
