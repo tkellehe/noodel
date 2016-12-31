@@ -39,7 +39,7 @@ noodel.make_error = function(o, path) {
 
 //------------------------------------------------------------------------------------------------------------
 /// NOPs
-Command.add(noodel.commandify("[ \t\n]"), function(cmd) {
+Command.add(0, noodel.commandify("[ \t\n]"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   cmd.exec = noodel.in_to_out;
 });
