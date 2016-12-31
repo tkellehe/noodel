@@ -11,7 +11,7 @@ Command.is_loop = function(literal) {
   
 //------------------------------------------------------------------------------------------------------------
 // Contiously loops the code following it up to a new line.
-Command.add(noodel.commandify(characters.correct("ḷ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḷ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   cmd.exec = function(path) {
     this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
@@ -39,7 +39,7 @@ Command.add(noodel.commandify(characters.correct("ḷ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Loops the given code up to a new line based off of the integerified value in the pipe which is removed.
-Command.add(noodel.commandify(characters.correct("Ḷ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("Ḷ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   cmd.exec = function(path) {
     this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
@@ -80,7 +80,7 @@ Command.add(noodel.commandify(characters.correct("Ḷ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Loops the given code up to a new line based off of the number placed next to it.
-Command.add(noodel.commandify(characters.correct("Ḷ"), "\\d+"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("Ḷ"), "\\d+"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   cmd.exec = function(path) {
     this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
@@ -119,7 +119,7 @@ Command.add(noodel.commandify(characters.correct("Ḷ"), "\\d+"), function(cmd) 
 
 //------------------------------------------------------------------------------------------------------------
 // Loops as long as there is something in the front of the pipe that is truthy and removes if falsy.
-Command.add(noodel.commandify(characters.correct("ṃ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ṃ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   cmd.exec = function(path) {
     this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
@@ -153,7 +153,7 @@ Command.add(noodel.commandify(characters.correct("ṃ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Loops as long as there is something in the front of the pipe that is truthy and always removes.
-Command.add(noodel.commandify(characters.correct("Ṃ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("Ṃ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   cmd.exec = function(path) {
     this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
@@ -186,7 +186,7 @@ Command.add(noodel.commandify(characters.correct("Ṃ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Breaks out of a looping command.
-Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḅ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   var old = cmd.tokenize;
@@ -216,7 +216,7 @@ Command.add(noodel.commandify(characters.correct("ḅ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Breaks out of a looping command depending on if the first item in the pipe is falsy which is removed.
-Command.add(noodel.commandify(characters.correct("Ḅ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("Ḅ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   var old = cmd.tokenize;
@@ -263,7 +263,7 @@ Command.add(noodel.commandify(characters.correct("Ḅ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps based off of what is in the pipe.
-Command.add(noodel.commandify(characters.correct("ḍ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḍ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -291,7 +291,7 @@ Command.add(noodel.commandify(characters.correct("ḍ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps.
-Command.add(noodel.commandify(characters.correct("ḍ"), "\\d+"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḍ"), "\\d+"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -314,7 +314,7 @@ Command.add(noodel.commandify(characters.correct("ḍ"), "\\d+"), function(cmd) 
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps.
-Command.add(noodel.commandify(characters.correct("ḍ"), "[shqe]"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḍ"), "[shqe]"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   var map = { s: 1000, h: 500, q: 250, e: 125 };
@@ -342,7 +342,7 @@ Command.add(noodel.commandify(characters.correct("ḍ"), "[shqe]"), function(cmd
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps using fractions
-Command.add(new RegExp("^("+characters.correct("ḍ")+")(\\d*)/(\\d*)$"), function(cmd) {
+Command.add(0, new RegExp("^("+characters.correct("ḍ")+")(\\d*)/(\\d*)$"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -372,7 +372,7 @@ Command.add(new RegExp("^("+characters.correct("ḍ")+")(\\d*)/(\\d*)$"), functi
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps using decimals
-Command.add(new RegExp("^("+characters.correct("ḍ")+")(\\d*)\\.(\\d*)$"), function(cmd) {
+Command.add(0, new RegExp("^("+characters.correct("ḍ")+")(\\d*)\\.(\\d*)$"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
