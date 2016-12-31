@@ -1,6 +1,7 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
 <script src="src/js/pipe.js"></script>
+<script src="src/js/props.js"></script>
 <script src="src/js/token.js"></script>
 <script src="src/js/path.js"></script>
 <script src="src/js/characters.js"></script>
