@@ -1,3 +1,10 @@
+\p => [ð¬¶¤ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.!?,0123456789:;"'_<=>\*\+\-\/\\\@\#\$\%\&\^\|\(\)\[\]\{\}\`\~]
+\c => [ẠḄḌẸḤỊḲḶṂṆỌṚṢṬỤṾẈỴẒȦḂĊḊĖḞĠḢİĿṀṄȮṖṘṠṪẆẊẎŻạḅḍẹḥịḳḷṃṇọṛṣṭụṿẉỵẓȧḃċḋėḟġḣŀṁṅȯṗṙṡṫẇẋẏżƁƇƊƑƓƘƝƤƬƲȤɓƈɗƒɠɦƙɱ]
+\m => [°¹²³⁴⁵⁶⁷⁸⁹]
+\l => [ɲƥʠɼʂƭʋȥÆÇÐÑØŒÞßæçıȷñøœþ€¢£¥…µ¡¿×÷¦©®«»‘’“”°¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾]
+\k => [\p\c\l ]
+\a => [\k\n]
+
 --- NOPs ---
     space     - Use to separate commands.
     new line  - Use to separate commands also ends some scopes of commands.
@@ -5,18 +12,119 @@
 --- MISC ---
     :,\d+;  - Use in a STRING to create a Unicode character based off of the \d+.
     ɲ`      - terminate()
+    ɲ~      - a = i.front() a.props.clear()
 
 --- Literals ---
-    (\p+)          - o.back(STRING("$1"))
-    “(\c*)         - o.back(STRING(decompress_basic("$1")))
-    ”(\c*)         - a = string_break(decompress_basic("$1")) foreach s in a => o.back(STRING(s))
-    ɲ(-?\d+)       - o.back(NUMBER($1))
-    ɲ(-?\d*\.\d+)  - o.back(NUMBER($1))
+ -- String --
+    (\p+)          - if has_null($1) => o.back(ARRAY(split($, "ð"))) else => o.back(STRING($1))
+    “(\c*)         - o.back(STRING(decompress_basic($1)))
+    ”(\c*)         - a = string_break(decompress_basic($1)) o.back(ARRAY(a))
+ -- Numeric --
+    ɲ(-?\d+)       - o.back(NUMBER(valueOf($1)))
+    ɲ(-?\d*\.\d+)  - o.back(NUMBER(valueOf($1)))
     ɲ(-)           - o.back(NUMBER(-1))
+    ɲ(-?\d*/\d+)   - o.back(NUMBER(valueOf($1)))
 
 --- Operators ---
-    
+    ⁺        - a = i.front() b = i.front() o.back(a.add(b))
+    ⁻        - a = i.front() b = i.front() o.back(a.sub(b))
+    ⁺ʂ       - a = i.front() b = i.front() o.back(a.add_flip(b))
+    ⁻ʂ       - a = i.front() b = i.front() o.back(a.sub_flip(b))
+    (\m+)⁺   - a = i.front() for c = 0, c < valueOf($1), ++c => a = a.increment(tkn); o.back(a)
+    (\m+)⁻   - a = i.front() for c = 0, c < valueOf($1), ++c => a = a.decrement(tkn); o.back(a)
+    (\m+)⁺ʂ  - a = i.front() for c = 0, c < valueOf($1), ++c => a = a.increment_flip(tkn); o.back(a)
+    (\m+)⁻ʂ  - a = i.front() for c = 0, c < valueOf($1), ++c => a = a.decrement_flip(tkn); o.back(a)
 
+--- Array Like Operators ---
+    ɲ_        - a = i.front()
+                if a is NUMBER => o.back(NUMBER(a.floor()))
+                elif a is STRING => foreach s in a.value => o.back(STRING(s))
+                elif a is ARRAY => foreach e in a.value => o.back(e)
+    ɲl        - a = i.front() o.back(NUMBER(a.length())) # For numbers that means abs.
+    ẹ         - a = i.front()
+                if a is NUMBER => o.back(NUMBER(a.reciprocal()))
+                elif a is STRING => o.back(STRING(a.value.slice(1, a.length()) + a.value.slice(0, 1)))
+                elif a is ARRAY => a.value.unshift(a.value.pop())
+    Ẹ         - a = i.front()
+                if a is NUMBER => o.back(NUMBER(a.square_root()))
+                elif a is STRING => len = a.length() o.back(STRING(a.value.slice(len - 1, len) + a.value.slice(0, len - 1)))
+                elif a is ARRAY => a.value.push(a.value.shift())
+    ạ         - a = i.front()
+                index = undefined
+                delta = undefined
+                count = undefined
+                if a is NUMBER => index = a.value delta = a.sign() a = i.front() if a == undefined => o.back(NUMBER(index + delta)) exit
+                if a is NUMBER => count = a.value a = i.front() if a = undefined => o.back(NUMBER(index + (delta * count))) exit
+                if a is NUMBER => o.back(NUMBER(abs((index + (delta * count))%a.value)))
+                elif a is STRING or ARRAY =>
+                  if a is STRING => a = ARRAY(string_break(a.value))
+                  if index == undefined => index = a.props("frame")
+                  if index == undefined => index = 0 delta = 1
+                  if count == undefined => count = a.props("frame_count")
+                  if count == undefined => count = a.length()
+                  if delta == undefined => delta = a.props("frame_delta")
+
+                  if count != 0 =>
+                    index = a.correct_index(index)
+                    o.back(a.access(index))
+                    index += delta
+                    --count
+ 
+                  if count == 0 =>
+                    a.props("frame_count", undefined)
+                    a.props("frame", undefined)
+                    a.props("frame_delta", undefined)
+                  else =>
+                    a.props("frame_count", count)
+                    a.props("frame", index)
+                    a.props("frame_delta", delta)
+                  
+                  o.back(a)
+    ạ(-?\d*)  - a = i.front()
+                index = $1 == "-" ? -1 : valueOf($1)
+                delta = $1.contains("-") ? -1 : 1
+                count = undefined
+                if a is NUMBER => count = a.value a = i.front() if a = undefined => o.back(NUMBER(index + (delta * count))) exit
+                if a is NUMBER => o.back(NUMBER(abs((index + (delta * count))%a.value)))
+                elif a is STRING or ARRAY =>
+                  if a is STRING => a = ARRAY(string_break(a.value))
+                  if a.props("frame") != undefined => index = a.props("frame")
+                  if count == undefined => count = a.props("frame_count")
+                  if count == undefined => count = a.length()
+
+                  if count != 0 =>
+                    index = a.correct_index(index)
+                    o.back(a.access(index))
+                    index += delta
+                    --count
+ 
+                  if count == 0 =>
+                    a.props("frame_count", undefined)
+                    a.props("frame", undefined)
+                    a.props("frame_delta", undefined)
+                  else =>
+                    a.props("frame_count", count)
+                    a.props("frame", index)
+                    a.props("frame_delta", delta)
+                  
+                  o.back(a)
+
+--- Casting ---
+    ɲ'      - a = i.front()
+              if a is ARRAY => foreach e in a.value => e = e.stringify(); o.back(a)
+              elif a is NUMBER o.back(a.stringify())
+              else o.back(a.reverse())
+    ɲ#      - a = i.front()
+              if a is ARRAY => foreach e in a.value => e = e.numberify(); o.back(a)
+              elif a is STRING o.back(a.numberify())
+              else o.back(NUMBER(a.sign_flip()))
+    ɲ       - a = i.front()
+              if a is ARRAY => foreach e in a.value => e = e.numberify(); o.back(a)
+              elif a is STRING => o.back(a.numberify())
+              elif a is NUMBER => o.back(NUMBER(-1 * a.abs()))
+    œ       - a = [] a.pipe(i) if a.length() != 0 => o.back(ARRAY(a))
+    œ(\d+)  - a = [] c = valueOf($1) while c != 0 and i.first() != undefined => a.push(i.front()); if a.length() != 0 => o.back(ARRAY(a))
+    µœ      - a = i.front() if a != undefined => a = a.integerify() b = [] while a.value != 0 and i.first() != undefined => b.push(i.front()) --a.value; o.back(ARRAY(b))
 
 --- All Characters ---
 ð¬¶¤ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.!?,0123456789:;"'_<=>*+-/\@#$%&^|()[]{}`~
