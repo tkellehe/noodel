@@ -13,9 +13,8 @@ Command.add(noodel.commandify("'"), function(cmd) {
     var f = this.tkn.inputs.front();
     if(f) {
       if(f.type === "ARRAY") {
-        var a = f.valueify();
         for(var i = 0; i < f.length(); ++i) {
-          a[i] = f.access(i).stringify();
+          f.value[i] = f.access(i).stringify();
         }
         this.tkn.outputs.back(f);
       } else {
@@ -38,9 +37,8 @@ Command.add(noodel.commandify("#"), function(cmd) {
     var f = this.tkn.inputs.front();
     if(f) {
       if(f.type === "ARRAY") {
-        var a = f.valueify();
         for(var i = 0; i < f.length(); ++i) {
-          a[i] = f.access(i).numberify();
+          f.value[i] = f.access(i).numberify();
         }
         this.tkn.outputs.back(f);
       } else {
