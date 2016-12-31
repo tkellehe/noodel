@@ -11,7 +11,7 @@ Command.is_loop = function(literal) {
   
 //------------------------------------------------------------------------------------------------------------
 // Contiously loops the code following it up to a new line.
-Command.add(0, new RegExp("^(" + characters.correct("ḷ") + "([^\n]*)" + ")$"), function(cmd) {
+Command.add(0, new RegExp("^(" + characters.correct("ḷ") + ")([^\n]*)" + "$"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   cmd.exec = function(path) {
     this.tkn.inputs.pipe(this.tkn.sub_path.end.outputs);
