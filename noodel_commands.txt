@@ -7,14 +7,15 @@
     ɲ`      - terminate()
 
 --- Literals ---
-    ({prin}+)      - o.back(STRING("$1"))
-    “({comp}*)     - o.back(STRING(decompress_basic("$1")))
-    ”({comp}*)     - a = string_break(decompress_basic("$1")) foreach s in a => o.back(STRING(s))
+    (\p+)          - o.back(STRING("$1"))
+    “(\c*)         - o.back(STRING(decompress_basic("$1")))
+    ”(\c*)         - a = string_break(decompress_basic("$1")) foreach s in a => o.back(STRING(s))
     ɲ(-?\d+)       - o.back(NUMBER($1))
     ɲ(-?\d*\.\d+)  - o.back(NUMBER($1))
     ɲ(-)           - o.back(NUMBER(-1))
 
-
+--- Operators ---
+    
 
 
 --- All Characters ---
