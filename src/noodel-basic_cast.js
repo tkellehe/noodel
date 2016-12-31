@@ -103,7 +103,7 @@ Command.add(0, noodel.commandify(characters.correct("œ"), "\\d+"), function(cmd
 
 //------------------------------------------------------------------------------------------------------------
 /// Collects the number of items specified in the pipe and creates an array for them.
-Command.add(0, noodel.commandify(characters.correct("œ") + characters.correct("µ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("œ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
