@@ -243,8 +243,14 @@ STRING.prototype.sub_flip = function(lhs, tkn) {
 }
 
 /// Array specific commands.
+STRING.prototype.correct_index = function(index) {
+  // Overkill for what it is actually doing...
+  return ((index % this.length()) + this.length()) % this.length();
+};
+
+
 STRING.prototype.access = function(index) {
-  return new STRING(this.value[index]);
+  return new STRING(this.value[this.correct_index(index)]);
 };
 
 STRING.prototype.length = function() {
@@ -352,8 +358,14 @@ ARRAY.prototype.sub_flip = function(lhs, tkn) {
 }
 
 /// Array specific commands.
+ARRAY.prototype.correct_index = function(index) {
+  // Overkill for what it is actually doing...
+  return ((index % this.length()) + this.length()) % this.length();
+};
+
+
 ARRAY.prototype.access = function(index) {
-  return this.value[index];
+  return this.value[this.correct_index(index)].copy();
 };
 
 ARRAY.prototype.length = function() {
