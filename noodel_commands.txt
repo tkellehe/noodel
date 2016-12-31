@@ -4,6 +4,7 @@
 
 --- MISC ---
     :,\d+;  - Use in a STRING to create a Unicode character based off of the \d+.
+    ɲ`      - terminate()
 
 --- Literals ---
     ({prin}+)      - o.back(STRING("$1"))
@@ -12,6 +13,7 @@
     ɲ(-?\d+)       - o.back(NUMBER($1))
     ɲ(-?\d*\.\d+)  - o.back(NUMBER($1))
     ɲ(-)           - o.back(NUMBER(-1))
+
 
 
 
