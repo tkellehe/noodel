@@ -304,7 +304,7 @@ characters.compress_occur = function(s) {
       var j = 7 - N, is_compressed = false;
       while(0 < j) { if((i+j)%8 === 0) { is_compressed = true; break; }; j--}
       if(is_compressed) {
-        for(var k = N + 1; 0 < k; ++k) {
+        for(var k = N + 1; 0 < k; --k) {
           all_bits[((p - k)*8) + j] = bits[N - k];
         }
       } else {
