@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------------------------------------
 /// Flattens that particular data type (for arrays places into elements, strings turned into char arrays
 /// and numbers into integers.
-Command.add(noodel.commandify("_"), function(cmd) {
+Command.add(0, noodel.commandify("_"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -28,7 +28,7 @@ Command.add(noodel.commandify("_"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 /// Gets magnitude of that particular data type.
-Command.add(noodel.commandify("l"), function(cmd) {
+Command.add(0, noodel.commandify("l"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -48,7 +48,7 @@ Command.add(noodel.commandify("l"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Takes the first element of strings/arrays and places it into the back. For numbers, it reciprocates.
-Command.add(noodel.commandify("ẹ"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ẹ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -73,7 +73,7 @@ Command.add(noodel.commandify("ẹ"), function(cmd) {
 //------------------------------------------------------------------------------------------------------------
 /// Accesses a particular frame of an array/string. If is an integer in the pipe then it will use that as
 /// the index and place the accessed first and increment the index for the next frame.
-Command.add(noodel.commandify(characters.correct("ạ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -139,7 +139,7 @@ Command.add(noodel.commandify(characters.correct("ạ")), function(cmd) {
 /// Accesses a particular frame of an array/string. If is an integer in the pipe then it will use that as
 /// the index and place the accessed first and increment the index for the next frame.
 /// The number following the token will be used as the first number.
-Command.add(new RegExp("^(" + characters.correct("ạ") + ")((?:\\-\\d*)|(?:\\d+))$"), function(cmd) {
+Command.add(0, new RegExp("^(" + characters.correct("ạ") + ")((?:\\-\\d*)|(?:\\d+))$"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
