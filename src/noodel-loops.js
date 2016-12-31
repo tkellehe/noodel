@@ -44,7 +44,7 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")([^\\n]*)" + "$")
       var f = tkn.inputs.front();
       if(f) {
         f = f.integerify();
-        tkn.count = f.valueify();
+        tkn.count = f.value;
       } else tkn.count = 0;
     }
     if(tkn.count-- < 1)
