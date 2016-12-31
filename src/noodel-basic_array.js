@@ -59,7 +59,7 @@ Command.add(0, noodel.commandify(characters.correct("ẹ")), function(cmd) {
         if(e) f.value.push(e);
         this.tkn.outputs.back(f);
       } else if(f.type === "NUMBER") {
-        this.tkn.outputs.back(new NUMBER(1/f.valueify()));
+        this.tkn.outputs.back(new NUMBER(1/f.value));
       } else if(f.type === "STRING") {
         var s = f.valueify();
         this.tkn.outputs.back(new STRING(s.slice(1, s.length) + s.slice(0, 1)));
@@ -81,7 +81,7 @@ Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
     if(f) {
       var index = undefined, count = undefined;
       if(f.type === "NUMBER") {
-        index = f.valueify();
+        index = f.value;
         f = this.tkn.inputs.front();
         if(!f) {
           noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."), path);
@@ -91,7 +91,7 @@ Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
       
       // If another number then that is where the animation should stop.
       if(f.type === "NUMBER") {
-        count = f.valueify();
+        count = f.value;
         f = this.tkn.inputs.front();
         if(!f) {
           noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."), path);
@@ -149,7 +149,7 @@ Command.add(0, new RegExp("^(" + characters.correct("ạ") + ")((?:\\-\\d*)|(?:\
       var direction = this.tkn.params[0] === "-" ? -1 : (index < 0 ? -1 : 1);
       // If another number then that is where the animation should stop.
       if(f.type === "NUMBER") {
-        count = f.valueify();
+        count = f.value;
         f = this.tkn.inputs.front();
         if(!f) {
           noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."), path);
