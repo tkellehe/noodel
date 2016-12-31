@@ -1,4 +1,4 @@
-(function(global, Pipe, make_props){
+(function(global, Pipe){
 
 function Command(tkn, f) {
   this.tkn = tkn;
@@ -47,7 +47,6 @@ global.Command = Command;
 ///////////////////////////////////////////////////////////////////////////////
 
 function Token(start, code, parent) {
-  this.props = make_props();
   this.start = start;
   this.code = code;
   this.parent = parent;
@@ -95,4 +94,4 @@ Token.parse = function(tkn) {
 
 global.Token = Token;
 
-})(this, this.Pipe, this.make_props)
+})(this, this.Pipe)
