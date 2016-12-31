@@ -22,10 +22,14 @@
 <script type="text/javascript" src="../docs.js"></script>
 
 
-The following is the current 256 different characters that _Noodel_ recognizes.
+The following is the current 256 different characters that [_Noodel_](https://tkellehe.github.io/noodel/docs/code_page.html) recognizes.
 
 <div class="noodel-char_table"></div>
 
 The first 98 characters _Noodel_ considers normal printable chars (ends at `~`).
 
 The `¶`and `¤` are `\n`, and <code> </code> respectively. This is done to allow the parser to use the whitespace characters to separate commands.
+
+The first 196 characters _Noodel_ considers compressable chars (ends at `ɱ`). These chars are used for strings that contain compressed text.
+
+The last 60 characters _Noodel_ considers noncompressable chars (starts at `ɲ`).
