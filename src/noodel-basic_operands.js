@@ -6,13 +6,15 @@
   
 //------------------------------------------------------------------------------------------------------------
 // Increments the item in the pipe.
-Command.add(0, noodel.commandify("\\+"), function(cmd) {
+Command.add(1, noodel.commandify(characters.regex.a_mini_digit, characters.correct("⁺")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
     if(f) {
-      this.tkn.outputs.back(f.increment(this.tkn));
+      var c = +characters.tiny_num_to_num(this.tkn.params[0]);
+      while(c--) f = f.increment(this.tkn);
+      this.tkn.outputs.back(f);
     }
   }
   
@@ -21,13 +23,15 @@ Command.add(0, noodel.commandify("\\+"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Decrements the item in the pipe.
-Command.add(0, noodel.commandify("-"), function(cmd) {
+Command.add(1, noodel.commandify(characters.regex.a_mini_digit, characters.correct("⁻")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
     if(f) {
-      this.tkn.outputs.back(f.decrement(this.tkn));
+      var c = +characters.tiny_num_to_num(this.tkn.params[0]);
+      while(c--) f = f.decrement(this.tkn);
+      this.tkn.outputs.back(f);
     }
   }
   
