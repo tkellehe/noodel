@@ -6,7 +6,7 @@
   
 //------------------------------------------------------------------------------------------------------------
 // Increments the item in the pipe.
-Command.add(1, noodel.commandify(characters.regex.a_mini_digit, characters.correct("⁺")), function(cmd) {
+Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters.correct("⁺")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -23,7 +23,7 @@ Command.add(1, noodel.commandify(characters.regex.a_mini_digit, characters.corre
   
 //------------------------------------------------------------------------------------------------------------
 // Decrements the item in the pipe.
-Command.add(1, noodel.commandify(characters.regex.a_mini_digit, characters.correct("⁻")), function(cmd) {
+Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters.correct("⁻")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
