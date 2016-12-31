@@ -1,7 +1,8 @@
-(function(global, Pipe, Command, Token){
+(function(global, Pipe, make_props, Command, Token){
 
 function Path(code, tkn) {
   this.code = code;
+  this.props = make_props();
   this.exceptions = new Pipe();
   this.start = new Token(0, this.code, tkn);
   this.start.path = this;
@@ -83,4 +84,4 @@ Path.prototype.exec = function() {
 
 global.Path = Path;
 
-})(this, this.Pipe, this.Command, this.Token)
+})(this, this.Pipe, this.make_props, this.Command, this.Token)
