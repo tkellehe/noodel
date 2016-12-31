@@ -6,7 +6,7 @@
 
 //------------------------------------------------------------------------------------------------------------
 /// Stringifies the first item in the pipe.
-Command.add(noodel.commandify("'"), function(cmd) {
+Command.add(0, noodel.commandify("'"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -30,7 +30,7 @@ Command.add(noodel.commandify("'"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Numberifies the first item in the pipe.
-Command.add(noodel.commandify("#"), function(cmd) {
+Command.add(0, noodel.commandify("#"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -54,7 +54,7 @@ Command.add(noodel.commandify("#"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Arrayifies the first item in the pipe.
-Command.add(noodel.commandify(characters.correct("ʋ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ʋ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -71,7 +71,7 @@ Command.add(noodel.commandify(characters.correct("ʋ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Collects all of the items in the pipe and creates an array for them.
-Command.add(noodel.commandify(characters.correct("œ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("œ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -87,7 +87,7 @@ Command.add(noodel.commandify(characters.correct("œ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Collects the number of items specified by the count and creates an array for them.
-Command.add(noodel.commandify(characters.correct("œ"), "\\d+"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("œ"), "\\d+"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -103,7 +103,7 @@ Command.add(noodel.commandify(characters.correct("œ"), "\\d+"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Collects the number of items specified in the pipe and creates an array for them.
-Command.add(noodel.commandify(characters.correct("œ") + characters.correct("µ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("œ") + characters.correct("µ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
