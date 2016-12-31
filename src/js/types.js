@@ -1,4 +1,4 @@
-(function(global, characters){
+(function(global, characters, make_props){
 
 var types = {};
 
@@ -57,6 +57,7 @@ function is_TYPE(o) { return is_STRING(o) || is_ARRAY(o) || is_NUMBER(o) };
 
 //------------------------------------------------------------------------------------------------------------
 function NUMBER(v) {
+  this.props = make_props();
   this.value = to_number(v);
 }
 
@@ -137,6 +138,7 @@ types.NUMBER = NUMBER;
 
 //------------------------------------------------------------------------------------------------------------
 function STRING(v) {
+  this.props = make_props();
   this.value = to_string(v);
 }
 
@@ -271,6 +273,7 @@ types.STRING = STRING;
 
 //------------------------------------------------------------------------------------------------------------
 function ARRAY(v) {
+  this.props = make_props();
   this.value = is_array(v) ? v : [];
 }
 
@@ -387,4 +390,4 @@ types.ARRAY = ARRAY;
 //------------------------------------------------------------------------------------------------------------
 global.types = types;
 
-})(this, this.characters)
+})(this, this.characters, this.make_props)
