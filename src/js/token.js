@@ -18,7 +18,7 @@ function Command(tkn, f) {
 
 Command.commands = [];
 Command.add = function(li, r, f) {
-  Command.commands.push({literal_index: li, regex:r, f:f});
+  Command.commands.push({literal_index: li+1, regex:r, f:f});
 };
 function CommandLookUp(res, index) {
   this.index = index;
