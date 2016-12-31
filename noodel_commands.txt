@@ -126,6 +126,17 @@
     œ(\d+)  - a = [] c = valueOf($1) while c != 0 and i.first() != undefined => a.push(i.front()); if a.length() != 0 => o.back(ARRAY(a))
     µœ      - a = i.front() if a != undefined => a = a.integerify() b = [] while a.value != 0 and i.first() != undefined => b.push(i.front()) --a.value; o.back(ARRAY(b))
 
+--- Loops ---
+    ḷ(\k*)       - while(true) => $1
+    Ḷ(\k*)       - if tkn.count == undefined => tkn.count = a.integerify().value
+                   while(0 < tkn.count) => $1 tkn.count--
+                   tkn.count = undefined
+    Ḷ(\d+)(\k*)  - if tkn.count == undefined => tkn.count = valueOf($1)
+                   while(0 < tkn.count) => $2 tkn.count--
+                   tkn.count = undefined
+    ṃ(\k*)       - while(i.first().is_truthy().value == 1) $1
+    Ṃ(\k*)       - while(i.front().is_truthy().value == 1) $1
+
 --- All Characters ---
 ð¬¶¤ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.!?,0123456789:;"'_<=>*+-/\@#$%&^|()[]{}`~
 ẠḄḌẸḤỊḲḶṂṆỌṚṢṬỤṾẈỴẒȦḂĊḊĖḞĠḢİĿṀṄȮṖṘṠṪẆẊẎŻạḅḍẹḥịḳḷṃṇọṛṣṭụṿẉỵẓȧḃċḋėḟġḣŀṁṅȯṗṙṡṫẇẋẏżƁƇƊƑƓƘƝƤƬƲȤɓƈɗƒɠɦƙɱ
