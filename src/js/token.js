@@ -17,21 +17,21 @@ function Command(tkn, f) {
 };
 
 Command.commands = [];
-Command.add = function(r, f) {
-  Command.commands.push({regex:r, f:f});
+Command.add = function(l, li, r, f) {
+  Command.commands.push({literal: l, literal_index: li, regex:r, f:f});
 };
-function CommandLookUp(res) {
-  this.literal = res[1];
+function CommandLookUp(res, index) {
+  this.index = index;
+  this.literal = Command.commands[index].literal;
   this.params = [];
-  for(var i = 2; i < res.length; ++i) this.params.push(res[i]);
+  for(var i = 1; i < res.length; ++i) if(i !== Command.commands[index].literal_index) this.params.push(res[i]);
   this.captured = res[0];
 };
 Command.find = function(text) {
   for(var i = Command.commands.length; i--;) {
     var res = Command.commands[i].regex.exec(text);
     if(res) {
-      var p = new CommandLookUp(res);
-      p.index = i;
+      var p = new CommandLookUp(res, i);
       return p;
     }
   }
@@ -78,6 +78,7 @@ Token.parse = function(tkn) {
   // Parses entire script to find the best command.
   while(i < tkn.code.length) {
     var get = Command.find(string);
+    // If found a command that uses more characters then use that.
     if(get !== undefined) {
       look = get;
     }
