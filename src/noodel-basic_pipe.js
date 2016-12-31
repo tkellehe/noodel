@@ -6,7 +6,7 @@
 
 //------------------------------------------------------------------------------------------------------------
 // Blocks the pipe preventing all items from moving on.
-Command.add(noodel.commandify(characters.correct("ḃ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("Ḃ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -18,7 +18,7 @@ Command.add(noodel.commandify(characters.correct("ḃ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 // Removes the item in the front of the pipe.
-Command.add(noodel.commandify(characters.correct("ḋ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḃ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -30,7 +30,7 @@ Command.add(noodel.commandify(characters.correct("ḋ")), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Places what is in the front of the pipe to the back.
-Command.add(noodel.commandify(characters.correct("ė")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ė")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -43,7 +43,7 @@ Command.add(noodel.commandify(characters.correct("ė")), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Places what is in the back of the pipe to the front.
-Command.add(noodel.commandify(characters.correct("Ė")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("Ė")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -55,7 +55,7 @@ Command.add(noodel.commandify(characters.correct("Ė")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
-Command.add(noodel.commandify(characters.correct("ʂ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ʂ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
