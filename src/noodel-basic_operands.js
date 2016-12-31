@@ -6,7 +6,7 @@
   
 //------------------------------------------------------------------------------------------------------------
 // Increments the item in the pipe.
-Command.add(noodel.commandify("\\+"), function(cmd) {
+Command.add(0, noodel.commandify("\\+"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -21,7 +21,7 @@ Command.add(noodel.commandify("\\+"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Decrements the item in the pipe.
-Command.add(noodel.commandify("-"), function(cmd) {
+Command.add(0, noodel.commandify("-"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -36,7 +36,7 @@ Command.add(noodel.commandify("-"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Adds two items in the pipe where the first is the lhs and the second is the rhs.
-Command.add(noodel.commandify(characters.correct("⁺")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("⁺")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -53,7 +53,7 @@ Command.add(noodel.commandify(characters.correct("⁺")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
-Command.add(noodel.commandify(characters.correct("⁻")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("⁻")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -70,7 +70,7 @@ Command.add(noodel.commandify(characters.correct("⁻")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
-Command.add(noodel.commandify(characters.correct("⁺")+characters.correct("ʂ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("⁺")+characters.correct("ʂ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -87,7 +87,7 @@ Command.add(noodel.commandify(characters.correct("⁺")+characters.correct("ʂ")
 });
 
 //------------------------------------------------------------------------------------------------------------
-Command.add(noodel.commandify(characters.correct("⁻")+characters.correct("ʂ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("⁻")+characters.correct("ʂ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -104,7 +104,7 @@ Command.add(noodel.commandify(characters.correct("⁻")+characters.correct("ʂ")
 });
 
 //------------------------------------------------------------------------------------------------------------
-Command.add(noodel.commandify(characters.correct("ʂ")+characters.correct("⁺")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ʂ")+characters.correct("⁺")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -121,7 +121,7 @@ Command.add(noodel.commandify(characters.correct("ʂ")+characters.correct("⁺")
 });
 
 //------------------------------------------------------------------------------------------------------------
-Command.add(noodel.commandify(characters.correct("ʂ")+characters.correct("⁻")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ʂ")+characters.correct("⁻")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
