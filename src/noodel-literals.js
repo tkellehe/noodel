@@ -6,7 +6,7 @@
 
 //------------------------------------------------------------------------------------------------------------
 // Handles simple string literals of printable characters.
-Command.add(noodel.commandify(characters.correct("“"), characters.regex.a_printable + "*"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("“"), characters.regex.a_printable + "*"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -18,7 +18,7 @@ Command.add(noodel.commandify(characters.correct("“"), characters.regex.a_prin
 
 //------------------------------------------------------------------------------------------------------------
 // Handles basic compressed string literals of printable characters.
-Command.add(noodel.commandify(characters.correct("”"), characters.regex.a_compressable + "*"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("”"), characters.regex.a_compressable + "*"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -37,7 +37,7 @@ Command.add(noodel.commandify(characters.correct("”"), characters.regex.a_comp
 
 //------------------------------------------------------------------------------------------------------------
 // Creates and array of strings from each printable character following it.
-Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_printable + "*"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("‘"), characters.regex.a_printable + "*"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -60,7 +60,7 @@ Command.add(noodel.commandify(characters.correct("‘"), characters.regex.a_prin
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number and places it into the pipe.
-Command.add(/^((?:\-\d+\.\d+)|(?:\d*\.\d+)|(?:\-?\d+))$/, function(cmd) {
+Command.add(0, /^((?:\-\d+\.\d+)|(?:\d*\.\d+)|(?:\-?\d+))$/, function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -72,7 +72,7 @@ Command.add(/^((?:\-\d+\.\d+)|(?:\d*\.\d+)|(?:\-?\d+))$/, function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number based off of a fraction and places it into the pipe.
-Command.add(/^(-?\d*\/\d+)$/, function(cmd) {
+Command.add(0, /^(-?\d*\/\d+)$/, function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
