@@ -20,7 +20,7 @@ Command.add(0, new RegExp("^(" + characters.correct("ḷ") + ")([^\n]*)" + "$"),
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     var tkn = this.tkn;
-    tkn.sub_path = new Path(tkn.content, tkn);
+    tkn.sub_path = new Path(tkn.params[0], tkn);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
