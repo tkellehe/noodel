@@ -18,13 +18,16 @@
 <script type="text/javascript" src="docs.js"></script>
 
 
-[_Noodel_](https://tkellehe.github.io/noodel) is a programming language that has the main focus of assisting ASCII Art code golfing challenges (and eventually other art/animation challenges). The main thing to focus on is the memory model of _Noodel_ which acts as a pipe of information moving through the different tokens. There also is a system of arrays that can be utilized and navigated in order to have a persistant memory (In progress...). Since this has already turned into a paragraph of random information about _Noodel_, it also has its own [256 Unicode character set](docs/code_page.md). Since the language is for challenges visit the [issues page](https://github.com/tkellehe/noodel/issues) and post challenges where _Noodel_ was used. This will allow others to learn how to _Noodel_ as well as notice features that could be added to assist with challenges ([Learn more here](docs/posting_challenges.md)). This language is still under construction and since I like to do code for _Noodel_ from the online editor things may randomly break, features disappear/change, zero comments made on commits, or random issues appear for myself. There also is an editor designed for _Noodel_ that utilizes its _JavaScript_ parser [here](https://tkellehe.github.io/noodel/editor.html).
+[_Noodel_](https://tkellehe.github.io/noodel) is a programming language that has the main focus of assisting ASCII Art code golfing challenges (and eventually other art/animation challenges). _Noodel_ also has its own [256 character set](docs/code_page.md).
 
 ---
 
 <div class="noodel-exec" code="“¤noodel¤ḷçẹḍe" input="" run show></div>
 
 ---
+
+Since the language is for challenges visit the [issues page](https://github.com/tkellehe/noodel/issues) and post challenges where _Noodel_ was used. This will allow others to learn how to _Noodel_ as well as notice features that could be added to assist with challenges ([Learn more](docs/posting_challenges.md)). This language is still under construction and since I like to do code for _Noodel_ from the online editor things may randomly break, features disappear/change, zero comments made on commits, or random issues appear for myself. There also is an editor designed for _Noodel_ that utilizes its _JavaScript_ parser [here](https://tkellehe.github.io/noodel/editor.html).
+
 
 ## Introduction
 
