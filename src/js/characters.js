@@ -300,7 +300,7 @@ characters.compress_occur = function(s) {
   } else {
     var all_bits = [], N = max_num_bits, p = 0;
     for(var i = 0; i < res.length; ++i) {
-      var bits = characters.bitify(res[i]);
+      var bits = characters.bitify_char(res[i]);
       var j = 7 - N, is_compressed = false;
       while(0 < j) if((i+j)%8 === 0) { is_compressed = true; break; }
       if(is_compressed) {
