@@ -17,12 +17,12 @@ function Command(tkn, f) {
 };
 
 Command.commands = [];
-Command.add = function(l, li, r, f) {
-  Command.commands.push({literal: l, literal_index: li, regex:r, f:f});
+Command.add = function(li, r, f) {
+  Command.commands.push({literal_index: li, regex:r, f:f});
 };
 function CommandLookUp(res, index) {
   this.index = index;
-  this.literal = Command.commands[index].literal;
+  this.literal = res[Command.commands[index].literal_index];
   this.params = [];
   for(var i = 1; i < res.length; ++i) if(i !== Command.commands[index].literal_index) this.params.push(res[i]);
   this.captured = res[0];
