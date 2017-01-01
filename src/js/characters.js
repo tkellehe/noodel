@@ -325,16 +325,13 @@ characters.decompress_occur = function(key, compressed) {
   var res = "";
   key = characters.decompress_basic(key);
   
-  var num_bits_added = char_to_int[key[0]];
-  key = key.slice(1, key.length);
-  
   var max_num_bits = (key.length - 1).toString(2).length;
-  if(max_num_bits < 7) max_num_bits++;
-  var bits = characters.bitify_string(compressed), res = "";
+  var all_bits = characters.bitify_string(compressed), res = "";
   
-  for(var i = 0, l = bits.length - num_bits_added; i < l; i += max_num_bits) {
-    var t = bits.slice(i, i+max_num_bits);
-    if(t.length === max_num_bits) res += characters.debitify_char(t);
+  if(max_num_bits === 7) {
+    res = characters.decompress_basic(compressed);
+  } else {
+    
   }
   
   var decompressed = "";
