@@ -334,6 +334,10 @@ characters.decompress_occur = function(key, compressed) {
     var N = max_num_bits;
     for(var i = 0; i < all_bits.length; i += 8) {
       
+      var packed_bits = all_bits.slice(i + (8 - N), i + 8);
+      // Fill it with zeros.
+      for(var c = 8 - N; c--;) packed_bits.unshift(0);
+      
       if((i/8)%(N+1) === 0) {
         // Reached the last char that has chars.
       }
