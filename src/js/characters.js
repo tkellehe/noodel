@@ -331,7 +331,13 @@ characters.decompress_occur = function(key, compressed) {
   if(max_num_bits === 7) {
     res = characters.decompress_basic(compressed);
   } else {
-    
+    var N = max_num_bits;
+    for(var i = 0; i < all_bits.length; i += 8) {
+      
+      if((i/8)%(N+1) === 0) {
+        // Reached the last char that has chars.
+      }
+    }
   }
   
   var decompressed = "";
