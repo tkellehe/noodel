@@ -337,9 +337,24 @@ characters.decompress_occur = function(key, compressed) {
       var packed_bits = all_bits.slice(i + (8 - N), i + 8);
       // Fill it with zeros.
       for(var c = 8 - N; c--;) packed_bits.unshift(0);
+      res += characters.debitify_char(packed_bits);
       
-      if((i/8)%(N+1) === 0) {
+      if(((i/8)+1)%(N+1) === 0) {
         // Reached the last char that has chars.
+        for(var k = 1; k < (8 - N); ++k) {
+          var bits = [], o = i - (N*8);
+          if(all_bits[o+k] === 1) {
+            // Fill it with zeros.
+            for(var c = 8 - N; c--;) bits.push(0);
+            for(var j = 0; j < N; ++j) {
+              bits.push(all_bits[o+k+((j+1)*8)]);
+            }
+            res += characters.debitify_char(bits);
+          } else {
+            // Can exit because no others should be one.
+            break;
+          }
+        }
       }
     }
   }
