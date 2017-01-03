@@ -10,7 +10,8 @@
     new line  - Use to separate commands also ends some scopes of commands.
 
 --- MISC ---
-    :,\d+;  - Use in a STRING to create a Unicode character based off of the \d+.
+    :,\d+;  - Use in a STRING to create a JS Code character based off of the \d+.
+    U\+\d+  - Use in a STRING to create a Unicode character based off of the \d+.
     ɲ`      - terminate()
     ɲ~      - a = i.front() a.props.clear()
 
