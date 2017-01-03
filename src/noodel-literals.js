@@ -60,11 +60,23 @@ Command.add(0, noodel.commandify(characters.correct("‘"), characters.regex.a_p
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number and places it into the pipe.
-Command.add(0, /^((?:\-\d+\.\d+)|(?:\d*\.\d+)|(?:\-?\d+))$/, function(cmd) {
+Command.add(0, new RegExp("^("+characters.correct("ɲ")+")((?:\\-\\d+\\.\\d+)|(?:\\d*\\.\\d+)|(?:\\-?\\d+))$"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
-    this.tkn.outputs.back(new NUMBER(+this.tkn.literal));
+    this.tkn.outputs.back(new NUMBER(+this.tkn.params[0]));
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
+  
+//------------------------------------------------------------------------------------------------------------
+// Creates a number and places it into the pipe.
+Command.add(0, new RegExp("^("+characters.correct("ɲ")+"-)$"), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    this.tkn.outputs.back(new NUMBER(-1));
   }
   
   cmd.exec = noodel.in_to_out;
@@ -72,11 +84,11 @@ Command.add(0, /^((?:\-\d+\.\d+)|(?:\d*\.\d+)|(?:\-?\d+))$/, function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number based off of a fraction and places it into the pipe.
-Command.add(0, /^(-?\d*\/\d+)$/, function(cmd) {
+Command.add(0, new RegExp("^("+characters.correct("ɲ")+")(-?\\d*\\/\\d+)$"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
-    var a = this.tkn.literal.split("/");
+    var a = this.tkn.params[0].split("/");
     var num = 1, den = +a[1];
     if(a[0].length) {
       if(a[0] === "-") num = -1;
