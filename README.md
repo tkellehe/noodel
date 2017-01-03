@@ -23,7 +23,7 @@
 
 ---
 
-<div class="noodel-exec" code="“¤noodel¤ḷçẹḍe" input="" run show></div>
+<div class="noodel-exec" code="¤noodel¤ḷçẹḍe" input="" run show></div>
 
 ---
 
@@ -40,7 +40,7 @@ The `STRING` literal is created and placed into the pipe. At the very end, all o
 
 ---
 
-<div class="noodel-exec" code="“Hello,¤World!" input=""></div>
+<div class="noodel-exec" code="Hello,¤World!" input=""></div>
 
 ---
 
