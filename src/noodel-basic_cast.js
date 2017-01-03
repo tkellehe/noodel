@@ -60,7 +60,17 @@ Command.add(0, noodel.commandify(characters.correct("ʋ")), function(cmd) {
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
     if(f) {
-      this.tkn.outputs.back(f.arrayify());
+      var t = f.arrayify();
+      if(f.type === "STRING") {
+        if(t.length() === 1) {
+          var a = [];
+          for(var i = 0; i < f.value.length; ++i) {
+            a.push(new STRING(f.value[i]));
+          }
+          t = new ARRAY(a);
+        }
+      }
+      this.tkn.outputs.back(t);
     } else {
       noodel.make_error(new STRING("¤Expected¤something¤in¤the¤pipe."), path);
     }
