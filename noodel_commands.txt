@@ -13,6 +13,16 @@
     :;\d+  - Use in a STRING to create a Unicode character based off of the \d+.
     ɲ`     - terminate()
     ɲ~     - a = i.front() a.props.clear()
+    ṛ      - a = i.front()
+             if a is NUMBER =>
+               max, min
+               b = i.front()
+               if b == undefined => max = MAX(0, a.value) min = MIN(0, a.value)
+               else => max = MAX(a.value, b.value) min = MIN(a.value, b.value)
+               o.back(NUMBER(random_int(min, max)))
+             elif a is ARRAY or a is STRING =>
+               o.back(a.access(random_int(0, a.length())))
+               o.back(a)
 
 --- Literals ---
  -- String --
@@ -125,6 +135,10 @@
     œ       - a = [] a.pipe(i) if a.length() != 0 => o.back(ARRAY(a))
     œ(\d+)  - a = [] c = valueOf($1) while c != 0 and i.first() != undefined => a.push(i.front()); if a.length() != 0 => o.back(ARRAY(a))
     µœ      - a = i.front() if a != undefined => a = a.integerify() b = [] while a.value != 0 and i.first() != undefined => b.push(i.front()) --a.value; o.back(ARRAY(b))
+    ʋ       - a = i.front()
+              if a is NUMBER => o.back(NUMBER(a.ceilling()))
+              elif a is STRING => a = string_break(a.value) foreach e in a => o.back(STRING(e))
+              elif a is ARRAY => ???
 
 --- Loops ---
     ḷ(\k*)       - while(true) => $1
