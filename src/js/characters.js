@@ -155,8 +155,12 @@ characters.printify_char = function(c) {
   return c;
 };
 
+//function handleCharCode(s) {
+//  return s.replace(/:,(\d+);/g, function(c,n) { return String.fromCharCode(+n); });
+//};
+  
 function handleUnicode(s) {
-  return s.replace(/:,(\d+);/g, function(c,n) { return String.fromCharCode(+n); });
+  return s.replace(/\:\;(\d+)/g, function(c,n) { return String.fromCharCode(+n); });
 };
   
 characters.printify_string = function(s) {
@@ -169,7 +173,8 @@ characters.printify_string = function(s) {
 characters.deprintify_char = function(c) {
   // Handles unicode characters.
   if(!characters.printables.is(c)) {
-    return ":," + c.charCodeAt(0) + ";";
+    //return ":," + c.charCodeAt(0) + ";";
+    return ":;" + c.charCodeAt(0);
   }
   if(c === "\n") characters.correct("¶");
   if(c === " ") characters.correct("¤");
