@@ -217,14 +217,14 @@ characters.debitify_string = function(a) {
 characters.compress_basic = function(s) {
   var a = [];
   // Every 9th character will get compressed into the previous 7 characters where the 1st
-  // gets a bit set indicating that the next eight have a character hidden within.
+  // gets a bit set indicating that the next seven have a character hidden within.
   for(var i = 0; i < s.length; ++i) {
     // Gets the character in bit form.
     var bits = characters.bitify_char(s[i]);
     
     // If the 9th character compress, else do normal left shifting.
-    if((i + 1) % 9) {
-      // Left shift the bits moving the left most to the right most.
+    if((i % 8) || i === 0) {
+      // Rotate the bits (place a zero in the back).
       // This allows for only the compressable characters to be used in the string.
       bits.push(bits.shift());
       a = a.concat(bits);
