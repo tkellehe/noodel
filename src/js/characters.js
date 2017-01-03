@@ -275,6 +275,51 @@ characters.decompress_basic = function(s) {
   return r;
 };
 
+characters.compress_bitpack = function(N, string) {
+  // If it requires 7 bits to encode each character in the string, the best compression is the basic one.
+  if(N === 7) return characters.compress_basic(string);
+  
+  var all_bits = [], packed_index = 0;
+  for(var i = 0; i < string.length; ++i) {
+    // Get the character in its bit format.
+    var bits = characters.bitify_char(string[i]),
+    // Used to determine whether or not the character must be packed into the previous N+1 characters.
+        is_compressed = false;
+    
+    // 7 - N characters can be packed into the previous N+1 characters.
+    var j = 7 - N;
+    while(0 < j) {
+      // If the current position is properly divisable by eight given offset j, then it can be packed.
+      if((i+j)%8 === 0) {
+        is_compressed = true;
+        break;
+      };
+      // Move j.
+      j--;
+    }
+    
+    if(is_compressed) {
+      // The offset into which bit holds the data in the characters being packed into.
+      var offset = 8 - j - N;
+      // Indicate that the next N characters hold a packed character.
+      all_bits[((packed_index - N - 1)*8) + offset] = 1;
+      // Loop through each of the bits in the character to be packed.
+      for(var k = N; 0 < k; --k) {
+        // Places the bits into the correct location.
+        all_bits[((packed_index - k)*8) + offset] = bits[8 - k];
+      }
+    } else {
+      // No packing required, therein just append on the bits.
+      all_bits = all_bits.concat(bits);
+      // Increment the packed_index, beause added a new character that can hold characters.
+      packed_index++;
+    }
+  }
+    
+  // Can now turn the bits into actual characters.
+  return characters.debitify_string(all_bits);
+};
+  
 characters.compress_occur = function(s) {
   var key = "", res = "";
   
@@ -292,33 +337,9 @@ characters.compress_occur = function(s) {
   }
   
   // The result is now made up of the indexes, but we have not actually compressed this depends on the bits.
-  var max_num_bits = (key.length - 1).toString(2).length, compressed = "";
+  var max_num_bits = (key.length - 1).toString(2).length;
   
-  // If the bits is 7 then the best can do is the basic compression.
-  if(max_num_bits === 7) {
-    compressed = characters.compress_basic(res);
-  } else {
-    var all_bits = [], N = max_num_bits, p = 0;
-    for(var i = 0; i < res.length; ++i) {
-      var bits = characters.bitify_char(res[i]);
-      var j = 7 - N, is_compressed = false;
-      while(0 < j) { if((i+j)%8 === 0) { is_compressed = true; break; }; j--}
-      if(is_compressed) {
-        var o = 8 - j - N;
-        all_bits[((p - N - 1)*8) + o] = 1;
-        for(var k = N; 0 < k; --k) {
-          all_bits[((p - k)*8) + o] = bits[8 - k];
-        }
-      } else {
-        all_bits = all_bits.concat(bits);
-        p++;
-      }
-    }
-    
-    compressed = characters.debitify_string(all_bits);
-  }
-  
-  return { key: characters.compress_basic(key), compressed: compressed };
+  return { key: characters.compress_basic(key), compressed: characters.compress_bitpack(max_num_bits, res) };
 };
 
 characters.decompress_occur = function(key, compressed) {
