@@ -26,7 +26,12 @@ Click [_Noodel_](https://tkellehe.github.io/noodel/compressor.html) to actually 
 ## Basic Compression
 
 <div class="noodel-compressor_basic">
-<textarea id="text"></textarea>
-<button onclick="$('#compressed').val(characters.compress_basic($('#text').val()))">COMPRESS</button>
-<textarea id="compressed"></textarea>
+<textarea id="text-basic"></textarea>
+<button onclick="$('#compressed-basic').val(characters.compress_basic($('#text-basic').val()))">COMPRESS</button>
+<textarea id="compressed-basic"></textarea>
+</div>
+<div class="noodel-compressor_occur">
+<textarea id="text-occur"></textarea>
+<button onclick="var o = characters.compress_occur($('#text-occur').val()); $('#compressed-occur').val(o.key+'\n'+o.compressed)">COMPRESS</button>
+<textarea id="compressed-occur"></textarea>
 </div>
