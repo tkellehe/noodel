@@ -6,11 +6,11 @@
 
 //------------------------------------------------------------------------------------------------------------
 // Handles simple string literals of printable characters.
-Command.add(0, noodel.commandify(characters.correct("“"), characters.regex.a_printable + "*"), function(cmd) {
+Command.add(0, noodel.commandify(characters.regex.a_printable + "+"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
-    this.tkn.outputs.back(new STRING(this.tkn.params[0]));
+    this.tkn.outputs.back(new STRING(this.tkn.literal));
   }
   
   cmd.exec = noodel.in_to_out;
@@ -18,16 +18,16 @@ Command.add(0, noodel.commandify(characters.correct("“"), characters.regex.a_p
 
 //------------------------------------------------------------------------------------------------------------
 // Handles basic compressed string literals of printable characters.
-Command.add(0, noodel.commandify(characters.correct("”"), characters.regex.a_compressable + "*"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("“"), characters.regex.a_compressable + "*"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
-    this.tkn.outputs.back(new STRING(this.tkn.content));
+    this.tkn.outputs.back(new STRING(this.tkn.params[0]));
   }
   
   var old = cmd.tokenize;
   cmd.tokenize = function() {
-    this.tkn.content = characters.decompress_basic(this.tkn.params[0]);
+    this.tkn.params[0] = characters.decompress_basic(this.tkn.params[0]);
     
     return old.call(this);
   };
@@ -36,8 +36,8 @@ Command.add(0, noodel.commandify(characters.correct("”"), characters.regex.a_c
 });
 
 //------------------------------------------------------------------------------------------------------------
-// Creates and array of strings from each printable character following it.
-Command.add(0, noodel.commandify(characters.correct("‘"), characters.regex.a_printable + "*"), function(cmd) {
+// Creates and array of strings from each compressable characters following it.
+Command.add(0, noodel.commandify(characters.correct("”"), characters.regex.a_compressable + "*"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -54,6 +54,13 @@ Command.add(0, noodel.commandify(characters.correct("‘"), characters.regex.a_p
       this.tkn.outputs.back(new ARRAY(s));
     }
   }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = characters.decompress_basic(this.tkn.params[0]);
+    
+    return old.call(this);
+  };
   
   cmd.exec = noodel.in_to_out;
 });
