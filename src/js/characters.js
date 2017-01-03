@@ -307,7 +307,7 @@ characters.compress_occur = function(s) {
         var o = 8 - j - N;
         all_bits[((p - N - 1)*8) + o] = 1;
         for(var k = N; 0 < k; --k) {
-          all_bits[((p - k)*8) + o] = bits[N - k];
+          all_bits[((p - k)*8) + o] = bits[8 - k];
         }
       } else {
         all_bits = all_bits.concat(bits);
