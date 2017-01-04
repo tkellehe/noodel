@@ -158,6 +158,19 @@ I => incomplete
     ḅ            - break from a loop that is before this command and that does not have a break.
     Ḅ            - a = i.front() if a != undefined && a.is_truthy().value == 1 => i.front(a) else => ḅ
 
+--- Time ---
+    ḍ              - a = i.front() delay_ms(i.integerify().value)
+    ḍ(\d+)         - delay_ms(valueOf($1))
+    ḍ[shqe]        - if $1 == "s" => delay_ms(1000)
+                     elif $1 == "h" => delay_ms(500)
+                     elif $1 == "q" => delay_ms(250)
+                     elif $1 == "e" => delay_ms(125)
+    ḍ(\d*)/(\d*)   - num = 1000 den = 1
+                     if $1.length > 0 => num *= valueOf($1)
+                     if $2.length > 0 => den = valueOf($1)
+                     delay_ms(num / den)
+    ḍ(\d*)\.(\d*)  - delay_ms(valueOf("0" + $1 + "." + $2 + "0") * 1000)
+
 --- Printing ---
     þ - path.o.back(i.first())
     Þ - path.o.back(i.front())
