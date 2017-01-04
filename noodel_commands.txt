@@ -157,7 +157,7 @@ I => incomplete
               else o.back(NUMBER(a.sign_flip()))
  U  ɲ       - a = i.front()
               if a is ARRAY => foreach e in a.value => e = e.numberify(); o.back(a)
-              elif a is STRING => a = ARRAY(string_null_break(a.value)) foreach e in a.value => NUMBER(valueOf(a.value[i])); o.back(a)
+              elif a is STRING => a = ARRAY(string_null_break(a.value)) foreach e in a.value => NUMBER(valueOf(a.value[i])); if a.length() > 1 => o.back(a) else => o.back(a.value[0])
               elif a is NUMBER => o.back(NUMBER(-1 * a.abs()))
     œ       - a = [] a.pipe(i) if a.length() != 0 => o.back(ARRAY(a))
     œ(\d+)  - a = [] c = valueOf($1) while c != 0 and i.first() != undefined => a.push(i.front()); if a.length() != 0 => o.back(ARRAY(a))
