@@ -36,6 +36,14 @@ noodel.out_to_in = function(path) {
 noodel.make_error = function(o, path) {
   path.exceptions.back(new STRING("¶[EXCEPTION]:")).back(o);
 };
+  
+noodel.random = function(min, max) {
+  return ((max - min) * Math.random()) + min
+};
+  
+noodel.random_int = function(min, max) {
+  return Math.floor(noodel.random(min, max))
+};
 
 //------------------------------------------------------------------------------------------------------------
 /// NOPs
