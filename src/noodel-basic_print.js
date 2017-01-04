@@ -138,7 +138,7 @@ Command.add(0, noodel.commandify(characters.correct("ṛ")), function(cmd) {
         }
         this.tkn.outputs.back(new NUMBER(noodel.random_int(min, max)));
       } else {
-        this.tkn.outputs.back(noodel.random_int(0, f.length() - 1));
+        this.tkn.outputs.back(new NUMBER(noodel.random_int(0, f.length() - 1)));
         this.tkn.outputs.back(f);
       }
     }
