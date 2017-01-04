@@ -405,6 +405,63 @@ characters.decompress_occur = function(key, compressed) {
   return decompressed;
 };
   
+characters.compress_range = function(s) {
+  var key = "", res = "";
+
+  var max = 0, min = 97;
+  
+  for(var i = s.length; i--;) {
+    var v = char_to_int[s[i]];
+    if(max < v) max = v;
+    if(v < min) min = v;
+  }
+  
+  // Now, offset each character based off of the min.
+  for(var i = 0, l = s.length; i < l; ++i) {
+    res += int_to_char[char_to_int[s[i]] - min];
+  }
+  
+  var max_num_bits = (max - min).toString(2).length;
+  
+  res = characters.compress_bitpack(max_num_bits, res);
+  
+  var min_char = characters.bitify_char(int_to_char[min]);
+  min_char.push(min_char.shift());
+  var bits = characters.bitify_char(int_to_char[max_num_bits]);
+  if(min < 8) {
+    min_char[7] = 1;
+    min_char[1] = bits[5];
+    min_char[2] = bits[6];
+    min_char[3] = bits[7];
+  } else {
+    min_char = min_char.concat(bits);
+  }
+  
+  key = characters.debitify_string(min_char);
+  
+  return key + res;
+};
+  
+characters.decompress_range = function(compressed) {
+  var min_char = characters.bitify_char(compressed[0]), max_num_bits;
+  
+  if(min_char[7] === 1) {
+    max_num_bits = parseInt((min_char.slice(1, 4)).join(""), 2);
+    min_char[7] = 0;
+    min_char[1] = 0;
+    min_char[2] = 0;
+    min_char[3] = 0;
+    compressed = compressed.slice(1, compressed.length);
+  } else {
+    max_num_bits = char_to_int[compressed[1]];
+    compressed = compressed.slice(2, compressed.length);
+  }
+  min_char.unshift(min_char.pop());
+  min_char = characters.debitify_char(min_char);
+  
+  return characters.decompress_bitpack(max_num_bits, compressed);
+};
+  
 characters.correct = handleBug;
   
 global.characters = characters;
