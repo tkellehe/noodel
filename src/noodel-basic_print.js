@@ -128,7 +128,7 @@ Command.add(0, noodel.commandify(characters.correct("ṛ")), function(cmd) {
     if(f) {
       if(f.type === "NUMBER") {
         var max, min;
-        var g = this.tkn.intputs.front();
+        var g = this.tkn.inputs.front();
         if(g) {
           max = Math.max(f.value, g.value);
           min = Math.min(f.value, g.value);
