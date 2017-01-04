@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------------------------------------
 /// Flattens that particular data type (for arrays places into elements, strings turned into char arrays
 /// and numbers into integers.
-Command.add(0, noodel.commandify("_"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ɲ")+"_"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -28,7 +28,7 @@ Command.add(0, noodel.commandify("_"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 /// Gets magnitude of that particular data type.
-Command.add(0, noodel.commandify("l"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ɲ")+"l"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
