@@ -186,6 +186,19 @@ I => incomplete
     Ė - i.front(i.back())
     ʂ - a = i.front() b = i.front() o.back(b) o.back(a)
 
+--- String Manipulation ---
+ U  ʠ - s = i.front()
+        if s is STRING =>
+          a = i.front()
+          if a is STRING => a = ARRAY(string_break(a.value))
+          if a is ARRAY =>
+            s = s.value
+            foreach /%(\d)%/ in s => replace(a.access($1.length === 0 ? 0 : valueOf($1)).stringify().value)
+            o.back(STRING(s))
+          elif a is NUMBER => ???
+        elif s is ARRAY => ???
+        elif s is NUMBER => ???
+
 --- All Characters ---
 ð¬¶¤ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.!?,0123456789:;"'_<=>*+-/\@#$%&^|()[]{}`~
 ẠḄḌẸḤỊḲḶṂṆỌṚṢṬỤṾẈỴẒȦḂĊḊĖḞĠḢİĿṀṄȮṖṘṠṪẆẊẎŻạḅḍẹḥịḳḷṃṇọṛṣṭụṿẉỵẓȧḃċḋėḟġḣŀṁṅȯṗṙṡṫẇẋẏżƁƇƊƑƓƘƝƤƬƲȤɓƈɗƒɠɦƙɱ
