@@ -49,8 +49,12 @@ Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("
       var c = f.integerify().value;
       var g = this.tkn.inputs.front();
       if(g) {
-        while(c--) g = g.increment(this.tkn);
-        this.tkn.outputs.back(g);
+        if(g.type === "NUMBER") {
+          this.tkn.outputs.back(NUMBER(g.value * c));
+        } else {
+          while(c--) g = g.increment(this.tkn);
+          this.tkn.outputs.back(g);
+        }
       }
     }
   }
@@ -69,8 +73,12 @@ Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("
       var c = f.integerify().value;
       var g = this.tkn.inputs.front();
       if(g) {
-        while(c--) g = g.decrement(this.tkn);
-        this.tkn.outputs.back(g);
+        if(g.type === "NUMBER") {
+          this.tkn.outputs.back(NUMBER(g.value / c));
+        } else {
+          while(c--) g = g.decrement(this.tkn);
+          this.tkn.outputs.back(g);
+        }
       }
     }
   }
