@@ -5,8 +5,10 @@
 //------------------------------------------------------------------------------------------------------------
 
 Command.is_loop = function(literal) {
-  return literal !== characters.correct("ḷ") &&
-         literal !== characters.correct("Ḷ");
+  return literal === characters.correct("ḷ") ||
+         literal === characters.correct("Ḷ") ||
+         literal === characters.correct("ṃ") ||
+         literal === characters.correct("Ṃ");
 }
   
 //------------------------------------------------------------------------------------------------------------
@@ -181,7 +183,7 @@ Command.add(0, noodel.commandify(characters.correct("ḅ")), function(cmd) {
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     var tkn = this.tkn, p = tkn.parent;
-    while(Command.is_loop(p.literal) && !p.has_break) {
+    while(!Command.is_loop(p.literal) && !p.has_break) {
       p = p.parent;
     }
     
@@ -211,7 +213,7 @@ Command.add(0, noodel.commandify(characters.correct("Ḅ")), function(cmd) {
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     var tkn = this.tkn, p = tkn.parent;
-    while(Command.is_loop(p.literal) && !p.has_break) {
+    while(!Command.is_loop(p.literal) && !p.has_break) {
       p = p.parent;
     }
     
