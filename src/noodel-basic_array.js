@@ -100,7 +100,7 @@ Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
       }
       
       if(f.type === "STRING" || f.type === "ARRAY") {
-        if(f.frame === undefined) f.frame = index;
+        if(index !== undefined) f.frame = index;
         if(f.frame === undefined) {
           f.frame = 0;
           f.frame_direction = 1;
