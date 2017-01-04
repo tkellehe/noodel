@@ -6,7 +6,7 @@
 
 //------------------------------------------------------------------------------------------------------------
 /// Stringifies the first item in the pipe.
-Command.add(0, noodel.commandify("'"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ɲ")+"'"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
@@ -30,7 +30,7 @@ Command.add(0, noodel.commandify("'"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Numberifies the first item in the pipe.
-Command.add(0, noodel.commandify("#"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ɲ")+"#"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
