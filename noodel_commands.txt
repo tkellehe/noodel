@@ -31,7 +31,7 @@ I => incomplete
 
 --- Literals ---
  -- String --
-    (\p+)          - if has_null($1) => o.back(ARRAY(split($, "ð"))) else => o.back(STRING($1))
+    (\p+)          - if has_null($1) => o.back(ARRAY(split($1, "ð"))) else => o.back(STRING($1))
     “(\c*)         - o.back(STRING(decompress_basic($1)))
     ”(\c*)         - a = string_break(decompress_basic($1)) o.back(ARRAY(a))
  -- Numeric --
