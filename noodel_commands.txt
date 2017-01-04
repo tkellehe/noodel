@@ -5,15 +5,20 @@
 \k => [\p\c\l ]
 \a => [\k\n]
 
+
+U => unimplemented
+I => incomplete
+? => unsure about the command
+
 --- NOPs ---
     space     - Use to separate commands.
     new line  - Use to separate commands also ends some scopes of commands.
 
 --- MISC ---
     :;\d+  - Use in a STRING to create a Unicode character based off of the \d+.
-    ɲ`     - terminate()
-    ɲ~     - a = i.front() a.props.clear()
-    ṛ      - a = i.front()
+ U  ɲ`     - terminate()
+ U  ɲ~     - a = i.front() a.props.clear()
+ U  ṛ      - a = i.front()
              if a is NUMBER =>
                max, min
                b = i.front()
@@ -50,16 +55,16 @@
                 if a is NUMBER => o.back(NUMBER(a.floor()))
                 elif a is STRING => foreach s in a.value => o.back(STRING(s))
                 elif a is ARRAY => foreach e in a.value => o.back(e)
-    ɲl        - a = i.front() o.back(NUMBER(a.length())) # For numbers that means abs.
+ I  ɲl        - a = i.front() o.back(NUMBER(a.length())) # For numbers that means abs.
     ẹ         - a = i.front()
                 if a is NUMBER => o.back(NUMBER(a.reciprocal()))
                 elif a is STRING => o.back(STRING(a.value.slice(1, a.length()) + a.value.slice(0, 1)))
                 elif a is ARRAY => a.value.unshift(a.value.pop())
-    Ẹ         - a = i.front()
+ U  Ẹ         - a = i.front()
                 if a is NUMBER => o.back(NUMBER(a.square_root()))
                 elif a is STRING => len = a.length() o.back(STRING(a.value.slice(len - 1, len) + a.value.slice(0, len - 1)))
                 elif a is ARRAY => a.value.push(a.value.shift())
-    ạ         - a = i.front()
+ I  ạ         - a = i.front()
                 index = undefined
                 delta = undefined
                 count = undefined
@@ -90,7 +95,7 @@
                     a.props("frame_delta", delta)
                   
                   o.back(a)
-    ạ(-?\d*)  - a = i.front()
+ I  ạ(-?\d*)  - a = i.front()
                 index = $1 == "-" ? -1 : valueOf($1)
                 delta = $1.contains("-") ? -1 : 1
                 count = undefined
@@ -128,7 +133,7 @@
               if a is ARRAY => foreach e in a.value => e = e.numberify(); o.back(a)
               elif a is STRING o.back(a.numberify())
               else o.back(NUMBER(a.sign_flip()))
-    ɲ       - a = i.front()
+ U  ɲ       - a = i.front()
               if a is ARRAY => foreach e in a.value => e = e.numberify(); o.back(a)
               elif a is STRING => a = ARRAY(string_null_break(a.value)) foreach e in a.value => NUMBER(valueOf(a.value[i])); o.back(a)
               elif a is NUMBER => o.back(NUMBER(-1 * a.abs()))
