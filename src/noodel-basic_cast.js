@@ -5,6 +5,41 @@
 //------------------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------------------
+/// Numberifies strings and arrays by elements if already a number it will flip the sign.
+Command.add(0, noodel.commandify(characters.correct("ɲ")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      if(f.type === "ARRAY") {
+        for(var i = 0; i < f.length(); ++i) {
+          f.value[i] = f.access(i).numberify();
+        }
+        this.tkn.outputs.back(f);
+      } else if(f.type === "NUMBER") {
+        this.tkn.outputs.back(new NUMBER(-1 * Math.abs(f.value)));
+      } else if(f.type === "STRING") {
+        var a = f.arrayify();
+        for(var i = 0; i < a.length(); ++i) {
+          a.value[i] = a.value[i].numberify();
+        }
+        if(a.length() === 0) {
+          a = new NUMBER(0);
+        } else if(a.length() === 1) {
+          a = a.value[0]
+        }
+        this.tkn.outputs.back(a);
+      }
+    } else {
+      noodel.make_error(new STRING("¤Expected¤something¤in¤the¤pipe."), path);
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
 /// Stringifies the first item in the pipe.
 Command.add(0, noodel.commandify(characters.correct("ɲ")+"'"), function(cmd) {
   cmd.exec = noodel.out_to_in;
