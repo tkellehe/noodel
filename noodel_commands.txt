@@ -15,19 +15,21 @@ I => incomplete
     new line  - Use to separate commands also ends some scopes of commands.
 
 --- MISC ---
-    :;\d+  - Use in a STRING to create a Unicode character based off of the \d+.
- U  ɲ`     - terminate()
- U  ɲ~     - a = i.front() a.props.clear()
- U  ṛ      - a = i.front()
-             if a is NUMBER =>
-               max, min
-               b = i.front()
-               if b == undefined => max = MAX(0, a.value) min = MIN(0, a.value)
-               else => max = MAX(a.value, b.value) min = MIN(a.value, b.value)
-               o.back(NUMBER(random_int(min, max)))
-             elif a is ARRAY or a is STRING =>
-               o.back(a.access(random_int(0, a.length())))
-               o.back(a)
+    :;\d+   - Use in a STRING to create a Unicode character based off of the \d+.
+ U  ɲ`      - terminate()
+ U  ɲ~      - a = i.front() a.props.clear()
+ U  ṛ       - a = i.front()
+              if a is NUMBER =>
+                max, min
+                b = i.front()
+                if b == undefined => max = MAX(0, a.value) min = MIN(0, a.value)
+                else => max = MAX(a.value, b.value) min = MIN(a.value, b.value)
+                o.back(NUMBER(random_int(min, max)))
+              elif a is ARRAY or a is STRING =>
+                o.back(a.access(random_int(0, a.length())))
+                o.back(a)
+ U  ṛ(\d+)  - o.back(NUMBER(random_int(0, valueOf($1)))
+    €       - a = i.first() make_error(a != undefined ? a : STRING("<UNDEFINED>¶"), path);
 
 --- Literals ---
  -- String --
@@ -198,6 +200,56 @@ I => incomplete
           elif a is NUMBER => ???
         elif s is ARRAY => ???
         elif s is NUMBER => ???
+
+--- Conditionals ---
+ U  ⁼    - a = i.front() b = i.front()
+           if a == undefined => o.back(NUMBER(0))
+           elif b == undefined => o.back(a.is_truthy()) o.back(a)
+           else => o.back(a.equals(b)) o.back(a) o.back(b)
+ U  ⁼ʂ   - a = i.front() b = i.front()
+           if a == undefined => o.back(NUMBER(1))
+           elif b == undefined => o.back(a.is_falsy()) o.back(a)
+           else => o.back(a.equals_flip(b)) o.back(a) o.back(b)
+ U  ⁼<   - a = i.front() b = i.front()
+           if a == undefined => o.back(NUMBER(-1)) ???
+           elif b == undefined => o.back(a.min()) o.back(a) ???
+           else => o.back(a.lt(b)) o.back(a) o.back(b)
+ U  ⁼<ʂ  - a = i.front() b = i.front()
+           if a == undefined => o.back(NUMBER(-100)) ???
+           elif b == undefined => o.back(a.min()) o.back(a) ???
+           else => o.back(a.lt_flip(b)) o.back(a) o.back(b)
+ U  ⁼>   - a = i.front() b = i.front()
+           if a == undefined => o.back(NUMBER(.1)) ???
+           elif b == undefined => o.back(a.max()) o.back(a) ???
+           else => o.back(a.gt(b)) o.back(a) o.back(b)
+ U  ⁼>ʂ  - a = i.front() b = i.front()
+           if a == undefined => o.back(NUMBER(100)) ???
+           elif b == undefined => o.back(a.max()) o.back(a) ???
+           else => o.back(a.gt_flip(b)) o.back(a) o.back(b)
+ U  ⁼!   - a = i.front() b = i.front()
+           if a == undefined => o.back(NUMBER(16)) ???
+           elif b == undefined => o.back(a.is_truthy()) o.back(a) ???
+           else => o.back(NUMBER(a.equals(b).value == 0 ? 1 : 0)) o.back(a) o.back(b)
+ U  ⁼!ʂ  - a = i.front() b = i.front()
+           if a == undefined => o.back(NUMBER(256)) ???
+           elif b == undefined => o.back(a.is_falsy()) o.back(a) ???
+           else => o.back(NUMBER(a.equals_flip(b).value == 0 ? 1 : 0)) o.back(a) o.back(b)
+ U  ⁼,   - a = i.front() b = i.front()
+           if a == undefined => o.back(NUMBER(-1)) ???
+           elif b == undefined => o.back(a.min()) o.back(a) ???
+           else => o.back(a.lte(b)) o.back(a) o.back(b)
+ U  ⁼,ʂ  - a = i.front() b = i.front()
+           if a == undefined => o.back(NUMBER(-100)) ???
+           elif b == undefined => o.back(a.min()) o.back(a) ???
+           else => o.back(a.lte_flip(b)) o.back(a) o.back(b)
+ U  ⁼.   - a = i.front() b = i.front()
+           if a == undefined => o.back(NUMBER(.1)) ???
+           elif b == undefined => o.back(a.max()) o.back(a) ???
+           else => o.back(a.gte(b)) o.back(a) o.back(b)
+ U  ⁼.ʂ  - a = i.front() b = i.front()
+           if a == undefined => o.back(NUMBER(100)) ???
+           elif b == undefined => o.back(a.max()) o.back(a) ???
+           else => o.back(a.gte_flip(b)) o.back(a) o.back(b)
 
 --- All Characters ---
 ð¬¶¤ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.!?,0123456789:;"'_<=>*+-/\@#$%&^|()[]{}`~
