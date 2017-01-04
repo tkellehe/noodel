@@ -39,6 +39,46 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters
 });
   
 //------------------------------------------------------------------------------------------------------------
+// Increments the item in the pipe.
+Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("⁺")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      var c = f.integerify().value;
+      var g = this.tkn.inputs.front();
+      if(g) {
+        while(c--) g = g.increment(this.tkn);
+        this.tkn.outputs.back(g);
+      }
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
+  
+//------------------------------------------------------------------------------------------------------------
+// Decrements the item in the pipe.
+Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("⁻")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      var c = f.integerify().value;
+      var g = this.tkn.inputs.front();
+      if(g) {
+        while(c--) g = g.decrement(this.tkn);
+        this.tkn.outputs.back(g);
+      }
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
+  
+//------------------------------------------------------------------------------------------------------------
 // Adds two items in the pipe where the first is the lhs and the second is the rhs.
 Command.add(0, noodel.commandify(characters.correct("⁺")), function(cmd) {
   cmd.exec = noodel.out_to_in;
