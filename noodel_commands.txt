@@ -26,7 +26,7 @@ I => incomplete
                 else => max = MAX(a.value, b.value) min = MIN(a.value, b.value)
                 o.back(NUMBER(random_int(min, max)))
               elif a is ARRAY or a is STRING =>
-                o.back(random_int(0, a.length()))
+                o.back(random_int(0, a.length() - 1))
                 o.back(a)
  U  ṛ(\d+)  - o.back(NUMBER(random_int(0, valueOf($1)))
     €       - a = i.first() make_error(a != undefined ? a : STRING("<UNDEFINED>¶"), path);
