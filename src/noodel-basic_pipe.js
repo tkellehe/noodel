@@ -27,6 +27,22 @@ Command.add(0, noodel.commandify(characters.correct("ḃ")), function(cmd) {
   
   cmd.exec = noodel.in_to_out;
 });
+
+//------------------------------------------------------------------------------------------------------------
+// Duplicates the item in the front of the pipe.
+Command.add(0, noodel.commandify(characters.correct("ḋ")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      this.tkn.outputs.back(f.copy());
+      this.tkn.outputs.back(f);
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
   
 //------------------------------------------------------------------------------------------------------------
 // Places what is in the front of the pipe to the back.
