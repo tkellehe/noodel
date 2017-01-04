@@ -266,7 +266,7 @@ Command.add(0, noodel.commandify(characters.correct("ḍ")), function(cmd) {
         tkn.next = function() { return tkn };
         tkn.ran = true;
         tkn.old_rate = path.rate;
-        path.rate = +tkn.params[0];
+        path.rate = f.integerify().value;
       } else {
         tkn.ran = false;
         tkn.next = tkn.old_next;
