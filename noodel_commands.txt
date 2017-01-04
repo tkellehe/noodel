@@ -51,7 +51,7 @@ I => incomplete
     (\m+)⁻ʂ  - a = i.front() for c = 0, c < valueOf($1), ++c => a = a.decrement_flip(tkn); o.back(a)
 
 --- Array Like Operators ---
-    ɲ_        - a = i.front()
+ I  ɲ_        - a = i.front()
                 if a is NUMBER => o.back(NUMBER(a.floor()))
                 elif a is STRING => foreach s in a.value => o.back(STRING(s))
                 elif a is ARRAY => foreach e in a.value => o.back(e)
@@ -125,11 +125,11 @@ I => incomplete
                   o.back(a)
 
 --- Casting ---
-    ɲ'      - a = i.front()
+ I  ɲ'      - a = i.front()
               if a is ARRAY => foreach e in a.value => e = e.stringify(); o.back(a)
               elif a is NUMBER o.back(a.stringify())
               else o.back(a.reverse())
-    ɲ#      - a = i.front()
+ I  ɲ#      - a = i.front()
               if a is ARRAY => foreach e in a.value => e = e.numberify(); o.back(a)
               elif a is STRING o.back(a.numberify())
               else o.back(NUMBER(a.sign_flip()))
@@ -140,7 +140,7 @@ I => incomplete
     œ       - a = [] a.pipe(i) if a.length() != 0 => o.back(ARRAY(a))
     œ(\d+)  - a = [] c = valueOf($1) while c != 0 and i.first() != undefined => a.push(i.front()); if a.length() != 0 => o.back(ARRAY(a))
     µœ      - a = i.front() if a != undefined => a = a.integerify() b = [] while a.value != 0 and i.first() != undefined => b.push(i.front()) --a.value; o.back(ARRAY(b))
-    ʋ       - a = i.front()
+ I  ʋ       - a = i.front()
               if a is NUMBER => o.back(NUMBER(a.ceilling()))
               elif a is STRING => a = string_break(a.value) foreach e in a => o.back(STRING(e))
               elif a is ARRAY => ???
