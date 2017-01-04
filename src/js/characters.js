@@ -457,9 +457,14 @@ characters.decompress_range = function(compressed) {
     compressed = compressed.slice(2, compressed.length);
   }
   min_char.unshift(min_char.pop());
-  min_char = characters.debitify_char(min_char);
+  var min = parseInt(min_char.join(""), 2);
   
-  return characters.decompress_bitpack(max_num_bits, compressed);
+  compressed = characters.decompress_bitpack(max_num_bits, compressed);
+  var decompressed = "";
+  for(var i = 0, l = compressed.length; i < l; ++i) {
+    decompressed += int_to_char[char_to_int[compressed[i]] + min];
+  }
+  return decompressed;
 };
   
 characters.correct = handleBug;
