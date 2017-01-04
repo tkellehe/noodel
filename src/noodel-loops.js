@@ -259,7 +259,7 @@ Command.add(0, noodel.commandify(characters.correct("ḍ")), function(cmd) {
   
   cmd.exec = function(path) {
     var tkn = this.tkn,
-        f = tkn.inputs.first();
+        f = tkn.inputs.front();
     if(f) {
       if(!tkn.ran) {
         tkn.old_next = tkn.next;
@@ -271,6 +271,7 @@ Command.add(0, noodel.commandify(characters.correct("ḍ")), function(cmd) {
         tkn.ran = false;
         tkn.next = tkn.old_next;
         path.rate = tkn.old_rate;
+        tkn.inputs.front(f);
       }
     } else {
       noodel.make_error(new STRING("¤Expected¤something¤in¤the¤pipe."), path);
