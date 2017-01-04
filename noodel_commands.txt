@@ -51,10 +51,26 @@ I => incomplete
     (\m+)⁻   - a = i.front() for c = 0, c < valueOf($1), ++c => a = a.decrement(tkn); o.back(a)
  U  (\m+)⁺ʂ  - a = i.front() for c = 0, c < valueOf($1), ++c => a = a.increment_flip(tkn); o.back(a)
  U  (\m+)⁻ʂ  - a = i.front() for c = 0, c < valueOf($1), ++c => a = a.decrement_flip(tkn); o.back(a)
-    µ⁺       - a = i.front() b = i.front() for c = 0, c < a.integerify().value, ++c => b = b.increment(tkn); o.back(b)
-    µ⁻       - a = i.front() b = i.front() for c = 0, c < a.integerify().value, ++c => b = b.decrement(tkn); o.back(b)
- U  µ⁺ʂ      - a = i.front() b = i.front() for c = 0, c < a.integerify().value, ++c => b = b.increment_flip(tkn); o.back(b)
- U  µ⁻ʂ      - a = i.front() b = i.front() for c = 0, c < a.integerify().value, ++c => b = b.decrement_flip(tkn); o.back(b)
+    µ⁺       - a = i.front() b = i.front()
+               if b is NUMBER =>
+                 o.back(NUMBER(b.value * a.integerify().value))
+               else =>
+                 for c = 0, c < a.integerify().value, ++c => b = b.increment(tkn); o.back(b)
+    µ⁻       - a = i.front() b = i.front()
+               if b is NUMBER =>
+                 o.back(NUMBER(b.value / a.integerify().value))
+               else =>
+                 for c = 0, c < a.integerify().value, ++c => b = b.decrement(tkn); o.back(b)
+ U  µ⁺ʂ      - a = i.front() b = i.front()
+               if b is NUMBER =>
+                 o.back(NUMBER(b.pow(a.integerify().value)))
+               else =>
+                 for c = 0, c < a.integerify().value, ++c => b = b.increment_flip(tkn); o.back(b)
+ U  µ⁻ʂ      - a = i.front() b = i.front()
+               if b is NUMBER =>
+                 o.back(NUMBER(b.pow(1 / a.integerify().value)))
+               else =>
+                 for c = 0, c < a.integerify().value, ++c => b = b.decrement_flip(tkn); o.back(b)
 
 --- Array Like Operators ---
  I  ɲ_        - a = i.front()
