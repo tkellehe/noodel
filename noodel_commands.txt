@@ -155,6 +155,23 @@ I => incomplete
                    tkn.count = undefined
     ṃ(\k*)       - while(i.first().is_truthy().value == 1) $1
     Ṃ(\k*)       - while(i.front().is_truthy().value == 1) $1
+    ḅ            - break from a loop that is before this command and that does not have a break.
+    Ḅ            - a = i.front() if a != undefined && a.is_truthy().value == 1 => i.front(a) else => ḅ
+
+--- Printing ---
+    þ - path.o.back(i.first())
+    Þ - path.o.back(i.front())
+    ç - path.o.wipe() path.o.back(i.first())
+    Ç - path.o.wipe() path.o.back(i.front())
+    ñ - path.o.back(i.first()) path.o.back(STRING("¶"))
+    Ñ - path.o.back(i.front()) path.o.back(STRING("¶"))
+
+--- Pipe Manipulation ---
+    ḃ - i.front()
+    Ḃ - i.wipe()
+    ė - i.back(i.front())
+    Ė - i.front(i.back())
+    ʂ - a = i.front() b = i.front() o.back(b) o.back(a)
 
 --- All Characters ---
 ð¬¶¤ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.!?,0123456789:;"'_<=>*+-/\@#$%&^|()[]{}`~
