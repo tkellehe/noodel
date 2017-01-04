@@ -50,7 +50,7 @@ Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("
       var g = this.tkn.inputs.front();
       if(g) {
         if(g.type === "NUMBER") {
-          this.tkn.outputs.back(NUMBER(g.value * c));
+          this.tkn.outputs.back(new NUMBER(g.value * c));
         } else {
           while(c--) g = g.increment(this.tkn);
           this.tkn.outputs.back(g);
@@ -74,7 +74,7 @@ Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("
       var g = this.tkn.inputs.front();
       if(g) {
         if(g.type === "NUMBER") {
-          this.tkn.outputs.back(NUMBER(g.value / c));
+          this.tkn.outputs.back(new NUMBER(g.value / c));
         } else {
           while(c--) g = g.decrement(this.tkn);
           this.tkn.outputs.back(g);
