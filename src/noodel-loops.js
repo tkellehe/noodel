@@ -258,8 +258,9 @@ Command.add(0, noodel.commandify(characters.correct("ḍ")), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
-    var tkn = this.tkn,
-        f = tkn.inputs.first();
+    var tkn = this.tkn;
+    tkn.inputs.pipe(tkn.outputs);
+    var f = tkn.inputs.first();
     if(f) {
       if(!tkn.ran) {
         tkn.old_next = tkn.next;
