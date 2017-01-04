@@ -117,5 +117,34 @@ Command.add(0, noodel.commandify(characters.correct("ñ")), function(cmd) {
   
   cmd.exec = noodel.in_to_out;
 });
+  
+//------------------------------------------------------------------------------------------------------------
+// Generates a random integer.
+Command.add(0, noodel.commandify(characters.correct("ṛ")), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    var f = this.tkn.inputs.front();
+    if(f) {
+      if(f.type === "NUMBER") {
+        var max, min;
+        var g = this.tkn.intputs.front();
+        if(g) {
+          max = Math.max(f.value, g.value);
+          min = Math.min(f.value, g.value);
+        } else {
+          max = Math.max(f.value, 0);
+          min = Math.min(f.value, 0);
+        }
+        this.tkn.outputs.back(new NUMBER(noodel.random_int(min, max)));
+      } else {
+        this.tkn.outputs.back(f.access(noodel.random_int(0, f.length())));
+        this.tkn.outputs.back(f);
+      }
+    }
+  }
+  
+  cmd.exec = noodel.in_to_out;
+});
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
