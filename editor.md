@@ -5,12 +5,14 @@ Click [_Noodel_](https://tkellehe.github.io/noodel/editor.html) to actually see 
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
-<script src="src/js/pipe.js"></script>
-<script src="src/js/props.js"></script>
-<script src="src/js/token.js"></script>
-<script src="src/js/path.js"></script>
-<script src="src/js/characters.js"></script>
-<script src="src/js/types.js"></script>
+<script src="src/internal/pipe.js"></script>
+<script src="src/internal/props.js"></script>
+<script src="src/internal/token.js"></script>
+<script src="src/internal/path.js"></script>
+<script src="src/internal/characters.js"></script>
+<script src="src/internal/NUMBER.js"></script>
+<script src="src/internal/STRING.js"></script>
+<script src="src/internal/ARRAY.js"></script>
 <script src="src/noodel.js"></script>
 <script src="src/noodel-basic_array.js"></script>
 <script src="src/noodel-basic_cast.js"></script>
