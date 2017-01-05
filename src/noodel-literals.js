@@ -7,22 +7,16 @@
 //------------------------------------------------------------------------------------------------------------
 // Handles simple string literals of printable characters.
 Command.add(0, noodel.commandify(characters.regex.a_printable + "+"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    this.tkn.outputs.back(new STRING(this.tkn.literal));
+    path.top(new STRING(this.tkn.literal));
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 // Handles basic compressed string literals of printable characters.
 Command.add(0, noodel.commandify(characters.correct("“"), characters.regex.a_compressable + "*"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    this.tkn.outputs.back(new STRING(this.tkn.params[0]));
+    path.top(new STRING(this.tkn.params[0]));
   }
   
   var old = cmd.tokenize;
@@ -31,28 +25,15 @@ Command.add(0, noodel.commandify(characters.correct("“"), characters.regex.a_c
     
     return old.call(this);
   };
-  
-  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 // Creates and array of strings from each compressable characters following it.
 Command.add(0, noodel.commandify(characters.correct("”"), characters.regex.a_compressable + "*"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    var a = this.tkn.params[0].split(characters.correct("ð"));
-    if(a.length === 1) {
-      a = [];
-      for(var i = 0; i < this.tkn.params[0].length; ++i)
-        a.push(new STRING(this.tkn.params[0][i]));
-      this.tkn.outputs.back(new ARRAY(a));
-    } else {
-      var s = [];
-      for(var i = 0; i < a.length; ++i)
-        s.push(new STRING(a[i]));
-      this.tkn.outputs.back(new ARRAY(s));
-    }
+    var a = string_break(this.tkn.params[0]);
+    for(var i = 0; i < a.length; ++i) a[i] = new STRING(a[i]);
+    path.top(new ARRAY(a));
   }
   
   var old = cmd.tokenize;
@@ -61,17 +42,13 @@ Command.add(0, noodel.commandify(characters.correct("”"), characters.regex.a_c
     
     return old.call(this);
   };
-  
-  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
 // Handles occur compressed string literals of printable characters.
 Command.add(1, noodel.commandify(characters.regex.a_compressable + "+", characters.correct("‘"), characters.regex.a_compressable + "+"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    this.tkn.outputs.back(new STRING(this.tkn.params[0]));
+    path.top(new STRING(this.tkn.params[0]));
   }
   
   var old = cmd.tokenize;
@@ -80,28 +57,15 @@ Command.add(1, noodel.commandify(characters.regex.a_compressable + "+", characte
     
     return old.call(this);
   };
-  
-  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 // Creates and array of strings from each compressable characters following it.
 Command.add(1, noodel.commandify(characters.regex.a_compressable + "+", characters.correct("’"), characters.regex.a_compressable + "+"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    var a = this.tkn.params[0].split(characters.correct("ð"));
-    if(a.length === 1) {
-      a = [];
-      for(var i = 0; i < this.tkn.params[0].length; ++i)
-        a.push(new STRING(this.tkn.params[0][i]));
-      this.tkn.outputs.back(new ARRAY(a));
-    } else {
-      var s = [];
-      for(var i = 0; i < a.length; ++i)
-        s.push(new STRING(a[i]));
-      this.tkn.outputs.back(new ARRAY(s));
-    }
+    var a = string_break(this.tkn.params[0]);
+    for(var i = 0; i < a.length; ++i) a[i] = new STRING(a[i]);
+    path.top(new ARRAY(a));
   }
   
   var old = cmd.tokenize;
@@ -110,39 +74,27 @@ Command.add(1, noodel.commandify(characters.regex.a_compressable + "+", characte
     
     return old.call(this);
   };
-  
-  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number and places it into the pipe.
 Command.add(0, new RegExp("^("+characters.correct("ɲ")+")(\-?\\d*\\.?\\d+)$"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    this.tkn.outputs.back(new NUMBER(+this.tkn.params[0]));
+    path.top(new NUMBER(+this.tkn.params[0]));
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number and places it into the pipe.
 Command.add(0, new RegExp("^("+characters.correct("ɲ")+"-)$"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    this.tkn.outputs.back(new NUMBER(-1));
+    path.top(new NUMBER(-1));
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number based off of a fraction and places it into the pipe.
 Command.add(0, new RegExp("^("+characters.correct("ɲ")+")(-?\\d*\\/\\d+)$"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
     var a = this.tkn.params[0].split("/");
     var num = 1, den = +a[1];
@@ -150,10 +102,8 @@ Command.add(0, new RegExp("^("+characters.correct("ɲ")+")(-?\\d*\\/\\d+)$"), fu
       if(a[0] === "-") num = -1;
       else num = +a[0];
     }
-    this.tkn.outputs.back(new NUMBER(num/den));
+    path.top(new NUMBER(num/den));
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
 
-})(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
+})(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
