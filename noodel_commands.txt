@@ -208,6 +208,7 @@ I => incomplete
     Ė - path.top(path.bottom())
     ṡ - a = path.top() b = path.top() path.top(a) path.top(b)
  U  Ṡ - a = path.bottom() b = path.bottom() path.bottom(a) path.bottom(b)
+    ḋ - a = path.first() path.top(a.copy())
 
 --- String Manipulation ---
 
