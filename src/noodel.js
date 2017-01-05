@@ -37,7 +37,7 @@ Path.prototype.top = function(item) {
     insertAt(this.stack.value, pos, item);
     this.stack.props("ptr", pos+1);
   } else {
-    item = removeAt(this.stack.value, pos);
+    item = removeAt(this.stack.value, pos-1);
     if(item) {
       if(item.type === "ARRAY") {
         item.props("container", undefined);
