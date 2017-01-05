@@ -49,7 +49,7 @@ Path.prototype.step = function() {
   this.previous = this.current;
   this.current = this.current.next();
   this.onstep();
-  return this.kill_this || !!this.current;
+  return !this.kill_this && !!this.current;
 }
 
 Path.prototype.stop = function() {
