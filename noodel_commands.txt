@@ -15,25 +15,25 @@ I => incomplete
     new line  - Use to separate commands also ends some scopes of commands.
 
 --- MISC ---
-    \\\\[0-9a-f]+  - Use in a STRING to create a Unicode character based off of the hex value.
- U  ɲ`             - terminate()
- U  ɲ~             - a = path.top() a.props.clear()
- U  ṛ              - a = path.top()
-                     if a is NUMBER =>
-                       max, min
-                       b = path.top()
-                       if b == undefined => max = MAX(0, a.value) min = MIN(0, a.value)
-                       else => max = MAX(a.value, b.value) min = MIN(a.value, b.value)
-                       path.top(NUMBER(random_int(min, max)))
-                     elif a is ARRAY or a is STRING =>
-                       path.top(a)
-                       path.top(NUMBER(random_int(0, a.length() - 1)))
- U  ṛ(\d+)         - path.top(NUMBER(random_int(0, valueOf($1)))
-    €              - a = path.first() make_error(a != undefined ? a : STRING("<UNDEFINED>¶"), tkn.path);
- U  ƥ              - path.move_up()
- U  ʠ              - path.move_down()
- U  ı              - path.jump_in()
- U  ȷ              - path.jump_out()
+    %[0-9A-F]+  - Use in a STRING to create a Unicode character based off of the hex value.
+ U  ɲ`            - terminate()
+ U  ɲ~            - a = path.top() a.props.clear()
+ U  ṛ             - a = path.top()
+                    if a is NUMBER =>
+                      max, min
+                      b = path.top()
+                      if b == undefined => max = MAX(0, a.value) min = MIN(0, a.value)
+                      else => max = MAX(a.value, b.value) min = MIN(a.value, b.value)
+                      path.top(NUMBER(random_int(min, max)))
+                    elif a is ARRAY or a is STRING =>
+                      path.top(a)
+                      path.top(NUMBER(random_int(0, a.length() - 1)))
+ U  ṛ(\d+)        - path.top(NUMBER(random_int(0, valueOf($1)))
+    €             - a = path.first() make_error(a != undefined ? a : STRING("<UNDEFINED>¶"), tkn.path);
+ U  ƥ             - path.move_up()
+ U  ʠ             - path.move_down()
+ U  ı             - path.jump_in()
+ U  ȷ             - path.jump_out()
 
 --- Literals ---
  -- String --
