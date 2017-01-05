@@ -101,6 +101,7 @@ Command.add(0, noodel.commandify(characters.correct("œ")), function(cmd) {
     var a = [];
     while(path.first()) a.push(path.top());
     if(a.length) path.top(new ARRAY(a));
+  }
 });
 
 //------------------------------------------------------------------------------------------------------------
