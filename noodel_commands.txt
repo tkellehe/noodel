@@ -16,9 +16,9 @@ I => incomplete
 
 --- MISC ---
     %[0-9A-F]+  - Use in a STRING to create a Unicode character based off of the hex value.
- U  ɲ`            - terminate()
- U  ɲ~            - a = path.top() a.props.clear()
- U  ṛ             - a = path.top()
+    ɲ`            - terminate()
+    ɲ~            - a = path.top() a.props.clear()
+    ṛ             - a = path.top()
                     if a is NUMBER =>
                       max, min
                       b = path.top()
@@ -28,16 +28,16 @@ I => incomplete
                     elif a is ARRAY or a is STRING =>
                       path.top(a)
                       path.top(NUMBER(random_int(0, a.length() - 1)))
- U  ṛ(\d+)        - path.top(NUMBER(random_int(0, valueOf($1)))
+    ṛ(\d+)        - path.top(NUMBER(random_int(0, valueOf($1)))
     €             - a = path.first() make_error(a != undefined ? a : STRING("<UNDEFINED>¶"), tkn.path);
- U  ƥ             - path.move_up()
- U  ʠ             - path.move_down()
- U  ı             - path.jump_in()
- U  ȷ             - path.jump_out()
+    ƥ             - path.move_up()
+    ʠ             - path.move_down()
+    ı             - path.jump_in()
+    ȷ             - path.jump_out()
 
 --- Literals ---
  -- String --
- I  (\p+)          - if has_null($1) => path.top(ARRAY(split($1, "ð"))) else => path.top(STRING($1))
+    (\p+)          - if has_null($1) => path.top(ARRAY(split($1, "ð"))) else => path.top(STRING($1))
     “(\c*)         - path.top(STRING(decompress_basic($1)))
     ”(\c*)         - a = string_break(decompress_basic($1)) foreach e in a => e = STRING(e); path.top(ARRAY(a))
  -- Numeric --
@@ -53,20 +53,20 @@ I => incomplete
     ⁻s       - a = path.top() b = path.top() path.top(a.sub_flip(b))
     (\m+)⁺   - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.add(path.top()); path.top(a)
     (\m+)⁻   - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.sub(path.top()); path.top(a)
- U  (\m+)⁺s  - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.add_flip(path.top()); path.top(a)
- U  (\m+)⁻s  - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.sub_flip(path.top()); path.top(a)
+    (\m+)⁺s  - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.add_flip(path.top()); path.top(a)
+    (\m+)⁻s  - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.sub_flip(path.top()); path.top(a)
     µ⁺       - a = path.top() b = path.top()
                for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.add(path.top()); path.top(b)
     µ⁻       - a = path.top() b = path.top()
                for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.sub(path.top()); path.top(b)
- U  µ⁺s      - a = path.top() b = path.top()
+    µ⁺s      - a = path.top() b = path.top()
                for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.add_flip(path.top()); path.top(b)
- U  µ⁻s      - a = path.top() b = path.top()
+    µ⁻s      - a = path.top() b = path.top()
               for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.sub_flip(path.top()); path.top(b)
     ⁺(\d+)   - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment(tkn); path.top(a)
     ⁻(\d+)   - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement(tkn); path.top(a)
- U  ⁺(\d+)s  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment_flip(tkn); path.top(a)
- U  ⁻(\d+)s  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement_flip(tkn); path.top(a)
+    ⁺(\d+)s  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment_flip(tkn); path.top(a)
+    ⁻(\d+)s  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement_flip(tkn); path.top(a)
     ⁺µ       - a = path.top() b = path.top()
                if b is NUMBER =>
                  path.top(NUMBER(b.value * a.integerify().value))
@@ -77,32 +77,32 @@ I => incomplete
                  path.top(NUMBER(b.value / a.integerify().value))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.decrement(tkn); path.top(b)
- U  ⁺µs      - a = path.top() b = path.top()
+    ⁺µs      - a = path.top() b = path.top()
                if b is NUMBER =>
                  path.top(NUMBER(b.pow(a.integerify().value)))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.increment_flip(tkn); path.top(b)
- U  ⁻µs      - a = path.top() b = path.top()
+    ⁻µs      - a = path.top() b = path.top()
                if b is NUMBER =>
                  path.top(NUMBER(b.pow(1 / a.integerify().value)))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.decrement_flip(tkn); path.top(b)
 
 --- Array Like Operators ---
- I  ɲ_        - a = path.top()
+    ɲ_        - a = path.top()
                 if a is NUMBER => o.back(NUMBER(a.floor()))
                 elif a is STRING => foreach s in a.value => path.top(STRING(s))
                 elif a is ARRAY => foreach e in a.value => path.top(e)
- I  ɲl        - a = path.top() path.top(NUMBER(a.length())) # For numbers that means abs.
+    ɲl        - a = path.top() path.top(NUMBER(a.length())) # For numbers that means abs.
     ẹ         - a = path.top()
                 if a is NUMBER => path.top(NUMBER(a.reciprocal()))
                 elif a is STRING => path.top(STRING(a.value.slice(1, a.length()) + a.value.slice(0, 1)))
                 elif a is ARRAY => a.value.unshift(a.value.pop()) path.top(a)
- U  Ẹ         - a = path.top()
+    Ẹ         - a = path.top()
                 if a is NUMBER => path.top(NUMBER(a.square_root()))
                 elif a is STRING => len = a.length() path.top(STRING(a.value.slice(len - 1, len) + a.value.slice(0, len - 1)))
                 elif a is ARRAY => a.value.push(a.value.shift()) path.top(a)
- I  ạ         - a = path.top()
+    ạ         - a = path.top()
                 index = undefined
                 delta = undefined
                 count = undefined
@@ -133,7 +133,7 @@ I => incomplete
                     a.props("frame_delta", delta)
                   
                   path.top(a)
- I  ạ(-?\d*)  - a = path.top()
+    ạ(-?\d*)  - a = path.top()
                 index = $1 == "-" ? -1 : valueOf($1)
                 delta = $1.contains("-") ? -1 : 1
                 count = undefined
@@ -163,11 +163,11 @@ I => incomplete
                   path.top(a)
 
 --- Casting ---
- I  ɲ'      - a = path.top()
+    ɲ'      - a = path.top()
               if a is ARRAY => foreach e in a.value => e = e.stringify(); path.top(a)
               elif a is NUMBER path.top(a.stringify())
               else path.top(a.reverse())
- I  ɲ#      - a = path.top()
+    ɲ#      - a = path.top()
               if a is ARRAY => foreach e in a.value => e = e.numberify(); path.top(a)
               elif a is STRING path.top(a.numberify())
               else path.top(NUMBER(-1 * a.value))
@@ -178,7 +178,7 @@ I => incomplete
     œ       - a = [] while path.first() != undefined a.push(path.top()); if a.length() != 0 => path.top(ARRAY(a))
     œ(\d+)  - a = [] c = valueOf($1) whilec != 0 and path.first() != undefined => a.push(path.top()); if a.length() != 0 => path.top(ARRAY(a))
     µœ      - a = path.top() if a != undefined => a = a.integerify() b = [] while a.value != 0 and path.first() != undefined => b.push(path.top()) --a.value; path.top(ARRAY(b))
- I  ʋ       - a = path.top()
+    ʋ       - a = path.top()
               if a is NUMBER => path.top(NUMBER(a.ceilling()))
               elif a is STRING => a = string_break(a.value) foreach e in a => e = STRING(e); path.top(ARRAY(a))
               elif a is ARRAY => ???
@@ -223,7 +223,7 @@ I => incomplete
     ė - path.bottom(path.top())
     Ė - path.top(path.bottom())
     ṡ - a = path.top() b = path.top() path.top(a) path.top(b)
- U  Ṡ - a = path.bottom() b = path.bottom() path.bottom(a) path.bottom(b)
+    Ṡ - a = path.bottom() b = path.bottom() path.bottom(a) path.bottom(b)
     ḋ - a = path.first() path.top(a.copy())
 
 --- String Manipulation ---
