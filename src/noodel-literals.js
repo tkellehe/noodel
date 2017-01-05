@@ -116,7 +116,7 @@ Command.add(1, noodel.commandify(characters.regex.a_compressable + "+", characte
   
 //------------------------------------------------------------------------------------------------------------
 // Creates a number and places it into the pipe.
-Command.add(0, new RegExp("^("+characters.correct("ɲ")+")((?:\\-\\d+\\.\\d+)|(?:\\d*\\.\\d+)|(?:\\-?\\d+))$"), function(cmd) {
+Command.add(0, new RegExp("^("+characters.correct("ɲ")+")(\-?\\d*\\.?\\d+)$"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
