@@ -5,87 +5,80 @@
 //------------------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------------------
-// Blocks the pipe preventing all items from moving on.
+// Removes the current stack.
 Command.add(0, noodel.commandify(characters.correct("Ḃ")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    this.tkn.inputs.wipe();
+    path.jump_out();
+    path.top();
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
-// Removes the item in the front of the pipe.
+// Removes the item on the top of the stack.
 Command.add(0, noodel.commandify(characters.correct("ḃ")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    this.tkn.inputs.front();
+    path.top();
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
-// Duplicates the item in the front of the pipe.
+// Duplicates the item on the top of the stack.
 Command.add(0, noodel.commandify(characters.correct("ḋ")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    var f = this.tkn.inputs.front();
+    var f = path.top();
     if(f) {
-      this.tkn.outputs.back(f.copy());
-      this.tkn.outputs.back(f);
+      path.top(f);
+      path.top(f.copy());
     }
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
-// Places what is in the front of the pipe to the back.
+// Places what is on the top of the stack to the bottom.
 Command.add(0, noodel.commandify(characters.correct("ė")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    var f = this.tkn.inputs.front();
-    if(f) this.tkn.inputs.back(f);
+    var f = path.top();
+    if(f) path.bottom(f);
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
-// Places what is in the back of the pipe to the front.
+// Places what is on the bottom of the stack and places it on the top.
 Command.add(0, noodel.commandify(characters.correct("Ė")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    var f = this.tkn.inputs.back();
-    if(f) this.tkn.inputs.front(f);
+    var f = path.bottom();
+    if(f) path.top(f);
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
-Command.add(0, noodel.commandify(characters.correct("ʂ")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
+/// Swaps what is on the top of the stack with the item right below it.
+Command.add(0, noodel.commandify(characters.correct("ṡ")), function(cmd) {
   cmd.exec = function(path) {
-    var f = this.tkn.inputs.front();
+    var f = path.top();
     if(f) {
-      var g = this.tkn.inputs.front();
+      var g = path.top();
+      path.top(f);
       if(g) {
-        this.tkn.outputs.back(g);
+        path.top(g);
       }
-      this.tkn.outputs.back(f);
     }
   }
-  
-  cmd.exec = noodel.in_to_out;
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Swaps what is on the bottom of the stack with the item right above it.
+Command.add(0, noodel.commandify(characters.correct("Ṡ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.bottom();
+    if(f) {
+      var g = path.bottom();
+      path.bottom(f);
+      if(g) {
+        path.bottom(g);
+      }
+    }
+  }
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
