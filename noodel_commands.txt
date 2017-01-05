@@ -29,7 +29,6 @@ I => incomplete
                       path.top(a)
                       path.top(NUMBER(random_int(0, a.length() - 1)))
     ṛ(\d+)        - path.top(NUMBER(random_int(0, valueOf($1)))
-    €             - a = path.first() make_error(a != undefined ? a : STRING("<UNDEFINED>¶"), tkn.path);
     ƥ             - path.move_up()
     ʠ             - path.move_down()
     ı             - path.jump_in()
