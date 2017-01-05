@@ -73,7 +73,7 @@ STRING.prototype.numberify = function() {
   return new NUMBER(+this.value);
 }
 STRING.prototype.integerify = function() {
-  return (new NUMBER(this.value)).integerify();
+  return (this.numberify()).integerify();
 }
 STRING.prototype.printify = function() {
   return this.format(characters.printify_string(this.value));
