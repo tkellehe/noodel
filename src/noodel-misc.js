@@ -5,7 +5,7 @@
 //------------------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------------------
-// Terminates the program.
+/// Terminates the program.
 Command.add(0, noodel.commandify(characters.correct("ɲ") + "`"), function(cmd) {
   cmd.exec = function(path) {
     path.stop();
@@ -13,7 +13,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ") + "`"), function(cmd) 
 });
 
 //------------------------------------------------------------------------------------------------------------
-// Clears the properties that were added to a particulat object.
+/// Clears the properties that were added to a particulat object.
 Command.add(0, noodel.commandify(characters.correct("ɲ") + "~"), function(cmd) {
   cmd.exec = function(path) {
     var f = path.first(); if(f) f.props.clear();
@@ -21,7 +21,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ") + "~"), function(cmd) 
 });
   
 //------------------------------------------------------------------------------------------------------------
-// Generates a random integer.
+/// Generates a random integer.
 Command.add(0, noodel.commandify(characters.correct("ṛ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
@@ -42,6 +42,46 @@ Command.add(0, noodel.commandify(characters.correct("ṛ")), function(cmd) {
         path.top(new NUMBER(noodel.random_int(0, f.length() - 1)));
       }
     }
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+/// Generates a random integer.
+Command.add(0, noodel.commandify(characters.correct("ṛ"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER(noodel.random_int(0, +this.params[0])));
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+/// Move the stack ptr up one.
+Command.add(0, noodel.commandify(characters.correct("ƥ")), function(cmd) {
+  cmd.exec = function(path) {
+    path.move_up();
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+/// Move the stack ptr down one.
+Command.add(0, noodel.commandify(characters.correct("ʠ")), function(cmd) {
+  cmd.exec = function(path) {
+    path.move_down();
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+/// Jump into the array at the current position, if there is not an array it will create one.
+Command.add(0, noodel.commandify(characters.correct("ı")), function(cmd) {
+  cmd.exec = function(path) {
+    path.jump_in();
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+/// Jump outof the array, if there is not an array it will create one.
+Command.add(0, noodel.commandify(characters.correct("ȷ")), function(cmd) {
+  cmd.exec = function(path) {
+    path.jump_out();
   }
 });
 
