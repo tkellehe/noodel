@@ -120,7 +120,7 @@ global.noodel = function noodel(code) {
     path.stack = new ARRAY();
     path.stack.ptr = 0;
     path.onstart = function() { while(this.stdin.first()) this.top(this.stdin.front()) };
-    path.onend = function() { this.stdout.back(this.top()) };
+    path.onend = function() { if(this.first()) this.stdout.back(this.top()) };
     
     return path;
   }
