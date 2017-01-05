@@ -3,12 +3,26 @@
 //------------------------------------------------------------------------------------------------------------
 /// Misc. Commands.
 //------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// Terminates the program.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "`"), function(cmd) {
+  cmd.exec = function(path) {
+    path.stop();
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Clears the properties that were added to a particulat object.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "~"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.first(); if(f) f.props.clear();
+  }
+});
   
 //------------------------------------------------------------------------------------------------------------
 // Generates a random integer.
 Command.add(0, noodel.commandify(characters.correct("ṛ")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -29,8 +43,6 @@ Command.add(0, noodel.commandify(characters.correct("ṛ")), function(cmd) {
       }
     }
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
