@@ -51,26 +51,38 @@ I => incomplete
     ⁻        - a = path.top() b = path.top() path.top(a.sub(b))
     ⁺s       - a = path.top() b = path.top() path.top(a.add_flip(b))
     ⁻s       - a = path.top() b = path.top() path.top(a.sub_flip(b))
-    (\m+)⁺   - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment(tkn); path.top(a)
-    (\m+)⁻   - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement(tkn); path.top(a)
- U  (\m+)⁺s  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment_flip(tkn); path.top(a)
- U  (\m+)⁻s  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement_flip(tkn); path.top(a)
+    (\m+)⁺   - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.add(path.top()); path.top(a)
+    (\m+)⁻   - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.sub(path.top()); path.top(a)
+ U  (\m+)⁺s  - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.add_flip(path.top()); path.top(a)
+ U  (\m+)⁻s  - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.sub_flip(path.top()); path.top(a)
     µ⁺       - a = path.top() b = path.top()
+               for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.add(path.top()); path.top(b)
+    µ⁻       - a = path.top() b = path.top()
+               for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.sub(path.top()); path.top(b)
+ U  µ⁺s      - a = path.top() b = path.top()
+               for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.add_flip(path.top()); path.top(b)
+ U  µ⁻s      - a = path.top() b = path.top()
+              for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.sub_flip(path.top()); path.top(b)
+    ⁺(\d+)   - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment(tkn); path.top(a)
+    ⁻(\d+)   - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement(tkn); path.top(a)
+ U  ⁺(\d+)s  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment_flip(tkn); path.top(a)
+ U  ⁻(\d+)s  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement_flip(tkn); path.top(a)
+    ⁺µ       - a = path.top() b = path.top()
                if b is NUMBER =>
                  path.top(NUMBER(b.value * a.integerify().value))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.increment(tkn); path.top(b)
-    µ⁻       - a = path.top() b = path.top()
+    ⁻µ       - a = path.top() b = path.top()
                if b is NUMBER =>
                  path.top(NUMBER(b.value / a.integerify().value))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.decrement(tkn); path.top(b)
- U  µ⁺s      - a = path.top() b = path.top()
+ U  ⁺µs      - a = path.top() b = path.top()
                if b is NUMBER =>
                  path.top(NUMBER(b.pow(a.integerify().value)))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.increment_flip(tkn); path.top(b)
- U  µ⁻s      - a = path.top() b = path.top()
+ U  ⁻µs      - a = path.top() b = path.top()
                if b is NUMBER =>
                  path.top(NUMBER(b.pow(1 / a.integerify().value)))
                else =>
