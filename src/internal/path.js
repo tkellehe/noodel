@@ -1,4 +1,4 @@
-(function(global, Pipe, Command, Token){
+(function(global, Pipe, Command, Token, ARRAY){
 
 function Path(code, tkn) {
   this.code = code;
@@ -39,9 +39,6 @@ function Path(code, tkn) {
   
   this.stdin = new Pipe();
   this.stdout = new Pipe();
-  
-  this.onstart = function() { while(this.stdin.first()) this.top(this.stdin.front()) };
-  this.onend = function() { this.stdout.back(this.top()) };
 }
 
 Path.prototype.step = function() {
@@ -78,4 +75,4 @@ Path.prototype.exec = function() {
 
 global.Path = Path;
 
-})(this, this.Pipe, this.Command, this.Token)
+})(this, this.Pipe, this.Command, this.Token, this.ARRAY)
