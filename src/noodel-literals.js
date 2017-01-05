@@ -66,6 +66,25 @@ Command.add(0, noodel.commandify(characters.correct("”"), characters.regex.a_c
 });
   
 //------------------------------------------------------------------------------------------------------------
+// Handles basic compressed string literals of printable characters.
+Command.add(1, noodel.commandify(characters.regex.a_compressable + "+", characters.correct("’"), characters.regex.a_compressable + "+"), function(cmd) {
+  cmd.exec = noodel.out_to_in;
+  
+  cmd.exec = function(path) {
+    this.tkn.outputs.back(new STRING(this.tkn.params[0]));
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = characters.decompress_occur(this.tkn.params[0], this.tkn.params[1]);
+    
+    return old.call(this);
+  };
+  
+  cmd.exec = noodel.in_to_out;
+});
+  
+//------------------------------------------------------------------------------------------------------------
 // Creates a number and places it into the pipe.
 Command.add(0, new RegExp("^("+characters.correct("ɲ")+")((?:\\-\\d+\\.\\d+)|(?:\\d*\\.\\d+)|(?:\\-?\\d+))$"), function(cmd) {
   cmd.exec = noodel.out_to_in;
