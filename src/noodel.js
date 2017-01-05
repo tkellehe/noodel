@@ -27,7 +27,7 @@ Path.prototype.printify = function() {
 }
 
 Path.prototype.first = function() {
-  return this.stack.value[this.stack.props("ptr")-1]
+  return this.stack.value[this.stack.ptr-1]
 };
 
 Path.prototype.last = function() {
