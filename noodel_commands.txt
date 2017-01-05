@@ -28,8 +28,8 @@ I => incomplete
               elif a is ARRAY or a is STRING =>
                 path.top(a)
                 path.top(NUMBER(random_int(0, a.length() - 1)))
- U  ṛ(\d+)  - o.back(NUMBER(random_int(0, valueOf($1)))
-    €       - a = i.first() make_error(a != undefined ? a : STRING("<UNDEFINED>¶"), path);
+ U  ṛ(\d+)  - path.top(NUMBER(random_int(0, valueOf($1)))
+    €       - a = path.first() make_error(a != undefined ? a : STRING("<UNDEFINED>¶"), tkn.path);
 
 --- Literals ---
  -- String --
