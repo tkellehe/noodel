@@ -1,4 +1,4 @@
-(function(global, Pipe, Command, Token, ARRAY){
+(function(global, Pipe, Command, Token){
 
 function Path(code, tkn) {
   this.code = code;
@@ -75,4 +75,4 @@ Path.prototype.exec = function() {
 
 global.Path = Path;
 
-})(this, this.Pipe, this.Command, this.Token, this.ARRAY)
+})(this, this.Pipe, this.Command, this.Token)
