@@ -1,7 +1,7 @@
 (function(global, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 Path.prototype.printify = function() {
-  var r = (new ARRAY(this.outputs.__array__)).printify();
+  var r = (new ARRAY(this.stdout.__array__)).printify();
   
   var blocks = r.split(characters.correct("ð")), rows = [];
   for(var i = 0; i < blocks.length; ++i) {
@@ -19,18 +19,20 @@ Path.prototype.printify = function() {
   return r;
 }
   
-global.noodel = function noodel(code) { if(typeof code === "string" && code.length) return new Path(code) };
+global.noodel = function noodel(code) {
+  if(typeof code === "string" && code.length) {
+    var path = new Path(code);
+    path.stack = new ARRAY();
+    path.onstart = function() { while(this.stdin.first()) this.top(this.stdin.front()) };
+    path.onend = function() { this.stdout.back(this.top()) };
+    
+    return path;
+  }
+};
 noodel.commandify = function(cmd) {
   if(arguments.length > 1)
     cmd = Array.prototype.join.call(arguments, ")(");
   return new RegExp("^(" + cmd + ")$");
-};
-
-noodel.in_to_out = function(path) {
-  this.tkn.outputs.pipe(this.tkn.inputs);
-};
-noodel.out_to_in = function(path) {
-  if(this.tkn.parent) this.tkn.inputs.pipe(this.tkn.parent.outputs);
 };
   
 noodel.make_error = function(o, path) {
