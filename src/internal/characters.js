@@ -154,13 +154,9 @@ characters.printify_char = function(c) {
   if(c === characters.correct("¤")) return " ";
   return c;
 };
-
-//function handleCharCode(s) {
-//  return s.replace(/:,(\d+);/g, function(c,n) { return String.fromCharCode(+n); });
-//};
   
 function handleUnicode(s) {
-  return s.replace(/\:\;(\d+)/g, function(c,n) { return String.fromCharCode(+n); });
+  return s.replace(/\%([0-9A-F])/g, function(c,n) { return String.fromCharCode(parseInt(n, 16)); });
 };
   
 characters.printify_string = function(s) {
@@ -173,8 +169,7 @@ characters.printify_string = function(s) {
 characters.deprintify_char = function(c) {
   // Handles unicode characters.
   if(!characters.printables.is(c)) {
-    //return ":," + c.charCodeAt(0) + ";";
-    return ":;" + c.charCodeAt(0);
+    return "%" + c.charCodeAt(0).toString(16).toUpperCase();
   }
   if(c === "\n") characters.correct("¶");
   if(c === " ") characters.correct("¤");
