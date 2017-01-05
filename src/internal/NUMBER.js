@@ -36,40 +36,40 @@ NUMBER.prototype.printify = function() {
 }
 
 /// Operators
-NUMBER.prototype.increment = function(tkn) {
+NUMBER.prototype.increment = function(path) {
   return new NUMBER(this.value + 1);
 }
 
-NUMBER.prototype.decrement = function(tkn) {
+NUMBER.prototype.decrement = function(path) {
   return new NUMBER(this.value - 1);
 }
 
-NUMBER.prototype.increment_flip = function(tkn) {
+NUMBER.prototype.increment_flip = function(path) {
   return new NUMBER(1 + this.value);
 }
 
-NUMBER.prototype.decrement_flip = function(tkn) {
+NUMBER.prototype.decrement_flip = function(path) {
   return new NUMBER(1 - this.value);
 }
 
-NUMBER.prototype.add = function(rhs, tkn) {
-  var v = rhs.numberify();
-  return new NUMBER(this.value + v.value);
+NUMBER.prototype.add = function(rhs) {
+  var v = rhs.numberify().value;
+  return new NUMBER(this.value + v);
 }
 
-NUMBER.prototype.sub = function(rhs, tkn) {
-  var v = rhs.numberify();
-  return new NUMBER(this.value - v.value);
+NUMBER.prototype.sub = function(rhs) {
+  var v = rhs.numberify().value;
+  return new NUMBER(this.value - v);
 }
 
-NUMBER.prototype.add_flip = function(lhs, tkn) {
-  var v = lhs.numberify();
-  return new NUMBER(lhs.value + this.value);
+NUMBER.prototype.add_flip = function(lhs) {
+  var v = lhs.numberify().value;
+  return new NUMBER(v + this.value);
 }
 
-NUMBER.prototype.sub_flip = function(lhs, tkn) {
-  var v = lhs.numberify()
-  return new NUMBER(lhs.value - this.value);
+NUMBER.prototype.sub_flip = function(lhs) {
+  var v = lhs.numberify().value;
+  return new NUMBER(v - this.value);
 }
 
 /// Misc.
