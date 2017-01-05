@@ -32,7 +32,7 @@ Click [_Noodel_](https://tkellehe.github.io/noodel/compressor.html) to actually 
 </div>
 
 <div class="noodel-decompressor_basic">
-<button onclick="$('#decompressed-basic').val(characters.compress_basic($('#compressed-basic').val()))">DECOMPRESS</button>
+<button onclick="$('#decompressed-basic').val(characters.decompress_basic($('#compressed-basic').val()))">DECOMPRESS</button>
 <textarea id="decompressed-basic"></textarea>
 </div>
 
