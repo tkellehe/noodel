@@ -30,6 +30,10 @@ I => incomplete
                 path.top(NUMBER(random_int(0, a.length() - 1)))
  U  ṛ(\d+)  - path.top(NUMBER(random_int(0, valueOf($1)))
     €       - a = path.first() make_error(a != undefined ? a : STRING("<UNDEFINED>¶"), tkn.path);
+ U  ƥ       - path.move_up()
+ U  ʠ       - path.move_down()
+ U  ı       - path.jump_in()
+ U  ȷ       - path.jump_out()
 
 --- Literals ---
  -- String --
