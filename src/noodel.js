@@ -26,6 +26,14 @@ Path.prototype.printify = function() {
   return r;
 }
 
+Path.prototype.first = function() {
+  return this.stack.value[this.stack.props("ptr")-1]
+};
+
+Path.prototype.last = function() {
+  return this.stack.value[0]
+};
+
 Path.prototype.top = function(item) {
   var pos = this.stack.props("ptr");
   if(arguments.length === 1) {
