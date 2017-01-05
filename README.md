@@ -19,7 +19,7 @@
 <script type="text/javascript" src="docs.js"></script>
 
 
-[_Noodel_](https://tkellehe.github.io/noodel) is a programming language that has the main focus of assisting ASCII Art code golfing challenges (and eventually other art/animation challenges). _Noodel_ has its own [256 character set](docs/code_page.md). There also is an editor designed for _Noodel_ that utilizes its _JavaScript_ parser [here](https://tkellehe.github.io/noodel/editor.html).
+[_Noodel_](https://tkellehe.github.io/noodel) is a programming language that has the main focus of assisting ASCII Animation code golfing challenges. _Noodel_ has its own [256 character set](docs/code_page.md). There also is an editor designed for _Noodel_ that utilizes its _JavaScript_ parser [here](https://tkellehe.github.io/noodel/editor.html).
 
 ---
 
