@@ -49,7 +49,7 @@ Command.add(0, noodel.commandify(characters.correct("ṛ")), function(cmd) {
 /// Generates a random integer.
 Command.add(0, noodel.commandify(characters.correct("ṛ"), "\\d+"), function(cmd) {
   cmd.exec = function(path) {
-    path.top(new NUMBER(noodel.random_int(0, +this.params[0])));
+    path.top(new NUMBER(noodel.random_int(0, +this.tkn.params[0])));
   }
 });
   
