@@ -21,11 +21,10 @@ Click [_Noodel_](https://tkellehe.github.io/noodel/editor.html) to actually see 
 <script src="src/noodel-basic_pipe.js"></script>
 <script src="src/noodel-basic_print.js"></script>
 <script src="src/noodel-loops.js"></script>
-
+-->
 <link rel="stylesheet" type="text/css" href="docs.css">
 <script type="text/javascript" src="docs.js"></script>
 
 <div class="noodel-share"></div>
 
 <div class="noodel-exec" code="" input="" show></div>
--->
