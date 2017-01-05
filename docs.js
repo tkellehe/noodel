@@ -127,7 +127,7 @@ $(".noodel-exec").each(function(){
     
     $button.text("LOADING INPUTS...");
     var i = characters.deprintify_string(nbsRemove($input.val()));
-    if(i.length) prgm.inputs.back(new STRING(i));
+    if(i.length) prgm.stdin.back(new STRING(i));
     
     $input.prop("readonly",true);
     $editor.prop("readonly",true);
@@ -264,4 +264,4 @@ $(".noodel-char_table").each(function(){
     
 }); // End of the onload function.
 
-})(this, this.$, this.noodel, this.types.STRING, this.characters)
+})(this, this.$, this.noodel, this.STRING, this.characters)
