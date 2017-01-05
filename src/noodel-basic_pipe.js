@@ -81,4 +81,4 @@ Command.add(0, noodel.commandify(characters.correct("Ṡ")), function(cmd) {
   }
 });
 
-})(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
+})(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
