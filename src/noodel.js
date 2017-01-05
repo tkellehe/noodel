@@ -1,10 +1,10 @@
 (function(global, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 function insertAt(array, pos, item) {
-  array.value.splice(pos, 0, item);
+  array.splice(pos, 0, item);
 };
 function removeAt(array, pos) {
-  return array.value.splice(pos, 1)[0];
+  return array.splice(pos, 1)[0];
 };
 
 Path.prototype.printify = function() {
