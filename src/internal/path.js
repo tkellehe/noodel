@@ -2,7 +2,6 @@
 
 function Path(code, tkn) {
   this.code = code;
-  this.exceptions = new Pipe();
   this.start = new Token(0, this.code, tkn);
   this.start.path = this;
   this.current = this.start;
@@ -38,11 +37,11 @@ function Path(code, tkn) {
     set: function(v) { self.onstops.push(v) }
   });
   
-  this.inputs = new Pipe();
-  this.outputs = new Pipe();
+  this.stdin = new Pipe();
+  this.stdout = new Pipe();
   
-  this.onstart = function() { this.start.inputs.pipe(this.inputs) };
-  this.onend = function() { this.outputs.pipe(this.previous.outputs) };
+  this.onstart = function() { while(this.stdin.first()) this.top(this.stdin.front()) };
+  this.onend = function() { this.stdout.back(this.top()) };
 }
 
 Path.prototype.step = function() {
@@ -52,10 +51,6 @@ Path.prototype.step = function() {
   this.previous = this.current;
   this.current = this.current.next();
   this.onstep();
-  if(this.exceptions.length()) {
-    this.outputs.pipe(this.exceptions);
-    return false;
-  }
   return !!this.current;
 }
 
