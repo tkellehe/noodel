@@ -86,7 +86,7 @@ Command.add(1, noodel.commandify(characters.regex.a_compressable + "+", characte
 
 //------------------------------------------------------------------------------------------------------------
 // Creates and array of strings from each compressable characters following it.
-Command.add(0, noodel.commandify(characters.regex.a_compressable + "+", characters.correct("’"), characters.regex.a_compressable + "+"), function(cmd) {
+Command.add(1, noodel.commandify(characters.regex.a_compressable + "+", characters.correct("’"), characters.regex.a_compressable + "+"), function(cmd) {
   cmd.exec = noodel.out_to_in;
   
   cmd.exec = function(path) {
