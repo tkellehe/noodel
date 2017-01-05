@@ -31,6 +31,11 @@ Click [_Noodel_](https://tkellehe.github.io/noodel/compressor.html) to actually 
 <textarea id="compressed-basic"></textarea>
 </div>
 
+<div class="noodel-decompressor_basic">
+<button onclick="$('#decompressed-basic').val(characters.compress_basic($('#compressed-basic').val()))">DECOMPRESS</button>
+<textarea id="decompressed-basic"></textarea>
+</div>
+
 ## Occurance Compression
 
 <div class="noodel-compressor_occur">
