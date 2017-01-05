@@ -14,7 +14,7 @@ Click [_Noodel_](https://tkellehe.github.io/noodel/editor.html) to actually see 
 <script src="src/internal/STRING.js"></script>
 <script src="src/internal/ARRAY.js"></script>
 <script src="src/noodel.js"></script>
-<script src="src/noodel-basic_array.js"></script>
+<!--<script src="src/noodel-basic_array.js"></script>
 <script src="src/noodel-basic_cast.js"></script>
 <script src="src/noodel-basic_operands.js"></script>
 <script src="src/noodel-basic_pipe.js"></script>
@@ -28,3 +28,4 @@ Click [_Noodel_](https://tkellehe.github.io/noodel/editor.html) to actually see 
 <div class="noodel-share"></div>
 
 <div class="noodel-exec" code="" input="" show></div>
+-->
