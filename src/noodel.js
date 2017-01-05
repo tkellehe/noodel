@@ -145,9 +145,6 @@ noodel.random_int = function(min, max) {
 
 //------------------------------------------------------------------------------------------------------------
 /// NOPs
-Command.add(0, noodel.commandify("[ \t\n]"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  cmd.exec = noodel.in_to_out;
-});
+Command.add(0, noodel.commandify("[ \t\n]"), function(cmd) {});
 
 })(this, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
