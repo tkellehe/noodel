@@ -156,7 +156,7 @@ characters.printify_char = function(c) {
 };
   
 function handleUnicode(s) {
-  return s.replace(/\%([0-9A-F])/g, function(c,n) { return String.fromCharCode(parseInt(n, 16)); });
+  return s.replace(/\%([0-9A-F]+)/g, function(c,n) { return String.fromCharCode(parseInt(n, 16)); });
 };
   
 characters.printify_string = function(s) {
