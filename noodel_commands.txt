@@ -45,12 +45,12 @@ I => incomplete
 --- Operators ---
     ⁺        - a = path.top() b = path.top() path.top(a.add(b))
     ⁻        - a = path.top() b = path.top() path.top(a.sub(b))
-    ⁺ʂ       - a = path.top() b = path.top() path.top(a.add_flip(b))
-    ⁻ʂ       - a = path.top() b = path.top() path.top(a.sub_flip(b))
+    ⁺s       - a = path.top() b = path.top() path.top(a.add_flip(b))
+    ⁻s       - a = path.top() b = path.top() path.top(a.sub_flip(b))
     (\m+)⁺   - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment(tkn); path.top(a)
     (\m+)⁻   - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement(tkn); path.top(a)
- U  (\m+)⁺ʂ  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment_flip(tkn); path.top(a)
- U  (\m+)⁻ʂ  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement_flip(tkn); path.top(a)
+ U  (\m+)⁺s  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment_flip(tkn); path.top(a)
+ U  (\m+)⁻s  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement_flip(tkn); path.top(a)
     µ⁺       - a = path.top() b = path.top()
                if b is NUMBER =>
                  path.top(NUMBER(b.value * a.integerify().value))
@@ -61,12 +61,12 @@ I => incomplete
                  path.top(NUMBER(b.value / a.integerify().value))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.decrement(tkn); path.top(b)
- U  µ⁺ʂ      - a = path.top() b = path.top()
+ U  µ⁺s      - a = path.top() b = path.top()
                if b is NUMBER =>
                  path.top(NUMBER(b.pow(a.integerify().value)))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.increment_flip(tkn); path.top(b)
- U  µ⁻ʂ      - a = path.top() b = path.top()
+ U  µ⁻s      - a = path.top() b = path.top()
                if b is NUMBER =>
                  path.top(NUMBER(b.pow(1 / a.integerify().value)))
                else =>
@@ -206,7 +206,8 @@ I => incomplete
     Ḃ - path.jump_up() path.top()
     ė - path.bottom(path.top())
     Ė - path.top(path.bottom())
-    ʂ - a = path.top() b = path.top() path.top(a) path.top(b)
+    ṡ - a = path.top() b = path.top() path.top(a) path.top(b)
+ U  Ṡ - a = path.bottom() b = path.bottom() path.bottom(a) path.bottom(b)
 
 --- String Manipulation ---
 
@@ -216,7 +217,7 @@ I => incomplete
                 if a == undefined => path.top(NUMBER(0))
                 elif b == undefined => path.top(a) path.top(a.is_truthy())
                 else => path.top(b) path.top(a) path.top(a.equals(b))
- U  ⁼ʂ        - a = path.top() b = path.top()
+ U  ⁼s        - a = path.top() b = path.top()
                 if a == undefined => path.top(NUMBER(1))
                 elif b == undefined => path.top(a) path.top(a.is_falsy())
                 else => path.top(b) path.top(a) path.top(a.equals_flip(b))
@@ -224,7 +225,7 @@ I => incomplete
                 if a == undefined => path.top(NUMBER(-1)) ???
                 elif b == undefined => path.top(a) path.top(a.min()) ???
                 else => path.top(b) path.top(a) path.top(a.lt(b))
- U  ⁼<ʂ       - a = path.top() b = path.top()
+ U  ⁼<s       - a = path.top() b = path.top()
                 if a == undefined => path.top(NUMBER(-100)) ???
                 elif b == undefined => path.top(a) path.top(a.min()) ???
                 else => path.top(b) path.top(a) path.top(a.lt_flip(b))
@@ -232,7 +233,7 @@ I => incomplete
                 if a == undefined => path.top(NUMBER(.1)) ???
                 elif b == undefined => path.top(a) path.top(a.max()) ???
                 else => path.top(b) path.top(a) path.top(a.gt(b))
- U  ⁼>ʂ       - a = path.top() b = path.top()
+ U  ⁼>s       - a = path.top() b = path.top()
                 if a == undefined => path.top(NUMBER(100)) ???
                 elif b == undefined => path.top(a) path.top(a.max()) ???
                 else => path.top(b) path.top(a) path.top(a.gt_flip(b))
@@ -240,7 +241,7 @@ I => incomplete
                 if a == undefined => path.top(NUMBER(16)) ???
                 elif b == undefined => path.top(a) path.top(a.is_truthy()) ???
                 else => path.top(b) path.top(a) path.top(NUMBER(a.equals(b).value == 0 ? 1 : 0))
- U  ⁼!ʂ       - a = path.top() b = path.top()
+ U  ⁼!s       - a = path.top() b = path.top()
                 if a == undefined => path.top(NUMBER(256)) ???
                 elif b == undefined => path.top(a) path.top(a.is_falsy()) ???
                 else => path.top(b) path.top(a) path.top(NUMBER(a.equals_flip(b).value == 0 ? 1 : 0))
@@ -248,7 +249,7 @@ I => incomplete
                 if a == undefined => path.top(NUMBER(-1)) ???
                 elif b == undefined => path.top(a) path.top(a.min()) ???
                 else => path.top(b) path.top(a) path.top(a.lte(b))
- U  ⁼,ʂ       - a = path.top() b = path.top()
+ U  ⁼,s       - a = path.top() b = path.top()
                 if a == undefined => path.top(NUMBER(-100)) ???
                 elif b == undefined => path.top(a) path.top(a.min()) ???
                 else => path.top(b) path.top(a) path.top(a.lte_flip(b))
@@ -256,7 +257,7 @@ I => incomplete
                 if a == undefined => path.top(NUMBER(.1)) ???
                 elif b == undefined => path.top(a) path.top(a.max()) ???
                 else => path.top(b) path.top(a) path.top(a.gte(b))
- U  ⁼.ʂ       - a = path.top() b = path.top()
+ U  ⁼.s       - a = path.top() b = path.top()
                 if a == undefined => path.top(NUMBER(100)) ???
                 elif b == undefined => path.top(a.max()) path.top(a) ???
                 else => path.top(b) path.top(a) path.top(a.gte_flip(b))
