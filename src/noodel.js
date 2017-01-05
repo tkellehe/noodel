@@ -1,5 +1,12 @@
 (function(global, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
+function insertAt(array, pos, item) {
+  array.value.splice(pos, 0, item);
+};
+function removeAt(array, pos) {
+  return array.value.splice(pos, 1)[0];
+};
+
 Path.prototype.printify = function() {
   var r = (new ARRAY(this.stdout.__array__)).printify();
   
@@ -18,11 +25,92 @@ Path.prototype.printify = function() {
   
   return r;
 }
+
+Path.prototype.top = function(item) {
+  var pos = this.stack.props("ptr");
+  if(arguments.length === 1) {
+    if(item.type === "ARRAY") {
+      if(item.props("ptr") === undefined) item.props("ptr", 0);
+      item.props("container", this.stack);
+    }
+    
+    insertAt(this.stack.value, pos, item);
+    this.stack.props("ptr", pos+1);
+  } else {
+    item = removeAt(this.stack.value, pos);
+    if(item) {
+      if(item.type === "ARRAY") {
+        item.props("container", undefined);
+      }
+      this.stack.props("ptr", pos-1);
+    }
+    return item;
+  }
+};
+
+Path.prototype.bottom = function(item) {
+  var pos = this.stack.props("ptr");
+  if(arguments.length === 1) {
+    if(item.type === "ARRAY") {
+      if(item.props("ptr") === undefined) item.props("ptr", 0);
+      item.props("container", this.stack);
+    }
+    
+    insertAt(this.stack.value, 0, item);
+    this.stack.props("ptr", pos+1);
+  } else {
+    item = removeAt(this.stack.value, 0);
+    if(item) {
+      if(item.type === "ARRAY") {
+        item.props("container", undefined);
+      }
+      this.stack.props("ptr", pos-1);
+    }
+    return item;
+  }
+};
+  
+Path.prototype.move_up = function() {
+  var pos = this.stack.props("ptr");
+  if(0 <= pos && pos < this.stack.length()) {
+    this.stack.props("ptr", pos+1);
+  }
+};
+  
+Path.prototype.move_down = function() {
+  var pos = this.stack.props("ptr");
+  if(0 < pos && pos <= this.stack.length()) {
+    this.stack.props("ptr", pos-1);
+  }
+};
+  
+Path.prototype.jump_in = function() {
+  var item = this.top();
+  if(item === undefined) {
+    item = new ARRAY();
+  } else {
+    item = item.arrayify();
+  }
+  this.top(item);
+  
+  this.stack = item;
+};
+  
+Path.prototype.jump_out = function() {
+  var container = this.stack.props("container");
+  if(container === undefined) {
+    container = new ARRAY([this.stack]);
+    this.stack.props("container", container);
+  }
+  
+  this.stack = container;
+};
   
 global.noodel = function noodel(code) {
   if(typeof code === "string" && code.length) {
     var path = new Path(code);
     path.stack = new ARRAY();
+    path.stack.props("ptr", 0);
     path.onstart = function() { while(this.stdin.first()) this.top(this.stdin.front()) };
     path.onend = function() { this.stdout.back(this.top()) };
     
