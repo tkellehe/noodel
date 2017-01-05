@@ -17,7 +17,7 @@ I => incomplete
 --- MISC ---
     %[0-9A-F]+  - Use in a STRING to create a Unicode character based off of the hex value.
     ɲ`            - terminate()
-    ɲ~            - a = path.top() a.props.clear()
+    ɲ~            - a = path.first() a.props.clear()
     ṛ             - a = path.top()
                     if a is NUMBER =>
                       max, min
