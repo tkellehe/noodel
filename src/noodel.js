@@ -35,60 +35,60 @@ Path.prototype.last = function() {
 };
 
 Path.prototype.top = function(item) {
-  var pos = this.stack.props("ptr");
+  var pos = this.stack.ptr;
   if(arguments.length === 1) {
     if(item.type === "ARRAY") {
-      if(item.props("ptr") === undefined) item.props("ptr", 0);
-      item.props("container", this.stack);
+      if(item.ptr === undefined) item.ptr = 0;
+      item.container = this.stack;
     }
     
     insertAt(this.stack.value, pos, item);
-    this.stack.props("ptr", pos+1);
+    this.stack.ptr = pos+1;
   } else {
     item = removeAt(this.stack.value, pos-1);
     if(item) {
       if(item.type === "ARRAY") {
-        item.props("container", undefined);
+        item.container = undefined;
       }
-      this.stack.props("ptr", pos-1);
+      this.stack.ptr = pos-1;
     }
     return item;
   }
 };
 
 Path.prototype.bottom = function(item) {
-  var pos = this.stack.props("ptr");
+  var pos = this.stack.ptr;
   if(arguments.length === 1) {
     if(item.type === "ARRAY") {
-      if(item.props("ptr") === undefined) item.props("ptr", 0);
-      item.props("container", this.stack);
+      if(item.ptr === undefined) item.ptr = 0;
+      item.container = this.stack;
     }
     
     insertAt(this.stack.value, 0, item);
-    this.stack.props("ptr", pos+1);
+    this.stack.ptr = pos+1;
   } else {
     item = removeAt(this.stack.value, 0);
     if(item) {
       if(item.type === "ARRAY") {
-        item.props("container", undefined);
+        item.container = undefined;
       }
-      this.stack.props("ptr", pos-1);
+      this.stack.ptr = pos-1;
     }
     return item;
   }
 };
   
 Path.prototype.move_up = function() {
-  var pos = this.stack.props("ptr");
+  var pos = this.stack.ptr;
   if(0 <= pos && pos < this.stack.length()) {
-    this.stack.props("ptr", pos+1);
+    this.stack.ptr = pos+1;
   }
 };
   
 Path.prototype.move_down = function() {
-  var pos = this.stack.props("ptr");
+  var pos = this.stack.ptr;
   if(0 < pos && pos <= this.stack.length()) {
-    this.stack.props("ptr", pos-1);
+    this.stack.ptr = pos-1;
   }
 };
   
@@ -105,10 +105,10 @@ Path.prototype.jump_in = function() {
 };
   
 Path.prototype.jump_out = function() {
-  var container = this.stack.props("container");
+  var container = this.stack.container;
   if(container === undefined) {
     container = new ARRAY([this.stack]);
-    this.stack.props("container", container);
+    this.stack.container = container;
   }
   
   this.stack = container;
@@ -118,7 +118,7 @@ global.noodel = function noodel(code) {
   if(typeof code === "string" && code.length) {
     var path = new Path(code);
     path.stack = new ARRAY();
-    path.stack.props("ptr", 0);
+    path.stack.ptr = 0;
     path.onstart = function() { while(this.stdin.first()) this.top(this.stdin.front()) };
     path.onend = function() { this.stdout.back(this.top()) };
     
