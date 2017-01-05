@@ -142,4 +142,4 @@ Command.add(0, noodel.commandify("[ \t\n]"), function(cmd) {
   cmd.exec = noodel.in_to_out;
 });
 
-})(this, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
+})(this, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
