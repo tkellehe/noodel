@@ -13,6 +13,7 @@ function Path(code, tkn) {
   this.onstops = [];
   this.timeout = undefined;
   this.rate = 0;
+  this.kill_this = false;
   
   var self = this;
   function invoke_onsteps() { for(var i = 0, l = self.onsteps.length; i < l; ++i) self.onsteps[i].call(self) };
@@ -48,13 +49,14 @@ Path.prototype.step = function() {
   this.previous = this.current;
   this.current = this.current.next();
   this.onstep();
-  return !!this.current;
+  return this.kill_this || !!this.current;
 }
 
 Path.prototype.stop = function() {
   if(this.timeout) {
     clearTimeout(this.timeout);
     this.timeout = undefined;
+    this.kill_this = true;
     this.onstop();
     this.onend();
   }
@@ -63,6 +65,7 @@ Path.prototype.stop = function() {
 Path.prototype.exec = function() {
   this.stop();
   var self = this;
+  this.kill_this = false;
   (function loop(){
     if(self.step()) {
       self.timeout = setTimeout(loop, self.rate);
