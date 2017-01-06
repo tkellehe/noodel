@@ -1,4 +1,4 @@
-function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
+(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 //------------------------------------------------------------------------------------------------------------
 /// String Manipulation Commands.
