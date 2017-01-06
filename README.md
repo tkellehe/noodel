@@ -58,7 +58,7 @@ _Noodel_ is a stack-based language with a slight twist. The perspective of the s
 
 ---
 
-The literal `noodel` gets pushed onto the stack, then the top of the stack gets moved with the `ʠ` command. Then the `STRING` literal `some¤work` gets pushed onto the stack. The command `ƥ` moves the top of the stack back up, therein `noodel` is ontop and is printed.
+The literal `noodel` gets pushed onto the stack, then the top of the stack gets moved with the `ʠ` command. Then the `STRING` literal `some¤work` gets pushed onto the stack. The command `ƥ` moves the top of the stack back up, therein `noodel` is on top and is printed.
 
 Now that is kind of cool, but it gets more interesting when there are arrays involved. Let us take this script: `¤noodel¤ȷçıḷẹḍe`
 
