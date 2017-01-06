@@ -88,7 +88,8 @@ Command.add(0, noodel.commandify(characters.correct("ʋ")), function(cmd) {
       } else if(f.type === "NUMBER") {
         path.top(new NUMBER(Math.ceil(f.value)));
       } else if(f.type === "ARRAY") {
-        // ???
+        for(var i = f.length(); i--;) f.value.reverse();
+        path.top(f);
       }
     }
   }
