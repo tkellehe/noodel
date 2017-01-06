@@ -225,4 +225,24 @@ Command.add(0, noodel.commandify(characters.correct("Ḅ")), function(cmd) {
   }
 });
 
+//------------------------------------------------------------------------------------------------------------
+/// Pushes the current loop count onto the stack.
+Command.add(0, noodel.commandify(characters.correct("ɱ")), function(cmd) {
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var p = this.tkn.parent;
+    while(!Command.is_loop(p.literal)) {
+      p = p.parent;
+    }
+    
+    this.tkn.looper = p;
+    
+    return old.call(this);
+  };
+  
+  cmd.exec = function(path) {
+    path.top(new NUMBER(this.tkn.looper.loop_count));
+  }
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
