@@ -42,7 +42,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ")+"l"), function(cmd) {
 /// Takes the first element of strings/arrays and places it into the back. For numbers, it reciprocates.
 Command.add(0, noodel.commandify(characters.correct("ẹ")), function(cmd) {
   cmd.exec = function(path) {
-    var f = this.tkn.inputs.front();
+    var f = path.top();
     if(f) {
       if(f.type === "ARRAY") {
         var e = f.value.shift();
