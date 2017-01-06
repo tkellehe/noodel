@@ -109,6 +109,7 @@ Path.prototype.jump_out = function() {
   if(container === undefined) {
     container = new ARRAY([this.stack]);
     this.stack.container = container;
+    container.ptr = 1;
   }
   
   this.stack = container;
