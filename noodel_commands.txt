@@ -188,7 +188,7 @@ I => incomplete
     ʋ       - a = path.top()
               if a is NUMBER => path.top(NUMBER(a.ceilling()))
               elif a is STRING => a = string_break(a.value) foreach e in a => e = STRING(e); path.top(ARRAY(a))
-              elif a is ARRAY => ???
+              elif a is ARRAY => path.top(a.reverse())
 
 --- Loops ---
     ḷ(\k*)       - while(true) => $1
