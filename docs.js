@@ -126,7 +126,7 @@ $(".noodel-exec").each(function(){
     if(prgm === undefined) return;
     
     $button.text("LOADING INPUTS...");
-    var temp_string = nbsRemove($input.val()));
+    var temp_string = nbsRemove($input.val());
     var js_inputs = eval("(function(){return "+(temp_string.length ? temp_string : "undefined")+";})()");
     
     function parseJs(JS) {
@@ -142,7 +142,7 @@ $(".noodel-exec").each(function(){
         }
         return new ARRAY(a);
       }
-    }
+    };
     
     if(js_inputs !== undefined) {
       js_inputs = parseJs(js_inputs);
