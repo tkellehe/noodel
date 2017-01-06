@@ -23,13 +23,12 @@ Command.add(0, new RegExp("^(" + characters.correct("ḷ") + ")([^\\n]*)" + "$")
     
     tkn.next = function() { return tkn.sub_path.start };
     
-    this.tkn.loop_count = 0;
-    
     return old.call(this);
   };
   
   cmd.exec = function(path) {
-    this.tkn.loop_count++;
+    if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
+    else this.tkn.loop_count++;
   }
 });
 
@@ -51,9 +50,10 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")([^\\n]*)" + "$")
       tkn.count = undefined;
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
-      this.tkn.loop_count = 0;
+      this.tkn.loop_count = undefined;
     } else {
-      this.tkn.loop_count++;
+      if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
+      else this.tkn.loop_count++;
     }
   }
   
@@ -65,8 +65,6 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")([^\\n]*)" + "$")
     tkn.sub_path.end.branches.front(tkn);
     
     tkn.next = function() { return tkn.sub_path.start };
-    
-    this.tkn.loop_count = 0;
     
     return old.call(this);
   };
@@ -86,9 +84,10 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)([^\\n]*)" 
       tkn.count = undefined;
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
-      this.tkn.loop_count = 0;
+      this.tkn.loop_count = undefined;
     } else {
-      this.tkn.loop_count++;
+      if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
+      else this.tkn.loop_count++;
     }
   }
   
@@ -103,8 +102,6 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)([^\\n]*)" 
     
     tkn.params[0] = +tkn.params[0];
     
-    this.tkn.loop_count = 0;
-    
     return old.call(this);
   };
 });
@@ -117,11 +114,12 @@ Command.add(0, new RegExp("^(" + characters.correct("ṃ") + ")([^\\n]*)" + "$")
     if(f && f.is_truthy().value) {
       path.top(f);
       tkn.next = function() { return tkn.sub_path.start }
-      this.tkn.loop_count++;
+      if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
+      else this.tkn.loop_count++;
     } else {
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
-      this.tkn.loop_count = 0;
+      this.tkn.loop_count = undefined;
     }
   }
   
@@ -131,8 +129,6 @@ Command.add(0, new RegExp("^(" + characters.correct("ṃ") + ")([^\\n]*)" + "$")
     tkn.sub_path = new Path(tkn.params[0], tkn);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
-    
-    this.tkn.loop_count = 0;
     
     return old.call(this);
   };
@@ -145,11 +141,12 @@ Command.add(0, noodel.commandify(characters.correct("Ṃ")), function(cmd) {
     var tkn = this.tkn, f = path.top();
     if(f && f.is_truthy().value) {
       tkn.next = function() { return tkn.sub_path.start }
-      this.tkn.loop_count++;
+      if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
+      else this.tkn.loop_count++;
     } else {
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
-      this.tkn.loop_count = 0;
+      this.tkn.loop_count = undefined;
     }
   }
   
@@ -159,8 +156,6 @@ Command.add(0, noodel.commandify(characters.correct("Ṃ")), function(cmd) {
     tkn.sub_path = new Path(tkn.params[0], tkn);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
-    
-    this.tkn.loop_count = 0;
     
     return old.call(this);
   };
@@ -181,7 +176,7 @@ Command.add(0, noodel.commandify(characters.correct("ḅ")), function(cmd) {
     
     tkn.next = function() {
       var next = tkn.looper.branches.first();
-      tkn.looper.loop_count = 0;
+      tkn.looper.loop_count = undefined;
       return next === tkn.looper.sub_path.start ? undefined : next
     };
     
@@ -218,7 +213,7 @@ Command.add(0, noodel.commandify(characters.correct("Ḅ")), function(cmd) {
       var tkn = this.tkn;
       tkn.next = function() {
         var next = tkn.looper.branches.first();
-        tkn.looper.loop_count = 0;
+        tkn.looper.loop_count = undefined;
         return next === tkn.looper.sub_path.start ? undefined : next
       };
     }
@@ -241,8 +236,7 @@ Command.add(0, noodel.commandify(characters.correct("ɱ")), function(cmd) {
   };
   
   cmd.exec = function(path) {
-    // Have to subtract one in order to make it zero based.
-    path.top(new NUMBER(this.tkn.looper.loop_count-1));
+    path.top(new NUMBER(this.tkn.looper.loop_count));
   }
 });
 
