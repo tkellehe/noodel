@@ -77,10 +77,7 @@ Command.add(0, noodel.commandify(characters.correct("Ñ")), function(cmd) {
 // Places the stack into the stdout.
 Command.add(0, noodel.commandify(characters.correct("Ð")), function(cmd) {
   cmd.exec = function(path) {
-    var f = path.top();
-    if(f) {
-      path.stdout.back(path.stack);
-    }
+    path.stdout.back(path.stack);
   }
 });
 
@@ -88,10 +85,7 @@ Command.add(0, noodel.commandify(characters.correct("Ð")), function(cmd) {
 // Clears the stdout.
 Command.add(0, noodel.commandify(characters.correct("ß")), function(cmd) {
   cmd.exec = function(path) {
-    var f = path.top();
-    if(f) {
-      path.stdout.wipe();
-    }
+    path.stdout.wipe();
   }
 });
 
