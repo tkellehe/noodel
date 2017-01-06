@@ -1,4 +1,4 @@
-(function(global, $, noodel, STRING, characters){
+(function(global, $, noodel, STRING, NUMBER, ARRAY, characters){
 
 var nbs = String.fromCharCode(160),
     space = String.fromCharCode(32);
@@ -126,8 +126,28 @@ $(".noodel-exec").each(function(){
     if(prgm === undefined) return;
     
     $button.text("LOADING INPUTS...");
-    var i = characters.deprintify_string(nbsRemove($input.val()));
-    if(i.length) prgm.stdin.back(new STRING(i));
+    var temp_string = nbsRemove($input.val()));
+    var js_inputs = eval("(function(){return "+(temp_string.length ? temp_string : "undefined")+";})()");
+    
+    function parseJs(JS) {
+      if(JS instanceof String) {
+        return new STRING(JS);
+      } else if(JS instanceof Number) {
+        return new NUMBER(JS);
+      } else if(JS instanceof Array) {
+        var a = [];
+        for(var i = 0; i < JS.length; ++i) {
+          var item = parseJs(JS[i]);
+          if(item) a.push(item);
+        }
+        return new ARRAY(a);
+      }
+    }
+    
+    if(js_inputs !== undefined) {
+      js_inputs = parseJs(js_inputs);
+      if(js_inputs) prgm.stdin.back(js_inputs);
+    }
     
     $input.prop("readonly",true);
     $editor.prop("readonly",true);
@@ -264,4 +284,4 @@ $(".noodel-char_table").each(function(){
     
 }); // End of the onload function.
 
-})(this, this.$, this.noodel, this.STRING, this.characters)
+})(this, this.$, this.noodel, this.STRING, this.NUMBER, this.ARRAY, this.characters)
