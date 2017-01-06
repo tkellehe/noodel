@@ -241,7 +241,8 @@ Command.add(0, noodel.commandify(characters.correct("ɱ")), function(cmd) {
   };
   
   cmd.exec = function(path) {
-    path.top(new NUMBER(this.tkn.looper.loop_count));
+    // Have to subtract one in order to make it zero based.
+    path.top(new NUMBER(this.tkn.looper.loop_count-1));
   }
 });
 
