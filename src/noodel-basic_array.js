@@ -200,20 +200,22 @@ Command.add(0, new RegExp("^(" + characters.correct("ạ") + ")((?:\\-\\d*)|(?:\
   
 //------------------------------------------------------------------------------------------------------------
 /// Accesses a particular frame of an array/string based off of an array.
-Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("Ạ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
       if(f.type === "ARRAY") {
         var g = path.top();
-        if(g.type === "ARRAY") {
-          if(f.props("frame") === undefined) f.props("frame", 0);
-          var item = g.access(f.access(f.props("frame")));
-          f.props("frame", f.correct_index(f.props("frame") + 1));
-          
-          path.top(g);
-          path.top(f);
-          if(item) path.top(item);
+        if(g) {
+          if(g.type === "ARRAY") {
+            if(f.props("frame") === undefined) f.props("frame", 0);
+            var item = g.access(f.access(f.props("frame")));
+            f.props("frame", f.correct_index(f.props("frame") + 1));
+
+            path.top(g);
+            path.top(f);
+            if(item) path.top(item);
+          }
         }
       }
     }
