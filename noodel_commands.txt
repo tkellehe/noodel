@@ -229,6 +229,7 @@ I => incomplete
     ñ - path.stdout(path.first()) path.stdout(STRING("¶"))
     Ñ - path.stdout(path.top()) path.stdout(STRING("¶"))
     Ð - path.stdout(path.stack)
+    ß - path.stdout.clear()
 
 --- Pipe Manipulation ---
     ḃ - path.top()
