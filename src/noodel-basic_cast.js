@@ -58,6 +58,21 @@ Command.add(0, noodel.commandify(characters.correct("ɲ")+"'"), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
+/// Stringifies the first item in the pipe.
+Command.add(0, noodel.commandify(characters.correct("ɲ")+'"'), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      if(f.type === "STRING") {
+        path.top(new STRING(string_null_break(f.value).join("")));
+      } else {
+        path.top(f.stringify());
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
 /// Numberifies the first item in the pipe.
 Command.add(0, noodel.commandify(characters.correct("ɲ")+"#"), function(cmd) {
   cmd.exec = function(path) {
