@@ -18,6 +18,7 @@
 <script src="src/noodel-basic_cast.js"></script>
 <script src="src/noodel-basic_operands.js"></script>
 <script src="src/noodel-basic_array.js"></script>
+<script src="src/noodel-string_manip.js"></script>
 
 <link rel="stylesheet" type="text/css" href="docs.css">
 <script type="text/javascript" src="docs.js"></script>
