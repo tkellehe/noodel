@@ -43,6 +43,7 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")([^\\n]*)" + "$")
       if(f) {
         if(f.type === "ARRAY" || f.type === "STRING") {
           tkn.count = f.length();
+          path.top(f);
         } else {
           f = f.integerify();
           tkn.count = f.value;
