@@ -240,7 +240,7 @@ Command.add(0, noodel.commandify(characters.correct("⁺") + characters.correct(
     var f = path.top();
     if(f) {
       var c = f.integerify().value;
-      var g = this.tkn.inputs.front();
+      var g = path.top();
       if(g) {
         if(g.type === "NUMBER") {
           path.top(new NUMBER(g.value * c));
@@ -280,7 +280,7 @@ Command.add(0, noodel.commandify(characters.correct("⁺") +"s" + characters.cor
     var f = path.top();
     if(f) {
       var c = f.integerify().value;
-      var g = this.tkn.inputs.front();
+      var g = path.top();
       if(g) {
         if(g.type === "NUMBER") {
           path.top(new NUMBER(g.value * c));
