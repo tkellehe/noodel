@@ -18,8 +18,8 @@ Command.add(0, noodel.commandify(characters.correct("ɲ")), function(cmd) {
       } else if(f.type === "NUMBER") {
         path.top(new NUMBER(-1 * Math.abs(f.value)));
       } else if(f.type === "STRING") {
-        var a = string_null_break(f.value);
-        for(var i = 0; i < a.length; ++i) {
+        var a = new ARRAY(string_null_break(f.value));
+        for(var i = 0; i < a.length(); ++i) {
           a.value[i] = (new STRING(a.value[i])).numberify();
         }
         if(a.length() === 0) {
