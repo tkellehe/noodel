@@ -64,14 +64,12 @@ Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("
   
 //------------------------------------------------------------------------------------------------------------
 // Decrements the item in the pipe.
-Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("⁻")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
+Command.add(0, noodel.commandify(characters.correct("⁻") + characters.correct("µ")), function(cmd) {
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
     if(f) {
       var c = f.integerify().value;
-      var g = this.tkn.inputs.front();
+      var g = path.top();
       if(g) {
         if(g.type === "NUMBER") {
           this.tkn.outputs.back(new NUMBER(g.value / c));
@@ -82,77 +80,59 @@ Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("
       }
     }
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
 // Adds two items in the pipe where the first is the lhs and the second is the rhs.
 Command.add(0, noodel.commandify(characters.correct("⁺")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    var lhs = this.tkn.inputs.front();
+    var lhs = path.top();
     if(lhs) {
-      var rhs = this.tkn.inputs.front();
+      var rhs = path.top();
       if(rhs) {
-        this.tkn.outputs.back(lhs.add(rhs, this.tkn));
-      } else this.tkn.outputs.back(lhs);
+        path.top(lhs.add(rhs));
+      } else path.top(lhs);
     }
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 Command.add(0, noodel.commandify(characters.correct("⁻")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    var lhs = this.tkn.inputs.front();
+    var lhs = path.top();
     if(lhs) {
-      var rhs = this.tkn.inputs.front();
+      var rhs = path.top();
       if(rhs) {
-        this.tkn.outputs.back(lhs.sub(rhs, this.tkn));
-      } else this.tkn.outputs.back(lhs);
+        path.top(lhs.sub(rhs));
+      } else path.top(lhs);
     }
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
-Command.add(0, noodel.commandify(characters.correct("⁺")+characters.correct("ʂ")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
+Command.add(0, noodel.commandify(characters.correct("⁺")+"s"), function(cmd) {
   cmd.exec = function(path) {
-    var lhs = this.tkn.inputs.front();
+    var lhs = path.top();
     if(lhs) {
-      var rhs = this.tkn.inputs.front();
+      var rhs = path.top();
       if(rhs) {
-        this.tkn.outputs.back(lhs.add_flip(rhs, this.tkn));
-      } else this.tkn.outputs.back(lhs);
+        path.top(lhs.add_flip(rhs));
+      } else path.top(lhs);
     }
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
-Command.add(0, noodel.commandify(characters.correct("⁻")+characters.correct("ʂ")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
+Command.add(0, noodel.commandify(characters.correct("⁻")+"s"), function(cmd) {
   cmd.exec = function(path) {
-    var lhs = this.tkn.inputs.front();
+    var lhs = path.top();
     if(lhs) {
-      var rhs = this.tkn.inputs.front();
+      var rhs = path.top();
       if(rhs) {
-        this.tkn.outputs.back(lhs.sub_flip(rhs, this.tkn));
-      } else this.tkn.outputs.back(lhs);
+        path.top(lhs.sub_flip(rhs));
+      } else path.top(lhs);
     }
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
 
-})(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
+})(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
