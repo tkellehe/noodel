@@ -8,66 +8,54 @@
 /// Flattens that particular data type (for arrays places into elements, strings turned into char arrays
 /// and numbers into integers.
 Command.add(0, noodel.commandify(characters.correct("ɲ")+"_"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    var f = this.tkn.inputs.front();
+    var f = path.top();
     if(f) {
       if(f.type === "ARRAY") {
-        for(var i = 0; i < f.value.length; ++i) this.tkn.outputs.back(f.value[i]);
+        for(var i = 0; i < f.value.length; ++i) path.top(f.value[i]);
       } else if(f.type === "NUMBER") {
-        this.tkn.outputs.back(f.integerify());
+        path.top(f.integerify());
       } else if(f.type === "STRING") {
-        for(var i = 0; i < f.value.length; ++i) this.tkn.outputs.back(new STRING(f.value[i]));
+        for(var i = 0; i < f.value.length; ++i) path.top(new STRING(f.value[i]));
       }
     }
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
 /// Gets magnitude of that particular data type.
 Command.add(0, noodel.commandify(characters.correct("ɲ")+"l"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
     if(f) {
       if(f.type === "NUMBER") {
-        this.tkn.outputs.back(new NUMBER(Math.abs(f.valueify())));
+        path.top(new NUMBER(Math.abs(f.value)));
       } else if(f.type === "STRING" || f.type === "ARRAY") {
-        this.tkn.outputs.back(new NUMBER(f.length()));
-        this.tkn.outputs.back(f);
+        path.top(f);
+        path.top(new NUMBER(f.length()));
       }
     }
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
 /// Takes the first element of strings/arrays and places it into the back. For numbers, it reciprocates.
 Command.add(0, noodel.commandify(characters.correct("ẹ")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
     if(f) {
       if(f.type === "ARRAY") {
         var e = f.value.shift();
         if(e) f.value.push(e);
-        this.tkn.outputs.back(f);
+        path.top(f);
       } else if(f.type === "NUMBER") {
-        this.tkn.outputs.back(new NUMBER(1/f.value));
+        path.top(new NUMBER(1/f.value));
       } else if(f.type === "STRING") {
-        var s = f.valueify();
-        this.tkn.outputs.back(new STRING(s.slice(1, s.length) + s.slice(0, 1)));
+        var s = f.value;
+        path.top(new STRING(s.slice(1, s.length) + s.slice(0, 1)));
       }
-    } else this.tkn.inputs.front(f);
+    } else path.top(f);
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
 
 //------------------------------------------------------------------------------------------------------------
@@ -188,4 +176,4 @@ Command.add(0, new RegExp("^(" + characters.correct("ạ") + ")((?:\\-\\d*)|(?:\
   cmd.exec = noodel.in_to_out;
 });
 
-})(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.types.NUMBER, this.types.STRING, this.types.ARRAY)
+})(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
