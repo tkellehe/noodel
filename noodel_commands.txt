@@ -243,7 +243,9 @@ I => incomplete
     ḋ - a = path.first() path.top(a.copy())
 
 --- String Manipulation ---
-
+    ɲð - a = path.top()
+         if a != undefined =>
+           if a is STRING => s = "" a = string_null_break(a.value) foreach e in a => s += e; path.top(STRING(s))
 
 --- Conditionals --- (POSTPONED)
  U  ⁼         - a = path.top() b = path.top()
