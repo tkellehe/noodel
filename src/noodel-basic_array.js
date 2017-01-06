@@ -59,68 +59,88 @@ Command.add(0, noodel.commandify(characters.correct("ẹ")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
+/// Takes the last element of strings/arrays and places it into the front. For numbers, it square roots.
+Command.add(0, noodel.commandify(characters.correct("Ẹ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      if(f.type === "ARRAY") {
+        var e = f.value.pop();
+        if(e) f.value.unshift(e);
+        path.top(f);
+      } else if(f.type === "NUMBER") {
+        path.top(new NUMBER(Math.sqrt(f.value)));
+      } else if(f.type === "STRING") {
+        var s = f.value, len = s.length;
+        path.top(new STRING(s.slice(len-1, len) + s.slice(0, len-1)));
+      }
+    } else path.top(f);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
 /// Accesses a particular frame of an array/string. If is an integer in the pipe then it will use that as
 /// the index and place the accessed first and increment the index for the next frame.
 Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
-    var f = this.tkn.inputs.front();
+    var f = path.top();
     if(f) {
-      var index = undefined, count = undefined;
+      var index, delta, count;
       if(f.type === "NUMBER") {
+        f = f.integerify();
         index = f.value;
-        f = this.tkn.inputs.front();
+        delta = index < 0 ? -1 : 1;
+        f = path.top();
         if(!f) {
-          noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."), path);
+          path.top(new NUMBER(index + delta));
           return;
         }
       }
       
-      // If another number then that is where the animation should stop.
       if(f.type === "NUMBER") {
+        f = f.integerify();
         count = f.value;
-        f = this.tkn.inputs.front();
+        f = path.top();
         if(!f) {
-          noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."), path);
+          path.top(new NUMBER(index + (delta * count)));
           return;
         }
       }
       
-      if(f.type === "STRING" || f.type === "ARRAY") {
-        if(index !== undefined) f.frame = index;
-        if(f.frame === undefined) {
-          f.frame = 0;
-          f.frame_direction = 1;
-        }
-        // Now can determine which direction that is needed to go.
-        else f.frame_direction = f.frame < 0 ? -1 : 1;
-        if(f.frame_count === undefined) f.frame_count = count;
-        if(f.frame_count === undefined) f.frame_count = f.length();
-        
-        // If there is a frame_count still then can access.
-        if(f.frame_count !== 0) {
-          var item = f.access(Math.abs(f.frame % f.length()));
-          this.tkn.outputs.back(item);
-          f.frame = (f.frame + f.frame_direction) % f.length();
-          --f.frame_count;
-        }
-        
-        // Finished animation sequence therein can reset.
-        if(f.frame_count === 0) {
-          f.frame = undefined;
-          f.frame_count = undefined;
-        }
-        
-        this.tkn.outputs.back(f);
+      if(f.type === "NUMBER") {
+        path.top(new NUMBER((index + (delta * count))) % f.value);
       } else {
-        noodel.make_error(new STRING("¤Expected¤an¤ARRAY¤or¤STRING."), path);
-        return;
+        if(f.type === "STRING") f = f.arrayify();
+        if(index === undefined) index = f.props("frame");
+        if(index === undefined) { index = 0; delta = 1; }
+        if(count === undefined) count = f.props("frame_count");
+        if(count === undefined) count = f.length();
+        if(delta === undefined) delta = f.props("frame_delta");
+        
+        var item;
+        
+        if(count !== 0) {
+          index = f.correct_index(index);
+          item = f.access(index);
+          index += delta;
+          --count;
+        }
+        
+        if(count === 0) {
+          f.props("frame", undefined);
+          f.props("frame_count", undefined);
+          f.props("frame_delta", undefined);
+        } else {
+          f.props("frame", index);
+          f.props("frame_count", count);
+          f.props("frame_delta", delta);
+        }
+        
+        path.top(f);
+        if(item) path.top(item);
       }
     }
   }
-  
-  cmd.exec = noodel.in_to_out;
 });
   
 //------------------------------------------------------------------------------------------------------------
@@ -128,52 +148,76 @@ Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
 /// the index and place the accessed first and increment the index for the next frame.
 /// The number following the token will be used as the first number.
 Command.add(0, new RegExp("^(" + characters.correct("ạ") + ")((?:\\-\\d*)|(?:\\d+))$"), function(cmd) {
-  cmd.exec = noodel.out_to_in;
-  
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
     if(f) {
       var index = this.tkn.params[0] === "-" ? 0 : +this.tkn.params[0], count = undefined;
-      var direction = this.tkn.params[0] === "-" ? -1 : (index < 0 ? -1 : 1);
-      // If another number then that is where the animation should stop.
+      var delta = this.tkn.params[0] === "-" ? -1 : (index < 0 ? -1 : 1);
+      
       if(f.type === "NUMBER") {
+        f = f.integerify();
         count = f.value;
-        f = this.tkn.inputs.front();
+        f = path.top();
         if(!f) {
-          noodel.make_error(new STRING("¤Found¤a¤NUMBER¤in¤the¤pipe,¤but¤nothing¤followed."), path);
+          path.top(new NUMBER(index + (delta * count)));
           return;
         }
       }
       
-      if(f.type === "STRING" || f.type === "ARRAY") {
-        if(f.frame === undefined) f.frame = index;
-        f.frame_direction = direction;
-        if(f.frame_count === undefined) f.frame_count = count;
-        if(f.frame_count === undefined) f.frame_count = f.length();
-        
-        // If there is a frame_count still then can access.
-        if(f.frame_count !== 0) {
-          var item = f.access(Math.abs((f.frame + f.length()) % f.length()));
-          this.tkn.outputs.back(item);
-          f.frame = (f.frame + f.frame_direction) % f.length();
-          --f.frame_count;
-        }
-        
-        // Finished animation sequence therein can reset.
-        if(f.frame_count === 0) {
-          f.frame = undefined;
-          f.frame_count = undefined;
-        }
-        
-        this.tkn.outputs.back(f);
+      if(f.type === "NUMBER") {
+        path.top(new NUMBER((index + (delta * count))) % f.value);
       } else {
-        noodel.make_error(new STRING("¤Expected¤an¤ARRAY¤or¤STRING."), path);
-        return;
+        if(f.type === "STRING") f = f.arrayify();
+        if(f.props("frame") !== undefined) index = f.props("frame");
+        if(count === undefined) count = f.props("frame_count");
+        if(count === undefined) count = f.length();
+        
+        var item;
+        
+        if(count !== 0) {
+          index = f.correct_index(index);
+          item = f.access(index);
+          index += delta;
+          --count;
+        }
+        
+        if(count === 0) {
+          f.props("frame", undefined);
+          f.props("frame_count", undefined);
+          f.props("frame_delta", undefined);
+        } else {
+          f.props("frame", index);
+          f.props("frame_count", count);
+          f.props("frame_delta", delta);
+        }
+        
+        path.top(f);
+        if(item) path.top(item);
       }
     }
   }
+});
   
-  cmd.exec = noodel.in_to_out;
+//------------------------------------------------------------------------------------------------------------
+/// Accesses a particular frame of an array/string based off of an array.
+Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      if(f.type === "ARRAY") {
+        var g = path.top();
+        if(g.type === "ARRAY") {
+          if(f.props("frame") === undefined) f.props("frame", 0);
+          var item = g.access(f.access(f.props("frame")));
+          f.props("frame", f.correct_index(f.props("frame") + 1));
+          
+          path.top(g);
+          path.top(f);
+          if(item) path.top(item);
+        }
+      }
+    }
+  }
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
