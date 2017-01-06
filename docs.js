@@ -130,9 +130,9 @@ $(".noodel-exec").each(function(){
     var js_inputs = eval("(function(){return "+(temp_string.length ? temp_string : "undefined")+";})()");
     
     function parseJs(JS) {
-      if(JS instanceof String) {
+      if(typeof JS === "string") {
         return new STRING(JS);
-      } else if(JS instanceof Number) {
+      } else if(typeof JS === "number") {
         return new NUMBER(JS);
       } else if(JS instanceof Array) {
         var a = [];
