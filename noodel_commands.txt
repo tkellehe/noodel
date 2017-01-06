@@ -147,7 +147,7 @@ I => incomplete
 
                   if count != 0 =>
                     index = a.correct_index(index)
-                    o.back(a.access(index))
+                    item = a.access(index)
                     index += delta
                     --count
  
@@ -161,13 +161,17 @@ I => incomplete
                     a.props("frame_delta", delta)
                   
                   path.top(a)
+                  if item != undefined => path.top(item)
     Ạ           - a = path.top()
                   if a is ARRAY =>
                     b = path.top()
                     if b is ARRAY =>
                       if a.props("frame") == undefined => a.props("frame", 0)
-                      var item = b.access(a.access(a.props("frame")));
+                      item = b.access(a.access(a.props("frame")));
                       a.props("frame", a.correct_index(a.props("frame") + 1))
+                      path.top(b)
+                      path.top(a)
+                      if item != undefined => path.top(item)
 
 --- Casting ---
     ɲ'      - a = path.top()
