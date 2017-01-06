@@ -206,6 +206,7 @@ I => incomplete
     Ṃ(\k*)       - while(path.top().is_truthy().value == 1) $1
     ḅ            - break from a loop that is before this command and that does not have a break.
     Ḅ            - a = path.top() if a != undefined && a.is_truthy().value == 1 => path.top(a) else => ḅ
+    ɱ            - path.top(NUMBER(get_containing_loop_token().loop_count))
 
 --- Time ---
     ḍ              - a = path.top() delay_ms(a.integerify().value)
