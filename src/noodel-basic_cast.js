@@ -19,7 +19,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ")), function(cmd) {
         path.top(new NUMBER(-1 * Math.abs(f.value)));
       } else if(f.type === "STRING") {
         var a = string_null_break(f.value);
-        for(var i = 0; i < a.length(); ++i) {
+        for(var i = 0; i < a.length; ++i) {
           a.value[i] = (new STRING(a.value[i])).numberify();
         }
         if(a.length() === 0) {
