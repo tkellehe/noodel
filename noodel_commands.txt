@@ -178,6 +178,9 @@ I => incomplete
               if a is ARRAY => foreach e in a.value => e = e.stringify(); path.top(a)
               elif a is NUMBER path.top(a.stringify())
               else path.top(a.reverse())
+    ɲ"      - a = path.top()
+              if a is STRING => s = "" a = string_null_break(a.value) foreach e in a => s += e; path.top(STRING(s))
+              else path.top(a.stringify())
     ɲ#      - a = path.top()
               if a is ARRAY => foreach e in a.value => e = e.numberify(); path.top(a)
               elif a is STRING path.top(a.numberify())
@@ -243,9 +246,6 @@ I => incomplete
     ḋ - a = path.first() path.top(a.copy())
 
 --- String Manipulation ---
-    ɲð - a = path.top()
-         if a != undefined =>
-           if a is STRING => s = "" a = string_null_break(a.value) foreach e in a => s += e; path.top(STRING(s))
 
 --- Conditionals --- (POSTPONED)
  U  ⁼         - a = path.top() b = path.top()
