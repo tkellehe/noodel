@@ -89,7 +89,7 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters
   
 //------------------------------------------------------------------------------------------------------------
 /// Move the stack ptr to the top.
-Command.add(0, noodel.commandify(characters.correct("ƥ")+"*"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ƥ")+"\\*"), function(cmd) {
   cmd.exec = function(path) {
     path.move_to_top();
   }
@@ -97,7 +97,7 @@ Command.add(0, noodel.commandify(characters.correct("ƥ")+"*"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 /// Move the stack ptr to the bottom.
-Command.add(0, noodel.commandify(characters.correct("ʠ")+"*"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ʠ")+"\\*"), function(cmd) {
   cmd.exec = function(path) {
     path.move_to_bottom();
   }
