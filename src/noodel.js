@@ -92,6 +92,14 @@ Path.prototype.move_down = function() {
   }
 };
   
+Path.prototype.move_to_top = function() {
+  this.stack.ptr = this.stack.length();
+};
+  
+Path.prototype.move_to_bottom = function() {
+  this.stack.ptr = 0;
+};
+  
 Path.prototype.jump_in = function() {
   var item = this.top();
   if(item === undefined) {
