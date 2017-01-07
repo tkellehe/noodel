@@ -31,6 +31,10 @@ I => incomplete
     ṛ(\d+)        - path.top(NUMBER(random_int(0, valueOf($1)))
     ƥ             - path.move_up()
     ʠ             - path.move_down()
+    (\m)+ƥ        - for i = 0, i < valueOf($1), ++i => path.move_up()
+    (\m)+ʠ        - for i = 0, i < valueOf($1), ++i => path.move_down()
+    ƥ*            - path.move_to_top()
+    ʠ*            - path.move_to_bottom()
     ı             - path.jump_in()
     ȷ             - path.jump_out()
 
