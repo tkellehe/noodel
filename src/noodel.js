@@ -114,6 +114,21 @@ Path.prototype.jump_out = function() {
   
   this.stack = container;
 };
+
+function parseJsObject(JS) {
+  if(typeof JS === "string") {
+    return new STRING(JS);
+  } else if(typeof JS === "number") {
+    return new NUMBER(JS);
+  } else if(JS instanceof Array) {
+    var a = [];
+    for(var i = 0; i < JS.length; ++i) {
+      var item = parseJsObject(JS[i]);
+      if(item) a.push(item);
+    }
+    return new ARRAY(a);
+  }
+};
   
 global.noodel = function noodel(code) {
   if(typeof code === "string" && code.length) {
@@ -122,6 +137,11 @@ global.noodel = function noodel(code) {
     path.stack.ptr = 0;
     path.onstart = function() { while(this.stdin.first()) this.top(this.stdin.front()) };
     path.onend = function() { if(this.first()) this.stdout.back(this.top()) };
+    
+    for(var i = 1; i < arguments.length; ++i) {
+      var item = parseJsObject(arguments[i]);
+      if(item) path.stdin.back(item);
+    }
     
     return path;
   }
