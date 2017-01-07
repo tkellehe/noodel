@@ -88,6 +88,22 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters
 });
   
 //------------------------------------------------------------------------------------------------------------
+/// Move the stack ptr to the top.
+Command.add(0, noodel.commandify(characters.correct("ƥ")+"*"), function(cmd) {
+  cmd.exec = function(path) {
+    path.move_to_top();
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+/// Move the stack ptr to the bottom.
+Command.add(0, noodel.commandify(characters.correct("ʠ")+"*"), function(cmd) {
+  cmd.exec = function(path) {
+    path.move_to_bottom();
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
 /// Jump into the array at the current position, if there is not an array it will create one.
 Command.add(0, noodel.commandify(characters.correct("ı")), function(cmd) {
   cmd.exec = function(path) {
