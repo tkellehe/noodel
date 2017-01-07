@@ -250,6 +250,12 @@ I => incomplete
     ḋ - a = path.first() path.top(a.copy())
 
 --- String Manipulation ---
+    ɲL - a = path.top()
+         path.top(a.to_lowercase())
+    ɲU - a = path.top()
+         path.top(a.to_uppercase())
+    ɲS - a = path.top()
+         path.top(a.switchcase())
 
 --- Conditionals --- (POSTPONED)
  U  ⁼         - a = path.top() b = path.top()
