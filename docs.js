@@ -120,34 +120,14 @@ $(".noodel-exec").each(function(){
   
   var prgm;
     
-  function clickRun() {
-    $button.text("PARSING...");
-    prgm = noodel(nbsRemove($editor.val()));
-    if(prgm === undefined) return;
-    
+  function clickRun() { 
     $button.text("LOADING INPUTS...");
     var temp_string = nbsRemove($input.val());
     var js_inputs = eval("(function(){return "+(temp_string.length ? temp_string : "undefined")+";})()");
     
-    function parseJs(JS) {
-      if(typeof JS === "string") {
-        return new STRING(JS);
-      } else if(typeof JS === "number") {
-        return new NUMBER(JS);
-      } else if(JS instanceof Array) {
-        var a = [];
-        for(var i = 0; i < JS.length; ++i) {
-          var item = parseJs(JS[i]);
-          if(item) a.push(item);
-        }
-        return new ARRAY(a);
-      }
-    };
-    
-    if(js_inputs !== undefined) {
-      js_inputs = parseJs(js_inputs);
-      if(js_inputs) prgm.stdin.back(js_inputs);
-    }
+    $button.text("PARSING...");
+    prgm = noodel(nbsRemove($editor.val()), js_inputs);
+    if(prgm === undefined) return;
     
     $input.prop("readonly",true);
     $editor.prop("readonly",true);
