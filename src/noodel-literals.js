@@ -106,4 +106,64 @@ Command.add(0, new RegExp("^("+characters.correct("ɲ")+")(-?\\d*\\/\\d+)$"), fu
   }
 });
 
+//------------------------------------------------------------------------------------------------------------
+/// Generates a string based off of the range of characters.
+Command.add(2, noodel.commandify('"', characters.regex.a_printable, characters.correct("…"), characters.regex.a_printable), function(cmd) {
+  cmd.exec = function(path) {
+    var s = "";
+    var left = characters.char_to_int(this.tkn.params[1]),
+        right = characters.char_to_int(this.tkn.params[3]);
+    var min = (left < right ? left : right),
+        max = (left < right ? right : left);
+    
+    for(var i = min; i <= max; ++i) {
+      s += characters.int_to_char(i);
+    }
+    
+    if(min === right) s = s.reverse();
+    
+    path.top(new STRING(s));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Generates an array of characters.
+Command.add(2, noodel.commandify("'", characters.regex.a_printable, characters.correct("…"), characters.regex.a_printable), function(cmd) {
+  cmd.exec = function(path) {
+    var s = [];
+    var left = characters.char_to_int(this.tkn.params[1]),
+        right = characters.char_to_int(this.tkn.params[3]);
+    var min = (left < right ? left : right),
+        max = (left < right ? right : left);
+    
+    for(var i = min; i <= max; ++i) {
+      s.push(characters.int_to_char(i));
+    }
+    
+    if(min === right) s = s.reverse();
+    
+    path.top(new ARRAY(s));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Generates an array of numbers.
+Command.add(2, noodel.commandify("\\d+", characters.correct("…"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var s = [];
+    var left = +this.tkn.params[0],
+        right = +this.tkn.params[2];
+    var min = (left < right ? left : right),
+        max = (left < right ? right : left);
+    
+    for(var i = min; i <= max; ++i) {
+      s.push(i);
+    }
+    
+    if(min === right) s = s.reverse();
+    
+    path.top(new ARRAY(s));
+  }
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
