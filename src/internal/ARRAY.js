@@ -150,5 +150,7 @@ ARRAY.prototype.is_falsy = function() {
 }
 
 ARRAY.prototype.relocate = function(from, to) {
-  to -= (from < to ? 1 : 0);
+  var s = this.value.splice(from, 1);
+  this.value.splice(to, 0, s[0]);
+  return this;
 }
