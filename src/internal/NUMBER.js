@@ -97,7 +97,7 @@ NUMBER.prototype.is_falsy = function() {
 NUMBER.prototype.relocate = function(from, to) {
   var string = this.value + "";
   var s = string[from];
-  var slice = string.slice(0, from) + " " + string.slice(from+1, string.length);
+  var slice = string.slice(0, from) + string.slice(from+1, string.length);
   slice = slice.slice(0, to) + s + slice.slice(to, slice.length);
-  return new NUMBER(+slice.split(" ").join(""));
+  return new NUMBER(+slice);
 }
