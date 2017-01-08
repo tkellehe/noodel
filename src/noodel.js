@@ -37,6 +37,7 @@ Path.prototype.last = function() {
 Path.prototype.top = function(item) {
   var pos = this.stack.ptr;
   if(arguments.length === 1) {
+    if(item === undefined) return;
     if(item.type === "ARRAY") {
       if(item.ptr === undefined) item.ptr = 0;
       item.container = this.stack;
@@ -59,6 +60,7 @@ Path.prototype.top = function(item) {
 Path.prototype.bottom = function(item) {
   var pos = this.stack.ptr;
   if(arguments.length === 1) {
+    if(item === undefined) return;
     if(item.type === "ARRAY") {
       if(item.ptr === undefined) item.ptr = 0;
       item.container = this.stack;
