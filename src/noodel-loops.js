@@ -11,12 +11,37 @@ Command.is_loop = function(literal) {
          literal === characters.correct("Ṃ");
 }
   
+Command.is_break = function(literal) {
+  return literal === characters.correct("ḅ") ||
+         literal === characters.correct("Ḅ")
+}
+  
+Command.collect_loop = function(start, code) {
+  var s = "", count = 0;
+  for(var i = start; i < code.length && code[i] !== "\n"; ++i) {
+    s += code[i];
+    if(Command.is_loop(code[i])) count++;
+    else if(Command.is_break(code[i]) || (code[i] === characters.correct("€"))) {
+      if(count === 0) {
+        return s;
+      } else {
+        count--;
+      }
+    }
+  }
+  return s;
+}
+
 //------------------------------------------------------------------------------------------------------------
 // Contiously loops the code following it up to a new line.
-Command.add(0, new RegExp("^(" + characters.correct("ḷ") + ")([^\\n]*)" + "$"), function(cmd) {
+Command.add(0, new RegExp("^(" + characters.correct("ḷ") + ")$"), function(cmd) {
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     var tkn = this.tkn;
+    
+    tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
+    tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
+    
     tkn.sub_path = new Path(tkn.params[0], tkn);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
@@ -34,7 +59,7 @@ Command.add(0, new RegExp("^(" + characters.correct("ḷ") + ")([^\\n]*)" + "$")
 
 //------------------------------------------------------------------------------------------------------------
 // Loops the given code up to a new line based off of the integerified value in the pipe which is removed.
-Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")([^\\n]*)" + "$"), function(cmd) {
+Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")$"), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn;
     if(tkn.count === undefined) {
@@ -65,6 +90,10 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")([^\\n]*)" + "$")
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     var tkn = this.tkn;
+    
+    tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
+    tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
+    
     tkn.sub_path = new Path(tkn.params[0], tkn);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
@@ -77,7 +106,7 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")([^\\n]*)" + "$")
 
 //------------------------------------------------------------------------------------------------------------
 // Loops the given code up to a new line based off of the number placed next to it.
-Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)([^\\n]*)" + "$"), function(cmd) {
+Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)$"), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn;
     if(tkn.count === undefined) {
@@ -99,6 +128,10 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)([^\\n]*)" 
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     var tkn = this.tkn;
+    
+    tkn.params[1] = Command.collect_loop(tkn.start+1, tkn.code);
+    tkn.end = tkn.params[1].length + tkn.start + tkn.literal.length - 1;
+    
     tkn.sub_path = new Path(tkn.params[1], tkn);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
@@ -131,6 +164,10 @@ Command.add(0, new RegExp("^(" + characters.correct("ṃ") + ")([^\\n]*)" + "$")
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     var tkn = this.tkn;
+    
+    tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
+    tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
+    
     tkn.sub_path = new Path(tkn.params[0], tkn);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
@@ -158,6 +195,10 @@ Command.add(0, noodel.commandify(characters.correct("Ṃ")), function(cmd) {
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     var tkn = this.tkn;
+    
+    tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
+    tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
+    
     tkn.sub_path = new Path(tkn.params[0], tkn);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
