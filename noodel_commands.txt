@@ -94,7 +94,7 @@ I => incomplete
 
 --- Array Like Operators ---
     ɲ_        - a = path.top()
-                if a is NUMBER => o.back(NUMBER(a.value / 2))
+                if a is NUMBER => o.back(NUMBER(a.value * a.value))
                 elif a is STRING => foreach s in a.value => path.top(STRING(s))
                 elif a is ARRAY => foreach e in a.value => path.top(e)
     ɲl        - a = path.top() path.top(NUMBER(a.length())) # For numbers that means abs.
