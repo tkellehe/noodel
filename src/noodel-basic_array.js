@@ -14,7 +14,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ")+"_"), function(cmd) {
       if(f.type === "ARRAY") {
         for(var i = 0; i < f.value.length; ++i) path.top(f.value[i]);
       } else if(f.type === "NUMBER") {
-        path.top(new NUMBER(f.value / 2));
+        path.top(new NUMBER(f.value * f.value));
       } else if(f.type === "STRING") {
         for(var i = 0; i < f.value.length; ++i) path.top(new STRING(f.value[i]));
       }
