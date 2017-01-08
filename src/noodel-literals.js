@@ -112,7 +112,7 @@ Command.add(2, noodel.commandify('"', characters.regex.a_printable, characters.c
   cmd.exec = function(path) {
     var s = "";
     var left = characters.char_to_int(this.tkn.params[1]),
-        right = characters.char_to_int(this.tkn.params[3]);
+        right = characters.char_to_int(this.tkn.params[2]);
     var min = (left < right ? left : right),
         max = (left < right ? right : left);
     
@@ -132,7 +132,7 @@ Command.add(2, noodel.commandify("'", characters.regex.a_printable, characters.c
   cmd.exec = function(path) {
     var s = [];
     var left = characters.char_to_int(this.tkn.params[1]),
-        right = characters.char_to_int(this.tkn.params[3]);
+        right = characters.char_to_int(this.tkn.params[2]);
     var min = (left < right ? left : right),
         max = (left < right ? right : left);
     
@@ -152,7 +152,7 @@ Command.add(2, noodel.commandify("\\d+", characters.correct("…"), "\\d+"), fun
   cmd.exec = function(path) {
     var s = [];
     var left = +this.tkn.params[0],
-        right = +this.tkn.params[2];
+        right = +this.tkn.params[1];
     var min = (left < right ? left : right),
         max = (left < right ? right : left);
     
