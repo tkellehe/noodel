@@ -39,6 +39,12 @@ I => incomplete
     ʠ\*           - path.move_to_bottom()
     ı             - path.jump_in()
     ȷ             - path.jump_out()
+    ɲo            - a = path.top()
+                    if a is NUMBER => path.top(NUMBER(a.value % 2))
+                    elif a is STRING or a is ARRAY => path.top(NUMBER(a.length() % 2))
+    ɲe            - a = path.top()
+                    if a is NUMBER => path.top(NUMBER((a.value % 2) ? 1 : 0))
+                    elif a is STRING or a is ARRAY => path.top(NUMBER((a.value % 2) ? 1 : 0))
 
 --- Literals ---
  -- String --
