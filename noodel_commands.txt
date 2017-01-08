@@ -33,6 +33,8 @@ I => incomplete
     ʠ             - path.move_down()
     (\m)+ƥ        - for i = 0, i < valueOf($1), ++i => path.move_up()
     (\m)+ʠ        - for i = 0, i < valueOf($1), ++i => path.move_down()
+    µƥ            - a = path.top() for i = 0, i < a.integerify().value, ++i => path.move_up()
+    µʠ            - a = path.top() for i = 0, i < a.integerify().value, ++i => path.move_down()
     ƥ\*           - path.move_to_top()
     ʠ\*           - path.move_to_bottom()
     ı             - path.jump_in()
