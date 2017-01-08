@@ -174,7 +174,7 @@ STRING.prototype.is_falsy = function() {
 
 STRING.prototype.relocate = function(from, to) {
   var s = this.value[from];
-  var slice = this.value.slice(0, from) + " " + this.value.slice(from+1, this.value.length);
+  var slice = this.value.slice(0, from) + this.value.slice(from+1, this.value.length);
   slice = slice.slice(0, to) + s + slice.slice(to, slice.length);
-  return new STRING(slice.split(" ").join(""));
+  return new STRING(slice);
 }
