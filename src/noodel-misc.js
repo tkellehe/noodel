@@ -19,6 +19,66 @@ Command.add(0, noodel.commandify(characters.correct("ɲ") + "~"), function(cmd) 
     var f = path.first(); if(f) f.props.clear();
   }
 });
+
+//------------------------------------------------------------------------------------------------------------
+/// Pops off and pushes whether or not it is even or odd.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "o"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.first();
+    if(f) {
+      if(f.type === "NUMBER") {
+        path.top(new NUMBER(f.value % 2));
+      } else {
+        path.top(new NUMBER(f.length() % 2));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Pops off and pushes whether or not it is even or odd.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "O"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      if(f.type === "NUMBER") {
+        path.top(new NUMBER(f.value % 2));
+      } else {
+        path.top(new NUMBER(f.length() % 2));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Pops off and pushes whether or not it is even or odd.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "e"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.first();
+    if(f) {
+      if(f.type === "NUMBER") {
+        path.top(new NUMBER(f.value % 2 ? 1 : 0));
+      } else {
+        path.top(new NUMBER(f.length() % 2 ? 1 : 0));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Pops off and pushes whether or not it is even or odd.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "E"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      if(f.type === "NUMBER") {
+        path.top(new NUMBER(f.value % 2 ? 1 : 0));
+      } else {
+        path.top(new NUMBER(f.length() % 2 ? 1 : 0));
+      }
+    }
+  }
+});
   
 //------------------------------------------------------------------------------------------------------------
 /// Generates a random integer.
