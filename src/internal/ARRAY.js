@@ -126,6 +126,21 @@ ARRAY.prototype.length = function() {
 
 /// Misc.
 
+ARRAY.prototype.to_lowercase = function() {
+  for(var i = 0; i < this.value.length; ++i) this.value[i] = this.value[i].to_lowercase();
+  return this;
+}
+
+ARRAY.prototype.to_uppercase = function() {
+  for(var i = 0; i < this.value.length; ++i) this.value[i] = this.value[i].to_uppercase();
+  return this;
+}
+
+ARRAY.prototype.switchcase = function() {
+  for(var i = 0; i < this.value.length; ++i) this.value[i] = this.value[i].switchcase();
+  return this;
+}
+
 ARRAY.prototype.is_truthy = function() {
   return new NUMBER(this.length() ? 1 : 0);
 }
