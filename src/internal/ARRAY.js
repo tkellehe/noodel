@@ -148,3 +148,7 @@ ARRAY.prototype.is_truthy = function() {
 ARRAY.prototype.is_falsy = function() {
   return new NUMBER(this.length() ? 0 : 1);
 }
+
+ARRAY.prototype.relocate = function(from, to) {
+  to -= (from < to ? 1 : 0);
+}
