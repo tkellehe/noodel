@@ -148,9 +148,8 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)$"), functi
 // Loops as long as there is something in the front of the pipe that is truthy and removes if falsy.
 Command.add(0, new RegExp("^(" + characters.correct("ṃ") + ")([^\\n]*)" + "$"), function(cmd) {
   cmd.exec = function(path) {
-    var tkn = this.tkn, f = path.top();
+    var tkn = this.tkn, f = path.first();
     if(f && f.is_truthy().value) {
-      path.top(f);
       tkn.next = function() { return tkn.sub_path.start }
       if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
       else this.tkn.loop_count++;
