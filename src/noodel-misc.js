@@ -88,6 +88,30 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters
 });
   
 //------------------------------------------------------------------------------------------------------------
+/// Move the stack ptr up one.
+Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("ƥ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      var c = f.integerify().value;
+      while(c--) path.move_up();
+    }
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+/// Move the stack ptr down one.
+Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("ʠ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      var c = f.integerify().value;
+      while(c--) path.move_down();
+    }
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
 /// Move the stack ptr to the top.
 Command.add(0, noodel.commandify(characters.correct("ƥ")+"\\*"), function(cmd) {
   cmd.exec = function(path) {
