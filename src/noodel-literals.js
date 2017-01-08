@@ -120,7 +120,7 @@ Command.add(2, noodel.commandify('"', characters.regex.a_printable, characters.c
       s += characters.int_to_char(i);
     }
     
-    if(min === right) s = s.reverse();
+    if(min === right) s = s.split("").reverse().join("");
     
     path.top(new STRING(s));
   }
