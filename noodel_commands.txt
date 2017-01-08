@@ -96,6 +96,14 @@ I => incomplete
                  path.top(NUMBER(b.pow(1 / a.integerify().value)))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.decrement_flip(tkn); path.top(b)
+    ɲ%       - a = path.top().integerify() b = path.top()
+               if b is NUMBER => path.top(NUMBER(b.value % a.value))
+               elif b is STRING => [split string into a.value equal parts and push on the whole and then the remainder]
+               elif b is ARRAY => [removes the remainder for the array then pushes the array back on the pushes the remainder]
+    ɲ%s      - a = path.top() b = path.top().integerify()
+               if a is NUMBER => path.top(NUMBER(a.value % b.value))
+               elif a is STRING => [split string into b.value equal parts and push on the whole and then the remainder]
+               elif a is ARRAY => [removes the remainder for the array then pushes the array back on the pushes the remainder]
 
 --- Array Like Operators ---
     ɲ_        - a = path.top()
@@ -261,6 +269,8 @@ I => incomplete
          path.top(a.to_uppercase())
     ɲS - a = path.top()
          path.top(a.switchcase())
+    ṙ  - a = path.top().integerify() b = path.top().integerify() c = path.top()
+         path.top(c.relocate(a.value, b.value))
 
 --- Conditionals --- (POSTPONED)
  U  ⁼         - a = path.top() b = path.top()
