@@ -161,6 +161,7 @@ STRING.prototype.switchcase = function() {
     if(t === this.value[i]) t = t.toUpperCase();
     s += t;
   }
+  return new STRING(s);
 }
 
 STRING.prototype.is_truthy = function() {
