@@ -74,6 +74,18 @@ NUMBER.prototype.sub_flip = function(lhs) {
 
 /// Misc.
 
+NUMBER.prototype.to_lowercase = function() {
+  return new NUMBER(Math.floor(this.value));
+}
+
+NUMBER.prototype.to_uppercase = function() {
+  return new NUMBER(Math.ceil(this.value));
+}
+
+NUMBER.prototype.to_switchcase = function() {
+  return new NUMBER(Math.round(this.value));
+}
+
 NUMBER.prototype.is_truthy = function() {
   return new NUMBER(this.value ? 1 : 0);
 }
