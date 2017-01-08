@@ -145,6 +145,24 @@ STRING.prototype.length = function() {
 
 /// Misc.
 
+STRING.prototype.to_lowercase = function() {
+  return new STRING(this.value.toLowerCase());
+}
+
+STRING.prototype.to_uppercase = function() {
+  return new STRING(this.value.toUpperCase());
+}
+
+STRING.prototype.switchcase = function() {
+  var s = "";
+  for(var i = 0; i < this.value.length; ++i) {
+    var t = this.value[i];
+    t = t.toLowerCase();
+    if(t === this.value[i]) t = t.toUpperCase();
+    s += t;
+  }
+}
+
 STRING.prototype.is_truthy = function() {
   return new NUMBER(this.length() ? 1 : 0);
 }
