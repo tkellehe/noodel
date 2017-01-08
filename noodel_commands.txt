@@ -47,6 +47,9 @@ I => incomplete
     ”(\c*)          - a = string_break(decompress_basic($1)) foreach e in a => e = STRING(e); path.top(ARRAY(a))
     (\c+)‘(\c+)     - path.top(STRING(decompress_occur($1, $2)))
     (\c+)’(\c+)     - a = string_break(decompress_occur($1, $2)) foreach e in a => e = STRING(e); path.top(ARRAY(a))
+    "(\p)…(\p)      - path.top(STRING($1 +...+ $2))
+    '(\p)…(\p)      - path.top(ARRAY($1 ,..., $2))
+    (\d)…(\d)       - path.top(ARRAY(valueOf($1) ,..., valueOf($2)))
  -- Numeric --
     ɲ(-?\d*\.?\d+)  - path.top(NUMBER(valueOf($1)))
     ɲ(-)            - path.top(NUMBER(-1))
