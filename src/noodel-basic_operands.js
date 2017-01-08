@@ -312,5 +312,67 @@ Command.add(0, noodel.commandify(characters.correct("⁻") + "s" + characters.co
     }
   }
 });
+  
+//------------------------------------------------------------------------------------------------------------
+// Modulates two items in the stack.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "%"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      var g = path.top();
+      if(g) {
+        f = f.integerify();
+        if(g.type === "NUMBER") {
+          path.top(new NUMBER(g.value % f.value));
+        } else if(g.type === "STRING") {
+          var width = Math.floor(g.length() / f.value);
+          var length = (width * f.value);
+          var upper = g.value.slice(0, length),
+              lower = g.value.slice(length, g.length());
+          path.top(new STRING(upper));
+          path.top(new STRING(lower));
+        } else if(g.type === "ARRAY") {
+          var width = Math.floor(g.length() / f.value);
+          var length = (width * f.value);
+          var upper = g.value.slice(0, length),
+              lower = g.value.slice(length, g.length());
+          path.top(new ARRAY(upper));
+          path.top(new ARRAY(lower));
+        }
+      } else path.top(f);
+    }
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+// Modulates two items in the stack.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "%s"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      var g = path.top();
+      if(g) {
+        g = g.integerify();
+        if(f.type === "NUMBER") {
+          path.top(new NUMBER(f.value % g.value));
+        } else if(f.type === "STRING") {
+          var width = Math.floor(f.length() / g.value);
+          var length = (width * f.value);
+          var upper = f.value.slice(0, length),
+              lower = f.value.slice(length, f.length());
+          path.top(new STRING(upper));
+          path.top(new STRING(lower));
+        } else if(f.type === "ARRAY") {
+          var width = Math.floor(f.length() / g.value);
+          var length = (width * g.value);
+          var upper = f.value.slice(0, length),
+              lower = f.value.slice(length, f.length());
+          path.top(new ARRAY(upper));
+          path.top(new ARRAY(lower));
+        }
+      } else path.top(f);
+    }
+  }
+});
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
