@@ -4,15 +4,7 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
-<script src="../src/internal/pipe.js"></script>
-<script src="../src/internal/props.js"></script>
-<script src="../src/internal/token.js"></script>
-<script src="../src/internal/path.js"></script>
-<script src="../src/internal/characters.js"></script>
-<script src="../src/internal/NUMBER.js"></script>
-<script src="../src/internal/STRING.js"></script>
-<script src="../src/internal/ARRAY.js"></script>
-<script src="../src/noodel.js"></script>
+<script src="../noodel-latest.js"></script>
 
 <link rel="stylesheet" type="text/css" href="../docs.css">
 <script type="text/javascript" src="../docs.js"></script>
