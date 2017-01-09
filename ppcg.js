@@ -31,4 +31,7 @@ prgm.onend = function() {
   output.value = prgm.printify();
 }
 
+html_noodel.appendChild(output);
+prgm.exec();
+
 })()
