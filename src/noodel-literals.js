@@ -108,11 +108,11 @@ Command.add(0, new RegExp("^("+characters.correct("ɲ")+")(-?\\d*\\/\\d+)$"), fu
 
 //------------------------------------------------------------------------------------------------------------
 /// Generates a string based off of the range of characters.
-Command.add(2, noodel.commandify('"', characters.regex.a_printable, characters.correct("…"), characters.regex.a_printable), function(cmd) {
+Command.add(1, noodel.commandify(characters.regex.a_printable, characters.correct("…"), characters.regex.a_printable), function(cmd) {
   cmd.exec = function(path) {
     var s = "";
-    var left = characters.char_to_int(this.tkn.params[1]),
-        right = characters.char_to_int(this.tkn.params[2]);
+    var left = characters.char_to_int(this.tkn.params[0]),
+        right = characters.char_to_int(this.tkn.params[1]);
     var min = (left < right ? left : right),
         max = (left < right ? right : left);
     
@@ -148,11 +148,11 @@ Command.add(2, noodel.commandify("'", characters.regex.a_printable, characters.c
 
 //------------------------------------------------------------------------------------------------------------
 /// Generates an array of numbers.
-Command.add(2, noodel.commandify("\\d+", characters.correct("…"), "\\d+"), function(cmd) {
+Command.add(2, noodel.commandify("#", "\\d+", characters.correct("…"), "\\d+"), function(cmd) {
   cmd.exec = function(path) {
     var s = [];
-    var left = +this.tkn.params[0],
-        right = +this.tkn.params[1];
+    var left = +this.tkn.params[1],
+        right = +this.tkn.params[2];
     var min = (left < right ? left : right),
         max = (left < right ? right : left);
     
