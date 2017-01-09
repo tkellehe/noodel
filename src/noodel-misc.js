@@ -109,7 +109,14 @@ Command.add(0, noodel.commandify(characters.correct("ṛ")), function(cmd) {
 /// Generates a random integer.
 Command.add(0, noodel.commandify(characters.correct("ṛ"), "\\d+"), function(cmd) {
   cmd.exec = function(path) {
-    path.top(new NUMBER(noodel.random_int(0, +this.tkn.params[0])));
+    path.top(new NUMBER(noodel.random_int(0, this.tkn.params[0])));
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    
+    return old.call(this);
   }
 });
   
@@ -133,8 +140,15 @@ Command.add(0, noodel.commandify(characters.correct("ʠ")), function(cmd) {
 /// Move the stack ptr up one.
 Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters.correct("ƥ")), function(cmd) {
   cmd.exec = function(path) {
-    var c = +characters.tiny_num_to_num(this.tkn.params[0]);
+    var c = this.tkn.params[0];
     while(c--) path.move_up();
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +characters.tiny_num_to_num(this.tkn.params[0])
+    
+    return old.call(this);
   }
 });
   
@@ -142,8 +156,15 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters
 /// Move the stack ptr down one.
 Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters.correct("ʠ")), function(cmd) {
   cmd.exec = function(path) {
-    var c = +characters.tiny_num_to_num(this.tkn.params[0]);
+    var c = this.tkn.params[0];
     while(c--) path.move_down();
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +characters.tiny_num_to_num(this.tkn.params[0])
+    
+    return old.call(this);
   }
 });
   
