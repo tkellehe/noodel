@@ -8,7 +8,9 @@ Command.is_loop = function(literal) {
   return literal === characters.correct("ḷ") ||
          literal === characters.correct("Ḷ") ||
          literal === characters.correct("ṃ") ||
-         literal === characters.correct("Ṃ");
+         literal === characters.correct("Ṃ") ||
+         literal === characters.correct("ṇ") ||
+         literal === characters.correct("Ṇ");
 }
   
 Command.is_break = function(literal) {
