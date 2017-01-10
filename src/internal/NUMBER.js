@@ -11,7 +11,7 @@ function factorize_number(num) {
   }
 
   array.push(num);
-  return array.
+  return array;
 }
 
 //------------------------------------------------------------------------------------------------------------
