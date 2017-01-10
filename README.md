@@ -14,7 +14,7 @@
 
 ---
 
-Since the language is for challenges visit the [issues page](https://github.com/tkellehe/noodel/issues) and post challenges where _Noodel_ was used. This will allow others to learn how to _Noodel_ as well as notice features that could be added to assist with challenges ([Learn more](docs/posting_challenges.md)). This language is still under construction and since I like to do code for _Noodel_ from the online editor things may randomly break, features disappear/change, zero comments made on commits, or random issues appear for myself.
+Since the language is for challenges visit the [issues page](https://github.com/tkellehe/noodel/issues) and post challenges where _Noodel_ was used. This will allow others to learn how to _Noodel_ as well as notice features that could be added to assist with challenges ([Learn more](docs/posting_challenges.md)). This language is still under construction and since I like to do code for _Noodel_ from the online editor things may randomly break in the [prototyping editor](https://tkellehe.github.io/noodel/editor-proto.html), features disappear/change, zero comments made on commits, or random issues appear for myself. If there is a need to use an older version of _Noodel_ that was good enough before, visit the [release directory](https://github.com/tkellehe/noodel/tree/master/release) for a list off all of the versions.
 
 
 ## Introduction
