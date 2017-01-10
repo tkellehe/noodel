@@ -63,10 +63,17 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      var c = +characters.tiny_num_to_num(this.tkn.params[0]);
+      var c = this.tkn.params[0];
       while(c-- && path.first()) f = f.add(path.top());
       path.top(f);
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +characters.tiny_num_to_num(this.tkn.params[0]);
+    
+    return old.call(this);
   }
 });
   
@@ -76,10 +83,17 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      var c = +characters.tiny_num_to_num(this.tkn.params[0]);
+      var c = this.tkn.params[0];
       while(c-- && path.first()) f = f.sub(path.top());
       path.top(f);
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +characters.tiny_num_to_num(this.tkn.params[0]);
+    
+    return old.call(this);
   }
 });
   
@@ -89,10 +103,17 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      var c = +characters.tiny_num_to_num(this.tkn.params[0]);
+      var c = this.tkn.params[0];
       while(c-- && path.first()) f = f.add_flip(path.top());
       path.top(f);
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +characters.tiny_num_to_num(this.tkn.params[0]);
+    
+    return old.call(this);
   }
 });
   
@@ -102,10 +123,17 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      var c = +characters.tiny_num_to_num(this.tkn.params[0]);
+      var c = this.tkn.params[0];
       while(c-- && path.first()) f = f.sub_flip(path.top());
       path.top(f);
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +characters.tiny_num_to_num(this.tkn.params[0]);
+    
+    return old.call(this);
   }
 });
   
@@ -187,10 +215,17 @@ Command.add(0, noodel.commandify(characters.correct("⁺"), "\\d+"), function(cm
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      var c = +this.tkn.params[0];
+      var c = this.tkn.params[0];
       while(c--) f = f.increment(path);
       path.top(f);
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    
+    return old.call(this);
   }
 });
   
@@ -200,10 +235,17 @@ Command.add(0, noodel.commandify(characters.correct("⁻"), "\\d+"), function(cm
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      var c = +this.tkn.params[0];
+      var c = this.tkn.params[0];
       while(c--) f = f.decrement(path);
       path.top(f);
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    
+    return old.call(this);
   }
 });
   
@@ -213,10 +255,17 @@ Command.add(0, noodel.commandify(characters.correct("⁺") + "s", "\\d+"), funct
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      var c = +this.tkn.params[0];
+      var c = this.tkn.params[0];
       while(c--) f = f.increment_flip(path);
       path.top(f);
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    
+    return old.call(this);
   }
 });
   
@@ -226,10 +275,17 @@ Command.add(0, noodel.commandify(characters.correct("⁻") + "s", "\\d+"), funct
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      var c = +this.tkn.params[0];
+      var c = this.tkn.params[0];
       while(c--) f = f.decrement_flip(path);
       path.top(f);
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    
+    return old.call(this);
   }
 });
   
