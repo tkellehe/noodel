@@ -43,7 +43,7 @@ NUMBER.numerical_eval = function(o) {
     for(var i = 0; i < o.length(); ++i) {
       x += characters.char_to_int(o.value[o.length() - i - 1]) * Math.pow(98, i);
     }
-    return o;
+    return new NUMBER(x);
   } else if(o.type === "ARRAY") {
     for(var i = 0; i < o.length(); ++i) {
       o.value[i] = NUMBER.numerical_eval(o.value[i]);
