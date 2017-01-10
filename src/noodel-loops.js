@@ -33,7 +33,13 @@ Command.collect_loop = function(start, code) {
 }
 
 //------------------------------------------------------------------------------------------------------------
-// Contiously loops the code following it up to a new line.
+/// NOP used to end loops.
+Command.add(0, noodel.commandify(characters.correct("€")), function(cmd) {  
+  cmd.exec = function(path) {}
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Contiously loops the code following it up to a new line.
 Command.add(0, new RegExp("^(" + characters.correct("ḷ") + ")$"), function(cmd) {
   var old = cmd.tokenize;
   cmd.tokenize = function() {
@@ -58,7 +64,7 @@ Command.add(0, new RegExp("^(" + characters.correct("ḷ") + ")$"), function(cmd
 });
 
 //------------------------------------------------------------------------------------------------------------
-// Loops the given code up to a new line based off of the integerified value in the pipe which is removed.
+/// Loops the given code up to a new line based off of the integerified value in the pipe which is removed.
 Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")$"), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn;
@@ -105,7 +111,7 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")$"), function(cmd
 });
 
 //------------------------------------------------------------------------------------------------------------
-// Loops the given code up to a new line based off of the number placed next to it.
+/// Loops the given code up to a new line based off of the number placed next to it.
 Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)$"), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn;
@@ -130,7 +136,7 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)$"), functi
     var tkn = this.tkn;
     
     tkn.params[1] = Command.collect_loop(tkn.start+1, tkn.code);
-    tkn.end = tkn.params[1].length + tkn.start + tkn.literal.length - 1;
+    tkn.end = tkn.params[1].length + tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
     tkn.sub_path = new Path(tkn.params[1], tkn);
     tkn.branches.front(tkn.sub_path.start);
@@ -145,8 +151,8 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)$"), functi
 });
 
 //------------------------------------------------------------------------------------------------------------
-// Loops as long as there is something in the front of the pipe that is truthy and removes if falsy.
-Command.add(0, new RegExp("^(" + characters.correct("ṃ") + ")([^\\n]*)" + "$"), function(cmd) {
+/// Loops as long as there is something in the front of the pipe that is truthy and removes if falsy.
+Command.add(0, noodel.commandify(characters.correct("ṃ")), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn, f = path.first();
     if(f && f.is_truthy().value) {
@@ -176,11 +182,75 @@ Command.add(0, new RegExp("^(" + characters.correct("ṃ") + ")([^\\n]*)" + "$")
 });
 
 //------------------------------------------------------------------------------------------------------------
-// Loops as long as there is something in the front of the pipe that is truthy and always removes.
+/// Loops as long as there is something in the front of the pipe that is truthy and always removes.
 Command.add(0, noodel.commandify(characters.correct("Ṃ")), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn, f = path.top();
     if(f && f.is_truthy().value) {
+      tkn.next = function() { return tkn.sub_path.start }
+      if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
+      else this.tkn.loop_count++;
+    } else {
+      // Have to make sure account for if the end if the sub_path is the end of the prgm.
+      tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
+      this.tkn.loop_count = undefined;
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var tkn = this.tkn;
+    
+    tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
+    tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
+    
+    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.branches.front(tkn.sub_path.start);
+    tkn.sub_path.end.branches.front(tkn);
+    
+    return old.call(this);
+  };
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Loops as long as the item on the top is truthy, if is falsey it will consume otherwise it will leave it.
+Command.add(0, noodel.commandify(characters.correct("ṇ")), function(cmd) {
+  cmd.exec = function(path) {
+    var tkn = this.tkn, f = path.first();
+    if(f && f.is_truthy().value) {
+      tkn.next = function() { return tkn.sub_path.start }
+      if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
+      else this.tkn.loop_count++;
+    } else {
+      path.top();
+      // Have to make sure account for if the end if the sub_path is the end of the prgm.
+      tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
+      this.tkn.loop_count = undefined;
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var tkn = this.tkn;
+    
+    tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
+    tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
+    
+    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.branches.front(tkn.sub_path.start);
+    tkn.sub_path.end.branches.front(tkn);
+    
+    return old.call(this);
+  };
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Loops as long as the item on the top is truthy, if is truthy it will consume otherwise it will leave it.
+Command.add(0, noodel.commandify(characters.correct("Ṇ")), function(cmd) {
+  cmd.exec = function(path) {
+    var tkn = this.tkn, f = path.first();
+    if(f && f.is_truthy().value) {
+      path.top();
       tkn.next = function() { return tkn.sub_path.start }
       if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
       else this.tkn.loop_count++;
