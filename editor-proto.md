@@ -1,7 +1,8 @@
 [HOME](README.md)
 
-Click [_Noodel_](https://tkellehe.github.io/noodel/editor-proto.html) to actually see the editor if not on the _Noodel_ page:)
+__THIS EDITOR USES THE SRC OF NOODEL DIRECTLY (CAN BREAK)__
 
+Click [_Noodel_](https://tkellehe.github.io/noodel/editor-proto.html) to actually see the editor if not on the _Noodel_ page:)
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
@@ -27,6 +28,8 @@ Click [_Noodel_](https://tkellehe.github.io/noodel/editor-proto.html) to actuall
 
 <link rel="stylesheet" type="text/css" href="docs.css">
 <script type="text/javascript" src="docs.js"></script>
+
+<button onclick="forceReload()">FORCE_RELOAD</button>
 
 <div class="noodel-share"></div>
 
