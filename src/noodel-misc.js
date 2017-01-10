@@ -223,5 +223,31 @@ Command.add(0, noodel.commandify(characters.correct("ȷ")), function(cmd) {
     path.jump_out();
   }
 });
+  
+//------------------------------------------------------------------------------------------------------------
+/// Negate the object on the top of the stack.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "!"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      path.top(f.is_falsy());
+    } else {
+      path.top(new NUMBER(1));
+    }
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+/// Negate the object on the top of the stack.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "?"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      path.top(f.is_truthy());
+    } else {
+      path.top(new NUMBER(0));
+    }
+  }
+});
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
