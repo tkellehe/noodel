@@ -136,8 +136,8 @@ Command.add(1, noodel.commandify(characters.regex.a_printable, characters.correc
     var s = "";
     var left = characters.char_to_int(this.tkn.params[0]),
         right = characters.char_to_int(this.tkn.params[1]);
-    var min = (left < right ? left : right),
-        max = (left < right ? right : left);
+    var min = Math.min(left, right),
+        max = Math.max(left, right);
     
     for(var i = min; i <= max; ++i) {
       s += characters.int_to_char(i);
