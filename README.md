@@ -52,7 +52,7 @@ Now that is kind of cool, but it gets more interesting when there are arrays inv
 ---
 
 It produces the same output as the script `¤noodel¤ḷçẹḍe`, but takes advantage of the fact that `ARRAY` types are pass-by-reference. So, first `¤noodel¤` is pushed onto the stack. Since the stack is merely an `ARRAY`, we call the `ȷ` command which jumps out of the current stack and into the containing stack. The top of this new stack is the stack with the `STRING` literal. So, we print it to the screen using `ç` therein the `ARRAY` object is sitting in the stdout. Then we call `ı` command to jump into the `ARRAY` at the top of the stack to make it the current stack. This allows us to now start operating on the `STRING` live.
-Instead of jumping in, printing, and then jumping back we can use `Ð` which pushes the current stack to stdout: `¤noodel¤Ðḷẹḍe`
+Instead of jumping out, printing, and then jumping back we can use `Ð` which pushes the current stack to stdout: `¤noodel¤Ðḷẹḍe`
 
 ---
 
