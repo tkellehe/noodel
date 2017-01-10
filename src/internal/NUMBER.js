@@ -21,6 +21,37 @@ function NUMBER(v) {
   this.value = v === v ? v : 0;
 }
 
+NUMBER.numerical_eval = function(o) {
+  if(o.type === "NUMBER") {
+    var x = Math.abs(o.value);
+    if(x == 0) {
+      return new STRING(characters.int_to_char(0));
+    }
+
+    var digits = [];
+
+    while(x) {
+        digits.push(characters.int_to_char(x % 98))
+        x /= 98;
+    }
+
+    digits.reverse();
+
+    return new STRING(digits.join(""));
+  } else if(o.type === "STRING") {
+    var x = 0;
+    for(var i = 0; i < o.length(); ++i) {
+      x += characters.char_to_int(o.value[o.length() - i - 1]) * Math.pow(98, i);
+    }
+    return o;
+  } else if(o.type === "ARRAY") {
+    for(var i = 0; i < o.length(); ++i) {
+      o.value[i] = NUMBER.numerical_eval(o.value[i]);
+    }
+    return o;
+  }
+}
+
 NUMBER.prototype.type = "NUMBER";
 
 NUMBER.prototype.toString = function() {
