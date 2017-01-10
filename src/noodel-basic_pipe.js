@@ -25,9 +25,8 @@ Command.add(0, noodel.commandify(characters.correct("ḃ")), function(cmd) {
 // Duplicates the item on the top of the stack.
 Command.add(0, noodel.commandify(characters.correct("ḋ")), function(cmd) {
   cmd.exec = function(path) {
-    var f = path.top();
+    var f = path.first();
     if(f) {
-      path.top(f);
       path.top(f.copy());
     }
   }
