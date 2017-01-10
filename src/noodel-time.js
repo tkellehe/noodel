@@ -37,12 +37,18 @@ Command.add(0, noodel.commandify(characters.correct("ḍ"), "\\d+"), function(cm
       tkn.next = function() { return tkn };
       tkn.ran = true;
       tkn.old_rate = path.rate;
-      path.rate = +tkn.params[0];
+      path.rate = tkn.params[0];
     } else {
       tkn.ran = false;
       tkn.next = tkn.old_next;
       path.rate = tkn.old_rate;
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
   }
 });
 
@@ -61,12 +67,18 @@ Command.add(0, noodel.commandify(characters.correct("ḍ"), "[shqeto]"), functio
       tkn.next = function() { return tkn };
       tkn.ran = true;
       tkn.old_rate = path.rate;
-      path.rate = get_rate(tkn.params[0]);
+      path.rate = tkn.params[0];
     } else {
       tkn.ran = false;
       tkn.next = tkn.old_next;
       path.rate = tkn.old_rate;
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = get_rate(this.tkn.params[0]);
+    return old.call(this);
   }
 });
 
@@ -80,19 +92,25 @@ Command.add(0, new RegExp("^("+characters.correct("ḍ")+")(\\d*)/(\\d*)$"), fun
       tkn.next = function() { return tkn };
       tkn.ran = true;
       tkn.old_rate = path.rate;
-      var num = 1000, den = 1;
-      if(tkn.params[0].length) {
-        num *= +tkn.params[0];
-      }
-      if(tkn.params[1].length) {
-        den = +tkn.params[1];
-      }
-      path.rate = Math.floor(num / den);
+      path.rate = tkn.params[0];
     } else {
       tkn.ran = false;
       tkn.next = tkn.old_next;
       path.rate = tkn.old_rate;
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var num = 1000, den = 1;
+    if(this.tkn.params[0].length) {
+      num *= +this.tkn.params[0];
+    }
+    if(this.tkn.params[1].length) {
+      den = +this.tkn.params[1];
+    }
+    this.tkn.params[0] = Math.floor(num / den);
+    return old.call(this);
   }
 });
 
@@ -106,13 +124,18 @@ Command.add(0, new RegExp("^("+characters.correct("ḍ")+")(\\d*)\\.(\\d*)$"), f
       tkn.next = function() { return tkn };
       tkn.ran = true;
       tkn.old_rate = path.rate;
-      var num = (+("0"+tkn.params[0]+"."+tkn.params[1]+"0")) * 1000;
-      path.rate = Math.floor(num);
+      path.rate = tkn.params[0];
     } else {
       tkn.ran = false;
       tkn.next = tkn.old_next;
       path.rate = tkn.old_rate;
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = Math.floor((+("0"+this.tkn.params[0]+"."+this.tkn.params[1]+"0")) * 1000);
+    return old.call(this);
   }
 });
 
