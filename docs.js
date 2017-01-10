@@ -1,3 +1,11 @@
+function DOCS_ARG_HANDLER() {
+  var a = [];
+  for(var i = 0; i < arguments.length; ++i) {
+    a.push(arguments[i]);
+  }
+  return a;
+}
+
 (function(global, $, noodel, STRING, NUMBER, ARRAY, characters){
 
 var nbs = String.fromCharCode(160),
@@ -122,11 +130,11 @@ $(".noodel-exec").each(function(){
     
   function clickRun() { 
     $button.text("LOADING INPUTS...");
-    var temp_string = nbsRemove($input.val());
+    var temp_string = "DOCS_ARG_HANDLER(" + nbsRemove($input.val()) + ")";
     var js_inputs = eval("(function(){return "+(temp_string.length ? temp_string : "undefined")+";})()");
     
     $button.text("PARSING...");
-    prgm = noodel(nbsRemove($editor.val()), js_inputs);
+    prgm = noodel.apply(this, [nbsRemove($editor.val())].concat(js_inputs));
     if(prgm === undefined) return;
     
     $input.prop("readonly",true);
