@@ -47,6 +47,12 @@
     ɲE            - a = path.top()
                     if a is NUMBER => path.top(NUMBER((a.value % 2) ? 1 : 0))
                     elif a is STRING or a is ARRAY => path.top(NUMBER((a.value % 2) ? 1 : 0))
+    ɲ!            - a = path.top()
+                    if a == undefined => path.top(NUMBER(1))
+                    else path.top(a.is_falsy())
+    ɲ?            - a = path.top()
+                    if a == undefined => path.top(NUMBER(0))
+                    else path.top(a.is_truthy())
 
 --- Literals ---
  -- String --
@@ -142,9 +148,11 @@
                   if count == undefined => count = a.length()
                   if delta == undefined => delta = a.props("frame_delta")
 
+                  item = undefined
+
                   if count != 0 =>
                     index = a.correct_index(index)
-                    o.back(a.access(index))
+                    item = a.access(index)
                     index += delta
                     --count
  
@@ -158,6 +166,7 @@
                     a.props("frame_delta", delta)
                   
                   path.top(a)
+                  if item != undefined => path.top(item);
     ạ(-?\d*)  - a = path.top()
                 index = $1 == "-" ? -1 : valueOf($1)
                 delta = $1.contains("-") ? -1 : 1
@@ -169,6 +178,8 @@
                   if a.props("frame") != undefined => index = a.props("frame")
                   if count == undefined => count = a.props("frame_count")
                   if count == undefined => count = a.length()
+
+                  item = undefined
 
                   if count != 0 =>
                     index = a.correct_index(index)
@@ -212,13 +223,15 @@
               else path.top(NUMBER(-1 * a.value))
     ɲ       - a = path.top()
               if a is ARRAY => foreach e in a.value => e = e.numberify(); path.top(a)
-              elif a is STRING => a = ARRAY(string_null_break(a.value)) foreach e in a.value => NUMBER(valueOf(a.value[i])); if a.length() > 1 => path.top(a) else => path.top(a.value[0])
+              elif a is STRING => a = ARRAY(string_null_break(a.value))
+                foreach e in a.value => e = NUMBER(valueOf(e));
+                if a.length() > 1 => path.top(a) elif a.length == 1 => path.top(a.value[0]) else path.top(NUMBER(0))
               elif a is NUMBER => path.top(NUMBER(-1 * a.abs()))
     œ       - a = [] while path.first() != undefined a.push(path.top()); if a.length() != 0 => path.top(ARRAY(a))
     œ(\d+)  - a = [] c = valueOf($1) whilec != 0 and path.first() != undefined => a.push(path.top()); if a.length() != 0 => path.top(ARRAY(a))
     µœ      - a = path.top() if a != undefined => a = a.integerify() b = [] while a.value != 0 and path.first() != undefined => b.push(path.top()) --a.value; path.top(ARRAY(b))
     ʋ       - a = path.top()
-              if a is NUMBER => path.top(NUMBER(a.ceilling()))
+              if a is NUMBER => a = ARRAY(factorize_number(a.value)) foreach e in a => e = NUMBER(e); path.top(a)
               elif a is STRING => a = string_break(a.value) foreach e in a => e = STRING(e); path.top(ARRAY(a))
               elif a is ARRAY => path.top(a.reverse())
 
@@ -232,6 +245,8 @@
                    tkn.count = undefined
     ṃ(\k*)       - while(path.first().is_truthy().value == 1) $1
     Ṃ(\k*)       - while(path.top().is_truthy().value == 1) $1
+    ṇ(\k*)       - while(path.first().is_truthy()) $1; path.top()
+    Ṇ(\k*)       - while(path.first().is_truthy()) path.top() $1;
     ḅ            - break from a loop that is before this command and that does not have a break.
     Ḅ            - a = path.top() if a != undefined && a.is_truthy().value == 1 => path.top(a) else => ḅ
     ɱ            - path.top(NUMBER(get_containing_loop_token().loop_count))
