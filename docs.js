@@ -82,9 +82,9 @@ $(function(){
 /// Handle all editors in the window.
 $(".noodel-exec").each(function(){
   var $this   = $(this),
-      $editor = $('<textarea class="noodel-editor"></textarea>'),
-      $input  = $('<textarea class="noodel-input"></textarea>'),
-      $output = $('<textarea class="noodel-output"></textarea>'),
+      $editor = $('<textarea wrap="off" class="noodel-editor"></textarea>'),
+      $input  = $('<textarea wrap="off" class="noodel-input"></textarea>'),
+      $output = $('<textarea wrap="off" class="noodel-output"></textarea>'),
       $button = $('<button></button>'),
       $chars  = $('<div class="noodel-chars" hidden><center></center></div>'),
       $bytes  = $('<p></p>'),
