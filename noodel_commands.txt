@@ -234,6 +234,8 @@
               if a is NUMBER => a = ARRAY(factorize_number(a.value)) foreach e in a => e = NUMBER(e); path.top(a)
               elif a is STRING => a = string_break(a.value) foreach e in a => e = STRING(e); path.top(ARRAY(a))
               elif a is ARRAY => path.top(a.reverse())
+    ȥ       - a = path.top()
+              path.top(numerical_eval(a))
 
 --- Loops ---
     ḷ(\k*)       - while(true) => $1
