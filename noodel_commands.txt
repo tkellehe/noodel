@@ -6,10 +6,6 @@
 \a => [\k\n]
 
 
-U => unimplemented
-I => incomplete
-? => unsure about the command
-
 --- NOPs ---
     space     - Use to separate commands.
     new line  - Use to separate commands also ends some scopes of commands.
