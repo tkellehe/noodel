@@ -31,14 +31,15 @@ Command.add(0, noodel.commandify(characters.correct("“"), characters.regex.a_c
 // Creates and array of strings from each compressable characters following it.
 Command.add(0, noodel.commandify(characters.correct("”"), characters.regex.a_compressable + "*"), function(cmd) {
   cmd.exec = function(path) {
-    var a = string_break(this.tkn.params[0]);
-    for(var i = 0; i < a.length; ++i) a[i] = new STRING(a[i]);
+    var a = [];
+    for(var i = 0; i < this.tkn.params[0].length; ++i) a.push(new STRING(this.tkn.params[0][i]));
     path.top(new ARRAY(a));
   }
   
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     this.tkn.params[0] = characters.decompress_basic(this.tkn.params[0]);
+    this.tkn.params[0] = string_break(this.tkn.params[0]);
     
     return old.call(this);
   };
@@ -63,14 +64,15 @@ Command.add(1, noodel.commandify(characters.regex.a_compressable + "+", characte
 // Creates and array of strings from each compressable characters following it.
 Command.add(1, noodel.commandify(characters.regex.a_compressable + "+", characters.correct("’"), characters.regex.a_compressable + "+"), function(cmd) {
   cmd.exec = function(path) {
-    var a = string_break(this.tkn.params[0]);
-    for(var i = 0; i < a.length; ++i) a[i] = new STRING(a[i]);
+    var a = [];
+    for(var i = 0; i < this.tkn.params[0].length; ++i) a.push(new STRING(this.tkn.params[0][i]));
     path.top(new ARRAY(a));
   }
   
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     this.tkn.params[0] = characters.decompress_occur(this.tkn.params[0], this.tkn.params[1]);
+    this.tkn.params[0] = string_break(this.tkn.params[0]);
     
     return old.call(this);
   };
@@ -80,7 +82,14 @@ Command.add(1, noodel.commandify(characters.regex.a_compressable + "+", characte
 // Creates a number and places it into the pipe.
 Command.add(0, new RegExp("^("+characters.correct("ɲ")+")(\-?\\d*\\.?\\d+)$"), function(cmd) {
   cmd.exec = function(path) {
-    path.top(new NUMBER(+this.tkn.params[0]));
+    path.top(new NUMBER(this.tkn.params[0]));
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    
+    return old.call(this);
   }
 });
   
@@ -96,13 +105,22 @@ Command.add(0, new RegExp("^("+characters.correct("ɲ")+"-)$"), function(cmd) {
 // Creates a number based off of a fraction and places it into the pipe.
 Command.add(0, new RegExp("^("+characters.correct("ɲ")+")(-?\\d*\\/\\d+)$"), function(cmd) {
   cmd.exec = function(path) {
+    
+    path.top(new NUMBER(this.tkn.params[0]));
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
     var a = this.tkn.params[0].split("/");
     var num = 1, den = +a[1];
     if(a[0].length) {
       if(a[0] === "-") num = -1;
       else num = +a[0];
     }
-    path.top(new NUMBER(num/den));
+    
+    this.tkn.params[0] = num / den;
+    
+    return old.call(this);
   }
 });
 
@@ -110,6 +128,11 @@ Command.add(0, new RegExp("^("+characters.correct("ɲ")+")(-?\\d*\\/\\d+)$"), fu
 /// Generates a string based off of the range of characters.
 Command.add(1, noodel.commandify(characters.regex.a_printable, characters.correct("…"), characters.regex.a_printable), function(cmd) {
   cmd.exec = function(path) {
+    path.top(new STRING(this.tkn.params[0]));
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
     var s = "";
     var left = characters.char_to_int(this.tkn.params[0]),
         right = characters.char_to_int(this.tkn.params[1]);
@@ -122,7 +145,9 @@ Command.add(1, noodel.commandify(characters.regex.a_printable, characters.correc
     
     if(min === right) s = s.split("").reverse().join("");
     
-    path.top(new STRING(s));
+    this.tkn.params[0] = s;
+    
+    return old.call(this);
   }
 });
 
@@ -131,18 +156,25 @@ Command.add(1, noodel.commandify(characters.regex.a_printable, characters.correc
 Command.add(2, noodel.commandify("'", characters.regex.a_printable, characters.correct("…"), characters.regex.a_printable), function(cmd) {
   cmd.exec = function(path) {
     var s = [];
-    var left = characters.char_to_int(this.tkn.params[1]),
-        right = characters.char_to_int(this.tkn.params[2]);
-    var min = (left < right ? left : right),
-        max = (left < right ? right : left);
     
-    for(var i = min; i <= max; ++i) {
-      s.push(characters.int_to_char(i));
+    for(var i = this.tkn.min; i <= this.tkn.max; ++i) {
+      s.push(new STRING(characters.int_to_char(i)));
     }
     
-    if(min === right) s = s.reverse();
+    if(this.tkn.min === this.tkn.params[2]) s = s.reverse();
     
     path.top(new ARRAY(s));
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[1] = characters.char_to_int(this.tkn.params[1]);
+    this.tkn.params[2] = characters.char_to_int(this.tkn.params[2]);
+    
+    this.tkn.min = Math.min(this.tkn.params[1], this.tkn.params[2]);
+    this.tkn.max = Math.max(this.tkn.params[1], this.tkn.params[2]);
+    
+    return old.call(this);
   }
 });
 
@@ -151,18 +183,25 @@ Command.add(2, noodel.commandify("'", characters.regex.a_printable, characters.c
 Command.add(2, noodel.commandify("#", "\\d+", characters.correct("…"), "\\d+"), function(cmd) {
   cmd.exec = function(path) {
     var s = [];
-    var left = +this.tkn.params[1],
-        right = +this.tkn.params[2];
-    var min = (left < right ? left : right),
-        max = (left < right ? right : left);
     
-    for(var i = min; i <= max; ++i) {
-      s.push(i);
+    for(var i = this.tkn.min; i <= this.tkn.max; ++i) {
+      s.push(new NUMBER(i));
     }
     
-    if(min === right) s = s.reverse();
+    if(this.tkn.min === this.tkn.params[2]) s = s.reverse();
     
     path.top(new ARRAY(s));
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[1] = +this.tkn.params[1];
+    this.tkn.params[2] = +this.tkn.params[2];
+    
+    this.tkn.min = Math.min(this.tkn.params[1], this.tkn.params[2]);
+    this.tkn.max = Math.max(this.tkn.params[1], this.tkn.params[2]);
+    
+    return old.call(this);
   }
 });
 
