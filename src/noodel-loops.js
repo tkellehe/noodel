@@ -137,7 +137,7 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)$"), functi
   cmd.tokenize = function() {
     var tkn = this.tkn;
     
-    tkn.params[1] = Command.collect_loop(tkn.start+1, tkn.code);
+    tkn.params[1] = Command.collect_loop(tkn.start + 1 + tkn.params[0].length, tkn.code);
     tkn.end = tkn.params[1].length + tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
     tkn.sub_path = new Path(tkn.params[1], tkn);
