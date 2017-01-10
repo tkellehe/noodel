@@ -101,7 +101,9 @@ Command.add(0, noodel.commandify(characters.correct("ʋ")), function(cmd) {
       if(f.type === "STRING") {
         path.top(f.arrayify());
       } else if(f.type === "NUMBER") {
-        path.top(new NUMBER(Math.ceil(f.value)));
+        f = new ARRAY(factorize_number(f.value));
+        for(var i = 0; i < f.length(); ++i) f.value[i] = new NUMBER(f.value[i]);
+        path.top(f);
       } else if(f.type === "ARRAY") {
         for(var i = f.length(); i--;) f.value.reverse();
         path.top(f);
