@@ -1,3 +1,19 @@
+function factorize_number(num) {
+  var half = Math.floor(num / 2),
+      array = [1],
+      i, j;
+
+  // Determine our increment value for the loop and starting point.
+  num % 2 === 0 ? (i = 2, j = 1) : (i = 3, j = 2);
+
+  for (; i <= half; i += j) {
+    if(num % i === 0) array.push(i);
+  }
+
+  array.push(num);
+  return array.
+}
+
 //------------------------------------------------------------------------------------------------------------
 function NUMBER(v) {
   this.props = make_props();
