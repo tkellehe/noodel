@@ -108,7 +108,7 @@ Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
       }
       
       if(f.type === "NUMBER") {
-        path.top(new NUMBER((index + (delta * count))) % f.value);
+        path.top(new NUMBER(Math.abs((index + (delta * count))) % f.value));
       } else {
         if(f.type === "STRING") f = f.arrayify();
         if(index === undefined) index = f.props("frame");
@@ -137,7 +137,7 @@ Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
         }
         
         path.top(f);
-        if(item) path.top(item);
+        path.top(item);
       }
     }
   }
@@ -149,10 +149,11 @@ Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
 /// The number following the token will be used as the first number.
 Command.add(0, new RegExp("^(" + characters.correct("ạ") + ")((?:\\-\\d*)|(?:\\d+))$"), function(cmd) {
   cmd.exec = function(path) {
-    var f = this.tkn.inputs.front();
+    var f = path.top();
     if(f) {
-      var index = this.tkn.params[0] === "-" ? 0 : +this.tkn.params[0], count = undefined;
-      var delta = this.tkn.params[0] === "-" ? -1 : (index < 0 ? -1 : 1);
+      var index = this.tkn.index,
+          count = undefined;
+      var delta = this.tkn.delta;
       
       if(f.type === "NUMBER") {
         f = f.integerify();
@@ -192,9 +193,25 @@ Command.add(0, new RegExp("^(" + characters.correct("ạ") + ")((?:\\-\\d*)|(?:\
         }
         
         path.top(f);
-        if(item) path.top(item);
+        path.top(item);
       }
     }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    if(this.tkn.params[0] === "-") {
+      this.tkn.index = -1;
+      this.tkn.delta = -1;
+    } else if(this.tkn.params[0] === "-0") {
+      this.tkn.index = 0;
+      this.tkn.delta = -1;
+    } else {
+      this.tkn.index = +this.tkn.params[0];
+      this.tkn.delta = this.tkn.index < 0 ? -1 : 1;
+    }
+    
+    return old.call(this);
   }
 });
   
@@ -214,7 +231,7 @@ Command.add(0, noodel.commandify(characters.correct("Ạ")), function(cmd) {
 
             path.top(g);
             path.top(f);
-            if(item) path.top(item);
+            path.top(item);
           }
         }
       }
