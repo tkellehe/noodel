@@ -38,15 +38,28 @@ NUMBER.numerical_eval = function(o) {
     digits.reverse();
 
     return new STRING(digits.join(""));
-  } else if(o.type === "STRING") {
+  } 
+  if(o.type === "STRING") {
     var x = 0;
     for(var i = 0; i < o.length(); ++i) {
       x += characters.char_to_int(o.value[o.length() - i - 1]) * Math.pow(98, i);
     }
     return new NUMBER(x);
-  } else if(o.type === "ARRAY") {
+  } 
+  if(o.type === "ARRAY") {
     for(var i = 0; i < o.length(); ++i) {
       o.value[i] = NUMBER.numerical_eval(o.value[i]);
+    }
+    return o;
+  }
+}
+
+NUMBER.numerical_eval_numbers = function(o) {
+  if(o.type === "NUMBER") return o;
+  if(o.type === "STRING") return NUMBER.numberical_eval(o);
+  if(o.type === "ARRAY") {
+    for(var i = 0; i < o.length(); ++i) {
+      o.value[i] = NUMBER.numerical_eval_numbers(o.value[i]);
     }
     return o;
   }
