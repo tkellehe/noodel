@@ -6,7 +6,7 @@
 
 //------------------------------------------------------------------------------------------------------------
 /// Numberifies strings and arrays by elements if already a number it will flip the sign.
-Command.add(0, noodel.commandify(characters.correct("ɲ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("ɲ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -35,7 +35,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Stringifies the first item in the pipe.
-Command.add(0, noodel.commandify(characters.correct("ɲ")+"'"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("ɲ")+"'"), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -59,7 +59,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ")+"'"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Stringifies the first item in the pipe.
-Command.add(0, noodel.commandify(characters.correct("ɲ")+'"'), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("ɲ")+'"'), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -74,7 +74,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ")+'"'), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Numberifies the first item in the pipe.
-Command.add(0, noodel.commandify(characters.correct("ɲ")+"#"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("ɲ")+"#"), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -94,7 +94,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ")+"#"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Arrayifies the first item in the pipe.
-Command.add(0, noodel.commandify(characters.correct("ʋ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("ʋ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -114,7 +114,7 @@ Command.add(0, noodel.commandify(characters.correct("ʋ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Collects all of the items in the pipe and creates an array for them.
-Command.add(0, noodel.commandify(characters.correct("œ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("œ")), function(cmd) {
   cmd.exec = function(path) {
     var a = [];
     while(path.first()) a.push(path.top());
@@ -124,7 +124,7 @@ Command.add(0, noodel.commandify(characters.correct("œ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Collects the number of items specified by the count and creates an array for them.
-Command.add(0, noodel.commandify(characters.correct("œ"), "\\d+"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("œ"), "\\d+"), function(cmd) {
   cmd.exec = function(path) {
     var a = [];
     for(var i = +this.tkn.params[0]; i-- && path.first();) a.push(path.top());
@@ -136,7 +136,7 @@ Command.add(0, noodel.commandify(characters.correct("œ"), "\\d+"), function(cmd
 
 //------------------------------------------------------------------------------------------------------------
 /// Collects the number of items specified in the pipe and creates an array for them.
-Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("œ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("µ") + characters.correctify("œ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -151,7 +151,7 @@ Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("
 
 //------------------------------------------------------------------------------------------------------------
 /// Numerically evalues an item on the stack and pushes the result.
-Command.add(0, noodel.commandify(characters.correct("ȥ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("ȥ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
