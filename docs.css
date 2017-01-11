@@ -6,6 +6,7 @@ textarea.noodel-editor {
   -webkit-box-sizing: border-box; /* For Safari                           */
   resize: none;
   font-family: monospace;
+  outline: none;
   color: white;
   background-color: black;
   overflow: auto;
@@ -19,6 +20,9 @@ textarea.noodel-output {
   -webkit-box-sizing: border-box; /* For Safari                           */
   resize: vertical;
   font-family: monospace;
+  outline: none;
+  color: white;
+  background-color: black;
   overflow: auto;
 }
 
@@ -30,6 +34,9 @@ textarea.noodel-input {
   -webkit-box-sizing: border-box; /* For Safari                           */
   resize: none;
   font-family: monospace;
+  outline: none;
+  color: white;
+  background-color: black;
   overflow: auto;
 }
 
