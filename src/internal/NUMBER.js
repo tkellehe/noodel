@@ -31,7 +31,7 @@ NUMBER.numerical_eval = function(o) {
     var digits = [];
 
     while(x) {
-        digits.push(characters.int_to_char(x % 98))
+        digits.push(characters.int_to_char(Math.floor(x % 98)))
         x /= 98;
     }
 
