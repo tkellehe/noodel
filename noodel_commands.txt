@@ -62,15 +62,22 @@
     (\c+)‘(\c+)     - path.top(STRING(decompress_occur($1, $2)))
     (\c+)’(\c+)     - a = string_break(decompress_occur($1, $2)) foreach e in a => e = STRING(e); path.top(ARRAY(a))
     (\p)…(\p)       - path.top(STRING($1 +...+ $2))
-    '(\p)…(\p)      - path.top(ARRAY($1 ,..., $2))
-    #(\d)+…(\d)+    - path.top(ARRAY(valueOf($1) ,..., valueOf($2)))
-    µ…(\p)          - a = path.top() a = numerical_eval_numbers(a) path.top(STRING(toString(a.value) +...+ $2))
-    'µ…(\p)         - a = path.top() a = numerical_eval_numbers(a) path.top(ARRAY(toString(a.value) ,..., $2))
-    #µ…(\d)+        - a = path.top() a = numerical_eval_numbers(a) path.top(ARRAY(a.value ,..., valueOf($2)))
+    µ…(\p)          - a = path.top() a = numerical_eval_numbers(a) path.top(STRING(numberical_eval(a.value) +...+ $1))
+    (\p)…µ          - a = path.top() a = numerical_eval_numbers(a) path.top(STRING($1 +...+ numberical_eval(a.value)))
+
+    
  -- Numeric --
     ɲ(-?\d*\.?\d+)  - path.top(NUMBER(valueOf($1)))
     ɲ(-)            - path.top(NUMBER(-1))
     ɲ(-?\d*/\d+)    - path.top(NUMBER(valueOf($1)))
+
+ -- Array --
+    #(\d)+…(\d)+    - path.top(ARRAY(NUMBER(valueOf($1)) ,..., NUMBER(valueOf($2))))
+    #µ…(\d)+        - a = path.top() a = numerical_eval_numbers(a) path.top(ARRAY(a ,..., NUMBER(valueOf($1))))
+    #(\d)+…µ        - a = path.top() a = numerical_eval_numbers(a) path.top(ARRAY(NUMBER(valueOf($2)) ,..., a))
+    '(\p)…(\p)      - path.top(ARRAY(STRING($1) ,..., STRING($2)))
+    'µ…(\p)         - a = path.top() a = numerical_eval_numbers(a) path.top(ARRAY(numberical_eval(a.value) ,..., $1))
+    '(\p)…µ         - a = path.top() a = numerical_eval_numbers(a) path.top(ARRAY(STRING($1) ,..., STRING(numberical_eval(a.value)))
 
 --- Operators ---
     ⁺        - a = path.top() b = path.top() path.top(a.add(b))
