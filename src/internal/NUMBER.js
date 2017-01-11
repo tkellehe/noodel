@@ -56,7 +56,7 @@ NUMBER.numerical_eval = function(o) {
 
 NUMBER.numerical_eval_numbers = function(o) {
   if(o.type === "NUMBER") return o;
-  if(o.type === "STRING") return NUMBER.numberical_eval(o);
+  if(o.type === "STRING") return NUMBER.numerical_eval(o);
   if(o.type === "ARRAY") {
     for(var i = 0; i < o.length(); ++i) {
       o.value[i] = NUMBER.numerical_eval_numbers(o.value[i]);
