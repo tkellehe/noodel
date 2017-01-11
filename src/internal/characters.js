@@ -464,7 +464,9 @@ characters.decompress_range = function(compressed) {
   
 characters.regexified = regexified;
   
-characters.correct = function(c) {
+characters.correct = handleBug;
+  
+characters.correctify = function(c) {
   c = handleBug(c);
   return regexified[char_to_int[c]];
 }
