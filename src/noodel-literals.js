@@ -390,5 +390,89 @@ Command.add(2, noodel.commandify("#", "\\d+", characters.correct("…") + charac
     return old.call(this);
   }
 });
+  
+//------------------------------------------------------------------------------------------------------------
+/// Generates a string based off of the range of characters.
+Command.add(0, characters.correct("µ") + characters.correct("…") + characters.correct("µ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      var g = path.top();
+      if(g) {
+        f = NUMBER.numerical_eval_numbers(f).integerify();
+        g = NUMBER.numerical_eval_numbers(g).integerify();
+        var left = f.value,
+            right = g.value;
+        var min = Math.min(left, right),
+            max = Math.max(left, right),
+            s = "";
+
+        for(var i = max; min <= i; --i) {
+          s += NUMBER.numerical_eval(new NUMBER(i)).value;
+        }
+
+        if(min === left) { s = s.split("").reverse().join("") }
+
+        path.top(new STRING(s));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Generates an array of characters.
+Command.add(0, noodel.commandify("'" + characters.correct("µ") + characters.correct("…") +  characters.correct("µ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      var g = path.top()
+      if(g) {
+        f = NUMBER.numerical_eval_numbers(f).integerify();
+        g = NUMBER.numerical_eval_numbers(g).integerify();
+        var left = f.value,
+            right = g.value;
+        var min = Math.min(left, right),
+            max = Math.max(left, right),
+            s = [];
+
+        for(var i = max; min <= i; --i) {
+          s.push(NUMBER.numerical_eval(new NUMBER(i)));
+        }
+
+        if(min === left) { s = s.reverse() }
+
+        path.top(new ARRAY(s));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Generates an array of numbers.
+Command.add(0, noodel.commandify("#" + characters.correct("µ") + characters.correct("…") + characters.correct("µ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      var g = path.top();
+      if(g) {
+        f = NUMBER.numerical_eval_numbers(f).integerify();
+        g = NUMBER.numerical_eval_numbers(g).integerify();
+        var left = f.value,
+            right = g.value;
+        var min = Math.min(left, right),
+            max = Math.max(left, right),
+            s = [];
+
+        for(var i = max; min <= i; --i) {
+          s.push(new NUMBER(i));
+        }
+
+        if(min === left) { s = s.reverse() }
+
+        path.top(new ARRAY(s));
+      }
+    }
+  }
+});
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
