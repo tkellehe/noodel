@@ -236,4 +236,66 @@ Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("
   }
 });
 
+//------------------------------------------------------------------------------------------------------------
+/// Generates an array of characters.
+Command.add(0, noodel.commandify("'" + characters.correct("µ") + characters.correct("…"), characters.regex.a_printable), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      f = NUMBER.numerical_eval_numbers(f);
+      var left = f.value,
+          right = this.tkn.params[0];
+      var min = Math.min(left, right),
+          max = Math.max(left, right),
+          s = [];
+    
+      for(var i = max; min <= i; --i) {
+        s.push(NUMBER.numerical_eval(new NUMBER(i)));
+      }
+      
+      if(min === left) { s = s.reverse() }
+      
+      path.top(new ARRAY(s));
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = characters.char_to_int(this.tkn.params[0]);
+    
+    return old.call(this);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Generates an array of numbers.
+Command.add(0, noodel.commandify("#" + characters.correct("µ") + characters.correct("…"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      f = NUMBER.numerical_eval_numbers(f);
+      var left = f.value,
+          right = this.tkn.params[0];
+      var min = Math.min(left, right),
+          max = Math.max(left, right),
+          s = [];
+    
+      for(var i = max; min <= i; --i) {
+        s.push(new NUMBER(i));
+      }
+      
+      if(min === left) { s = s.reverse() }
+      
+      path.top(new ARRAY(s));
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    
+    return old.call(this);
+  }
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
