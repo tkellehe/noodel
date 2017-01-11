@@ -462,7 +462,11 @@ characters.decompress_range = function(compressed) {
   return decompressed;
 };
   
-characters.correct = handleBug;
+characters.correct = function(c) {
+  c = handleBug(c);
+  return characters.regexified[char_to_int[c]];
+}
+  
   
 global.characters = characters;
 
