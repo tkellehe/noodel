@@ -222,7 +222,7 @@ Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("
         s += NUMBER.numerical_eval(new NUMBER(i)).value;
       }
       
-      if(max === left) { s = s.split("").reverse().join("") }
+      if(min === left) { s = s.split("").reverse().join("") }
       
       path.top(new STRING(s));
     }
