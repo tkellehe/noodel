@@ -67,8 +67,7 @@
     µ…µ             - a = path.top() a = numerical_eval_numbers(a)
                       b = path.top() b = numerical_eval_numbers(b)
                       path.top(STRING(numberical_eval(a.value) +...+ numberical_eval(b.value)))
-
-    
+ 
  -- Numeric --
     ɲ(-?\d*\.?\d+)  - path.top(NUMBER(valueOf($1)))
     ɲ(-)            - path.top(NUMBER(-1))
