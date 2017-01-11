@@ -279,13 +279,14 @@
     ß - path.stdout.clear()
 
 --- Pipe Manipulation ---
-    ḃ - path.top()
-    Ḃ - path.jump_up() path.top()
-    ė - path.bottom(path.top())
-    Ė - path.top(path.bottom())
-    ṡ - a = path.top() b = path.top() path.top(a) path.top(b)
-    Ṡ - a = path.bottom() b = path.bottom() path.bottom(a) path.bottom(b)
-    ḋ - a = path.first() path.top(a.copy())
+    ḃ       - path.top()
+    Ḃ       - path.jump_up() path.top()
+    ė       - path.bottom(path.top())
+    Ė       - path.top(path.bottom())
+    ṡ       - a = path.top() b = path.top() path.top(a) path.top(b)
+    Ṡ       - a = path.bottom() b = path.bottom() path.bottom(a) path.bottom(b)
+    ḋ       - a = path.first() path.top(a.copy())
+    (\m)+ḋ  - a = path.first() for c = 0, c < valueOf($1), ++c => path.top(a.copy)
 
 --- String Manipulation ---
     ɲL - a = path.top()
