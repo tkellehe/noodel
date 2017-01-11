@@ -31,6 +31,26 @@ Command.add(0, noodel.commandify(characters.correct("ḋ")), function(cmd) {
     }
   }
 });
+
+//------------------------------------------------------------------------------------------------------------
+// Duplicates the item on the top of the stack.
+Command.add(0, noodel.commandify(characters.regex.a_tiny_digit + "+", characters.correct("ḋ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.first();
+    if(f) {
+      for(var c = this.tkn.params[0]; c--;) {
+        path.top(f.copy());
+      }
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +characters.tiny_num_to_num(this.tkn.params[0]);
+    
+    return old.call(this);
+  }
+});
   
 //------------------------------------------------------------------------------------------------------------
 // Places what is on the top of the stack to the bottom.
