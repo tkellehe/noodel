@@ -64,6 +64,9 @@
     (\p)…(\p)       - path.top(STRING($1 +...+ $2))
     '(\p)…(\p)      - path.top(ARRAY($1 ,..., $2))
     #(\d)+…(\d)+    - path.top(ARRAY(valueOf($1) ,..., valueOf($2)))
+    µ…(\p)          - a = path.top() a = numerical_eval(numerical_eval(a).stringify()) path.top(STRING(toString(a.value) +...+ $2))
+    'µ…(\p)         - a = path.top() a = numerical_eval(numerical_eval(a).stringify()) path.top(ARRAY(toString(a.value) ,..., $2))
+    #µ…(\d)+        - a = path.top() a = numerical_eval(numerical_eval(a).stringify()) path.top(ARRAY(a.value ,..., valueOf($2)))
  -- Numeric --
     ɲ(-?\d*\.?\d+)  - path.top(NUMBER(valueOf($1)))
     ɲ(-)            - path.top(NUMBER(-1))
