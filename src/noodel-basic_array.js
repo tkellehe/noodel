@@ -7,7 +7,7 @@
 //------------------------------------------------------------------------------------------------------------
 /// Flattens that particular data type (for arrays places into elements, strings turned into char arrays
 /// and numbers into integers.
-Command.add(0, noodel.commandify(characters.correct("ɲ")+"_"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("ɲ")+"_"), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -24,7 +24,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ")+"_"), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 /// Gets magnitude of that particular data type.
-Command.add(0, noodel.commandify(characters.correct("ɲ")+"l"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("ɲ")+"l"), function(cmd) {
   cmd.exec = function(path) {
     var f = this.tkn.inputs.front();
     if(f) {
@@ -40,7 +40,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ")+"l"), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Takes the first element of strings/arrays and places it into the back. For numbers, it reciprocates.
-Command.add(0, noodel.commandify(characters.correct("ẹ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("ẹ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -60,7 +60,7 @@ Command.add(0, noodel.commandify(characters.correct("ẹ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Takes the last element of strings/arrays and places it into the front. For numbers, it square roots.
-Command.add(0, noodel.commandify(characters.correct("Ẹ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("Ẹ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -81,7 +81,7 @@ Command.add(0, noodel.commandify(characters.correct("Ẹ")), function(cmd) {
 //------------------------------------------------------------------------------------------------------------
 /// Accesses a particular frame of an array/string. If is an integer in the pipe then it will use that as
 /// the index and place the accessed first and increment the index for the next frame.
-Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("ạ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -147,7 +147,7 @@ Command.add(0, noodel.commandify(characters.correct("ạ")), function(cmd) {
 /// Accesses a particular frame of an array/string. If is an integer in the pipe then it will use that as
 /// the index and place the accessed first and increment the index for the next frame.
 /// The number following the token will be used as the first number.
-Command.add(0, new RegExp("^(" + characters.correct("ạ") + ")((?:\\-\\d*)|(?:\\d+))$"), function(cmd) {
+Command.add(0, new RegExp("^(" + characters.correctify("ạ") + ")((?:\\-\\d*)|(?:\\d+))$"), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -217,7 +217,7 @@ Command.add(0, new RegExp("^(" + characters.correct("ạ") + ")((?:\\-\\d*)|(?:\
   
 //------------------------------------------------------------------------------------------------------------
 /// Accesses a particular frame of an array/string based off of an array.
-Command.add(0, noodel.commandify(characters.correct("Ạ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correctify("Ạ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
