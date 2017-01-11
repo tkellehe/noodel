@@ -24,6 +24,10 @@ var output = document.createElement("textarea");
 output.cols = html_noodel.getAttribute("cols");
 output.rows = html_noodel.getAttribute("rows");
 
+output.style.color = "white";
+output.style.backgroundColor = "black";
+output.style.outline = "none";
+    
 prgm.onstep = function() {
   output.value = prgm.printify();
 }
