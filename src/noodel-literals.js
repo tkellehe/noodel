@@ -211,7 +211,7 @@ Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      f = NUMBER.numerical_eval(NUMBER.numerical_eval(f).stringify());
+      f = NUMBER.numerical_eval_numbers(f);
       var left = f.value,
           right = this.tkn.params[0];
       var min = Math.min(left, right),
