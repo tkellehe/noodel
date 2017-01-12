@@ -72,6 +72,14 @@ Command.add(0, noodel.commandify(characters.correct("ċ"), "\\d+"), function(cmd
 });
 
 //------------------------------------------------------------------------------------------------------------
+// Reverses the stack.
+Command.add(0, noodel.commandify(characters.correct("Ċ")), function(cmd) {
+  cmd.exec = function(path) {
+    path.reverse_stack();
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
 // Duplicates the item on the top of the stack.
 Command.add(0, noodel.commandify(characters.correct("ḋ")), function(cmd) {
   cmd.exec = function(path) {
