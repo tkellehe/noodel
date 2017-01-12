@@ -70,7 +70,11 @@ STRING.prototype.arrayify = function() {
   return new ARRAY(a);
 }
 STRING.prototype.numberify = function() {
-  return new NUMBER(+this.value);
+  var temp = +this.value;
+  if(temp !== temp) {
+    return NUMBER.numerical_eval(this);
+  }
+  return new NUMBER(temp);
 }
 STRING.prototype.integerify = function() {
   return (this.numberify()).integerify();
