@@ -22,6 +22,27 @@ Command.add(0, noodel.commandify(characters.correct("ḃ")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
+// Removes the item on the top of the stack.
+Command.add(0, noodel.commandify(characters.correct("ḃ"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var a = [];
+    for(var i = this.tkn.params[0]; i-- && path.first();) {
+      a.push(path.top())
+    }
+    path.top();
+    for(var i = a.length; i--;) {
+      path.top(a[i]);
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
 // Duplicates the item on the top of the stack.
 Command.add(0, noodel.commandify(characters.correct("ḋ")), function(cmd) {
   cmd.exec = function(path) {
