@@ -58,7 +58,7 @@ Command.add(0, noodel.commandify(characters.correct("ċ"), "\\d+"), function(cmd
     for(var i = this.tkn.params[0]; i-- && path.last();) {
       a.push(path.bottom())
     }
-    path.top();
+    path.bottom();
     for(var i = a.length; i--;) {
       path.bottom(a[i]);
     }
