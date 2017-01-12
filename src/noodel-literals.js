@@ -6,6 +6,37 @@
 
 //------------------------------------------------------------------------------------------------------------
 // Handles simple string literals of printable characters.
+Command.add(1, noodel.commandify(characters.correct("µ"), characters.regex.a_printable + "+"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      f = f.integerify();
+      for(var i = f.value; i--;) {
+        path.top(new STRING(this.tkn.literal));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Handles simple string literals of printable characters.
+Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters.regex.a_printable + "+"), function(cmd) {
+  cmd.exec = function(path) {
+    for(var i = this.tkn.params[0]; i--;) {
+      path.top(new STRING(this.tkn.literal));
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +characters.tiny_num_to_num(this.tkn.params[0]);
+    
+    return old.call(this);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Handles simple string literals of printable characters.
 Command.add(0, noodel.commandify(characters.regex.a_printable + "+"), function(cmd) {
   cmd.exec = function(path) {
     path.top(new STRING(this.tkn.literal));
