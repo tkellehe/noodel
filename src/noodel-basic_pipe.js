@@ -43,6 +43,35 @@ Command.add(0, noodel.commandify(characters.correct("ḃ"), "\\d+"), function(cm
 });
 
 //------------------------------------------------------------------------------------------------------------
+// Removes the item on the bottom of the stack.
+Command.add(0, noodel.commandify(characters.correct("ċ")), function(cmd) {
+  cmd.exec = function(path) {
+    path.bottom();
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Removes the item on the bottom of the stack.
+Command.add(0, noodel.commandify(characters.correct("ċ"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var a = [];
+    for(var i = this.tkn.params[0]; i-- && path.last();) {
+      a.push(path.bottom())
+    }
+    path.top();
+    for(var i = a.length; i--;) {
+      path.bottom(a[i]);
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
 // Duplicates the item on the top of the stack.
 Command.add(0, noodel.commandify(characters.correct("ḋ")), function(cmd) {
   cmd.exec = function(path) {
