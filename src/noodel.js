@@ -185,5 +185,30 @@ noodel.random_int = function(min, max) {
 //------------------------------------------------------------------------------------------------------------
 /// NOPs
 Command.add(0, noodel.commandify("[ \n]"), function(cmd) {});
+Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", " "), function(cmd) {
+  cmd.exec = function(path) {
+    if(this.tkn.count === undefined) {
+      this.tkn.count = this.tkn.params[0];
+      var temp = this.tkn.old_next;
+      this.tkn.old_next = this.tkn.next;
+      this.tkn.next = temp;
+    }
+    
+    if(this.tkn.count-- < 1) {
+      this.tkn.count = undefined;
+      var temp = this.tkn.old_next;
+      this.tkn.old_next = this.tkn.next;
+      this.tkn.next = temp;
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +characters.tiny_num_to_num(this.tkn.params[0]);
+    var tkn = this.tkn;
+    this.tkn.old_next = function() { return tkn };
+    return old.call(this);
+  }
+});
 
 })(this, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
