@@ -7,8 +7,9 @@
 
 
 --- NOPs ---
-    space     - Use to separate commands.
-    new line  - Use to separate commands also ends some scopes of commands.
+    space       - Use to separate commands.
+    (\m)+space  - duplicates many spaces.
+    new line    - Use to separate commands also ends some scopes of commands.
 
 --- MISC ---
     %[0-9A-F]+  - Use in a STRING to create a Unicode character based off of the hex value.
