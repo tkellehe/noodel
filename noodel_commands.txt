@@ -59,6 +59,7 @@
  -- String --
     (\p+)           - path.top(STRING($1))
     (\m+)(\p+)      - for c = 0, c < valueOf($1), ++c => path.top(STRING($1))
+    µ(\p+)          - a = path.top().integerify() for c = 0, c < a.value, ++c => path.top(STRING($1))
     “(\c*)          - path.top(STRING(decompress_basic($1)))
     ”(\c*)          - a = string_break(decompress_basic($1)) foreach e in a => e = STRING(e); path.top(ARRAY(a))
     (\c+)‘(\c+)     - path.top(STRING(decompress_occur($1, $2)))
