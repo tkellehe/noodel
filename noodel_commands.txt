@@ -299,6 +299,7 @@
 
 --- Pipe Manipulation ---
     ḃ       - path.top()
+    ḃ(\d)+  - a = [] for c = 0, c < valueOf($1) && path.first(), ++c => a.push(path.top); path.top() for c = a.length, 0 <= c, --c => path.top(a[c])
     Ḃ       - path.jump_up() path.top()
     ė       - path.bottom(path.top())
     Ė       - path.top(path.bottom())
