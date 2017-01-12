@@ -303,6 +303,7 @@
     Ḃ       - path.jump_up() path.top()
     ċ       - path.bottom()
     ċ(\d)+  - a = [] for c = 0, c < valueOf($1) && path.last(), ++c => a.push(path.bottom()); path.bottom() for c = a.length, 0 <= c, --c => path.bottom(a[c])
+    Ċ       - path.reverse_stack()
     ė       - path.bottom(path.top())
     Ė       - path.top(path.bottom())
     ṡ       - a = path.top() b = path.top() path.top(a) path.top(b)
