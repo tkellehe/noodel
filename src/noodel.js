@@ -124,6 +124,14 @@ Path.prototype.jump_out = function() {
   
   this.stack = container;
 };
+  
+Path.prototype.reverse_stack = function() {
+  for(var i = 0,  l = Math.floor(this.stack.ptr/2); i < l;) {
+    var temp = this.stack.value[i];
+    this.stack.value[i] = this.stack.value[this.stack.ptr - i - 1];
+    this.stack.value[this.stack.ptr - i - 1] = temp;
+  }
+}
 
 function parseJsObject(JS) {
   if(typeof JS === "string") {
