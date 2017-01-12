@@ -57,8 +57,8 @@
 
 --- Literals ---
  -- String --
-    (\p+)           - if has_null($1) => path.top(ARRAY(split($1, "ð"))) else => path.top(STRING($1))
-    (\m+)(\p+)      - for c = 0, c < valueOf($1), ++c => if has_null($2) => path.top(ARRAY(split($1, "ð"))) else => path.top(STRING($1))
+    (\p+)           - path.top(STRING($1))
+    (\m+)(\p+)      - for c = 0, c < valueOf($1), ++c => path.top(STRING($1))
     “(\c*)          - path.top(STRING(decompress_basic($1)))
     ”(\c*)          - a = string_break(decompress_basic($1)) foreach e in a => e = STRING(e); path.top(ARRAY(a))
     (\c+)‘(\c+)     - path.top(STRING(decompress_occur($1, $2)))
