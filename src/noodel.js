@@ -145,6 +145,8 @@ function parseJsObject(JS) {
       if(item) a.push(item);
     }
     return new ARRAY(a);
+  } else if(typeof JS === "boolean") {
+    return new NUMBER(JS ? 1 : 0);
   }
 };
   
