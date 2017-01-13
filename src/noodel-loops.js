@@ -10,7 +10,9 @@ Command.is_loop = function(literal) {
          literal === characters.correct("ṃ") ||
          literal === characters.correct("Ṃ") ||
          literal === characters.correct("ṇ") ||
-         literal === characters.correct("Ṇ");
+         literal === characters.correct("Ṇ") ||
+         literal === characters.correct("ọ") ||
+         literal === characters.correct("Ọ");
 }
   
 Command.is_break = function(literal) {
