@@ -1,4 +1,4 @@
-(function(global){
+;(function(global){
 
 function Pipe() {
   var self = this;
@@ -91,7 +91,7 @@ Pipe.prototype.remove = function(v) {
 global.Pipe = Pipe;
 
 })(this)
-(function(global){
+;;(function(global){
 
 function Props() {
   function the_props(name, value) {
@@ -109,7 +109,7 @@ function Props() {
 global.make_props = Props;
 
 })(this)
-(function(global){
+;;(function(global){
 
 function handleBug(s) { return s[s.length-1] };
 var int_to_char = [
@@ -580,7 +580,7 @@ characters.correct = handleBug;
 global.characters = characters;
 
 })(this)
-function factorize_number(num) {
+;;function factorize_number(num) {
   var half = Math.floor(num / 2),
       array = [1],
       i, j;
@@ -743,7 +743,7 @@ NUMBER.prototype.relocate = function(from, to) {
   slice = slice.slice(0, to) + s + slice.slice(to, slice.length);
   return new NUMBER(+slice);
 }
-//------------------------------------------------------------------------------------------------------------
+;;//------------------------------------------------------------------------------------------------------------
 function string_null_break(string) {
   return string.split(characters.correct("ð"));
 };
@@ -927,7 +927,7 @@ STRING.prototype.relocate = function(from, to) {
   slice = slice.slice(0, to) + s + slice.slice(to, slice.length);
   return new STRING(slice);
 }
-//------------------------------------------------------------------------------------------------------------
+;;//------------------------------------------------------------------------------------------------------------
 function ARRAY(v) {
   this.props = make_props();
   this.value = v === undefined ? [] : v;
@@ -1083,7 +1083,7 @@ ARRAY.prototype.relocate = function(from, to) {
   this.value.splice(to, 0, s[0]);
   return this;
 }
-(function(global, Pipe){
+;;(function(global, Pipe){
 
 function Command(tkn, f) {
   this.tkn = tkn;
@@ -1178,7 +1178,7 @@ Token.parse = function(tkn) {
 global.Token = Token;
 
 })(this, this.Pipe)
-(function(global, Pipe, Command, Token){
+;;(function(global, Pipe, Command, Token){
 
 function Path(code, tkn) {
   this.code = code;
@@ -1259,7 +1259,7 @@ Path.prototype.exec = function() {
 global.Path = Path;
 
 })(this, this.Pipe, this.Command, this.Token)
-(function(global, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
+;;(function(global, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 function insertAt(array, pos, item) {
   array.splice(pos, 0, item);
@@ -1473,7 +1473,7 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", " "), func
 });
 
 })(this, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
-(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
+;;(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 //------------------------------------------------------------------------------------------------------------
 /// Misc. Commands.
@@ -1726,7 +1726,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ") + "?"), function(cmd) 
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
-(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
+;;(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 //------------------------------------------------------------------------------------------------------------
 /// Literals
@@ -2235,7 +2235,7 @@ Command.add(0, noodel.commandify("#" + characters.correct("µ") + characters.cor
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
-(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
+;;(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 //------------------------------------------------------------------------------------------------------------
 /// Operations for printing.
@@ -2327,7 +2327,7 @@ Command.add(0, noodel.commandify(characters.correct("ß")), function(cmd) {
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
-(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
+;;(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 //------------------------------------------------------------------------------------------------------------
 /// Operations directly to the Pipe.
@@ -2488,7 +2488,7 @@ Command.add(0, noodel.commandify(characters.correct("Ṡ")), function(cmd) {
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
-(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
+;;(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 //------------------------------------------------------------------------------------------------------------
 /// Loops.
@@ -2848,7 +2848,7 @@ Command.add(0, noodel.commandify(characters.correct("ɱ")), function(cmd) {
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
-(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
+;;(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 //------------------------------------------------------------------------------------------------------------
 /// Time.
@@ -2990,7 +2990,7 @@ Command.add(0, new RegExp("^("+characters.correct("ḍ")+")(\\d*)\\.(\\d*)$"), f
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
-(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
+;;(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 //------------------------------------------------------------------------------------------------------------
 /// Type cast operations.
@@ -3153,7 +3153,7 @@ Command.add(0, noodel.commandify(characters.correct("ȥ")), function(cmd) {
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
-(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
+;;(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
   
 //------------------------------------------------------------------------------------------------------------
 /// Operands
@@ -3587,7 +3587,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ") + "%s"), function(cmd)
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
-(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
+;;(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 //------------------------------------------------------------------------------------------------------------
 /// Array Based Operators
@@ -3829,7 +3829,7 @@ Command.add(0, noodel.commandify(characters.correct("Ạ")), function(cmd) {
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
-(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
+;;(function(global, noodel, Pipe, Command, Token, Path, characters, NUMBER, STRING, ARRAY){
 
 //------------------------------------------------------------------------------------------------------------
 /// String Manipulation Commands.
@@ -3885,3 +3885,4 @@ Command.add(0, noodel.commandify(characters.correct("ṙ")), function(cmd) {
 });
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
+;
