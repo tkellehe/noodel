@@ -1,0 +1,40 @@
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+<script>
+var files = [
+  "https://tkellehe.github.io/noodel/src/internal/pipe.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/internal/props.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/internal/characters.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/internal/NUMBER.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/internal/STRING.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/internal/ARRAY.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/internal/token.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/internal/path.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/noodel.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/noodel-misc.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/noodel-literals.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/noodel-basic_print.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/noodel-basic_pipe.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/noodel-loops.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/noodel-time.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/noodel-basic_cast.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/noodel-basic_operands.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/noodel-basic_array.js?version=" + Math.random(),
+  "https://tkellehe.github.io/noodel/src/noodel-string_manip.js?version=" + Math.random()
+];
+
+$(function(){
+
+var $result = $("#result");
+
+var i = 0;
+function collect(data){
+  if(data) $result.val($result.val() + data);
+  if(i === files.length) { alert("completed!"); return;}
+  $.ajax({url:files[i], success:collect});
+}
+
+});
+</script>
+
+<pre id="result"></pre>
