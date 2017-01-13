@@ -26,7 +26,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ")+"_"), function(cmd) {
 /// Gets magnitude of that particular data type.
 Command.add(0, noodel.commandify(characters.correct("ɲ")+"l"), function(cmd) {
   cmd.exec = function(path) {
-    var f = this.tkn.inputs.front();
+    var f = path.top();
     if(f) {
       if(f.type === "NUMBER") {
         path.top(new NUMBER(Math.abs(f.value)));
