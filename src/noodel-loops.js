@@ -22,6 +22,7 @@ Command.is_break = function(literal) {
   
 Command.is_loop_end = function(literal) {
   return literal === characters.correct("ḅ") ||
+         literal === characters.correct("Ḅ") ||
          literal === characters.correct("€")
 }
   
@@ -290,22 +291,21 @@ Command.add(0, noodel.commandify(characters.correct("Ṇ")), function(cmd) {
 Command.add(0, noodel.commandify(characters.correct("ọ")), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn, f = path.first();
+    if(!this.tkn.sub_path.end.loop_ran_or_not) {
+      this.tkn.ran_or_not = new NUMBER(1);
+    }
     if(f && f.is_truthy().value) {
       tkn.next = function() { return tkn.sub_path.start }
       if(this.tkn.loop_count === undefined) { 
         this.tkn.loop_count = 0;
-        this.tkn.ran_or_not = new NUMBER(0);
+        this.tkn.ran_or_not.value = 0;
       } else this.tkn.loop_count++;
     } else {
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
       this.tkn.loop_count = undefined;
-      if(this.tkn.ran_or_not) {
-        path.top(this.tkn.ran_or_not);
-        this.tkn.ran_or_not = undefined;
-      } else {
-        path.top(new NUMBER(1));
-      }
+      path.top(this.tkn.ran_or_not);
+      this.tkn.ran_or_not = undefined
     }
   }
   
@@ -329,22 +329,21 @@ Command.add(0, noodel.commandify(characters.correct("ọ")), function(cmd) {
 Command.add(0, noodel.commandify(characters.correct("Ọ")), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn, f = path.top();
+    if(!this.tkn.ran_or_not) {
+      this.tkn.ran_or_not = new NUMBER(1);
+    }
     if(f && f.is_truthy().value) {
       tkn.next = function() { return tkn.sub_path.start }
       if(this.tkn.loop_count === undefined) { 
         this.tkn.loop_count = 0;
-        this.tkn.ran_or_not = new NUMBER(0);
+        this.tkn.ran_or_not.value = 0;
       } else this.tkn.loop_count++;
     } else {
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
       this.tkn.loop_count = undefined;
-      if(this.tkn.ran_or_not) {
-        path.top(this.tkn.ran_or_not);
-        this.tkn.ran_or_not = undefined;
-      } else {
-        path.top(new NUMBER(1));
-      }
+      path.top(this.tkn.ran_or_not);
+      this.tkn.ran_or_not = undefined;
     }
   }
   
@@ -384,6 +383,11 @@ Command.add(0, noodel.commandify(characters.correct("ḅ")), function(cmd) {
     
     return old.call(this);
   };
+  
+  cmd.exec = function(path) {
+    path.top(this.tkn.looper.ran_or_not);
+    this.tkn.looper.ran_or_not = undefined;
+  }
 });
 
 //------------------------------------------------------------------------------------------------------------
@@ -418,6 +422,9 @@ Command.add(0, noodel.commandify(characters.correct("Ḅ")), function(cmd) {
         tkn.looper.loop_count = undefined;
         return next === tkn.looper.sub_path.start ? undefined : next
       };
+      
+      path.top(this.tkn.looper.ran_or_not);
+      this.tkn.looper.ran_or_not = undefined;
     }
   }
 });
