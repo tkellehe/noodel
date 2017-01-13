@@ -29,9 +29,9 @@ var $result = $("#result");
 
 var i = 0;
 (function collect(data){
-  if(data) $result.text($result.text() + data);
+  if(data) { ++i; $result.text($result.text() + data); }
   if(i === files.length) { alert("completed!"); return;}
-  $.ajax({url:files[++i], success:collect});
+  $.ajax({url:files[i], success:collect});
 })()
 
 });
