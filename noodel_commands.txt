@@ -92,58 +92,62 @@
                       path.top(ARRAY(STRING(numberical_eval(a.value)) ,..., STRING(numberical_eval(b.value)))
 
 --- Operators ---
-    ⁺        - a = path.top() b = path.top() path.top(a.add(b))
-    ⁻        - a = path.top() b = path.top() path.top(a.sub(b))
-    ⁺s       - a = path.top() b = path.top() path.top(a.add_flip(b))
-    ⁻s       - a = path.top() b = path.top() path.top(a.sub_flip(b))
-    (\m+)⁺   - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.add(path.top()); path.top(a)
-    (\m+)⁻   - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.sub(path.top()); path.top(a)
-    (\m+)⁺s  - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.add_flip(path.top()); path.top(a)
-    (\m+)⁻s  - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.sub_flip(path.top()); path.top(a)
-    µ⁺       - a = path.top() b = path.top()
-               for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.add(path.top()); path.top(b)
-    µ⁻       - a = path.top() b = path.top()
-               for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.sub(path.top()); path.top(b)
-    µ⁺s      - a = path.top() b = path.top()
-               for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.add_flip(path.top()); path.top(b)
-    µ⁻s      - a = path.top() b = path.top()
-              for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.sub_flip(path.top()); path.top(b)
-    ⁺(\d+)   - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment(tkn); path.top(a)
-    ⁻(\d+)   - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement(tkn); path.top(a)
-    ⁺s(\d+)  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment_flip(tkn); path.top(a)
-    ⁻s(\d+)  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement_flip(tkn); path.top(a)
-    ⁺µ       - a = path.top() b = path.top()
-               if b is NUMBER =>
-                 path.top(NUMBER((b.value + a.value)/2))
-               else =>
-                 for c = 0, c < a.integerify().value, ++c => b = b.increment(tkn); path.top(b)
-    ⁻µ       - a = path.top() b = path.top()
-               if b is NUMBER =>
-                 path.top(NUMBER((b.value - a.value)/2))
-               else =>
+    ⁺          - a = path.top() b = path.top() path.top(a.add(b))
+    ⁻          - a = path.top() b = path.top() path.top(a.sub(b))
+    ⁺s         - a = path.top() b = path.top() path.top(a.add_flip(b))
+    ⁻s         - a = path.top() b = path.top() path.top(a.sub_flip(b))
+    (\m+)⁺     - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.add(path.top()); path.top(a)
+    (\m+)⁻     - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.sub(path.top()); path.top(a)
+    (\m+)⁺s    - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.add_flip(path.top()); path.top(a)
+    (\m+)⁻s    - a = path.top() for c = 0, c < valueOf($1) and path.first() != undefined, ++c => a = a.sub_flip(path.top()); path.top(a)
+    µ⁺         - a = path.top() b = path.top()
+                 for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.add(path.top()); path.top(b)
+    µ⁻         - a = path.top() b = path.top()
+                 for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.sub(path.top()); path.top(b)
+    µ⁺s        - a = path.top() b = path.top()
+                 for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.add_flip(path.top()); path.top(b)
+    µ⁻s        - a = path.top() b = path.top()
+                 for c = 0, c < a.integerify().value and path.first != undefined, ++c => b = b.sub_flip(path.top()); path.top(b)
+    ⁺(\d+)     - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment(tkn); path.top(a)
+    ⁻(\d+)     - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement(tkn); path.top(a)
+    ⁺s(\d+)    - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.increment_flip(tkn); path.top(a)
+    ⁻s(\d+)    - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement_flip(tkn); path.top(a)
+    ⁺µ         - a = path.top() b = path.top()
+                 if b is NUMBER =>
+                   path.top(NUMBER((b.value + a.value)/2))
+                 else =>
+                   for c = 0, c < a.integerify().value, ++c => b = b.increment(tkn); path.top(b)
+    ⁻µ         - a = path.top() b = path.top()
+                 if b is NUMBER =>
+                   path.top(NUMBER((b.value - a.value)/2))
+                 else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.decrement(tkn); path.top(b)
-    ⁺sµ      - a = path.top() b = path.top()
-               if b is NUMBER =>
-                 path.top(NUMBER(Math.abs(b.value + a.value)/2))
-               else =>
-                 for c = 0, c < a.integerify().value, ++c => b = b.increment_flip(tkn); path.top(b)
-    ⁻sµ      - a = path.top() b = path.top()
-               if b is NUMBER =>
-                 path.top(NUMBER((a.value - b.value)/2))
-               else =>
-                 for c = 0, c < a.integerify().value, ++c => b = b.decrement_flip(tkn); path.top(b)
-    ɲ%       - a = path.top().integerify() b = path.top()
-               if b is NUMBER => path.top(NUMBER(b.value % a.value))
-               elif b is STRING => [split string into a.value equal parts and push on the whole and then the remainder]
-               elif b is ARRAY => [removes the remainder for the array then pushes the array back on the pushes the remainder]
-    ɲ%s      - a = path.top() b = path.top().integerify()
-               if a is NUMBER => path.top(NUMBER(a.value % b.value))
-               elif a is STRING => [split string into b.value equal parts and push on the whole and then the remainder]
-               elif a is ARRAY => [removes the remainder for the array then pushes the array back on the pushes the remainder]
-    ×        - a = path.top() b = path.top() path.top(a.mul(b))
-    ×s       - a = path.top() b = path.top() path.top(a.mul_flip(b))
-    ÷        - a = path.top() b = path.top() path.top(a.div(b))
-    ÷s       - a = path.top() b = path.top() path.top(a.div_flip(b))
+    ⁺sµ        - a = path.top() b = path.top()
+                 if b is NUMBER =>
+                   path.top(NUMBER(Math.abs(b.value + a.value)/2))
+                 else =>
+                   for c = 0, c < a.integerify().value, ++c => b = b.increment_flip(tkn); path.top(b)
+    ⁻sµ        - a = path.top() b = path.top()
+                 if b is NUMBER =>
+                   path.top(NUMBER((a.value - b.value)/2))
+                 else =>
+                   for c = 0, c < a.integerify().value, ++c => b = b.decrement_flip(tkn); path.top(b)
+    ɲ%         - a = path.top().integerify() b = path.top()
+                 if b is NUMBER => path.top(NUMBER(b.value % a.value))
+                 elif b is STRING => [split string into a.value equal parts and push on the whole and then the remainder]
+                 elif b is ARRAY => [removes the remainder for the array then pushes the array back on the pushes the remainder]
+    ɲ%s        - a = path.top() b = path.top().integerify()
+                 if a is NUMBER => path.top(NUMBER(a.value % b.value))
+                 elif a is STRING => [split string into b.value equal parts and push on the whole and then the remainder]
+                 elif a is ARRAY => [removes the remainder for the array then pushes the array back on the pushes the remainder]
+    ×          - a = path.top() b = path.top() path.top(a.mul(b))
+    ×s         - a = path.top() b = path.top() path.top(a.mul_flip(b))
+    ÷          - a = path.top() b = path.top() path.top(a.div(b))
+    ÷s         - a = path.top() b = path.top() path.top(a.div_flip(b))
+    ×(-?\d+)   - a = path.top() b = path.top() path.top(a.mul(NUMBER(valueOf($1))))
+    ×s(-?\d+)  - a = path.top() b = path.top() path.top(a.mul_flip(NUMBER(valueOf($1))))
+    ÷(-?\d+)   - a = path.top() b = path.top() path.top(a.div(NUMBER(valueOf($1))))
+    ÷s(-?\d+)  - a = path.top() b = path.top() path.top(a.div_flip(NUMBER(valueOf($1))))
 
 --- Array Like Operators ---
     ɲ_        - a = path.top()
