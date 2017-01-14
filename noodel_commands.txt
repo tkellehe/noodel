@@ -114,22 +114,22 @@
     ⁻s(\d+)  - a = path.top() for c = 0, c < valueOf($1), ++c => a = a.decrement_flip(tkn); path.top(a)
     ⁺µ       - a = path.top() b = path.top()
                if b is NUMBER =>
-                 path.top(NUMBER(b.value * a.integerify().value))
+                 path.top(NUMBER((b.value + a.value)/2))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.increment(tkn); path.top(b)
     ⁻µ       - a = path.top() b = path.top()
                if b is NUMBER =>
-                 path.top(NUMBER(b.value / a.integerify().value))
+                 path.top(NUMBER((b.value - a.value)/2))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.decrement(tkn); path.top(b)
     ⁺sµ      - a = path.top() b = path.top()
                if b is NUMBER =>
-                 path.top(NUMBER(b.pow(a.integerify().value)))
+                 path.top(NUMBER(Math.abs(b.value + a.value)/2))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.increment_flip(tkn); path.top(b)
     ⁻sµ      - a = path.top() b = path.top()
                if b is NUMBER =>
-                 path.top(NUMBER(b.pow(1 / a.integerify().value)))
+                 path.top(NUMBER((a.value - b.value)/2))
                else =>
                  for c = 0, c < a.integerify().value, ++c => b = b.decrement_flip(tkn); path.top(b)
     ɲ%       - a = path.top().integerify() b = path.top()
