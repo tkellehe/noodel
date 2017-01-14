@@ -140,6 +140,10 @@
                if a is NUMBER => path.top(NUMBER(a.value % b.value))
                elif a is STRING => [split string into b.value equal parts and push on the whole and then the remainder]
                elif a is ARRAY => [removes the remainder for the array then pushes the array back on the pushes the remainder]
+    ×        - a = path.top() b = path.top() path.top(a.mul(b))
+    ×s       - a = path.top() b = path.top() path.top(a.mul_flip(b))
+    ÷        - a = path.top() b = path.top() path.top(a.div(b))
+    ÷s       - a = path.top() b = path.top() path.top(a.div_flip(b))
 
 --- Array Like Operators ---
     ɲ_        - a = path.top()
