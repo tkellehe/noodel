@@ -132,6 +132,84 @@ STRING.prototype.sub_flip = function(lhs) {
   return new STRING(v.replace(this.value, ""));
 }
 
+STRING.prototype.mul = function(rhs) {
+  var s = "";
+  if(rhs.type === "NUMBER") {
+    for(var c = Math.floor(rhs.value); c--;) {
+      s += this.value;
+    }
+  } else if(rhs.type === "STRING") {
+    for(var i = 0; i < this.length(); ++i) {
+      for(var j = 0; j < rhs.length(); ++j) {
+        s += this.value[i] + rhs.value[j] + characters.correct("ð");
+      }
+    }
+    s = s.slice(0, s.length - 1);
+  } else if(rhs.type === "ARRAY") {
+    for(var i = 0; i < rhs.length(); ++i) {
+      s += this.mul(rhs.value[i]).value;
+    }
+  }
+  return new STRING(s);
+}
+
+STRING.prototype.mul_flip = function(lhs) {
+  var s = "";
+  if(lhs.type === "NUMBER") {
+    var flip = false;
+    for(var c = Math.floor(lhs.value); c--;) {
+      s += flip ? this.value.split("").join("") : this.value;
+      flip = !flip;
+    }
+  } else if(lhs.type === "STRING") {
+    for(var i = 0; i < this.length(); ++i) {
+      for(var j = 0; j < lhs.length(); ++j) {
+        s += lhs.value[j] + this.value[i] + characters.correct("ð");
+      }
+    }
+    s = s.slice(0, s.length - 1);
+  } else if(lhs.type === "ARRAY") {
+    for(var i = 0; i < lhs.length(); ++i) {
+      s = this.mul_flip(lhs.value[i]).value + s;
+    }
+  }
+  return new STRING(s);
+}
+
+STRING.prototype.div = function(rhs) {
+  var a = [];
+  if(rhs.type === "NUMBER") {
+    for(var i = 0, slice = Math.floor(rhs.value); i < this.length(); i += slice) {
+      a.push(new STRING(this.value.slice(i, i + slice)));
+    }
+    return new ARRAY(a);
+  } else if(rhs.type === "STRING") {
+    a = this.value.split(rhs.value);
+  } else if(rhs.type === "ARRAY") {
+    for(var i = 0; i < rhs.length(); ++i) {
+      a = a.concat(this.div(rhs.value[i]).value);
+    }
+  }
+  return new ARRAY(a);
+}
+
+STRING.prototype.div_flip = function(lhs) {
+  var a = [];
+  if(lhs.type === "NUMBER") {
+    for(var i = this.length(), slice = Math.floor(lhs.value); 0 <= i; i -= slice) {
+      a.push(new STRING(this.value.slice(i, i + slice)));
+    }
+    return new ARRAY(a);
+  } else if(lhs.type === "STRING") {
+    a = this.value.split(lhs.value).split("").join("");
+  } else if(lhs.type === "ARRAY") {
+    for(var i = 0; i < lhs.length(); ++i) {
+      a = a.concat(this.div_flip(lhs.value[i]).value);
+    }
+  }
+  return new ARRAY(a);
+}
+
 /// Array specific commands.
 STRING.prototype.correct_index = function(index) {
   // Overkill for what it is actually doing...
