@@ -5,6 +5,62 @@
 //------------------------------------------------------------------------------------------------------------
   
 //------------------------------------------------------------------------------------------------------------
+// Multiplies.
+Command.add(0, noodel.commandify(characters.correct("×")), function(cmd) {
+  cmd.exec = function(path) {
+    var lhs = path.top();
+    if(lhs) {
+      var rhs = path.top();
+      if(rhs) {
+        path.top(lhs.mul(rhs));
+      } else path.top(lhs);
+    }
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+// Multiplies flip.
+Command.add(0, noodel.commandify(characters.correct("×") + "s"), function(cmd) {
+  cmd.exec = function(path) {
+    var lhs = path.top();
+    if(lhs) {
+      var rhs = path.top();
+      if(rhs) {
+        path.top(lhs.mul_flip(rhs));
+      } else path.top(lhs);
+    }
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+// Divides.
+Command.add(0, noodel.commandify(characters.correct("÷")), function(cmd) {
+  cmd.exec = function(path) {
+    var lhs = path.top();
+    if(lhs) {
+      var rhs = path.top();
+      if(rhs) {
+        path.top(lhs.div(rhs));
+      } else path.top(lhs);
+    }
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+// Divides flip.
+Command.add(0, noodel.commandify(characters.correct("÷") + "s"), function(cmd) {
+  cmd.exec = function(path) {
+    var lhs = path.top();
+    if(lhs) {
+      var rhs = path.top();
+      if(rhs) {
+        path.top(lhs.div_flip(rhs));
+      } else path.top(lhs);
+    }
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
 // Adds two items in the pipe where the first is the lhs and the second is the rhs.
 Command.add(0, noodel.commandify(characters.correct("⁺")), function(cmd) {
   cmd.exec = function(path) {
