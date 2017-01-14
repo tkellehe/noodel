@@ -33,6 +33,40 @@ Command.add(0, noodel.commandify(characters.correct("×") + "s"), function(cmd) 
 });
   
 //------------------------------------------------------------------------------------------------------------
+// Multiplies.
+Command.add(0, noodel.commandify(characters.correct("×"), "-?\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var lhs = path.top();
+    if(lhs) {
+      path.top(lhs.mul(new NUMBER(this.tkn.params[0])));
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+// Multiplies flip.
+Command.add(0, noodel.commandify(characters.correct("×") + "s", "-?\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var lhs = path.top();
+    if(lhs) {
+      path.top(lhs.mul_flip(new NUMBER(this.tkn.params[0])));
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
 // Divides.
 Command.add(0, noodel.commandify(characters.correct("÷")), function(cmd) {
   cmd.exec = function(path) {
@@ -57,6 +91,40 @@ Command.add(0, noodel.commandify(characters.correct("÷") + "s"), function(cmd) 
         path.top(lhs.div_flip(rhs));
       } else path.top(lhs);
     }
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+// Divides.
+Command.add(0, noodel.commandify(characters.correct("÷"), "-?\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var lhs = path.top();
+    if(lhs) {
+      path.top(lhs.div(new NUMBER(this.tkn.params[0])));
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+// Divides flip.
+Command.add(0, noodel.commandify(characters.correct("÷") + "s", "-?\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var lhs = path.top();
+    if(lhs) {
+      path.top(lhs.div_flip(new NUMBER(this.tkn.params[0])));
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
   }
 });
   
