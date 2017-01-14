@@ -158,7 +158,7 @@ STRING.prototype.mul_flip = function(lhs) {
   if(lhs.type === "NUMBER") {
     var flip = false;
     for(var c = Math.floor(lhs.value); c--;) {
-      s += flip ? this.value.split("").join("") : this.value;
+      s += flip ? this.value.split("").reverse().join("") : this.value;
       flip = !flip;
     }
   } else if(lhs.type === "STRING") {
@@ -201,7 +201,7 @@ STRING.prototype.div_flip = function(lhs) {
     }
     return new ARRAY(a);
   } else if(lhs.type === "STRING") {
-    a = this.value.split(lhs.value).split("").join("");
+    a = this.value.split(lhs.value).split("").reverse().join("");
   } else if(lhs.type === "ARRAY") {
     for(var i = 0; i < lhs.length(); ++i) {
       a = a.concat(this.div_flip(lhs.value[i]).value);
