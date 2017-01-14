@@ -142,9 +142,11 @@ $(".noodel-exec").each(function(){
     
     prgm.onstep = function() {
       $output.val(prgm.printify());
+      $output.scrollTop($output[0].scrollHeight);
     }
     prgm.onend = function() {
       $output.val(prgm.printify());
+      $output.scrollTop($output[0].scrollHeight);
       clickStop();
     }
     prgm.onstart = function() {
