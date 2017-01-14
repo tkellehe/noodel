@@ -179,7 +179,7 @@ STRING.prototype.mul_flip = function(lhs) {
 STRING.prototype.div = function(rhs) {
   var a = [];
   if(rhs.type === "NUMBER") {
-    for(var i = 0, slice = Math.floor(rhs.value); i < this.length(); i += slice) {
+    for(var i = 0, slice = Math.floor(this.length()/rhs.value); i < this.length(); i += slice) {
       a.push(new STRING(this.value.slice(i, i + slice)));
     }
     return new ARRAY(a);
@@ -196,7 +196,7 @@ STRING.prototype.div = function(rhs) {
 STRING.prototype.div_flip = function(lhs) {
   var a = [];
   if(lhs.type === "NUMBER") {
-    for(var i = this.length(), slice = Math.floor(lhs.value); 0 <= i; i -= slice) {
+    for(var i = this.length(), slice = Math.floor(this.length()/lhs.value); 0 <= i; i -= slice) {
       a.push(new STRING(this.value.slice(i, i + slice)));
     }
     return new ARRAY(a);
