@@ -109,6 +109,34 @@ ARRAY.prototype.sub_flip = function(lhs) {
   return this;
 }
 
+ARRAY.prototype.mul = function(rhs) {
+  for(var i = 0; i < this.value.length; ++i) {
+    this.value[i] = this.value[i].mul(rhs);
+  }
+  return this;
+}
+
+ARRAY.prototype.mul_flip = function(lhs) {
+  for(var i = 0; i < this.value.length; ++i) {
+    this.value[i] = this.value[i].mul_flip(lhs);
+  }
+  return this;
+}
+
+ARRAY.prototype.div = function(rhs) {
+  for(var i = 0; i < this.value.length; ++i) {
+    this.value[i] = this.value[i].div(rhs);
+  }
+  return this;
+}
+
+ARRAY.prototype.div_flip = function(lhs) {
+  for(var i = 0; i < this.value.length; ++i) {
+    this.value[i] = this.value[i].div_flip(lhs);
+  }
+  return this;
+}
+
 /// Array specific commands.
 ARRAY.prototype.correct_index = function(index) {
   // Overkill for what it is actually doing...
