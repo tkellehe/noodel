@@ -132,6 +132,26 @@ NUMBER.prototype.sub_flip = function(lhs) {
   return new NUMBER(v - this.value);
 }
 
+NUMBER.prototype.mul = function(rhs) {
+  var v = rhs.numberify().value;
+  return new NUMBER(this.value * v);
+}
+
+NUMBER.prototype.mul_flip = function(lhs) {
+  var v = lhs.numberify().value;
+  return new NUMBER(v * this.value);
+}
+
+NUMBER.prototype.div = function(rhs) {
+  var v = rhs.numberify().value;
+  return new NUMBER(this.value / v);
+}
+
+NUMBER.prototype.div_flip = function(lhs) {
+  var v = lhs.numberify().value;
+  return new NUMBER(v / this.value);
+}
+
 /// Misc.
 
 NUMBER.prototype.to_lowercase = function() {
