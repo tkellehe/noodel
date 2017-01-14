@@ -30,9 +30,11 @@ output.style.outline = "none";
     
 prgm.onstep = function() {
   output.value = prgm.printify();
+  output.scrollTop = output.scrollHeight;
 }
 prgm.onend = function() {
   output.value = prgm.printify();
+  output.scrollTop = output.scrollHeight;
 }
 
 html_noodel.appendChild(output);
