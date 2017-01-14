@@ -182,7 +182,6 @@ STRING.prototype.div = function(rhs) {
     for(var i = 0, slice = Math.floor(this.length()/rhs.value), l = rhs.value * slice; i < l; i += slice) {
       a.push(new STRING(this.value.slice(i, i + slice)));
     }
-    return new ARRAY(a);
   } else if(rhs.type === "STRING") {
     a = this.value.split(rhs.value);
   } else if(rhs.type === "ARRAY") {
@@ -199,7 +198,7 @@ STRING.prototype.div_flip = function(lhs) {
     for(var i = this.length(), slice = Math.floor(this.length()/lhs.value), l = this.length() - (lhs.value * slice); l <= i; i -= slice) {
       a.push(new STRING(this.value.slice(i, i + slice)));
     }
-    return new ARRAY(a);
+    a = a.reverse();
   } else if(lhs.type === "STRING") {
     a = this.value.split(lhs.value).split("").reverse().join("");
   } else if(lhs.type === "ARRAY") {
