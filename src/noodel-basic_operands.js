@@ -299,7 +299,7 @@ Command.add(0, noodel.commandify(characters.correct("⁺") + characters.correct(
       var g = path.top();
       if(g) {
         if(g.type === "NUMBER") {
-          path.top(new NUMBER(g.value * c));
+          path.top(new NUMBER((g.value + c)/2));
         } else {
           while(c--) g = g.increment(path);
           path.top(g);
@@ -319,7 +319,7 @@ Command.add(0, noodel.commandify(characters.correct("⁻") + characters.correct(
       var g = path.top();
       if(g) {
         if(g.type === "NUMBER") {
-          path.top(new NUMBER(g.value / c));
+          path.top(new NUMBER((g.value - c)/2));
         } else {
           while(c--) g = g.decrement(path);
           path.top(g);
@@ -339,7 +339,7 @@ Command.add(0, noodel.commandify(characters.correct("⁺") +"s" + characters.cor
       var g = path.top();
       if(g) {
         if(g.type === "NUMBER") {
-          path.top(new NUMBER(g.value * c));
+          path.top(new NUMBER(Math.abs(g.value + c)/2));
         } else {
           while(c--) g = g.increment_flip(path);
           path.top(g);
@@ -359,7 +359,7 @@ Command.add(0, noodel.commandify(characters.correct("⁻") + "s" + characters.co
       var g = path.top();
       if(g) {
         if(g.type === "NUMBER") {
-          path.top(new NUMBER(g.value / c));
+          path.top(new NUMBER((c - g.value)/2));
         } else {
           while(c--) g = g.decrement_flip(path);
           path.top(g);
