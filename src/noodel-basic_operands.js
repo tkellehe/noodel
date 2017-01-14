@@ -295,12 +295,12 @@ Command.add(0, noodel.commandify(characters.correct("⁺") + characters.correct(
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      var c = f.integerify().value;
       var g = path.top();
       if(g) {
         if(g.type === "NUMBER") {
-          path.top(new NUMBER((g.value + c)/2));
+          path.top(new NUMBER((g.value + f.value)/2));
         } else {
+          var c = f.integerify().value;
           while(c--) g = g.increment(path);
           path.top(g);
         }
@@ -315,12 +315,12 @@ Command.add(0, noodel.commandify(characters.correct("⁻") + characters.correct(
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      var c = f.integerify().value;
       var g = path.top();
       if(g) {
         if(g.type === "NUMBER") {
-          path.top(new NUMBER((g.value - c)/2));
+          path.top(new NUMBER((g.value - f.value)/2));
         } else {
+          var c = f.integerify().value;
           while(c--) g = g.decrement(path);
           path.top(g);
         }
@@ -335,12 +335,12 @@ Command.add(0, noodel.commandify(characters.correct("⁺") +"s" + characters.cor
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      var c = f.integerify().value;
       var g = path.top();
       if(g) {
         if(g.type === "NUMBER") {
-          path.top(new NUMBER(Math.abs(g.value + c)/2));
+          path.top(new NUMBER(Math.abs(g.value + f.value)/2));
         } else {
+          var c = f.integerify().value;
           while(c--) g = g.increment_flip(path);
           path.top(g);
         }
@@ -355,12 +355,12 @@ Command.add(0, noodel.commandify(characters.correct("⁻") + "s" + characters.co
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      var c = f.integerify().value;
       var g = path.top();
       if(g) {
         if(g.type === "NUMBER") {
-          path.top(new NUMBER((c - g.value)/2));
+          path.top(new NUMBER((f.value - g.value)/2));
         } else {
+          var c = f.integerify().value;
           while(c--) g = g.decrement_flip(path);
           path.top(g);
         }
