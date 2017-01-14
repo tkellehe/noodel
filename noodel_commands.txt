@@ -54,6 +54,10 @@
     ɲ?          - a = path.top()
                   if a == undefined => path.top(NUMBER(0))
                   else path.top(a.is_truthy())
+    ɲC          - path.top(NUMBER(clock.now()))
+    ɲCs         - path.top(NUMBER(clock.now()/1000))
+    ɲCm         - path.top(NUMBER(clock.now()/60000))
+    ɲCh         - path.top(NUMBER(clock.now()/1200000))
 
 --- Literals ---
  -- String --
