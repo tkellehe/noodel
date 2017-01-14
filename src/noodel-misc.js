@@ -250,4 +250,36 @@ Command.add(0, noodel.commandify(characters.correct("ɲ") + "?"), function(cmd) 
   }
 });
 
+//------------------------------------------------------------------------------------------------------------
+/// Gets number of milliseconds since 01/01/1970.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "T"), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER(new Date.getTime());
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets number of seconds since 01/01/1970.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "Ts"), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER(new Date.getTime() / 1000);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets number of minutes since 01/01/1970.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "Tm"), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER(new Date.getTime() / 60000);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets number of hours since 01/01/1970.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "Th"), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER(new Date.getTime() / 1200000);
+  }
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
