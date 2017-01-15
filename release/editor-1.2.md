@@ -1,7 +1,3 @@
-<head>
-  <link rel="icon" type="image/png" href="noodel.png">
-</head>
-
 [HOME](README.md)
 
 __USES THE VERSION 1.2 OF NOODEL__

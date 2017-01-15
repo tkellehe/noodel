@@ -1,7 +1,3 @@
-<head>
-  <link rel="icon" type="image/png" href="noodel.png">
-</head>
-
 [HOME](README.md)
 
 Click [_Noodel_](https://tkellehe.github.io/noodel/compressor.html) to actually see the compressor if not on the _Noodel_ page:)

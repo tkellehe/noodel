@@ -87,6 +87,9 @@ global.forceReload = function() { window.location.reload(true) };
   
 $(function(){
 
+/// Make favicon appear.
+$("head").append($('<link rel="icon" type="image/png" href="noodel.png" />'));
+
 /// Handle all editors in the window.
 $(".noodel-exec").each(function(){
   var $this   = $(this),

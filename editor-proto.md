@@ -1,7 +1,3 @@
-<head>
-  <link rel="icon" type="image/png" href="noodel.png">
-</head>
-
 [HOME](README.md)
 
 __THIS EDITOR USES THE SRC OF NOODEL DIRECTLY (CAN BREAK)__
