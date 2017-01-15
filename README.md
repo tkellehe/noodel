@@ -1,4 +1,6 @@
-<link rel="shortcut icon" type="image/x-icon" href="/noodel.ico?">
+<head>
+  <link rel="icon" type="image/png" href="noodel.png">
+</head>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 

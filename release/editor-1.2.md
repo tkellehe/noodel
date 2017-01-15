@@ -1,4 +1,6 @@
-<link rel="shortcut icon" type="image/x-icon" href="/noodel.ico?">
+<head>
+  <link rel="icon" type="image/png" href="noodel.png">
+</head>
 
 [HOME](README.md)
 
