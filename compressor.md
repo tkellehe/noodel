@@ -1,3 +1,5 @@
+<link rel="shortcut icon" type="image/x-icon" href="/noodel.ico?">
+
 [HOME](README.md)
 
 Click [_Noodel_](https://tkellehe.github.io/noodel/compressor.html) to actually see the compressor if not on the _Noodel_ page:)

@@ -1,3 +1,5 @@
+<link rel="shortcut icon" type="image/x-icon" href="/noodel.ico?">
+
 [HOME](README.md)
 
 __USES THE VERSION 1.0 OF NOODEL__

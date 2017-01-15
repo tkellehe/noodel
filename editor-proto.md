@@ -1,3 +1,5 @@
+<link rel="shortcut icon" type="image/x-icon" href="/noodel.ico?">
+
 [HOME](README.md)
 
 __THIS EDITOR USES THE SRC OF NOODEL DIRECTLY (CAN BREAK)__
