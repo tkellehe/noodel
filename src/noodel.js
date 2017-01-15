@@ -133,6 +133,22 @@ Path.prototype.reverse_stack = function() {
   }
 }
 
+Path.prototype.time_passed = function() {
+  var end = (new Date).getTime();
+  return end - this.start_time;
+}
+
+Path.prototype.timer = function(clear) {
+  var end = (new Date).getTime();
+  if(this.timer.start === undefined) {
+    this.timer.start = end;
+    return undefined;
+  }
+  end -= this.timer.start;
+  if(clear) this.timer.start = undefined;
+  return end;
+}
+
 function parseJsObject(JS) {
   if(typeof JS === "string") {
     return new STRING(JS);

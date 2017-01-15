@@ -54,6 +54,39 @@ NUMBER.numerical_eval = function(o) {
   }
 }
 
+NUMBER.numerical_eval_negate = function(o) {
+  if(o.type === "NUMBER") {
+    var x = Math.abs(o.value);
+    if(x == 0) {
+      return new STRING(characters.int_to_char(0));
+    }
+
+    var digits = [];
+
+    while(x) {
+        digits.push(characters.int_to_char(x % 98))
+        x = Math.floor(x /= 98);
+    }
+
+    digits.reverse();
+
+    return new STRING(digits.reverse().join(""));
+  } 
+  if(o.type === "STRING") {
+    var x = 0;
+    for(var i = 0; i < o.length(); ++i) {
+      x += characters.char_to_int(o.value[o.length() - i - 1]) * Math.pow(98, i);
+    }
+    return new NUMBER(-1 * x);
+  } 
+  if(o.type === "ARRAY") {
+    for(var i = 0; i < o.length(); ++i) {
+      o.value[i] = NUMBER.numerical_eval(o.value[i]);
+    }
+    return o;
+  }
+}
+
 NUMBER.numerical_eval_numbers = function(o) {
   if(o.type === "NUMBER") return o;
   if(o.type === "STRING") return NUMBER.numerical_eval(o);

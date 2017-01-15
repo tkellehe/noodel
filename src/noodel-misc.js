@@ -121,6 +121,31 @@ Command.add(0, noodel.commandify(characters.correct("ṛ"), "\\d+"), function(cm
 });
   
 //------------------------------------------------------------------------------------------------------------
+/// Generates a random number.
+Command.add(0, noodel.commandify(characters.correct("Ṛ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      if(f.type === "NUMBER") {
+        var max, min;
+        var g = path.top();
+        if(g) {
+          max = Math.max(f.value, g.value);
+          min = Math.min(f.value, g.value);
+        } else {
+          max = Math.max(f.value, 0);
+          min = Math.min(f.value, 0);
+        }
+        path.top(new NUMBER(noodel.random(min, max)));
+      } else {
+        path.top(f);
+        path.top(f.access(noodel.random_int(0, f.length() - 1)));
+      }
+    }
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
 /// Move the stack ptr up one.
 Command.add(0, noodel.commandify(characters.correct("ƥ")), function(cmd) {
   cmd.exec = function(path) {
@@ -249,36 +274,56 @@ Command.add(0, noodel.commandify(characters.correct("ɲ") + "?"), function(cmd) 
     }
   }
 });
-
+  
 //------------------------------------------------------------------------------------------------------------
-/// Gets number of milliseconds since 01/01/1970.
-Command.add(0, noodel.commandify(characters.correct("Ƈ")), function(cmd) {
+/// Checks if there is an item on the stack.
+Command.add(0, noodel.commandify(characters.correct("ị")), function(cmd) {
   cmd.exec = function(path) {
-    path.top(new NUMBER((new Date).getTime()));
+    var f = path.first();
+    if(f) {
+      path.top(new NUMBER(1));
+    } else {
+      path.top(new NUMBER(0));
+    }
   }
 });
-
+  
 //------------------------------------------------------------------------------------------------------------
-/// Gets number of seconds since 01/01/1970.
-Command.add(0, noodel.commandify(characters.correct("Ƈ") + "s"), function(cmd) {
+/// Checks if the item on top of the stack is a number.
+Command.add(0, noodel.commandify(characters.correct("ị") + "#"), function(cmd) {
   cmd.exec = function(path) {
-    path.top(new NUMBER((new Date).getTime() / 1000));
+    var f = path.first();
+    if(f) {
+      path.top(new NUMBER(f.type === "NUMBER" ? 1 : 0));
+    } else {
+      path.top(new NUMBER(0));
+    }
   }
 });
-
+  
 //------------------------------------------------------------------------------------------------------------
-/// Gets number of minutes since 01/01/1970.
-Command.add(0, noodel.commandify(characters.correct("Ƈ") + "m"), function(cmd) {
+/// Checks if the item on top of the stack is a string.
+Command.add(0, noodel.commandify(characters.correct("ị") + '"'), function(cmd) {
   cmd.exec = function(path) {
-    path.top(new NUMBER((new Date).getTime() / 60000));
+    var f = path.first();
+    if(f) {
+      path.top(new NUMBER(f.type === "STRING" ? 1 : 0));
+    } else {
+      path.top(new NUMBER(0));
+    }
   }
 });
-
+  
 //------------------------------------------------------------------------------------------------------------
-/// Gets number of hours since 01/01/1970.
-Command.add(0, noodel.commandify(characters.correct("Ƈ") + "h"), function(cmd) {
+/// Checks if the item on top of the stack is a array.
+Command.add(0, noodel.commandify(characters.correct("ị") + "@"), function(cmd) {
   cmd.exec = function(path) {
-    path.top(new NUMBER((new Date).getTime() / 1200000));
+    var f = path.first();
+    if(f) {
+      path.top(new NUMBER(f.type === "ARRAY" ? 1 : 0));
+    } else {
+      path.top(new NUMBER(0));
+    }
   }
 });
 

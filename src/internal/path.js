@@ -66,6 +66,7 @@ Path.prototype.exec = function() {
   this.stop();
   var self = this;
   this.kill_this = false;
+  self.start_time = (new Date).getTime();
   (function loop(){
     if(self.step()) {
       self.timeout = setTimeout(loop, self.rate);

@@ -139,4 +139,140 @@ Command.add(0, new RegExp("^("+characters.correct("ḍ")+")(\\d*)\\.(\\d*)$"), f
   }
 });
 
+//------------------------------------------------------------------------------------------------------------
+/// Gets number of milliseconds since 01/01/1970.
+Command.add(0, noodel.commandify(characters.correct("Ƈ")), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER((new Date).getTime()));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets number of seconds since 01/01/1970.
+Command.add(0, noodel.commandify(characters.correct("Ƈ") + "s"), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER((new Date).getTime() / 1000));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets number of minutes since 01/01/1970.
+Command.add(0, noodel.commandify(characters.correct("Ƈ") + "m"), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER((new Date).getTime() / 60000));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets number of hours since 01/01/1970.
+Command.add(0, noodel.commandify(characters.correct("Ƈ") + "h"), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER((new Date).getTime() / 3600000));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Handle basic stopwatch timer.
+Command.add(0, noodel.commandify(characters.correct("Ṭ")), function(cmd) {
+  cmd.exec = function(path) {
+    var t = path.timer(true);
+    if(t !== undefined) path.top(new NUMBER(t));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Handle basic stopwatch timer.
+Command.add(0, noodel.commandify(characters.correct("Ṭ") + "s"), function(cmd) {
+  cmd.exec = function(path) {
+    var t = path.timer(true);
+    if(t !== undefined) path.top(new NUMBER(t / 1000));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Handle basic stopwatch timer.
+Command.add(0, noodel.commandify(characters.correct("Ṭ") + "m"), function(cmd) {
+  cmd.exec = function(path) {
+    var t = path.timer(true);
+    if(t !== undefined) path.top(new NUMBER(t / 60000));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Handle basic stopwatch timer.
+Command.add(0, noodel.commandify(characters.correct("Ṭ") + "h"), function(cmd) {
+  cmd.exec = function(path) {
+    var t = path.timer(true);
+    if(t !== undefined) path.top(new NUMBER(t / 3600000));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets amount of time since start of path execution.
+Command.add(0, noodel.commandify(characters.correct("Ƭ")), function(cmd) {
+  cmd.exec = function(path) {
+    var end = (new Date).getTime();
+    path.top(new NUMBER((end - path.start_time)));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets amount of time since start of path execution.
+Command.add(0, noodel.commandify(characters.correct("Ƭ") + "s"), function(cmd) {
+  cmd.exec = function(path) {
+    var end = (new Date).getTime();
+    path.top(new NUMBER((end - path.start_time) / 1000));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets amount of time since start of path execution.
+Command.add(0, noodel.commandify(characters.correct("Ƭ") + "m"), function(cmd) {
+  cmd.exec = function(path) {
+    var end = (new Date).getTime();
+    path.top(new NUMBER((end - path.start_time) / 60000));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets amount of time since start of path execution.
+Command.add(0, noodel.commandify(characters.correct("Ƭ") + "h"), function(cmd) {
+  cmd.exec = function(path) {
+    var end = (new Date).getTime();
+    path.top(new NUMBER((end - path.start_time) / 3600000));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets amount of time since start of path execution.
+Command.add(0, noodel.commandify(characters.correct("Ƭ") + "b"), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER(path.start_time));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets amount of time since start of path execution.
+Command.add(0, noodel.commandify(characters.correct("Ƭ") + "bs"), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER(path.start_time / 1000));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets amount of time since start of path execution.
+Command.add(0, noodel.commandify(characters.correct("Ƭ") + "bm"), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER(path.start_time / 60000));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Gets amount of time since start of path execution.
+Command.add(0, noodel.commandify(characters.correct("Ƭ") + "bh"), function(cmd) {
+  cmd.exec = function(path) {
+    path.top(new NUMBER(path.start_time / 3600000));
+  }
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)

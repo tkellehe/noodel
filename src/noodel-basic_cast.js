@@ -160,4 +160,15 @@ Command.add(0, noodel.commandify(characters.correct("ȥ")), function(cmd) {
   }
 });
 
+//------------------------------------------------------------------------------------------------------------
+/// Numerically evalues an item on the stack and pushes the result and negates if a number.
+Command.add(0, noodel.commandify(characters.correct("ȥ") + "-"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      path.top(NUMBER.numerical_eval_negate(f));
+    }
+  }
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)

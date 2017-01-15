@@ -26,6 +26,16 @@
                     path.top(a)
                     path.top(NUMBER(random_int(0, a.length() - 1)))
     ṛ(\d+)      - path.top(NUMBER(random_int(0, valueOf($1)))
+    Ṛ           - a = path.top()
+                  if a is NUMBER =>
+                    max, min
+                    b = path.top()
+                    if b == undefined => max = MAX(0, a.value) min = MIN(0, a.value)
+                    else => max = MAX(a.value, b.value) min = MIN(a.value, b.value)
+                    path.top(NUMBER(random(min, max)))
+                  elif a is ARRAY or a is STRING =>
+                    path.top(a)
+                    path.top(a.access(random_int(0, a.length() - 1)))
     ƥ           - path.move_up()
     ʠ           - path.move_down()
     (\m+)ƥ      - for i = 0, i < valueOf($1), ++i => path.move_up()
@@ -54,10 +64,10 @@
     ɲ?          - a = path.top()
                   if a == undefined => path.top(NUMBER(0))
                   else path.top(a.is_truthy())
-    Ƈ           - path.top(NUMBER(clock.now()))
-    Ƈs          - path.top(NUMBER(clock.now()/1000))
-    Ƈm          - path.top(NUMBER(clock.now()/60000))
-    Ƈh          - path.top(NUMBER(clock.now()/1200000))
+    ị           - path.top(NUMBER(path.first() != undefined))
+    ị#          - path.top(NUMBER(path.first() is NUMBER))
+    ị"          - path.top(NUMBER(path.first() is STRING))
+    ị@          - path.top(NUMBER(path.first() is ARRAY))
 
 --- Literals ---
  -- String --
@@ -268,8 +278,8 @@
               if a is NUMBER => a = ARRAY(factorize_number(a.value)) foreach e in a => e = NUMBER(e); path.top(a)
               elif a is STRING => a = string_break(a.value) foreach e in a => e = STRING(e); path.top(ARRAY(a))
               elif a is ARRAY => path.top(a.reverse())
-    ȥ       - a = path.top()
-              path.top(numerical_eval(a))
+    ȥ       - a = path.top() path.top(numerical_eval(a))
+    ȥ-      - a = path.top() a = numerical_eval(a) a.value *= -1 path.top(a)
 
 --- Loops ---
     ḷ(\k*)       - while(true) => $1
@@ -303,6 +313,27 @@
                      if $2.length > 0 => den = valueOf($1)
                      delay_ms(num / den)
     ḍ(\d*)\.(\d*)  - delay_ms(valueOf("0" + $1 + "." + $2 + "0") * 1000)
+    Ƈ              - path.top(NUMBER(clock.now()))
+    Ƈs             - path.top(NUMBER(clock.now()/1000))
+    Ƈm             - path.top(NUMBER(clock.now()/60000))
+    Ƈh             - path.top(NUMBER(clock.now()/3600000))
+    Ṭ              - if path.is_timing => path.top(NUMBER(path.stop_timer()))
+                     else => path.start_timer()
+    Ṭs             - if path.is_timing => path.top(NUMBER(path.stop_timer()/1000))
+                     else => path.start_timer()
+    Ṭm             - if path.is_timing => path.top(NUMBER(path.stop_timer()/60000))
+                     else => path.start_timer()
+    Ṭh             - if path.is_timing => path.top(NUMBER(path.stop_timer()/3600000))
+                     else => path.start_timer()
+    Ƭ              - path.top(NUMBER(path.time_passed()))
+    Ƭs             - path.top(NUMBER(path.time_passed()/1000))
+    Ƭm             - path.top(NUMBER(path.time_passed()/60000))
+    Ƭh             - path.top(NUMBER(path.time_passed()/3600000))
+    Ƭb             - path.top(NUMBER(path.start_time))
+    Ƭbs            - path.top(NUMBER(path.start_time/1000))
+    Ƭbm            - path.top(NUMBER(path.start_time/60000))
+    Ƭbh            - path.top(NUMBER(path.start_time/3600000))
+
 
 --- Printing ---
     þ - path.stdout(i.first())
