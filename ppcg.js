@@ -1,3 +1,11 @@
+function DOCS_ARG_HANDLER() {
+  var a = [];
+  for(var i = 0; i < arguments.length; ++i) {
+    a.push(arguments[i]);
+  }
+  return a;
+}
+
 (function(){
 
 var html_noodel = document.getElementById("noodel");
@@ -15,7 +23,7 @@ function nbsRemove(string) {
 };
 
 input = nbsRemove(input);
-input = eval("(function(){ return " + (input.length ? input : "undefined") + "})()");
+input = eval("(function(){ return DOCS_ARG_HANDLER(" + (input.length ? input : "undefined") + ");})()");
 
 code = nbsRemove(code);
 var prgm = noodel(code, input);
