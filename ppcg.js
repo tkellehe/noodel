@@ -26,7 +26,7 @@ input = nbsRemove(input);
 input = eval("(function(){ return DOCS_ARG_HANDLER(" + (input.length ? input : "undefined") + ");})()");
 
 code = nbsRemove(code);
-var prgm = noodel(code, input);
+var prgm = noodel.apply(this, [code].concat(input));
 
 var output = document.createElement("textarea");
 output.cols = html_noodel.getAttribute("cols");
