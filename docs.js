@@ -4,14 +4,21 @@ function DOCS_ARG_HANDLER() {
     a.push(arguments[i]);
   }
   return a;
-}
+};
 
 function DOCS_HANDLE_ENCODING(string) {
   if(noodel.encode) {
     return noodel.encode(string);
   }
   return string;
-}
+};
+
+function DOCS_HANDLE_DECODING(string) {
+  if(noodel.decode) {
+    return noodel.decode(string);
+  }
+  return string;
+};
 
 (function(global, $, noodel, STRING, NUMBER, ARRAY, characters){
   
@@ -151,11 +158,11 @@ $(".noodel-exec").each(function(){
     $editor.prop("readonly",true);
     
     prgm.onstep = function() {
-      $output.val(prgm.printify());
+      $output.val(DOCS_HANDLE_DECODING(prgm.printify()));
       $output.scrollTop($output[0].scrollHeight);
     }
     prgm.onend = function() {
-      $output.val(prgm.printify());
+      $output.val(DOCS_HANDLE_DECODING(prgm.printify()));
       $output.scrollTop($output[0].scrollHeight);
       clickStop();
     }
