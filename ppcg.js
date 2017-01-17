@@ -6,6 +6,20 @@ function DOCS_ARG_HANDLER() {
   return a;
 }
 
+function DOCS_HANDLE_ENCODING(string) {
+  if(noodel.encode) {
+    return noodel.encode(string);
+  }
+  return string;
+}
+
+function DOCS_HANDLE_DECODING(string) {
+  if(noodel.decode) {
+    return noodel.decode(string);
+  }
+  return string;
+}
+
 (function(){
 
 var html_noodel = document.getElementById("noodel");
@@ -26,7 +40,7 @@ input = nbsRemove(input);
 input = eval("(function(){ return DOCS_ARG_HANDLER(" + (input.length ? input : "undefined") + ");})()");
 
 code = nbsRemove(code);
-var prgm = noodel.apply(this, [code].concat(input));
+var prgm = noodel.apply(this, [DOCS_HANDLE_ENCODING(code)].concat(input));
 
 var output = document.createElement("textarea");
 output.cols = html_noodel.getAttribute("cols");
@@ -37,11 +51,11 @@ output.style.backgroundColor = "black";
 output.style.outline = "none";
     
 prgm.onstep = function() {
-  output.value = prgm.printify();
+  output.value = DOCS_HANDLE_DECODING(prgm.printify());
   output.scrollTop = output.scrollHeight;
 }
 prgm.onend = function() {
-  output.value = prgm.printify();
+  output.value = DOCS_HANDLE_DECODING(prgm.printify());
   output.scrollTop = output.scrollHeight;
 }
 
