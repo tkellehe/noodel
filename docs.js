@@ -6,8 +6,15 @@ function DOCS_ARG_HANDLER() {
   return a;
 }
 
-(function(global, $, noodel, STRING, NUMBER, ARRAY, characters){
+function DOCS_HANDLE_ENCODING(string) {
+  if(noodel.encode) {
+    return noodel.encode(string);
+  }
+  return string;
+}
 
+(function(global, $, noodel, STRING, NUMBER, ARRAY, characters){
+  
 var nbs = String.fromCharCode(160),
     space = String.fromCharCode(32);
   
@@ -137,7 +144,7 @@ $(".noodel-exec").each(function(){
     var js_inputs = eval("(function(){return "+(temp_string.length ? temp_string : "undefined")+";})()");
     
     $button.text("PARSING...");
-    prgm = noodel.apply(this, [nbsRemove($editor.val())].concat(js_inputs));
+    prgm = noodel.apply(this, [DOCS_HANDLE_ENCODING(nbsRemove($editor.val()))].concat(js_inputs));
     if(prgm === undefined) return;
     
     $input.prop("readonly",true);
