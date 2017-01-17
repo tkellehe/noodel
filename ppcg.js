@@ -4,21 +4,21 @@ function DOCS_ARG_HANDLER() {
     a.push(arguments[i]);
   }
   return a;
-}
+};
 
 function DOCS_HANDLE_ENCODING(string) {
   if(noodel.encode) {
     return noodel.encode(string);
   }
   return string;
-}
+};
 
 function DOCS_HANDLE_DECODING(string) {
   if(noodel.decode) {
     return noodel.decode(string);
   }
   return string;
-}
+};
 
 (function(){
 
