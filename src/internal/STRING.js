@@ -254,6 +254,8 @@ STRING.prototype.is_falsy = function() {
 }
 
 STRING.prototype.relocate = function(from, to) {
+  from = this.correct_index(from);
+  to = this.correct_index(to);
   var s = this.value[from];
   var slice = this.value.slice(0, from) + this.value.slice(from+1, this.value.length);
   slice = slice.slice(0, to) + s + slice.slice(to, slice.length);
