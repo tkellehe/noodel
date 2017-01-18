@@ -209,6 +209,8 @@ NUMBER.prototype.is_falsy = function() {
 
 NUMBER.prototype.relocate = function(from, to) {
   var string = this.value + "";
+  from = ((from % string.length) + string.length) % string.length;
+  to = ((to % string.length) + string.length) % string.length;
   var s = string[from];
   var slice = string.slice(0, from) + string.slice(from+1, string.length);
   slice = slice.slice(0, to) + s + slice.slice(to, slice.length);
