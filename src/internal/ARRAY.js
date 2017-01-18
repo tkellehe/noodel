@@ -22,7 +22,7 @@ ARRAY.prototype.valueify = function() {
 }
 ARRAY.prototype.stringify = function() {
   var s = "";
-  for(var i = 0; i < this.value.length; ++i) s += this.value[i].stringify().toString() + characters.correct("ð");
+  for(var i = 0; i < this.value.length; ++i) s += this.value[i].stringify().toString() + characters.correctify("ð");
   // Removes the last block character.
   s = s.slice(0, s.length - 1);
   return new STRING(s);
@@ -46,7 +46,7 @@ ARRAY.prototype.integerify = function() {
 }
 ARRAY.prototype.printify = function() {
   var s = "";
-  for(var i = 0; i < this.value.length; ++i) s += this.value[i].printify() + characters.correct("ð");
+  for(var i = 0; i < this.value.length; ++i) s += this.value[i].printify() + characters.correctify("ð");
   // Removes the last block character.
   s = s.slice(0, s.length - 1);
   return s;
