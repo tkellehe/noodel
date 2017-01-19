@@ -6,7 +6,30 @@ function insertAt(array, pos, item) {
 function removeAt(array, pos) {
   return array.splice(pos, 1)[0];
 };
-
+  
+function handleUnicode(s) {
+  s = characters.decode(s);
+  s = s.replace(/\%([0-9A-F]+)/g, function(c,n) { return String.fromCharCode(parseInt(n, 16)); });
+  return characters.encode(s);
+};
+  
+characters.deprintify_char = function(c) {
+  if(c === characters.correctify("\n")) return characters.correctify("¶");
+  if(c === characters.correctify(" ")) return characters.correctify("¤");
+  // Handles unicode characters.
+  if(!characters.printables.is(c)) {
+    c = characters.decode_char(c);
+    return characters.encode("%" + c.charCodeAt(0).toString(16).toUpperCase());
+  }
+  return c;
+};
+  
+characters.deprintify_string = function(s) {
+  var r = "";
+  for(var i = 0; i < s.length; ++i) r += characters.deprintify_char(s[i]);
+  return r;
+};
+  
 Path.prototype.printify = function() {
   var r = (new ARRAY(this.stdout.__array__)).printify();
   
@@ -23,7 +46,16 @@ Path.prototype.printify = function() {
   r = (rows[0] === undefined ? "" : rows[0]);
   for(var i = 1; i < rows.length; ++i) r += "\n" + (rows[i] === undefined ? "" : rows[i]);
   
-  return r;
+  var final = "";
+  for(var i = 0; i < r.length; ++i) {
+    if(r[i] === characters.correctify("¶")) final += characters.correctify("\n");
+    else if(r[i] === characters.correctify("¤")) final += characters.correctify(" ");
+    else final += r[i];
+  }
+  
+  final = handleUnicode(final);
+  
+  return final;
 }
 
 Path.prototype.first = function() {
@@ -151,7 +183,7 @@ Path.prototype.timer = function(clear) {
 
 function parseJsObject(JS) {
   if(typeof JS === "string") {
-    return new STRING(JS);
+    return new STRING(characters.deprintify_string(JS));
   } else if(typeof JS === "number") {
     return new NUMBER(JS);
   } else if(JS instanceof Array) {
