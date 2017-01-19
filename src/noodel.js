@@ -234,8 +234,8 @@ noodel.random_int = function(min, max) {
 
 //------------------------------------------------------------------------------------------------------------
 /// NOPs
-Command.add(0, noodel.commandify("[ \n]"), function(cmd) {});
-Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", " "), function(cmd) {
+Command.add(0, noodel.commandify("["+characters.encode(" \n")+"]"), function(cmd) {});
+Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters.encode(" ")), function(cmd) {
   cmd.exec = function(path) {
     if(this.tkn.count === undefined) {
       this.tkn.count = this.tkn.params[0];
