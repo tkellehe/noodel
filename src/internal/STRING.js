@@ -141,7 +141,7 @@ STRING.prototype.mul = function(rhs) {
   } else if(rhs.type === "STRING") {
     for(var i = 0; i < this.length(); ++i) {
       for(var j = 0; j < rhs.length(); ++j) {
-        s += this.value[i] + rhs.value[j] + characters.correctify("ð");
+        s += this.value[i] + rhs.value[j] + characters.correct("ð");
       }
     }
     s = s.slice(0, s.length - 1);
@@ -164,7 +164,7 @@ STRING.prototype.mul_flip = function(lhs) {
   } else if(lhs.type === "STRING") {
     for(var i = 0; i < this.length(); ++i) {
       for(var j = 0; j < lhs.length(); ++j) {
-        s += lhs.value[j] + this.value[i] + characters.correctify("ð");
+        s += lhs.value[j] + this.value[i] + characters.correct("ð");
       }
     }
     s = s.slice(0, s.length - 1);
