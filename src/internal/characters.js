@@ -141,42 +141,6 @@ characters.num_to_tiny_num = function(s) {
   }
   return r;
 };
-
-characters.printify_char = function(c) {
-  if(c === characters.correctify("¶")) return characters.correctify("\n");
-  if(c === characters.correctify("¤")) return characters.correctify(" ");
-  return c;
-};
-  
-function handleUnicode(s) {
-  s = characters.decode(s);
-  s = s.replace(/\%([0-9A-F]+)/g, function(c,n) { return String.fromCharCode(parseInt(n, 16)); });
-  return characters.encode(s);
-};
-  
-characters.printify_string = function(s) {
-  var r = "";
-  for(var i = 0; i < s.length; ++i) r += characters.printify_char(s[i]);
-  // Lastly need to handle unicode.
-  return handleUnicode(r);
-};
-  
-characters.deprintify_char = function(c) {
-  if(c === characters.correctify("\n")) return characters.correctify("¶");
-  if(c === characters.correctify(" ")) return characters.correctify("¤");
-  // Handles unicode characters.
-  if(!characters.printables.is(c)) {
-    c = characters.decode_char(c);
-    return characters.encode("%" + c.charCodeAt(0).toString(16).toUpperCase());
-  }
-  return c;
-};
-  
-characters.deprintify_string = function(s) {
-  var r = "";
-  for(var i = 0; i < s.length; ++i) r += characters.deprintify_char(s[i]);
-  return r;
-};
   
 characters.bitify_char = function(c) {
   var a = [], v = characters.char_to_int(c).toString(2);
