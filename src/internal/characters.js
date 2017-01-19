@@ -1,6 +1,8 @@
 (function(global){
 
 function handleBug(s) { return s[s.length-1] };
+var characters = {};
+characters.correct = handleBug;
 var int_to_char = [
   '\u00f0','\u00ac','\u00b6','\u00a4','\u0041','\u0042','\u0043','\u0044','\u0045','\u0046','\u0047','\u0048','\u0049','\u004a','\u004b','\u004c',
   '\u004d','\u004e','\u004f','\u0050','\u0051','\u0052','\u0053','\u0054','\u0055','\u0056','\u0057','\u0058','\u0059','\u005a','\u0061','\u0062',
@@ -45,8 +47,7 @@ var regexified = [
   '\\u2026','\\u00b5','\\u00a1','\\u00bf','\\u00d7','\\u00f7','\\u00a6','\\u00a9','\\u00ae','\\u00ab','\\u00bb','\\u2018','\\u2019','\\u201c','\\u201d','\\u00b0',
   '\\u00b9','\\u00b2','\\u00b3','\\u2074','\\u2075','\\u2076','\\u2077','\\u2078','\\u2079','\\u207a','\\u207b','\\u207c','\\u207d','\\u207e','\\u0020','\\u000a'
  ];
-  
-var characters = {};
+
 characters.int_to_char = function(i) { return int_to_char[i]; };
 characters.char_to_int = function(i) { return char_to_int[i]; };
 characters.regex = {};
@@ -429,8 +430,6 @@ characters.decompress_range = function(compressed) {
 };
   
 characters.regexified = regexified;
-  
-characters.correct = handleBug;  
   
 global.characters = characters;
 
