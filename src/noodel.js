@@ -10,12 +10,12 @@ function removeAt(array, pos) {
 Path.prototype.printify = function() {
   var r = (new ARRAY(this.stdout.__array__)).printify();
   
-  var blocks = r.split(characters.correct("ð")), rows = [];
+  var blocks = r.split(characters.correctify("ð")), rows = [];
   for(var i = 0; i < blocks.length; ++i) {
     var block = blocks[i], row = 0;
     for(var j = 0; j < block.length; ++j) {
       if(rows[row] === undefined) rows[row] = "";
-      if(block[j] === characters.correct("¬")) row++;
+      if(block[j] === characters.correctify("¬")) row++;
       else rows[row] += block[j];
     }
   }
