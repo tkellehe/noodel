@@ -8,18 +8,16 @@ function removeAt(array, pos) {
 };
   
 function handleUnicode(s) {
-  s = characters.decode(s);
   s = s.replace(/\%([0-9A-F]+)/g, function(c,n) { return String.fromCharCode(parseInt(n, 16)); });
-  return characters.encode(s);
+  return s;
 };
   
 characters.deprintify_char = function(c) {
-  if(c === characters.correctify("\n")) return characters.correctify("¶");
-  if(c === characters.correctify(" ")) return characters.correctify("¤");
+  if(c === "\n") return characters.correct("¶");
+  if(c === " ") return characters.correct("¤");
   // Handles unicode characters.
   if(!characters.printables.is(c)) {
-    c = characters.decode_char(c);
-    return characters.encode("%" + c.charCodeAt(0).toString(16).toUpperCase());
+    return "%" + c.charCodeAt(0).toString(16).toUpperCase();
   }
   return c;
 };
@@ -33,12 +31,12 @@ characters.deprintify_string = function(s) {
 Path.prototype.printify = function() {
   var r = (new ARRAY(this.stdout.__array__)).printify();
   
-  var blocks = r.split(characters.correctify("ð")), rows = [];
+  var blocks = r.split(characters.correct("ð")), rows = [];
   for(var i = 0; i < blocks.length; ++i) {
     var block = blocks[i], row = 0;
     for(var j = 0; j < block.length; ++j) {
       if(rows[row] === undefined) rows[row] = "";
-      if(block[j] === characters.correctify("¬")) row++;
+      if(block[j] === characters.correct("¬")) row++;
       else rows[row] += block[j];
     }
   }
@@ -48,8 +46,8 @@ Path.prototype.printify = function() {
   
   var final = "";
   for(var i = 0; i < r.length; ++i) {
-    if(r[i] === characters.correctify("¶")) final += characters.correctify("\n");
-    else if(r[i] === characters.correctify("¤")) final += characters.correctify(" ");
+    if(r[i] === characters.correct("¶")) final += "\n";
+    else if(r[i] === characters.correct("¤")) final += " ";
     else final += r[i];
   }
   
@@ -234,8 +232,8 @@ noodel.random_int = function(min, max) {
 
 //------------------------------------------------------------------------------------------------------------
 /// NOPs
-Command.add(0, noodel.commandify("["+characters.encode(" \n")+"]"), function(cmd) {});
-Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters.encode(" ")), function(cmd) {
+Command.add(0, noodel.commandify("[ \n]"), function(cmd) {});
+Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", " "), function(cmd) {
   cmd.exec = function(path) {
     if(this.tkn.count === undefined) {
       this.tkn.count = this.tkn.params[0];
