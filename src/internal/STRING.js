@@ -80,7 +80,7 @@ STRING.prototype.integerify = function() {
   return (this.numberify()).integerify();
 }
 STRING.prototype.printify = function() {
-  return this.format(characters.printify_string(this.value));
+  return this.format(this.value);
 }
 
 /// Operators
