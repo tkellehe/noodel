@@ -57,11 +57,14 @@ base.b98_add_table = {};
     for(var j = 0; j < 98; ++j) {
       var term = characters.int_to_char(j);
       base.b98_add_table[char][term] = {carry:undefined};
-      var sum = characters.int_to_char(i+j);
-      // If could not find the character, then it was a carry.
-      if(!sum) {
+      var sum;
+      if(i+j < 98) {
+        sum = characters.int_to_char(i+j);
+        base.b98_add_table[char][term].result = sum;
+      } else {
         sum = characters.int_to_char(i+j-98);
         base.b98_add_table[char][term].carry = characters.int_to_char(1);
+        base.b98_add_table[char][term].result = base.b98_add_table[char][term].carry + sum;
       }
       base.b98_add_table[char][term].sum = sum;
     }
@@ -76,11 +79,14 @@ base.b196_add_table = {};
     for(var j = 0; j < 196; ++j) {
       var term = characters.int_to_char(j);
       base.b196_add_table[char][term] = {carry:undefined};
-      var sum = characters.int_to_char(i+j);
-      // If could not find the character, then it was a carry.
-      if(!sum) {
+      var sum;
+      if(i+j < 196) {
+        sum = characters.int_to_char(i+j);
+        base.b196_add_table[char][term].result = sum;
+      } else {
         sum = characters.int_to_char(i+j-196);
         base.b196_add_table[char][term].carry = characters.int_to_char(1);
+        base.b196_add_table[char][term].result = base.b196_add_table[char][term].carry + sum;
       }
       base.b196_add_table[char][term].sum = sum;
     }
