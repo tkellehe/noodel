@@ -11,6 +11,7 @@ Click [_Noodel_](https://tkellehe.github.io/noodel/editor-proto.html) to actuall
 <script src="src/internal/token.js"></script>
 <script src="src/internal/path.js"></script>
 <script src="src/internal/characters.js"></script>
+<script src="src/internal/base.js"></script>
 <script src="src/internal/NUMBER.js"></script>
 <script src="src/internal/STRING.js"></script>
 <script src="src/internal/ARRAY.js"></script>
