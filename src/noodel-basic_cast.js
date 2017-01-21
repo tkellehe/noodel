@@ -114,7 +114,7 @@ Command.add(0, noodel.commandify(characters.correct("ʋ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Collects all of the items in the pipe and creates an array for them.
-Command.add(0, noodel.commandify(characters.correct("æ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ȧ")), function(cmd) {
   cmd.exec = function(path) {
     var a = [];
     while(path.first()) a.push(path.top());
@@ -124,7 +124,7 @@ Command.add(0, noodel.commandify(characters.correct("æ")), function(cmd) {
 
 //------------------------------------------------------------------------------------------------------------
 /// Collects the number of items specified by the count and creates an array for them.
-Command.add(0, noodel.commandify(characters.correct("æ"), "\\d+"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ȧ"), "\\d+"), function(cmd) {
   cmd.exec = function(path) {
     var a = [];
     for(var i = +this.tkn.params[0]; i-- && path.first();) a.push(path.top());
@@ -136,7 +136,7 @@ Command.add(0, noodel.commandify(characters.correct("æ"), "\\d+"), function(cmd
 
 //------------------------------------------------------------------------------------------------------------
 /// Collects the number of items specified in the pipe and creates an array for them.
-Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("æ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("ȧ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
