@@ -337,7 +337,7 @@ Command.add(0, noodel.commandify(characters.correct("ḥ")), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 /// Pushes a string of the code of the path.
-Command.add(0, noodel.commandify(characters.correct("ḥ") + "@"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\@"), function(cmd) {
   cmd.exec = function(path) {
     path.top(new STRING(this.tkn.path.code))
   }
@@ -345,7 +345,7 @@ Command.add(0, noodel.commandify(characters.correct("ḥ") + "@"), function(cmd)
   
 //------------------------------------------------------------------------------------------------------------
 /// Pushes a string of the code of the path.
-Command.add(0, noodel.commandify(characters.correct("ḥ") + "-"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\-"), function(cmd) {
   cmd.exec = function(path) {
     path.top(new STRING(this.tkn.parent.literal))
   }
@@ -353,7 +353,7 @@ Command.add(0, noodel.commandify(characters.correct("ḥ") + "-"), function(cmd)
   
 //------------------------------------------------------------------------------------------------------------
 /// Pushes a string of the code of the path.
-Command.add(0, noodel.commandify(characters.correct("ḥ") + "|"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\|"), function(cmd) {
   cmd.exec = function(path) {
     var after = this.tkn.next();
     if(after) path.top(new STRING(after.literal))
@@ -376,7 +376,7 @@ Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\\\"), function(c
   
 //------------------------------------------------------------------------------------------------------------
 /// Pushes a string of the code of the path.
-Command.add(0, noodel.commandify(characters.correct("ḥ") + "/"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\/"), function(cmd) {
   cmd.exec = function(path) {
     path.top(new STRING(this.tkn.preceding_code))
   }
