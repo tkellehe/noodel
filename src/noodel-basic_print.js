@@ -101,6 +101,27 @@ Command.add(0, noodel.commandify(characters.correct("ø")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
+// Copies what is on top of the stack into the front of stdin.
+Command.add(0, noodel.commandify(characters.correct("ø"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var array = [];
+    for(var c = this.tkn.params[0]; c-- && path.first();) {
+      array.push(path.top());
+    }
+    if(path.first()) path.stdin.front(path.first().copy());
+    for(var c = array.length; c--;) {
+      path.top(array.pop());
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
 // Pushes what is on the top of the stack into the stdin.
 Command.add(0, noodel.commandify(characters.correct("Ø")), function(cmd) {
   cmd.exec = function(path) {
@@ -118,6 +139,27 @@ Command.add(0, noodel.commandify(characters.correct("Ø")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
+// Pushes what is on the top of the stack into the stdin.
+Command.add(0, noodel.commandify(characters.correct("Ø"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var array = [];
+    for(var c = this.tkn.params[0]; c-- && path.first();) {
+      array.push(path.top());
+    }
+    if(path.first()) path.stdin.front(path.top());
+    for(var c = array.length; c--;) {
+      path.top(array.pop());
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
 // Copies the front of stdin onto the stack.
 Command.add(0, noodel.commandify(characters.correct("æ")), function(cmd) {
   cmd.exec = function(path) {
@@ -129,6 +171,27 @@ Command.add(0, noodel.commandify(characters.correct("æ")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
+// Copies the front of stdin onto the stack.
+Command.add(0, noodel.commandify(characters.correct("æ"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var array = [];
+    for(var c = this.tkn.params[0]; c-- && path.stdin.first();) {
+      array.push(path.stdin.front());
+    }
+    if(path.stdin.first()) path.top(path.stdin.first().copy());
+    for(var c = array.length; c--;) {
+      path.stdin.front(array.pop());
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
 // Consumes from stdin onto the stack.
 Command.add(0, noodel.commandify(characters.correct("Æ")), function(cmd) {
   cmd.exec = function(path) {
@@ -136,6 +199,27 @@ Command.add(0, noodel.commandify(characters.correct("Æ")), function(cmd) {
     if(f) {
       path.top(f);
     }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Consumes from stdin onto the stack.
+Command.add(0, noodel.commandify(characters.correct("Æ"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var array = [];
+    for(var c = this.tkn.params[0]; c-- && path.stdin.first();) {
+      array.push(path.stdin.front());
+    }
+    if(path.stdin.first()) path.top(path.stdin.front());
+    for(var c = array.length; c--;) {
+      path.stdin.front(array.pop());
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
   }
 });
 
