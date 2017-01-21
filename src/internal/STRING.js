@@ -261,3 +261,8 @@ STRING.prototype.relocate = function(from, to) {
   slice = slice.slice(0, to) + s + slice.slice(to, slice.length);
   return new STRING(slice);
 }
+
+STRING.prototype.shuffle = function() {
+  var a = getRandomSample(string_break(this.value), this.length());
+  return new STRING(a.join(""));
+}
