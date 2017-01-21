@@ -275,4 +275,46 @@ Command.add(0, noodel.commandify(characters.correct("Ƭ") + "bh"), function(cmd)
   }
 });
 
+//------------------------------------------------------------------------------------------------------------
+/// Creates time representation based off of what is on the stack.
+Command.add(0, noodel.commandify(characters.correct("ƈ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.first();
+    if(f && f.type === "NUMBER") {
+      var d = new Date(f.value);
+      path.top();
+      path.top(new STRING(d.toString()));
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Creates time representation based off of what is on the stack.
+Command.add(0, noodel.commandify(characters.correct("ƈ"), "[sSmhHdMy]"), function(cmd) {
+  var map = {
+    s: function(date) { return date.getMilliseconds() },
+    S: function(date) { return date.getSeconds() },
+    m: function(date) { return date.getMinutes() },
+    h: function(date) { return date.getHours() },
+    H: function(date) { return (date.getHours() < 12) ? 0 : 1 },
+    d: function(date) { return date.getDay() },
+    M: function(date) { return date.getMonth() },
+    y: function(date) { return date.getFullYear() }
+  }
+  cmd.exec = function(path) {
+    var f = path.first();
+    if(f && f.type === "NUMBER") {
+      var d = new Date(f.value);
+      path.top();
+      path.top(new NUMBER(this.tkn.params[0](d)));
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = map[this.tkn.params[0]];
+    return old.call(this);
+  }
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
