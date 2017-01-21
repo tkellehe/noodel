@@ -52,5 +52,29 @@ Command.add(0, noodel.commandify(characters.correct("ṙ")), function(cmd) {
     }
   }
 });
+  
+//------------------------------------------------------------------------------------------------------------
+/// Joins the an array.
+Command.add(0, noodel.commandify(characters.correct("İ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      if(f.type === "NUMBER") f = f.stringify();
+      if(f.type === "STRING") {
+        var g = path.top();
+        if(g) {
+          g = g.arrayify();
+          path.top(new STRING(g.value.join(f.value)));
+        } else path.top(f);
+      } else {
+        var g = path.top();
+        if(g) {
+          g = g.stringify();
+          path.top(new STRING(f.value.join(g.value)));
+        } else path.top(f);
+      }
+    }
+  }
+});
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
