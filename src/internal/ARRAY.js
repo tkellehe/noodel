@@ -1,3 +1,30 @@
+function getRandom(length) { return Math.floor(Math.random()*(length)); }
+function getRandomSample(array, size) {
+    var r, i = array.length, end = i - size, temp, swaps = getRandomSample.swaps;
+
+    while (i-- > end) {
+        r = getRandom(i + 1);
+        temp = array[r];
+        array[r] = array[i];
+        array[i] = temp;
+        swaps.push(i);
+        swaps.push(r);
+    }
+
+    var sample = array.slice(end);
+
+    while(size--) {
+        i = swaps.pop();
+        r = swaps.pop();
+        temp = array[i];
+        array[i] = array[r];
+        array[r] = temp;
+    }
+
+    return sample;
+}
+getRandomSample.swaps = [];
+
 //------------------------------------------------------------------------------------------------------------
 function ARRAY(v) {
   this.props = make_props();
@@ -180,5 +207,10 @@ ARRAY.prototype.is_falsy = function() {
 ARRAY.prototype.relocate = function(from, to) {
   var s = this.value.splice(this.correct_index(from), 1);
   this.value.splice(this.correct_index(to), 0, s[0]);
+  return this;
+}
+
+ARRAY.prototype.shuffle = function() {
+  this.value = getRandomSample(this.value, this.length());
   return this;
 }
