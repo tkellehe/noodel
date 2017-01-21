@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------------------------------------
 function string_null_break(string) {
-  return string.split(characters.correctify("ð"));
+  return string.split(characters.correct("ð"));
 };
 
 function string_break(string) {
