@@ -89,4 +89,54 @@ Command.add(0, noodel.commandify(characters.correct("ß")), function(cmd) {
   }
 });
 
+//------------------------------------------------------------------------------------------------------------
+// Copies what is on top of the stack into the front of stdin.
+Command.add(0, noodel.commandify(characters.correct("ø")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.first();
+    if(f) {
+      path.stdin.front(f.copy());
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Pushes what is on the top of the stack into the stdin.
+Command.add(0, noodel.commandify(characters.correct("Ø")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    // If the first token then consume everything in stdin.
+    if(path.start = this.tkn) {
+      while(f) {
+        path.stdin.front(f);
+        f = path.top();
+      }
+    } else if(f) {
+      path.stdin.front(f);
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Copies the front of stdin onto the stack.
+Command.add(0, noodel.commandify(characters.correct("æ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.stdin.first();
+    if(f) {
+      path.top(f.copy());
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Consumes from stdin onto the stack.
+Command.add(0, noodel.commandify(characters.correct("Æ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.stdin.front();
+    if(f) {
+      path.top(f);
+    }
+  }
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
