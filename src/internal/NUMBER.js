@@ -180,3 +180,14 @@ NUMBER.prototype.relocate = function(from, to) {
   slice = slice.slice(0, to) + s + slice.slice(to, slice.length);
   return new NUMBER(+slice);
 }
+
+NUMBER.prototype.shuffle = function() {
+  var s = this.value+"";
+  var t = "";
+  if(s[0] === "-") {
+    s = s.slice(1, s.length);
+    t = "-";
+  }
+  var a = getRandomSample(s.split(""), s.length);
+  return new NUMBER(+(t + a.join("")));
+}
