@@ -362,7 +362,7 @@ Command.add(0, noodel.commandify(characters.correct("ḥ") + "|"), function(cmd)
   
 //------------------------------------------------------------------------------------------------------------
 /// Pushes a string of the code of the path.
-Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\\\"), function(cmd) {
   cmd.exec = function(path) {
     path.top(new STRING(this.tkn.following_code))
   }
