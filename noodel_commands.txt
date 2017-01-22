@@ -353,7 +353,9 @@
 
 --- Printing ---
     þ      - path.stdout(path.first())
+    þ(\d+) - [print a copy of the ith item to the screen]
     Þ      - path.stdout(path.top())
+    Þ(\d+) - [print the ith item to the screen]
     ç      - path.stdout.clear() path.stdout(path.first())
     Ç      - path.stdout.clear() path.stdout(path.top())
     ñ      - path.stdout(path.first()) path.stdout(STRING("¶"))
