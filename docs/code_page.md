@@ -10,7 +10,7 @@
 <script type="text/javascript" src="../docs.js"></script>
 
 
-The following is the current 256 different characters that [_Noodel_](https://tkellehe.github.io/noodel/docs/code_page.html) recognizes.
+The following is the current 256 different characters that [_Noodel_](https://tkellehe.github.io/noodel/docs/code_page.html) recognizes as the values 0 to 255.
 
 <div class="noodel-char_table"></div>
 
