@@ -357,9 +357,13 @@
     Þ      - path.stdout(path.top())
     Þ(\d+) - [print the ith item to the screen]
     ç      - path.stdout.clear() path.stdout(path.first())
+    ç(\d+) - path.stdout.clear() [print copy of ith item onto the screen]
     Ç      - path.stdout.clear() path.stdout(path.top())
+    Ç(\d+) - path.stdout.clear() [print ith item onto the screen]
     ñ      - path.stdout(path.first()) path.stdout(STRING("¶"))
+    ñ(\d+) - [print copy of ith item onto the screen] path.stdout(STRING("¶"))
     Ñ      - path.stdout(path.top()) path.stdout(STRING("¶"))
+    Ñ(\d+) - [print ith item onto the screen] path.stdout(STRING("¶"))
     Ð      - path.stdout(path.stack)
     ß      - path.stdout.clear()
     ø      - path.stdin(path.first().copy())
