@@ -37,7 +37,6 @@ Command.add(0, noodel.commandify(characters.correct("ç"), "\\d+"), function(cmd
     return old.call(this);
   }
 });
-  
 
 //------------------------------------------------------------------------------------------------------------
 /// Clears the path's outputs and places what is in the front of the pipe into the path's output.
@@ -138,24 +137,70 @@ Command.add(0, noodel.commandify(characters.correct("Þ"), "\\d+"), function(cmd
 });
   
 //------------------------------------------------------------------------------------------------------------
-// Copies what is in the front of the pipe into the path's output followed by a new line.
+/// Copies what is in the front of the pipe into the path's output followed by a new line.
 Command.add(0, noodel.commandify(characters.correct("ñ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.first();
     if(f) {
-      path.stdout.back(f.copy()).back(new STRING("¶"));
+      path.stdout.back(f.copy());
     }
+    path.stdout.back(new STRING("¶"));
   }
 });
 
 //------------------------------------------------------------------------------------------------------------
-// Places what is in the front of the pipe into the path's output followed by a new line.
+/// Copies what is in the front of the pipe into the path's output followed by a new line.
+Command.add(0, noodel.commandify(characters.correct("ñ"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var array = [];
+    for(var c = this.tkn.params[0]; c-- && path.first();) {
+      array.push(path.top());
+    }
+    if(path.first()) path.stdout.back(path.first().copy());
+    for(var c = array.length; c--;) {
+      path.top(array.pop());
+    }
+    path.stdout.back(new STRING("¶"));
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Places what is in the front of the pipe into the path's output followed by a new line.
 Command.add(0, noodel.commandify(characters.correct("Ñ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      path.stdout.back(f).back(new STRING("¶"));
+      path.stdout.back(f);
     }
+    path.stdout.back(new STRING("¶"));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Places what is in the front of the pipe into the path's output followed by a new line.
+Command.add(0, noodel.commandify(characters.correct("Ñ"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var array = [];
+    for(var c = this.tkn.params[0]; c-- && path.first();) {
+      array.push(path.top());
+    }
+    if(path.first()) path.stdout.back(path.top());
+    for(var c = array.length; c--;) {
+      path.top(array.pop());
+    }
+    path.stdout.back(new STRING("¶"));
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
   }
 });
 
