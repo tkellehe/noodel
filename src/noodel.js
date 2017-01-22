@@ -53,7 +53,7 @@ Path.prototype.printify = function() {
   
   final = handleUnicode(final);
   
-  return final;
+  return noodel.encode(final);
 }
 
 Path.prototype.first = function() {
