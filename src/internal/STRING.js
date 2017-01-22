@@ -11,6 +11,20 @@ function string_break(string) {
   return s;
 };
 
+function string_row_break(string) {
+  var blocks = string_null_break(string), rows = [];
+  for(var i = 0; i < blocks.length; ++i) {
+    var block = blocks[i], row = 0;
+    for(var j = 0; j < block.length; ++j) {
+      if(rows[row] === undefined) rows[row] = "";
+      if(block[j] === characters.correct("¬")) row++;
+      else rows[row] += block[j];
+    }
+  }
+  
+  return rows;
+};
+
 function STRING(v) {
   this.props = make_props();
   this.value = v === undefined ? "" : (v+"");
