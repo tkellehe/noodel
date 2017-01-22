@@ -15,6 +15,28 @@ Command.add(0, noodel.commandify(characters.correct("ç")), function(cmd) {
     }
   }
 });
+
+//------------------------------------------------------------------------------------------------------------
+/// Clears the path's outputs and copies what is in the front of the pipe into the path's output.
+Command.add(0, noodel.commandify(characters.correct("ç"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    path.stdout.wipe();
+    var array = [];
+    for(var c = this.tkn.params[0]; c-- && path.first();) {
+      array.push(path.top());
+    }
+    if(path.first()) path.stdout.back(path.first().copy());
+    for(var c = array.length; c--;) {
+      path.top(array.pop());
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
+  }
+});
   
 
 //------------------------------------------------------------------------------------------------------------
@@ -26,6 +48,28 @@ Command.add(0, noodel.commandify(characters.correct("Ç")), function(cmd) {
     if(f) {
       path.stdout.back(f);
     }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Clears the path's outputs and places what is in the front of the pipe into the path's output.
+Command.add(0, noodel.commandify(characters.correct("Ç"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    path.stdout.wipe();
+    var array = [];
+    for(var c = this.tkn.params[0]; c-- && path.first();) {
+      array.push(path.top());
+    }
+    if(path.first()) path.stdout.back(path.top());
+    for(var c = array.length; c--;) {
+      path.top(array.pop());
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
   }
 });
   
