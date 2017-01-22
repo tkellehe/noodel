@@ -388,4 +388,15 @@ Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\/"), function(cm
   }
 });
 
+//------------------------------------------------------------------------------------------------------------
+/// Pops off and pushes on the shuffled version of that object.
+Command.add(0, noodel.commandify(characters.correct("ŀ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      path.top(f.shuffle());
+    }
+  }
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
