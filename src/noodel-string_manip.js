@@ -76,5 +76,35 @@ Command.add(0, noodel.commandify(characters.correct("İ")), function(cmd) {
     }
   }
 });
+  
+//------------------------------------------------------------------------------------------------------------
+/// Left aligns, right aligns, or centralizes a string.
+Command.add(0, noodel.commandify(characters.correct("ụ"), "[lrc]"), function(cmd) {
+  var map = {
+    l: function(string) {
+      var rows = string_row_break(string);
+      for(var i = 0; i < rows.length; ++i) {
+        
+      }
+      var s = "";
+      if(rows.length) {
+        s = rows[0];
+        for(var i = 1; i < rows.length; ++i) s += rows[i];
+      }
+      return s;
+    }
+  };
+  
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) path.top(f.switchcase());
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    
+    return old.call(this);
+  }
+});
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
