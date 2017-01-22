@@ -84,7 +84,52 @@ Command.add(0, noodel.commandify(characters.correct("ụ"), "[lrc]"), function(c
     l: function(string) {
       var rows = string_row_break(string);
       for(var i = 0; i < rows.length; ++i) {
-        
+        for(var j = 0; j < rows[i].length; ++j) {
+          if(rows[i][j] !== characters.correct("¤")) {
+            break;
+          }
+        }
+        rows[i] = rows[i].slice(j, rows[i]);
+      }
+      var s = "";
+      if(rows.length) {
+        s = rows[0];
+        for(var i = 1; i < rows.length; ++i) s += characters.correct("¬") + rows[i];
+      }
+      return s;
+    },
+    r: function(string, max_length) {
+      var rows = string_row_break(string);
+      if(max_length === undefined) {
+        max_length = 0
+        for(var i = 0; i < rows.length; ++i) {
+          if(rows[i].length > max_length) max_length = rows[i].length;
+        }
+      }
+      for(var i = 0; i < rows.length; ++i) {
+        while(rows[i].length < max_length) {
+          rows[i] = characters.correct("¤") + rows[i];
+        }
+      }
+      var s = "";
+      if(rows.length) {
+        s = rows[0];
+        for(var i = 1; i < rows.length; ++i) s += rows[i];
+      }
+      return s;
+    },
+    c: function(string, max_length) {
+      var rows = string_row_break(string);
+      if(max_length === undefined) {
+        max_length = 0
+        for(var i = 0; i < rows.length; ++i) {
+          if(rows[i].length > max_length) max_length = rows[i].length;
+        }
+      }
+      for(var i = 0; i < rows.length; ++i) {
+        while(rows[i].length < Math.floor(max_length/2)) {
+          rows[i] = characters.correct("¤") + rows[i];
+        }
       }
       var s = "";
       if(rows.length) {
@@ -97,12 +142,14 @@ Command.add(0, noodel.commandify(characters.correct("ụ"), "[lrc]"), function(c
   
   cmd.exec = function(path) {
     var f = path.top();
-    if(f) path.top(f.switchcase());
+    if(f) {
+      
+    }
   }
   
   var old = cmd.tokenize;
   cmd.tokenize = function() {
-    
+    this.tkn.params[0] = map[this.tkn.params[0]];
     return old.call(this);
   }
 });
