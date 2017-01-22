@@ -408,6 +408,9 @@
          elif a is ARRAY =>
            b = path.top().stringify()
            path.top(STRING(a.value.join(b.value)))
+    ụl - a = path.top().stringify() path.top(STRING(a.value.left_align))
+    ụr - a = path.top().stringify() path.top(STRING(a.value.right_align))
+    ục - a = path.top().stringify() path.top(STRING(a.value.centralize))
 
 --- Conditionals --- (POSTPONED)
  U  ⁼         - a = path.top() b = path.top()
