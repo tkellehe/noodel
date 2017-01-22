@@ -198,7 +198,7 @@ function parseJsObject(JS) {
   
 global.noodel = function noodel(code) {
   if(typeof code === "string" && code.length) {
-    var path = new Path(code);
+    var path = new Path(noodel.decode(code));
     path.stack = new ARRAY();
     path.stack.ptr = 0;
     path.onstart = function() { while(this.stdin.first()) this.top(this.stdin.front()) };
@@ -228,6 +228,22 @@ noodel.random = function(min, max) {
   
 noodel.random_int = function(min, max) {
   return Math.floor(noodel.random(min, max))
+};
+  
+noodel.encode = function(string) {
+  var result = "";
+  for(var i = 0; i < string.length; ++i) {
+    result += String.fromCharCode(characters.char_to_int(string[i]));
+  }
+  return result;
+};
+  
+noodel.decode = function(string) {
+  var result = "";
+  for(var i = 0; i < string.length; ++i) {
+    result += characters.int_to_char(string.charCodeAt(i));
+  }
+  return result;
 };
 
 //------------------------------------------------------------------------------------------------------------
