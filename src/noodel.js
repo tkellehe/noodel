@@ -31,15 +31,7 @@ characters.deprintify_string = function(s) {
 Path.prototype.printify = function() {
   var r = (new ARRAY(this.stdout.__array__)).printify();
   
-  var blocks = r.split(characters.correct("ð")), rows = [];
-  for(var i = 0; i < blocks.length; ++i) {
-    var block = blocks[i], row = 0;
-    for(var j = 0; j < block.length; ++j) {
-      if(rows[row] === undefined) rows[row] = "";
-      if(block[j] === characters.correct("¬")) row++;
-      else rows[row] += block[j];
-    }
-  }
+  var rows = string_row_break(r); 
   
   r = (rows[0] === undefined ? "" : rows[0]);
   for(var i = 1; i < rows.length; ++i) r += "\n" + (rows[i] === undefined ? "" : rows[i]);
