@@ -82,7 +82,7 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")$"), function(cmd
       tkn.next = function() { return tkn.sub_path.start };
       var f = path.top();
       if(f) {
-        if(f.type === "ARRAY" || f.type === "STRING") {
+        if(f.type === "ARRAY") {
           tkn.count = f.length();
           path.top(f);
         } else {
