@@ -127,8 +127,9 @@ Command.add(0, noodel.commandify(characters.correct("ụ"), "[lrc]"), function(c
         }
       }
       for(var i = 0; i < rows.length; ++i) {
-        while(rows[i].length < Math.floor(max_length/2)) {
-          rows[i] = characters.correct("¤") + rows[i];
+        var add = Math.ceil((max_length - rows[i].length)/2);
+        if(0 < add) {
+          while(add--) rows[i] = characters.correct("¤") + rows[i];
         }
       }
       var s = "";
@@ -150,6 +151,9 @@ Command.add(0, noodel.commandify(characters.correct("ụ"), "[lrc]"), function(c
           g = g.stringify();
           path.top(new STRING(this.tkn.params[0](g.value, f.value)));
         } else path.top(f);
+      } else {
+        f = f.stringify();
+        path.top(new STRING(this.tkn.params[0](f.value)));
       }
     }
   }
