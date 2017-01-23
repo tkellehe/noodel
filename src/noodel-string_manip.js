@@ -143,7 +143,14 @@ Command.add(0, noodel.commandify(characters.correct("ụ"), "[lrc]"), function(c
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
-      
+      if(f.type === "NUMBER") {
+        var g = path.top();
+        if(g) {
+          f = f.integerify();
+          g = g.stringify();
+          path.top(new STRING(this.tkn.params[0](g.value, f.value)));
+        } else path.top(f);
+      }
     }
   }
   
