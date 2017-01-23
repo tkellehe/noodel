@@ -76,70 +76,71 @@ Command.add(0, noodel.commandify(characters.correct("İ")), function(cmd) {
     }
   }
 });
+
+var alignment_map = {
+  l: function(string) {
+    var rows = string_row_break(string);
+    for(var i = 0; i < rows.length; ++i) {
+      for(var j = 0; j < rows[i].length; ++j) {
+        if(rows[i][j] !== characters.correct("¤")) {
+          break;
+        }
+      }
+      rows[i] = rows[i].slice(j, rows[i]);
+    }
+    var s = "";
+    if(rows.length) {
+      s = rows[0];
+      for(var i = 1; i < rows.length; ++i) s += characters.correct("¬") + rows[i];
+    }
+    return s;
+  },
+  r: function(string, max_length) {
+    var rows = string_row_break(string);
+    if(max_length === undefined) {
+      max_length = 0
+      for(var i = 0; i < rows.length; ++i) {
+        if(rows[i].length > max_length) max_length = rows[i].length;
+      }
+    }
+    for(var i = 0; i < rows.length; ++i) {
+      while(rows[i].length < max_length) {
+        rows[i] = characters.correct("¤") + rows[i];
+      }
+    }
+    var s = "";
+    if(rows.length) {
+      s = rows[0];
+      for(var i = 1; i < rows.length; ++i) s += characters.correct("¬") + rows[i];
+    }
+    return s;
+  },
+  c: function(string, max_length) {
+    var rows = string_row_break(string);
+    if(max_length === undefined) {
+      max_length = 0
+      for(var i = 0; i < rows.length; ++i) {
+        if(rows[i].length > max_length) max_length = rows[i].length;
+      }
+    }
+    for(var i = 0; i < rows.length; ++i) {
+      var add = Math.ceil((max_length - rows[i].length)/2);
+      if(0 < add) {
+        while(add--) rows[i] = characters.correct("¤") + rows[i];
+      }
+    }
+    var s = "";
+    if(rows.length) {
+      s = rows[0];
+      for(var i = 1; i < rows.length; ++i) s += characters.correct("¬") + rows[i];
+    }
+    return s;
+  }
+};
   
 //------------------------------------------------------------------------------------------------------------
 /// Left aligns, right aligns, or centralizes a string.
 Command.add(0, noodel.commandify(characters.correct("ụ"), "[lrc]"), function(cmd) {
-  var map = {
-    l: function(string) {
-      var rows = string_row_break(string);
-      for(var i = 0; i < rows.length; ++i) {
-        for(var j = 0; j < rows[i].length; ++j) {
-          if(rows[i][j] !== characters.correct("¤")) {
-            break;
-          }
-        }
-        rows[i] = rows[i].slice(j, rows[i]);
-      }
-      var s = "";
-      if(rows.length) {
-        s = rows[0];
-        for(var i = 1; i < rows.length; ++i) s += characters.correct("¬") + rows[i];
-      }
-      return s;
-    },
-    r: function(string, max_length) {
-      var rows = string_row_break(string);
-      if(max_length === undefined) {
-        max_length = 0
-        for(var i = 0; i < rows.length; ++i) {
-          if(rows[i].length > max_length) max_length = rows[i].length;
-        }
-      }
-      for(var i = 0; i < rows.length; ++i) {
-        while(rows[i].length < max_length) {
-          rows[i] = characters.correct("¤") + rows[i];
-        }
-      }
-      var s = "";
-      if(rows.length) {
-        s = rows[0];
-        for(var i = 1; i < rows.length; ++i) s += characters.correct("¬") + rows[i];
-      }
-      return s;
-    },
-    c: function(string, max_length) {
-      var rows = string_row_break(string);
-      if(max_length === undefined) {
-        max_length = 0
-        for(var i = 0; i < rows.length; ++i) {
-          if(rows[i].length > max_length) max_length = rows[i].length;
-        }
-      }
-      for(var i = 0; i < rows.length; ++i) {
-        var add = Math.ceil((max_length - rows[i].length)/2);
-        if(0 < add) {
-          while(add--) rows[i] = characters.correct("¤") + rows[i];
-        }
-      }
-      var s = "";
-      if(rows.length) {
-        s = rows[0];
-        for(var i = 1; i < rows.length; ++i) s += characters.correct("¬") + rows[i];
-      }
-      return s;
-    }
-  };
   
   cmd.exec = function(path) {
     var f = path.top();
@@ -160,7 +161,30 @@ Command.add(0, noodel.commandify(characters.correct("ụ"), "[lrc]"), function(c
   
   var old = cmd.tokenize;
   cmd.tokenize = function() {
-    this.tkn.params[0] = map[this.tkn.params[0]];
+    this.tkn.params[0] = alignment_map[this.tkn.params[0]];
+    return old.call(this);
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+/// Left aligns, right aligns, or centralizes a string.
+Command.add(0, noodel.commandify(characters.correct("ụ"), "[RC]"), function(cmd) {
+  
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      var g = path.top();
+      if(g) {
+        f = f.integerify();
+        g = g.stringify();
+        path.top(new STRING(this.tkn.params[0](g.value, f.value)));
+      } else path.top(f);
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = alignment_map[this.tkn.params[0].toLowerCase()];
     return old.call(this);
   }
 });
