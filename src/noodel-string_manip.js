@@ -114,7 +114,7 @@ Command.add(0, noodel.commandify(characters.correct("ụ"), "[lrc]"), function(c
       var s = "";
       if(rows.length) {
         s = rows[0];
-        for(var i = 1; i < rows.length; ++i) s += rows[i];
+        for(var i = 1; i < rows.length; ++i) s += characters.correct("¬") + rows[i];
       }
       return s;
     },
@@ -135,7 +135,7 @@ Command.add(0, noodel.commandify(characters.correct("ụ"), "[lrc]"), function(c
       var s = "";
       if(rows.length) {
         s = rows[0];
-        for(var i = 1; i < rows.length; ++i) s += rows[i];
+        for(var i = 1; i < rows.length; ++i) s += characters.correct("¬") + rows[i];
       }
       return s;
     }
