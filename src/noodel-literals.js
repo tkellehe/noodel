@@ -506,4 +506,116 @@ Command.add(0, noodel.commandify("#" + characters.correct("µ") + characters.cor
   }
 });
 
+//------------------------------------------------------------------------------------------------------------
+// Shortcuts to get a string of characters.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "Z"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      f = f.integerify();
+      for(var i = f.value; i--;) {
+        path.top(new STRING("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Shortcuts to get a string of characters.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "z"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      f = f.integerify();
+      for(var i = f.value; i--;) {
+        path.top(new STRING("abcdefghijklmnopqrstuvwxyz"));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Shortcuts to get a string of characters.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "A"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      f = f.integerify();
+      for(var i = f.value; i--;) {
+        path.top(new STRING("¤!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Shortcuts to get a string of characters.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "a"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      f = f.integerify();
+      for(var i = f.value; i--;) {
+        path.top(new STRING("¶¤!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Shortcuts to get a string of characters.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "D"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      f = f.integerify();
+      for(var i = f.value; i--;) {
+        path.top(new STRING("9876543210"));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Shortcuts to get a string of characters.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "d"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      f = f.integerify();
+      for(var i = f.value; i--;) {
+        path.top(new STRING("0123456789"));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Shortcuts to get a string of characters.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "N"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      f = f.integerify();
+      for(var i = f.value; i--;) {
+        path.top(new STRING("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Shortcuts to get a string of characters.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "n"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      f = f.integerify();
+      for(var i = f.value; i--;) {
+        path.top(new STRING("0123456789abcdefghijklmnopqrstuvwxyz"));
+      }
+    }
+  }
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
