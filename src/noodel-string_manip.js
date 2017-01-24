@@ -189,4 +189,32 @@ Command.add(0, noodel.commandify(characters.correct("ụ"), "[RC]"), function(cm
   }
 });
 
+//------------------------------------------------------------------------------------------------------------
+/// Replace single occurance
+Command.add(0, noodel.commandify(characters.correct("ḥ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      var g = path.top();
+      if(g) {
+        var h = path.top();
+        if(h) {
+          f = f.stringify();
+          g = g.stringify();
+          if(h.type === "NUMBER") h = h.stringify();
+          if(h.type === "ARRAY") {
+            for(var i = 0; i < h.length(); ++i) {
+              h.value[i] = h.value[i].stringify();
+              h.value[i] = new STRING(h.value[i].value.replace(g.value, f.value));
+            }
+          } else {
+            h = new STRING(h.value.replace(g.value, f.value));
+          }
+          path.top(h);
+        } else { path.top(g); path.top(f); }
+      } else path.top(f);
+    }
+  }
+});
+
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
