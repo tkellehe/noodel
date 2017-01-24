@@ -190,7 +190,7 @@ Command.add(0, noodel.commandify(characters.correct("ụ"), "[RC]"), function(cm
 });
 
 //------------------------------------------------------------------------------------------------------------
-/// Replace single occurance
+/// Replace single occurance.
 Command.add(0, noodel.commandify(characters.correct("ḳ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
@@ -209,6 +209,34 @@ Command.add(0, noodel.commandify(characters.correct("ḳ")), function(cmd) {
             }
           } else {
             h = new STRING(h.value.replace(g.value, f.value));
+          }
+          path.top(h);
+        } else { path.top(g); path.top(f); }
+      } else path.top(f);
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Replace all occurances.
+Command.add(0, noodel.commandify(characters.correct("Ḳ")), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      var g = path.top();
+      if(g) {
+        var h = path.top();
+        if(h) {
+          f = f.stringify();
+          g = g.stringify();
+          if(h.type === "NUMBER") h = h.stringify();
+          if(h.type === "ARRAY") {
+            for(var i = 0; i < h.length(); ++i) {
+              h.value[i] = h.value[i].stringify();
+              h.value[i] = new STRING(h.value[i].value.replace(new RegExp(g.value, "g"), f.value));
+            }
+          } else {
+            h = new STRING(h.value.replace(new RegExp(g.value, "g"), f.value));
           }
           path.top(h);
         } else { path.top(g); path.top(f); }
