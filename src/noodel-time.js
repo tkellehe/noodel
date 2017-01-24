@@ -138,6 +138,141 @@ Command.add(0, new RegExp("^("+characters.correct("ḍ")+")(\\d*)\\.(\\d*)$"), f
     return old.call(this);
   }
 });
+  
+//------------------------------------------------------------------------------------------------------------
+// Delay for number of steps based off of what is in the pipe.
+Command.add(0, noodel.commandify(characters.correct("Ḍ")), function(cmd) {
+  cmd.exec = function(path) {
+    var tkn = this.tkn;
+    var f = path.first();
+    if(f) {
+      if(!tkn.ran) {
+        tkn.old_next = tkn.next;
+        tkn.next = function() { return tkn };
+        tkn.ran = true;
+        tkn.old_rate = path.rate;
+        path.rate = Math.floor(f.numberify().value * 1000);
+      } else {
+        tkn.ran = false;
+        tkn.next = tkn.old_next;
+        path.rate = tkn.old_rate;
+        path.top();
+      }
+    }
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Delay for number of steps.
+Command.add(0, noodel.commandify(characters.correct("Ḍ"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var tkn = this.tkn;
+    if(!tkn.ran) {
+      tkn.old_next = tkn.next;
+      tkn.next = function() { return tkn };
+      tkn.ran = true;
+      tkn.old_rate = path.rate;
+      path.rate = tkn.params[0];
+    } else {
+      tkn.ran = false;
+      tkn.next = tkn.old_next;
+      path.rate = tkn.old_rate;
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = (+this.tkn.params[0]) * 1000;
+    return old.call(this);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Delay for number of steps.
+Command.add(0, noodel.commandify(characters.correct("Ḍ"), "[shqeto]"), function(cmd) {
+  var map = { s: 1000000, h: 500000, q: 250000, e: 125000, t: 100000, o: 10000 };
+  function get_rate(c) {
+    return map[c];
+  };
+  
+  cmd.exec = function(path) {
+    var tkn = this.tkn;
+    if(!tkn.ran) {
+      tkn.old_next = tkn.next;
+      tkn.next = function() { return tkn };
+      tkn.ran = true;
+      tkn.old_rate = path.rate;
+      path.rate = tkn.params[0];
+    } else {
+      tkn.ran = false;
+      tkn.next = tkn.old_next;
+      path.rate = tkn.old_rate;
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = get_rate(this.tkn.params[0]);
+    return old.call(this);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Delay for number of steps using fractions
+Command.add(0, new RegExp("^("+characters.correct("Ḍ")+")(\\d*)/(\\d*)$"), function(cmd) {
+  cmd.exec = function(path) {
+    var tkn = this.tkn;
+    if(!tkn.ran) {
+      tkn.old_next = tkn.next;
+      tkn.next = function() { return tkn };
+      tkn.ran = true;
+      tkn.old_rate = path.rate;
+      path.rate = tkn.params[0];
+    } else {
+      tkn.ran = false;
+      tkn.next = tkn.old_next;
+      path.rate = tkn.old_rate;
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var num = 1000, den = 1;
+    if(this.tkn.params[0].length) {
+      num *= +this.tkn.params[0];
+    }
+    if(this.tkn.params[1].length) {
+      den = +this.tkn.params[1];
+    }
+    this.tkn.params[0] = Math.floor((num * 1000) / den);
+    return old.call(this);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+// Delay for number of steps using decimals
+Command.add(0, new RegExp("^("+characters.correct("Ḍ")+")(\\d*)\\.(\\d*)$"), function(cmd) {
+  cmd.exec = function(path) {
+    var tkn = this.tkn;
+    if(!tkn.ran) {
+      tkn.old_next = tkn.next;
+      tkn.next = function() { return tkn };
+      tkn.ran = true;
+      tkn.old_rate = path.rate;
+      path.rate = tkn.params[0];
+    } else {
+      tkn.ran = false;
+      tkn.next = tkn.old_next;
+      path.rate = tkn.old_rate;
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = Math.floor((+("0"+this.tkn.params[0]+"."+this.tkn.params[1]+"0")) * 1000000);
+    return old.call(this);
+  }
+});
 
 //------------------------------------------------------------------------------------------------------------
 /// Gets number of milliseconds since 01/01/1970.
