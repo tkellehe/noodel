@@ -233,9 +233,7 @@ Command.add(0, noodel.commandify(characters.correct("ḳ"), "\\d+"), function(cm
           if(h.type === "ARRAY") {
             for(var i = 0; i < h.length(); ++i) {
               h.value[i] = h.value[i].stringify();
-            }
-            for(var j = this.tkn.params[0]; j--;) {
-              for(var i = 0; i < h.length(); ++i) {
+              for(var j = this.tkn.params[0]; j--;) {
                 h.value[i] = new STRING(h.value[i].value.replace(g.value, f.value));
               }
             }
