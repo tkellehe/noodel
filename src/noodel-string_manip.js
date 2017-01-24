@@ -218,6 +218,46 @@ Command.add(0, noodel.commandify(characters.correct("ḳ")), function(cmd) {
 });
 
 //------------------------------------------------------------------------------------------------------------
+/// Replace first N occurrances.
+Command.add(0, noodel.commandify(characters.correct("ḳ"), "\\d+"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.top();
+    if(f) {
+      var g = path.top();
+      if(g) {
+        var h = path.top();
+        if(h) {
+          f = f.stringify();
+          g = g.stringify();
+          if(h.type === "NUMBER") h = h.stringify();
+          if(h.type === "ARRAY") {
+            for(var i = 0; i < h.length(); ++i) {
+              h.value[i] = h.value[i].stringify();
+            }
+            for(var j = this.tkn.params[0]; j--;) {
+              for(var i = 0; i < h.length(); ++i) {
+                h.value[i] = new STRING(h.value[i].value.replace(g.value, f.value));
+              }
+            }
+          } else {
+            for(var i = this.tkn.params[0]; i--;) {
+              h = new STRING(h.value.replace(g.value, f.value));
+            }
+          }
+          path.top(h);
+        } else { path.top(g); path.top(f); }
+      } else path.top(f);
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = +this.tkn.params[0];
+    return old.call(this);
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
 /// Replace all occurances.
 Command.add(0, noodel.commandify(characters.correct("Ḳ")), function(cmd) {
   cmd.exec = function(path) {
