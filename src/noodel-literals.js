@@ -508,65 +508,26 @@ Command.add(0, noodel.commandify("#" + characters.correct("µ") + characters.cor
 
 //------------------------------------------------------------------------------------------------------------
 // Shortcuts to get a string of characters.
-Command.add(0, noodel.commandify(characters.correct("ɲ") + "Z"), function(cmd) {
-  cmd.exec = function(path) {
-    path.top(new STRING("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+Command.add(0, noodel.commandify(characters.correct("ɲ"), "[ZzAaDdNn]"), function(cmd) {
+  var map = {
+    "Z": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    "z": "abcdefghijklmnopqrstuvwxyz",
+    "A": "¤!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
+    "a": "¶¤!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
+    "D": "9876543210",
+    "d": "0123456789",
+    "N": "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    "n": "0123456789abcdefghijklmnopqrstuvwxyz"
   }
-});
-
-//------------------------------------------------------------------------------------------------------------
-// Shortcuts to get a string of characters.
-Command.add(0, noodel.commandify(characters.correct("ɲ") + "z"), function(cmd) {
+  
   cmd.exec = function(path) {
-    path.top(new STRING("abcdefghijklmnopqrstuvwxyz"));
+    path.top(new STRING(this.tkn.params[0]));
   }
-});
-
-//------------------------------------------------------------------------------------------------------------
-// Shortcuts to get a string of characters.
-Command.add(0, noodel.commandify(characters.correct("ɲ") + "A"), function(cmd) {
-  cmd.exec = function(path) {
-    path.top(new STRING("¤!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"));
-  }
-});
-
-//------------------------------------------------------------------------------------------------------------
-// Shortcuts to get a string of characters.
-Command.add(0, noodel.commandify(characters.correct("ɲ") + "a"), function(cmd) {
-  cmd.exec = function(path) {
-    path.top(new STRING("¶¤!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"));
-  }
-});
-
-//------------------------------------------------------------------------------------------------------------
-// Shortcuts to get a string of characters.
-Command.add(0, noodel.commandify(characters.correct("ɲ") + "D"), function(cmd) {
-  cmd.exec = function(path) {
-    path.top(new STRING("9876543210"));
-  }
-});
-
-//------------------------------------------------------------------------------------------------------------
-// Shortcuts to get a string of characters.
-Command.add(0, noodel.commandify(characters.correct("ɲ") + "d"), function(cmd) {
-  cmd.exec = function(path) {
-    path.top(new STRING("0123456789"));
-  }
-});
-
-//------------------------------------------------------------------------------------------------------------
-// Shortcuts to get a string of characters.
-Command.add(0, noodel.commandify(characters.correct("ɲ") + "N"), function(cmd) {
-  cmd.exec = function(path) {
-    path.top(new STRING("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
-  }
-});
-
-//------------------------------------------------------------------------------------------------------------
-// Shortcuts to get a string of characters.
-Command.add(0, noodel.commandify(characters.correct("ɲ") + "n"), function(cmd) {
-  cmd.exec = function(path) {
-    path.top(new STRING("0123456789abcdefghijklmnopqrstuvwxyz"));
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = map[this.tkn.params[0]];
+    return old.call(this);
   }
 });
 
