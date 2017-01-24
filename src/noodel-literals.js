@@ -424,7 +424,7 @@ Command.add(2, noodel.commandify("#", "\\d+", characters.correct("…") + charac
   
 //------------------------------------------------------------------------------------------------------------
 /// Generates a string based off of the range of characters.
-Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("…") + characters.correct("µ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("…")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -452,7 +452,7 @@ Command.add(0, noodel.commandify(characters.correct("µ") + characters.correct("
 
 //------------------------------------------------------------------------------------------------------------
 /// Generates an array of characters.
-Command.add(0, noodel.commandify("'" + characters.correct("µ") + characters.correct("…") +  characters.correct("µ")), function(cmd) {
+Command.add(0, noodel.commandify("'" + characters.correct("…")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -480,7 +480,7 @@ Command.add(0, noodel.commandify("'" + characters.correct("µ") + characters.cor
 
 //------------------------------------------------------------------------------------------------------------
 /// Generates an array of numbers.
-Command.add(0, noodel.commandify("#" + characters.correct("µ") + characters.correct("…") + characters.correct("µ")), function(cmd) {
+Command.add(0, noodel.commandify("#" + characters.correct("…")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
