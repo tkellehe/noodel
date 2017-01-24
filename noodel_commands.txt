@@ -427,7 +427,7 @@
              (replace first $1)path.top(STRING(c.value.replace(b.value with a.value)))
     Ḳ      - a = path.top().stringify() b = path.top().stringify() c = path.top().stringify()
              path.top(STRING(c.value.replaceAll(b.value with a.value)))
-    Ḳ(\d+) - a = path.top().stringify() b = path.top().stringify() c = path.top().stringify()
+ U  Ḳ(\d+) - a = path.top().stringify() b = path.top().stringify() c = path.top().stringify()
              (replace every $1)path.top(STRING(c.value.replaceAll(b.value with a.value)))
 
 --- Conditionals --- (POSTPONED)
