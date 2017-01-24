@@ -191,7 +191,7 @@ Command.add(0, noodel.commandify(characters.correct("ụ"), "[RC]"), function(cm
 
 //------------------------------------------------------------------------------------------------------------
 /// Replace single occurance
-Command.add(0, noodel.commandify(characters.correct("ḥ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḳ")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
