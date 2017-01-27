@@ -87,6 +87,7 @@ Token.parse = function(tkn) {
     tkn.end = tkn.start + look.captured.length - 1;
     tkn.cmd = new Command(tkn, Command.commands[look.index].f);
     tkn.params = look.params;
+    tkn.captured = look.captured;
   }
 }
 
