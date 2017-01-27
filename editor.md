@@ -1,6 +1,6 @@
 [HOME](README.md)
 
-__USES THE LATEST RELEASED VERSION OF NOODEL (2.4)__
+__USES THE LATEST RELEASED VERSION OF NOODEL (2.5)__
 
 Click [_Noodel_](https://tkellehe.github.io/noodel/editor.html) to actually see the editor if not on the _Noodel_ page:)
 
