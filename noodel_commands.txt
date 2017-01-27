@@ -310,8 +310,9 @@
     ḅ            - break from a loop that is before this command and that does not have a break.
     Ḅ            - a = path.top() if a != undefined && a.is_truthy().value == 1 => path.top(a) else => ḅ
     ɱ            - path.top(NUMBER(get_containing_loop_token().loop_count))
-    ọ(\k*)       - a = new NUMBER(1); while(path.first().is_truthy().value == 1) a.value = 0 $1; path.top(a);
-    Ọ(\k*)       - a = new NUMBER(1); while(path.top().is_truthy().value == 1) a.value = 0 $1; path.top(a);
+    ọ(\k*)       - a = NUMBER(1); while(path.first().is_truthy().value == 1) a.value = 0 $1; path.top(a);
+    Ọ(\k*)       - a = NUMBER(1); while(path.top().is_truthy().value == 1) a.value = 0 $1; path.top(a);
+    ƙ            - loop = get_containing_loop__token() if loop.array != undefined => path.top(loop.array.access(loop_count).copy())
 
 --- Time ---
     ḍ              - a = path.top() delay_ms(a.integerify().value)
