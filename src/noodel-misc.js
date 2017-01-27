@@ -8,7 +8,7 @@
 /// Terminates the program.
 Command.add(0, noodel.commandify(characters.correct("ɲ") + "`"), function(cmd) {
   cmd.exec = function(path) {
-    path.stop();
+    path.kill_this = true;
   }
 });
 
