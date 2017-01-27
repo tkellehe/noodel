@@ -68,8 +68,10 @@ Command.add(0, new RegExp("^(" + characters.correct("ḷ") + ")$"), function(cmd
   };
   
   cmd.exec = function(path) {
-    if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
-    else this.tkn.loop_count++;
+    if(this.tkn.loop_count === undefined) {
+      this.tkn.loop_count = 0;
+      if(path.first() && path.first().type === "ARRAY") this.tkn.loop_array = path.first();
+    } else this.tkn.loop_count++;
   }
 });
 
@@ -97,9 +99,12 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")$"), function(cmd
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
       this.tkn.loop_count = undefined;
+      this.tkn.loop_array = undefined;
     } else {
-      if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
-      else this.tkn.loop_count++;
+      if(this.tkn.loop_count === undefined) {
+        this.tkn.loop_count = 0;
+        if(path.first() && path.first().type === "ARRAY") this.tkn.loop_array = path.first();
+      } else this.tkn.loop_count++;
     }
   }
   
@@ -135,9 +140,12 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)$"), functi
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
       this.tkn.loop_count = undefined;
+      this.tkn.loop_array = undefined;
     } else {
-      if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
-      else this.tkn.loop_count++;
+      if(this.tkn.loop_count === undefined) {
+        this.tkn.loop_count = 0;
+        if(path.first() && path.first().type === "ARRAY") this.tkn.loop_array = path.first();
+      } else this.tkn.loop_count++;
     }
   }
   
@@ -167,12 +175,15 @@ Command.add(0, noodel.commandify(characters.correct("ṃ")), function(cmd) {
     var tkn = this.tkn, f = path.first();
     if(f && f.is_truthy().value) {
       tkn.next = function() { return tkn.sub_path.start }
-      if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
-      else this.tkn.loop_count++;
+      if(this.tkn.loop_count === undefined) {
+        this.tkn.loop_count = 0;
+        if(path.first() && path.first().type === "ARRAY") this.tkn.loop_array = path.first();
+      } else this.tkn.loop_count++;
     } else {
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
       this.tkn.loop_count = undefined;
+      this.tkn.loop_array = undefined;
     }
   }
   
@@ -198,12 +209,15 @@ Command.add(0, noodel.commandify(characters.correct("Ṃ")), function(cmd) {
     var tkn = this.tkn, f = path.top();
     if(f && f.is_truthy().value) {
       tkn.next = function() { return tkn.sub_path.start }
-      if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
-      else this.tkn.loop_count++;
+      if(this.tkn.loop_count === undefined) {
+        this.tkn.loop_count = 0;
+        if(path.first() && path.first().type === "ARRAY") this.tkn.loop_array = path.first();
+      } else this.tkn.loop_count++;
     } else {
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
       this.tkn.loop_count = undefined;
+      this.tkn.loop_array = undefined;
     }
   }
   
@@ -229,13 +243,16 @@ Command.add(0, noodel.commandify(characters.correct("ṇ")), function(cmd) {
     var tkn = this.tkn, f = path.first();
     if(f && f.is_truthy().value) {
       tkn.next = function() { return tkn.sub_path.start }
-      if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
-      else this.tkn.loop_count++;
+      if(this.tkn.loop_count === undefined) {
+        this.tkn.loop_count = 0;
+        if(path.first() && path.first().type === "ARRAY") this.tkn.loop_array = path.first();
+      } else this.tkn.loop_count++;
     } else {
       path.top();
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
       this.tkn.loop_count = undefined;
+      this.tkn.loop_array = undefined;
     }
   }
   
@@ -262,12 +279,15 @@ Command.add(0, noodel.commandify(characters.correct("Ṇ")), function(cmd) {
     if(f && f.is_truthy().value) {
       path.top();
       tkn.next = function() { return tkn.sub_path.start }
-      if(this.tkn.loop_count === undefined) this.tkn.loop_count = 0;
-      else this.tkn.loop_count++;
+      if(this.tkn.loop_count === undefined) {
+        this.tkn.loop_count = 0;
+        if(path.first() && path.first().type === "ARRAY") this.tkn.loop_array = path.first();
+      } else this.tkn.loop_count++;
     } else {
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
       tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
       this.tkn.loop_count = undefined;
+      this.tkn.loop_array = undefined;
     }
   }
   
@@ -299,6 +319,7 @@ Command.add(0, noodel.commandify(characters.correct("ọ")), function(cmd) {
       if(this.tkn.loop_count === undefined) { 
         this.tkn.loop_count = 0;
         this.tkn.ran_or_not.value = 0;
+        if(path.first() && path.first().type === "ARRAY") this.tkn.loop_array = path.first();
       } else this.tkn.loop_count++;
     } else {
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
@@ -306,6 +327,7 @@ Command.add(0, noodel.commandify(characters.correct("ọ")), function(cmd) {
       this.tkn.loop_count = undefined;
       path.top(this.tkn.ran_or_not);
       this.tkn.ran_or_not = undefined
+      this.tkn.loop_array = undefined;
     }
   }
   
@@ -337,6 +359,7 @@ Command.add(0, noodel.commandify(characters.correct("Ọ")), function(cmd) {
       if(this.tkn.loop_count === undefined) { 
         this.tkn.loop_count = 0;
         this.tkn.ran_or_not.value = 0;
+        if(path.first() && path.first().type === "ARRAY") this.tkn.loop_array = path.first();
       } else this.tkn.loop_count++;
     } else {
       // Have to make sure account for if the end if the sub_path is the end of the prgm.
@@ -344,6 +367,7 @@ Command.add(0, noodel.commandify(characters.correct("Ọ")), function(cmd) {
       this.tkn.loop_count = undefined;
       path.top(this.tkn.ran_or_not);
       this.tkn.ran_or_not = undefined;
+      this.tkn.loop_array = undefined;
     }
   }
   
@@ -378,6 +402,7 @@ Command.add(0, noodel.commandify(characters.correct("ḅ")), function(cmd) {
     tkn.next = function() {
       var next = tkn.looper.branches.first();
       tkn.looper.loop_count = undefined;
+      tkn.looper.loop_array = undefined;
       return next === tkn.looper.sub_path.start ? undefined : next
     };
     
@@ -420,6 +445,7 @@ Command.add(0, noodel.commandify(characters.correct("Ḅ")), function(cmd) {
       tkn.next = function() {
         var next = tkn.looper.branches.first();
         tkn.looper.loop_count = undefined;
+        tkn.looper.loop_array = undefined;
         return next === tkn.looper.sub_path.start ? undefined : next
       };
       
@@ -446,6 +472,26 @@ Command.add(0, noodel.commandify(characters.correct("ɱ")), function(cmd) {
   
   cmd.exec = function(path) {
     path.top(new NUMBER(this.tkn.looper.loop_count));
+  }
+});
+
+//------------------------------------------------------------------------------------------------------------
+/// Pushes the current loop element onto the stack.
+Command.add(0, noodel.commandify(characters.correct("ƙ")), function(cmd) {
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var p = this.tkn.parent;
+    while(!Command.is_loop(p.literal)) {
+      p = p.parent;
+    }
+    
+    this.tkn.looper = p;
+    
+    return old.call(this);
+  };
+  
+  cmd.exec = function(path) {
+    if(this.tkn.looper.loop_array) path.top(this.tkn.looper.loop_array.access(this.tkn.looper.loop_count).copy());
   }
 });
 
