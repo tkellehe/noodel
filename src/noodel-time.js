@@ -167,22 +167,26 @@ Command.add(0, noodel.commandify(characters.correct("Ḍ")), function(cmd) {
 Command.add(0, noodel.commandify(characters.correct("Ḍ"), "\\d+"), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn;
-    if(!tkn.ran) {
-      tkn.old_next = tkn.next;
-      tkn.next = function() { return tkn };
-      tkn.ran = true;
-      tkn.old_rate = path.rate;
-      path.rate = tkn.params[0];
-    } else {
-      tkn.ran = false;
-      tkn.next = tkn.old_next;
-      path.rate = tkn.old_rate;
+    var f = path.first();
+    if(f) {
+      if(!tkn.ran) {
+        tkn.old_next = tkn.next;
+        tkn.next = function() { return tkn };
+        tkn.ran = true;
+        tkn.old_rate = path.rate;
+        path.rate = Math.floor(f.numberify().value + this.tkn.params[0]);
+      } else {
+        tkn.ran = false;
+        tkn.next = tkn.old_next;
+        path.rate = tkn.old_rate;
+        path.top();
+      }
     }
   }
   
   var old = cmd.tokenize;
   cmd.tokenize = function() {
-    this.tkn.params[0] = (+this.tkn.params[0]) * 1000;
+    this.tkn.params[0] = +this.tkn.params[0];
     return old.call(this);
   }
 });
@@ -190,23 +194,27 @@ Command.add(0, noodel.commandify(characters.correct("Ḍ"), "\\d+"), function(cm
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps.
 Command.add(0, noodel.commandify(characters.correct("Ḍ"), "[shqeto]"), function(cmd) {
-  var map = { s: 1000000, h: 500000, q: 250000, e: 125000, t: 100000, o: 10000 };
+  var map = { s: 1000, h: 0.5, q: 0.25, e: 0.125, t: 0.1, o: 0.01 };
   function get_rate(c) {
     return map[c];
   };
   
   cmd.exec = function(path) {
     var tkn = this.tkn;
-    if(!tkn.ran) {
-      tkn.old_next = tkn.next;
-      tkn.next = function() { return tkn };
-      tkn.ran = true;
-      tkn.old_rate = path.rate;
-      path.rate = tkn.params[0];
-    } else {
-      tkn.ran = false;
-      tkn.next = tkn.old_next;
-      path.rate = tkn.old_rate;
+    var f = path.first();
+    if(f) {
+      if(!tkn.ran) {
+        tkn.old_next = tkn.next;
+        tkn.next = function() { return tkn };
+        tkn.ran = true;
+        tkn.old_rate = path.rate;
+        path.rate = Math.floor(f.numberify().value * this.tkn.params[0]);
+      } else {
+        tkn.ran = false;
+        tkn.next = tkn.old_next;
+        path.rate = tkn.old_rate;
+        path.top();
+      }
     }
   }
   
@@ -222,29 +230,33 @@ Command.add(0, noodel.commandify(characters.correct("Ḍ"), "[shqeto]"), functio
 Command.add(0, new RegExp("^("+characters.correct("Ḍ")+")(\\d*)/(\\d*)$"), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn;
-    if(!tkn.ran) {
-      tkn.old_next = tkn.next;
-      tkn.next = function() { return tkn };
-      tkn.ran = true;
-      tkn.old_rate = path.rate;
-      path.rate = tkn.params[0];
-    } else {
-      tkn.ran = false;
-      tkn.next = tkn.old_next;
-      path.rate = tkn.old_rate;
+    var f = path.first();
+    if(f) {
+      if(!tkn.ran) {
+        tkn.old_next = tkn.next;
+        tkn.next = function() { return tkn };
+        tkn.ran = true;
+        tkn.old_rate = path.rate;
+        path.rate = Math.floor(f.numberify().value * this.tkn.params[0]);
+      } else {
+        tkn.ran = false;
+        tkn.next = tkn.old_next;
+        path.rate = tkn.old_rate;
+        path.top();
+      }
     }
   }
   
   var old = cmd.tokenize;
   cmd.tokenize = function() {
-    var num = 1000, den = 1;
+    var num = 1, den = 1;
     if(this.tkn.params[0].length) {
       num *= +this.tkn.params[0];
     }
     if(this.tkn.params[1].length) {
       den = +this.tkn.params[1];
     }
-    this.tkn.params[0] = Math.floor((num * 1000) / den);
+    this.tkn.params[0] = Math.floor(num / den);
     return old.call(this);
   }
 });
@@ -254,22 +266,26 @@ Command.add(0, new RegExp("^("+characters.correct("Ḍ")+")(\\d*)/(\\d*)$"), fun
 Command.add(0, new RegExp("^("+characters.correct("Ḍ")+")(\\d*)\\.(\\d*)$"), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn;
-    if(!tkn.ran) {
-      tkn.old_next = tkn.next;
-      tkn.next = function() { return tkn };
-      tkn.ran = true;
-      tkn.old_rate = path.rate;
-      path.rate = tkn.params[0];
-    } else {
-      tkn.ran = false;
-      tkn.next = tkn.old_next;
-      path.rate = tkn.old_rate;
+    var f = path.first();
+    if(f) {
+      if(!tkn.ran) {
+        tkn.old_next = tkn.next;
+        tkn.next = function() { return tkn };
+        tkn.ran = true;
+        tkn.old_rate = path.rate;
+        path.rate = Math.floor(f.numberify().value * this.tkn.params[0]);
+      } else {
+        tkn.ran = false;
+        tkn.next = tkn.old_next;
+        path.rate = tkn.old_rate;
+        path.top();
+      }
     }
   }
   
   var old = cmd.tokenize;
   cmd.tokenize = function() {
-    this.tkn.params[0] = Math.floor((+("0"+this.tkn.params[0]+"."+this.tkn.params[1]+"0")) * 1000000);
+    this.tkn.params[0] = (+("0"+this.tkn.params[0]+"."+this.tkn.params[1]+"0"));
     return old.call(this);
   }
 });
