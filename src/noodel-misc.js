@@ -331,7 +331,7 @@ Command.add(0, noodel.commandify(characters.correct("ị") + "@"), function(cmd)
 /// Pushes a string of the code of the path.
 Command.add(0, noodel.commandify(characters.correct("ḥ")), function(cmd) {
   cmd.exec = function(path) {
-    path.top(new STRING(path.code))
+    path.top(new STRING(characters.deprintify_string(path.code)))
   }
 });
   
@@ -339,7 +339,7 @@ Command.add(0, noodel.commandify(characters.correct("ḥ")), function(cmd) {
 /// Pushes a string of the code of the path.
 Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\@"), function(cmd) {
   cmd.exec = function(path) {
-    path.top(new STRING(this.tkn.path.code))
+    path.top(new STRING(characters.deprintify_string(this.tkn.path.code)))
   }
 });
   
@@ -347,7 +347,7 @@ Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\@"), function(cm
 /// Pushes a string of the code of the path.
 Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\-"), function(cmd) {
   cmd.exec = function(path) {
-    path.top(new STRING(this.tkn.parent.literal))
+    path.top(new STRING(characters.deprintify_string(this.tkn.parent.literal)))
   }
 });
   
@@ -356,7 +356,7 @@ Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\-"), function(cm
 Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\|"), function(cmd) {
   cmd.exec = function(path) {
     var after = this.tkn.next();
-    if(after) path.top(new STRING(after.literal))
+    if(after) path.top(new STRING(characters.deprintify_string(after.literal)))
   }
 });
   
@@ -364,7 +364,7 @@ Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\|"), function(cm
 /// Pushes a string of the code of the path.
 Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\\\"), function(cmd) {
   cmd.exec = function(path) {
-    path.top(new STRING(this.tkn.following_code))
+    path.top(new STRING(characters.deprintify_string(this.tkn.following_code)))
   }
   
   var old = cmd.tokenize;
@@ -378,7 +378,7 @@ Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\\\"), function(c
 /// Pushes a string of the code of the path.
 Command.add(0, noodel.commandify(characters.correct("ḥ") + "\\/"), function(cmd) {
   cmd.exec = function(path) {
-    path.top(new STRING(this.tkn.preceding_code))
+    path.top(new STRING(characters.deprintify_string(this.tkn.preceding_code)))
   }
   
   var old = cmd.tokenize;
