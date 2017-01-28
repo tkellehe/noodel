@@ -52,6 +52,13 @@ Path.prototype.first = function() {
   return this.stack.value[this.stack.ptr-1]
 };
 
+Path.prototype.first_ith = function(index) {
+  if((this.stack.ptr-1-index) < 0) index = 0;
+  else if(this.stack.length() <=( this.stack.ptr-1-index)) index = this.stack.length();
+  else index = this.stack.ptr-1-index;
+  return this.stack.value[index];
+};
+
 Path.prototype.last = function() {
   return this.stack.value[0]
 };
@@ -69,6 +76,29 @@ Path.prototype.top = function(item) {
     this.stack.ptr = pos+1;
   } else {
     item = removeAt(this.stack.value, pos-1);
+    if(item) {
+      if(item.type === "ARRAY") {
+        item.container = undefined;
+      }
+      this.stack.ptr = pos-1;
+    }
+    return item;
+  }
+};
+
+Path.prototype.top_ith = function(index, item) {
+  var pos = this.stack.ptr;
+  if(arguments.length === 2) {
+    if(item === undefined) return;
+    if(item.type === "ARRAY") {
+      if(item.ptr === undefined) item.ptr = 0;
+      item.container = this.stack;
+    }
+    
+    insertAt(this.stack.value, pos-index, item);
+    this.stack.ptr = pos+1;
+  } else {
+    item = removeAt(this.stack.value, pos-1-index);
     if(item) {
       if(item.type === "ARRAY") {
         item.container = undefined;
