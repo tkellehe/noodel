@@ -25,6 +25,10 @@ function string_row_break(string) {
   return rows;
 };
 
+function string_escape_regex(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
 function STRING(v) {
   this.props = make_props();
   this.value = v === undefined ? "" : (v+"");
@@ -143,7 +147,7 @@ STRING.prototype.add_flip = function(lhs) {
 
 STRING.prototype.sub_flip = function(lhs) {
   var v = lhs.stringify().value;
-  return new STRING(v.replace(this.value, ""));
+  return new STRING(this.value.replace(new RegExp(string_escape_string(v.value) + "$"), ""));
 }
 
 STRING.prototype.mul = function(rhs) {
