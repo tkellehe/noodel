@@ -127,7 +127,7 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")$"), function(cmd
 
 //------------------------------------------------------------------------------------------------------------
 /// Loops the given code up to a end loop token and selects specific item from the pipe.
-Command.add(1, characters.regex.a_tiny_digit + "+", new RegExp("^(" + characters.correct("Ḷ") + ")$"), function(cmd) {
+Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters.correct("Ḷ")), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn;
     if(tkn.count === undefined) {
