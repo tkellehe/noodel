@@ -300,6 +300,7 @@
     Ḷ(\k*)       - if tkn.count == undefined => tkn.count = a.integerify().value
                    while(0 < tkn.count) => $1 tkn.count--
                    tkn.count = undefined
+    (\m+)Ḷ(\k*)  - if ith item of the stack is an array, loop the length of the array. Else, convert to integer and loop that number of times.
     Ḷ(\d+)(\k*)  - if tkn.count == undefined => tkn.count = valueOf($1)
                    while(0 < tkn.count) => $2 tkn.count--
                    tkn.count = undefined
@@ -398,7 +399,7 @@
     ṡ       - a = path.top() b = path.top() path.top(a) path.top(b)
     Ṡ       - a = path.bottom() b = path.bottom() path.bottom(a) path.bottom(b)
     ḋ       - a = path.first() path.top(a.copy())
-    (\m)+ḋ  - a = path.first() for c = 0, c < valueOf($1), ++c => path.top(a.copy)
+    (\m+)ḋ  - a = path.first() for c = 0, c < valueOf($1), ++c => path.top(a.copy)
 
 --- String Manipulation ---
     ɲL     - a = path.top()
