@@ -126,6 +126,58 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")$"), function(cmd
 });
 
 //------------------------------------------------------------------------------------------------------------
+/// Loops the given code up to a end loop token and selects specific item from the pipe.
+Command.add(1, characters.regex.a_tiny_digit + "+", new RegExp("^(" + characters.correct("Ḷ") + ")$"), function(cmd) {
+  cmd.exec = function(path) {
+    var tkn = this.tkn;
+    if(tkn.count === undefined) {
+      tkn.next = function() { return tkn.sub_path.start };
+      var f = path.top_ith(this.tkn.params[0]);
+      if(f) {
+        if(f.type === "ARRAY") {
+          tkn.count = f.length();
+          path.top(f);
+        } else {
+          f = f.integerify();
+          tkn.count = f.value;
+        }
+      } else tkn.count = 0;
+    }
+    if(tkn.count-- < 1)
+    {
+      tkn.count = undefined;
+      // Have to make sure account for if the end if the sub_path is the end of the prgm.
+      tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
+      this.tkn.loop_count = undefined;
+      this.tkn.loop_array = undefined;
+    } else {
+      if(this.tkn.loop_count === undefined) {
+        this.tkn.loop_count = 0;
+        if(path.first() && path.first().type === "ARRAY") this.tkn.loop_array = path.first();
+      } else this.tkn.loop_count++;
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var tkn = this.tkn;
+    
+    this.tkn.params[0] = +characters.tiny_num_to_num(this.tkn.params[0]);
+    
+    tkn.params[1] = Command.collect_loop(tkn.start+1, tkn.code);
+    tkn.end = tkn.params[1].length + tkn.start + tkn.literal.length - 1;
+    
+    tkn.sub_path = new Path(tkn.params[1], tkn);
+    tkn.branches.front(tkn.sub_path.start);
+    tkn.sub_path.end.branches.front(tkn);
+    
+    tkn.next = function() { return tkn.sub_path.start };
+    
+    return old.call(this);
+  };
+});
+
+//------------------------------------------------------------------------------------------------------------
 /// Loops the given code up to a new line based off of the number placed next to it.
 Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)$"), function(cmd) {
   cmd.exec = function(path) {
