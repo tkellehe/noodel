@@ -251,7 +251,7 @@ Command.add(0, noodel.commandify(characters.correct("ȷ")), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 /// Negate the object on the top of the stack.
-Command.add(0, noodel.commandify(characters.correct("ɲ") + "!"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "\\!"), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
@@ -264,7 +264,7 @@ Command.add(0, noodel.commandify(characters.correct("ɲ") + "!"), function(cmd) 
   
 //------------------------------------------------------------------------------------------------------------
 /// Negate the object on the top of the stack.
-Command.add(0, noodel.commandify(characters.correct("ɲ") + "?"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "\\?"), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     if(f) {
