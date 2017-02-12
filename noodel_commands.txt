@@ -7,25 +7,22 @@
 
 
 --- NOPs ---
-    space       - Use to separate commands.
-    (\m+)space  - duplicates many spaces.
-    new line    - Use to separate commands also ends some scopes of commands.
+    space       - [0] A NOOP that can indicate to the parser to sperate tokens.
+    (\m+)space  - [0] Repeats that many NOOPs. Pretty useless, but since Noodel is not a fast language this can
+                  be used to tweak time requirements.
+    new line    - [0] Same as the space.
 
 --- MISC ---
-    %[0-9A-F]+  - Use in a STRING to create a Unicode character based off of the hex value.
-    ɲ`          - terminate()
-    ɲ~          - a = path.first() a.props.clear()
-    ṛ           - a = path.top()
-                  if a is NUMBER =>
-                    max, min
-                    b = path.top()
-                    if b == undefined => max = MAX(0, a.value) min = MIN(0, a.value)
-                    else => max = MAX(a.value, b.value) min = MIN(a.value, b.value)
-                    path.top(NUMBER(random_int(min, max)))
-                  elif a is ARRAY or a is STRING =>
-                    path.top(a)
-                    path.top(NUMBER(random_int(0, a.length() - 1)))
-    ṛ(\d+)      - path.top(NUMBER(random_int(0, valueOf($1)))
+    %[0-9A-F]+  - [0] Use in a STRING to create a Unicode character based off of the hex value.
+    ɲ`          - [0] Terminates the script and pops/prints the top of the stack.
+    ɲ~          - [1] Pops top of the stack and clears the properties embdedded into the object (Which only really works with arrays).
+    ṛ           - [1] if top is not a number, in which it will gen a random int from `0` to `length(a) - 1`
+                  [2] if top is a number, then pop another.
+                        `integerify(a)`
+                        if `b` is undefined then replace with zero.
+                        else `integerify(b)`.
+                        Gen a random int from `min(a,b)` and `max(a,b)`.
+    ṛ(\d+)      - Gen a random int from zero to provided number.
     Ṛ           - a = path.top()
                   if a is NUMBER =>
                     max, min
