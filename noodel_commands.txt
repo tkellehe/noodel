@@ -29,8 +29,8 @@
                         else `numberify(b)`.
                         Gen a random number from `min(a,b)` and `max(a,b)`.
                   [1] if top is a array or string, then push it back on followed by a random element from the object.
-    ƥ           - path.move_up()
-    ʠ           - path.move_down()
+    ƥ           - [0] Move the top of the stack up one cell. Stopping if reached the top. (AKA the end of the array)
+    ʠ           - [0] Move the top of the stack down one cell. Stopping if reached the bottom. (AKA the start of the array)
     (\m+)ƥ      - for i = 0, i < valueOf($1), ++i => path.move_up()
     (\m+)ʠ      - for i = 0, i < valueOf($1), ++i => path.move_down()
     µƥ          - a = path.top() for i = 0, i < a.integerify().value, ++i => path.move_up()
