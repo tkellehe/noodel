@@ -22,17 +22,13 @@
                         if `b` is undefined then replace with zero.
                         else `integerify(b)`.
                         Gen a random int from `min(a,b)` and `max(a,b)`.
-    ṛ(\d+)      - Gen a random int from zero to provided number.
-    Ṛ           - a = path.top()
-                  if a is NUMBER =>
-                    max, min
-                    b = path.top()
-                    if b == undefined => max = MAX(0, a.value) min = MIN(0, a.value)
-                    else => max = MAX(a.value, b.value) min = MIN(a.value, b.value)
-                    path.top(NUMBER(random(min, max)))
-                  elif a is ARRAY or a is STRING =>
-                    path.top(a)
-                    path.top(a.access(random_int(0, a.length() - 1)))
+    ṛ(\d+)      - [0] Gen a random int from zero to provided number.
+    Ṛ           - [2] if top is a number, then pop another.
+                        `integerify(a)`
+                        if `b` is undefined then replace with zero.
+                        else `numberify(b)`.
+                        Gen a random number from `min(a,b)` and `max(a,b)`.
+                  [1] if top is a array or string, then push it back on followed by a random element from the object.
     ƥ           - path.move_up()
     ʠ           - path.move_down()
     (\m+)ƥ      - for i = 0, i < valueOf($1), ++i => path.move_up()
