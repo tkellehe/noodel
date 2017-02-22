@@ -9,7 +9,7 @@
 --- NOPs ---
     space       - [0] A NOOP that can indicate to the parser to sperate tokens.
     (\m+)space  - [0] Repeats that many NOOPs. Pretty useless, but since Noodel is not a fast language this can
-                  be used to tweak time requirements.
+                      be used to tweak time requirements.
     new line    - [0] Same as the space.
 
 --- MISC ---
@@ -31,10 +31,10 @@
                   [1] if top is a array or string, then push it back on followed by a random element from the object.
     ƥ           - [0] Move the top of the stack up one cell. Stopping if reached the top. (AKA the end of the array)
     ʠ           - [0] Move the top of the stack down one cell. Stopping if reached the bottom. (AKA the start of the array)
-    (\m+)ƥ      - for i = 0, i < valueOf($1), ++i => path.move_up()
-    (\m+)ʠ      - for i = 0, i < valueOf($1), ++i => path.move_down()
-    µƥ          - a = path.top() for i = 0, i < a.integerify().value, ++i => path.move_up()
-    µʠ          - a = path.top() for i = 0, i < a.integerify().value, ++i => path.move_down()
+    (\m+)ƥ      - [0] Move the ptr of the stack to the top. (Move to the end of the array)
+    (\m+)ʠ      - [0] Move the ptr of the stack to the bottom. (Move to the start of the array)
+    µƥ          - [1] pop top and integerify the object and move that many cells up the stack.
+    µʠ          - [1] pop top and integerify the object and move that many cells down the stack.
     ƥ\*         - path.move_to_top()
     ʠ\*         - path.move_to_bottom()
     ı           - path.jump_in()
