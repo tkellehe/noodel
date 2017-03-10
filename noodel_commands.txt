@@ -31,14 +31,14 @@
                   [1] if top is a array or string, then push it back on followed by a random element from the object.
     ƥ           - [0] Move the top of the stack up one cell. Stopping if reached the top. (AKA the end of the array)
     ʠ           - [0] Move the top of the stack down one cell. Stopping if reached the bottom. (AKA the start of the array)
-    (\m+)ƥ      - [0] Move the ptr of the stack to the top. (Move to the end of the array)
-    (\m+)ʠ      - [0] Move the ptr of the stack to the bottom. (Move to the start of the array)
+    (\m+)ƥ      - [0] Move the ptr of the stack up the number of cells specified.
+    (\m+)ʠ      - [0] Move the ptr of the stack down the number of cells specified.
     µƥ          - [1] pop top and integerify the object and move that many cells up the stack.
     µʠ          - [1] pop top and integerify the object and move that many cells down the stack.
-    ƥ\*         - path.move_to_top()
-    ʠ\*         - path.move_to_bottom()
-    ı           - path.jump_in()
-    ȷ           - path.jump_out()
+    ƥ\*         - [0] Move the ptr of the stack to the top. (Move to the end of the array)
+    ʠ\*         - [0] Move the ptr of the stack to the bottom. (Move to the start of the array)
+    ı           - [0] Make the object that is currently the top of the stack the new stack.
+    ȷ           - [0] Make the parent stack of the current stack the new stack.
     ɲo          - a = path.first()
                   if a is NUMBER => path.top(NUMBER(a.value % 2))
                   elif a is STRING or a is ARRAY => path.top(NUMBER(a.length() % 2))
