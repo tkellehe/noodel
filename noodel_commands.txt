@@ -15,83 +15,75 @@
 --- MISC ---
     %[0-9A-F]+  - [0] Use in a STRING to create a Unicode character based off of the hex value.
     ɲ`          - [0] Terminates the script and pops/prints the top of the stack.
-    ɲ~          - [1] Pops top of the stack and clears the properties embdedded into the object (Which only really works with arrays).
-    ṛ           - [1] if top is not a number, in which it will gen a random int from `0` to `length(a) - 1`
-                  [2] if top is a number, then pop another.
+    ɲ~          - [1] Gets the top of the stack and clears the properties embdedded into the object (Which only really works with arrays).
+    ṛ           - [1] If top is not a number, in which it will gen a random int from `0` to `length(a) - 1`
+                  [2] If top is a number, then pop another.
                         `integerify(a)`
                         if `b` is undefined then replace with zero.
                         else `integerify(b)`.
                         Gen a random int from `min(a,b)` and `max(a,b)`.
     ṛ(\d+)      - [0] Gen a random int from zero to provided number.
-    Ṛ           - [2] if top is a number, then pop another.
+    Ṛ           - [2] If top is a number, then pop another.
                         `integerify(a)`
                         if `b` is undefined then replace with zero.
                         else `numberify(b)`.
                         Gen a random number from `min(a,b)` and `max(a,b)`.
-                  [1] if top is a array or string, then push it back on followed by a random element from the object.
+                  [1] If top is a array or string, then push it back on followed by a random element from the object.
     ƥ           - [0] Move the top of the stack up one cell. Stopping if reached the top. (AKA the end of the array)
     ʠ           - [0] Move the top of the stack down one cell. Stopping if reached the bottom. (AKA the start of the array)
     (\m+)ƥ      - [0] Move the ptr of the stack up the number of cells specified.
     (\m+)ʠ      - [0] Move the ptr of the stack down the number of cells specified.
-    µƥ          - [1] pop top and integerify the object and move that many cells up the stack.
-    µʠ          - [1] pop top and integerify the object and move that many cells down the stack.
+    µƥ          - [1] Pop top and integerify the object and move that many cells up the stack.
+    µʠ          - [1] Pop top and integerify the object and move that many cells down the stack.
     ƥ\*         - [0] Move the ptr of the stack to the top. (Move to the end of the array)
     ʠ\*         - [0] Move the ptr of the stack to the bottom. (Move to the start of the array)
     ı           - [0] Make the object that is currently the top of the stack the new stack.
     ȷ           - [0] Make the parent stack of the current stack the new stack.
-    ɲo          - a = path.first()
-                  if a is NUMBER => path.top(NUMBER(a.value % 2))
-                  elif a is STRING or a is ARRAY => path.top(NUMBER(a.length() % 2))
-    ɲe          - a = path.first()
-                  if a is NUMBER => path.top(NUMBER((a.value % 2) ? 1 : 0))
-                  elif a is STRING or a is ARRAY => path.top(NUMBER((a.value % 2) ? 1 : 0))
-    ɲO          - a = path.top()
-                  if a is NUMBER => path.top(NUMBER(a.value % 2))
-                  elif a is STRING or a is ARRAY => path.top(NUMBER(a.length() % 2))
-    ɲE          - a = path.top()
-                  if a is NUMBER => path.top(NUMBER((a.value % 2) ? 1 : 0))
-                  elif a is STRING or a is ARRAY => path.top(NUMBER((a.value % 2) ? 1 : 0))
-    ɲ!          - a = path.top()
-                  if a == undefined => path.top(NUMBER(1))
-                  else path.top(a.is_falsy())
-    ɲ?          - a = path.top()
-                  if a == undefined => path.top(NUMBER(0))
-                  else path.top(a.is_truthy())
-    ị           - path.top(NUMBER(path.first() != undefined))
-    ị#          - path.top(NUMBER(path.first() is NUMBER))
-    ị"          - path.top(NUMBER(path.first() is STRING))
-    ị@          - path.top(NUMBER(path.first() is ARRAY))
-    ḥ           - path.top(STRING(path.code))
-    ḥ/          - path.top(STRING([all code following this token]))
-    ḥ\          - path.top(STRING([all code before this token]))
-    ḥ-          - path.top(STRING(tkn.parent.literal))
-    ḥ|          - path.top(STRING(tkn.next.literal))
-    ḥ@          - path.top(STRING(tkn.path.code))
-    ŀ           - path.top(path.top().shuffle())
+    ɲo          - [1] Get top without popping and if is a number, push on zero if is even and one if odd.
+                      if is a string or array, then push on zero if the length is even and one if the length is odd.
+    ɲe          - [1] Get top without popping and if is a number, push on zero if is odd and one if even.
+                      if is a string or array, then push on zero if the length is odd and one if the length is even.
+    ɲO          - [1] Pop top and if is a number, push on zero if is even and one if odd.
+                      if is a string or array, then push on zero if the length is even and one if the length is odd.
+    ɲE          - [1] Pop top and if is a number, push on zero if is odd and one if even.
+                      if is a string or array, then push on zero if the length is odd and one if the length is even.
+    ɲ!          - [1] Pop top if there is nothing or the value popped is falsy push a one, else push zero.
+    ɲ?          - [1] Pop top if there is nothing or the value popped is falsy push a zero, else push one.
+    ị           - [1] If there is nothing on the top of the stack, push a one else push a zero.
+    ị#          - [1] If the item on the top of the stack is a number, push a one else push a zero.
+    ị"          - [1] If the item on the top of the stack is a string, push a one else push a zero.
+    ị@          - [1] If the item on the top of the stack is a array, push a one else push a zero.
+    ḥ           - [0] Push on a string representation of the script.
+    ḥ/          - [0] Push on a string representation of the code following this token.
+    ḥ\          - [0] Push on a string representation of the code preceding this token.
+    ḥ-          - [0] Push on a string representation of the token that is the parent of this token.
+    ḥ|          - [0] Push on a string representation of the token following this token.
+    ḥ@          - [0] Push on a string representation of the code of the path that this token belongs to.
+    ŀ           - [1] Pop the top and shuffle the item (for numbers it shuffles the digits) and push on the new shuffled item.
 
 --- Literals ---
  -- String --
-    (\p+)           - path.top(STRING($1))
-    (\m+)(\p+)      - for c = 0, c < valueOf($1), ++c => path.top(STRING($1))
-    µ(\p+)          - a = path.top().integerify() for c = 0, c < a.value, ++c => path.top(STRING($1))
-    “(\c*)          - path.top(STRING(decompress_basic($1)))
-    ”(\c*)          - a = string_break(decompress_basic($1)) foreach e in a => e = STRING(e); path.top(ARRAY(a))
-    (\c+)‘(\c+)     - path.top(STRING(decompress_occur($1, $2)))
-    (\c+)’(\c+)     - a = string_break(decompress_occur($1, $2)) foreach e in a => e = STRING(e); path.top(ARRAY(a))
-    (\p)…(\p)       - path.top(STRING($1 +...+ $2))
-    µ…(\p)          - a = path.top() a = numerical_eval_numbers(a) path.top(STRING(numberical_eval(a.value) +...+ $1))
-    (\p)…µ          - a = path.top() a = numerical_eval_numbers(a) path.top(STRING($1 +...+ numberical_eval(a.value)))
-    …               - a = path.top() a = numerical_eval_numbers(a)
-                      b = path.top() b = numerical_eval_numbers(b)
-                      path.top(STRING(numberical_eval(a.value) +...+ numberical_eval(b.value)))
-    ɲZ              - path.top(STRING("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
-    ɲz              - path.top(STRING("abcdefghijklmnopqrstuvwxyz"))
-    ɲA              - path.top(STRING("¤!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"))
-    ɲa              - path.top(STRING("¶¤!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"))
-    ɲD              - path.top(STRING("9876543210"))
-    ɲd              - path.top(STRING("0123456789"))
-    ɲN              - path.top(STRING("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
-    ɲn              - path.top(STRING("0123456789abcdefghijklmnopqrstuvwxyz"))
+    (\p+)        - [0] Pushes on a string based off of the list of tokens present.
+    (\m+)(\p+)   - [0] Push the string literal onto the stack the specified number of times.
+    µ(\p+)       - [1] Pop off the item on the stack and integerify it then push on the string that many times. 
+    “(\c*)       - path.top(STRING(decompress_basic($1)))
+    ”(\c*)       - a = string_break(decompress_basic($1)) foreach e in a => e = STRING(e); path.top(ARRAY(a))
+    (\c+)‘(\c+)  - path.top(STRING(decompress_occur($1, $2)))
+    (\c+)’(\c+)  - a = string_break(decompress_occur($1, $2)) foreach e in a => e = STRING(e); path.top(ARRAY(a))
+    (\p)…(\p)    - path.top(STRING($1 +...+ $2))
+    µ…(\p)       - a = path.top() a = numerical_eval_numbers(a) path.top(STRING(numberical_eval(a.value) +...+ $1))
+    (\p)…µ       - a = path.top() a = numerical_eval_numbers(a) path.top(STRING($1 +...+ numberical_eval(a.value)))
+    …            - a = path.top() a = numerical_eval_numbers(a)
+                   b = path.top() b = numerical_eval_numbers(b)
+                   path.top(STRING(numberical_eval(a.value) +...+ numberical_eval(b.value)))
+    ɲZ           - path.top(STRING("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+    ɲz           - path.top(STRING("abcdefghijklmnopqrstuvwxyz"))
+    ɲA           - path.top(STRING("¤!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"))
+    ɲa           - path.top(STRING("¶¤!\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"))
+    ɲD           - path.top(STRING("9876543210"))
+    ɲd           - path.top(STRING("0123456789"))
+    ɲN           - path.top(STRING("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+    ɲn           - path.top(STRING("0123456789abcdefghijklmnopqrstuvwxyz"))
     
  -- Numeric --
     ɲ(-?\d*\.?\d+)  - path.top(NUMBER(valueOf($1)))
