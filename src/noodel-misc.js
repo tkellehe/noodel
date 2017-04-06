@@ -398,5 +398,35 @@ Command.add(0, noodel.commandify(characters.correct("ŀ")), function(cmd) {
     }
   }
 });
+  
+//------------------------------------------------------------------------------------------------------------
+/// Pushes on "True" of "False" based on the top of the stack.
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "t"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.first();
+    if(f && f.is_truthy().value) {
+      path.top(new STRING("True"));
+    } else {
+      path.top(new STRING("False"));
+    }
+  }
+});
+  
+//------------------------------------------------------------------------------------------------------------
+/// Pushes on 0 or 1 if the string can be interpreted as "True" or "False".
+Command.add(0, noodel.commandify(characters.correct("ɲ") + "T"), function(cmd) {
+  cmd.exec = function(path) {
+    var f = path.first();
+    if(f) {
+      f = f.stringify().value.toLowerCase();
+      if(f == "true")
+      {
+        path.top(new NUMBER(1));
+      } else if(f == "false") {
+        path.top(new NUMBER(0));
+      }
+    }
+  }
+});
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
