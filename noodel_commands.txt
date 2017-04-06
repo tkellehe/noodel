@@ -305,7 +305,7 @@
 --- Time ---
     ḍ              - a = path.top() delay_ms(a.integerify().value)
     ḍ(\d+)         - delay_ms(valueOf($1))
-    ḍ[shqetoOH]    - if $1 == "s" => delay_ms(1000)
+    ḍ[shqetoOHT]   - if $1 == "s" => delay_ms(1000)
                      elif $1 == "h" => delay_ms(500)
                      elif $1 == "q" => delay_ms(250)
                      elif $1 == "e" => delay_ms(125)
@@ -313,6 +313,7 @@
                      elif $1 == "o" => delay_ms(10)
                      elif $1 == "O" => delay_ms(10000)
                      elif $1 == "H" => delay_ms(50000)
+                     elif $1 == "T" => delay_ms(750)
     ḍ(\d*)/(\d*)   - num = 1000 den = 1
                      if $1.length > 0 => num *= valueOf($1)
                      if $2.length > 0 => den = valueOf($1)
