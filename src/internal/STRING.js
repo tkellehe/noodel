@@ -202,6 +202,10 @@ STRING.prototype.div = function(rhs) {
     }
   } else if(rhs.type === "STRING") {
     a = this.value.split(rhs.value);
+    for(var i = a.length; i--;)
+    {
+      a[i] = new STRING(a[i]);
+    }
   } else if(rhs.type === "ARRAY") {
     for(var i = 0; i < rhs.length(); ++i) {
       a = a.concat(this.div(rhs.value[i]).value);
@@ -219,6 +223,10 @@ STRING.prototype.div_flip = function(lhs) {
     a = a.reverse();
   } else if(lhs.type === "STRING") {
     a = this.value.split(lhs.value).split("").reverse().join("");
+    for(var i = a.length; i--;)
+    {
+      a[i] = new STRING(a[i]);
+    }
   } else if(lhs.type === "ARRAY") {
     for(var i = 0; i < lhs.length(); ++i) {
       a = a.concat(this.div_flip(lhs.value[i]).value);
