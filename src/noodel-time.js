@@ -54,8 +54,8 @@ Command.add(0, noodel.commandify(characters.correct("ḍ"), "\\d+"), function(cm
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps.
-Command.add(0, noodel.commandify(characters.correct("ḍ"), "[shqeto]"), function(cmd) {
-  var map = { s: 1000, h: 500, q: 250, e: 125, t: 100, o: 10 };
+Command.add(0, noodel.commandify(characters.correct("ḍ"), "[shqetoOHT]"), function(cmd) {
+  var map = { s: 1000, h: 500, q: 250, e: 125, t: 100, o: 10, O: 10000, H: 50000, T: 750 };
   function get_rate(c) {
     return map[c];
   };
@@ -193,8 +193,8 @@ Command.add(0, noodel.commandify(characters.correct("Ḍ"), "\\d+"), function(cm
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps.
-Command.add(0, noodel.commandify(characters.correct("Ḍ"), "[shqeto]"), function(cmd) {
-  var map = { s: 1000, h: 0.5, q: 0.25, e: 0.125, t: 0.1, o: 0.01 };
+Command.add(0, noodel.commandify(characters.correct("Ḍ"), "[shqetoOH]"), function(cmd) {
+  var map = { s: 1000, h: 0.5, q: 0.25, e: 0.125, t: 0.1, o: 0.01, O: 100, H: 2, T: 10 };
   function get_rate(c) {
     return map[c];
   };
