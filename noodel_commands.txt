@@ -60,6 +60,8 @@
     ḥ|          - [0] Push on a string representation of the token following this token.
     ḥ@          - [0] Push on a string representation of the code of the path that this token belongs to.
     ŀ           - [1] Pop the top and shuffle the item (for numbers it shuffles the digits) and push on the new shuffled item.
+    ɲt          - [0] If the top of the stack is truthy, push on "true" else push on "false".
+    ɲT          - [0] If the top of the stack is the string "true" (case insensitive) push on 1 and same for "false" except push on 0.
 
 --- Literals ---
  -- String --
