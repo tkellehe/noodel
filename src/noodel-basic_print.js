@@ -235,13 +235,10 @@ Command.add(0, noodel.commandify(characters.correct("ø")), function(cmd) {
 // Copies what is on top of the stack into the front of stdin.
 Command.add(0, noodel.commandify(characters.correct("ø"), "\\d+"), function(cmd) {
   cmd.exec = function(path) {
-    var array = [];
-    for(var c = this.tkn.params[0]; c-- && path.first();) {
-      array.push(path.top());
-    }
-    if(path.first()) path.stdin.front(path.first().copy());
-    for(var c = array.length; c--;) {
-      path.top(array.pop());
+    var item = path.first_ith(this.tkn.params[0]);
+    if(item)
+    {
+      path.stdin.front(item.copy());
     }
   }
   
@@ -273,13 +270,10 @@ Command.add(0, noodel.commandify(characters.correct("Ø")), function(cmd) {
 // Pushes what is on the top of the stack into the stdin.
 Command.add(0, noodel.commandify(characters.correct("Ø"), "\\d+"), function(cmd) {
   cmd.exec = function(path) {
-    var array = [];
-    for(var c = this.tkn.params[0]; c-- && path.first();) {
-      array.push(path.top());
-    }
-    if(path.first()) path.stdin.front(path.top());
-    for(var c = array.length; c--;) {
-      path.top(array.pop());
+    var item = path.top_ith(this.tkn.params[0]);
+    if(item)
+    {
+      path.stdin.front(item);
     }
   }
   
