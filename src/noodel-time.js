@@ -193,7 +193,7 @@ Command.add(0, noodel.commandify(characters.correct("Ḍ"), "\\d+"), function(cm
 
 //------------------------------------------------------------------------------------------------------------
 // Delay for number of steps.
-Command.add(0, noodel.commandify(characters.correct("Ḍ"), "[shqetoOH]"), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("Ḍ"), "[shqetoOHT]"), function(cmd) {
   var map = { s: 1000, h: 0.5, q: 0.25, e: 0.125, t: 0.1, o: 0.01, O: 100, H: 2, T: 10 };
   function get_rate(c) {
     return map[c];
