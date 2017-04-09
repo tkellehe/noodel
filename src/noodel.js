@@ -249,7 +249,7 @@ noodel.random = function(min, max) {
 };
   
 noodel.random_int = function(min, max) {
-  return Math.floor(noodel.random(min, max))
+  return Math.floor(noodel.random(Math.ceil(min), Math.floor(max)))
 };
   
 noodel.encode = function(string) {
