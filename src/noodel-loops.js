@@ -465,7 +465,7 @@ Command.add(0, noodel.commandify(characters.correct("ṭ")), function(cmd) {
         this.tkn.loop_array = path.first();
       }
     // As long as the loop_count is less then the array length, keep looping.
-    } else if(this.tkn.loop_count < this.tkn.loop_array.length) {
+    } else if(this.tkn.loop_count < this.tkn.loop_array.value.length) {
       ++this.tkn.loop_count;
     // Else we have reached the end of the array.
     } else {
