@@ -304,10 +304,10 @@
     ọ(\k*)       - a = NUMBER(1); while(path.first().is_truthy().value == 1) a.value = 0 $1; path.top(a);
     Ọ(\k*)       - a = NUMBER(1); while(path.top().is_truthy().value == 1) a.value = 0 $1; path.top(a);
     ƙ            - loop = get_containing_loop__token() if loop.array != undefined => path.top(loop.array.access(loop_count).copy())
-    ṭ(\k*)       - [0] If top is an array, loop over each item.
+    ḟ(\k*)       - [0] If top is an array, loop over each item.
                    [0] If top is a string, turn into an array and loop over each item.
                    [N] If top is a number grab the next N items and make an array pushing on the new array. Then loop over each item.
-    Ṭ(\k*)       - [1] If top is an array, loop over each item removing the array.
+    Ḟ(\k*)       - [1] If top is an array, loop over each item removing the array.
                    [1] If top is a string, turn into an array and loop over each item.
                    [N] If top is a number grab the next N items and make an array. Then loop over each item.
 
