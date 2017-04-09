@@ -62,6 +62,7 @@
     ŀ           - [1] Pop the top and shuffle the item (for numbers it shuffles the digits) and push on the new shuffled item.
     ɲt          - [0] If the top of the stack is truthy, push on "True" else push on "False".
     ɲT          - [0] If the top of the stack is the string "true" (case insensitive) push on 1 and same for "false" except push on 0.
+    ¥           - [0] Toggles turning on auto popping to the display at the end of the script.
 
 --- Literals ---
  -- String --
