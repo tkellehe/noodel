@@ -62,6 +62,7 @@
     ŀ           - [1] Pop the top and shuffle the item (for numbers it shuffles the digits) and push on the new shuffled item.
     ɲt          - [0] If the top of the stack is truthy, push on "True" else push on "False".
     ɲT          - [0] If the top of the stack is the string "true" (case insensitive) push on 1 and same for "false" except push on 0.
+    ¥           - [0] Toggles turning on auto popping to the display at the end of the script.
 
 --- Literals ---
  -- String --
@@ -88,9 +89,9 @@
     ɲn           - path.top(STRING("0123456789abcdefghijklmnopqrstuvwxyz"))
     
  -- Numeric --
-    ɲ(-?\d*\.?\d+)  - path.top(NUMBER(valueOf($1)))
-    ɲ(-)            - path.top(NUMBER(-1))
-    ɲ(-?\d*/\d+)    - path.top(NUMBER(valueOf($1)))
+    ɲ(-?\d*\.?\d+)  - [0] Pushes a number onto the top of the stack based off of the value provided.
+    ɲ(-)            - [0] Pushes on a negative one.
+    ɲ(-?\d*/\d+)    - [0] Pushes on a fraction.
 
  -- Array --
     #(\d)+…(\d)+    - path.top(ARRAY(NUMBER(valueOf($1)) ,..., NUMBER(valueOf($2))))
@@ -107,7 +108,8 @@
                       path.top(ARRAY(STRING(numberical_eval(a.value)) ,..., STRING(numberical_eval(b.value)))
 
 --- Operators ---
-    ⁺          - a = path.top() b = path.top() path.top(a.add(b))
+    ⁺          - [2] Pop two items off (if cannot get two do nothing)
+                     Push onto the top of the stack `a.add(b)` which changes based off of the types of `a` and `b`.
     ⁻          - a = path.top() b = path.top() path.top(a.sub(b))
     ⁺s         - a = path.top() b = path.top() path.top(a.add_flip(b))
     ⁻s         - a = path.top() b = path.top() path.top(a.sub_flip(b))
@@ -283,6 +285,7 @@
     ȥ-      - a = path.top() a = numerical_eval(a) a.value *= -1 path.top(a)
 
 --- Loops ---
+    €            - [0] Ends any of the loops.
     ḷ(\k*)       - while(true) => $1
     Ḷ(\k*)       - if tkn.count == undefined => tkn.count = a.integerify().value
                    while(0 < tkn.count) => $1 tkn.count--
@@ -297,10 +300,16 @@
     Ṇ(\k*)       - while(path.first().is_truthy()) path.top() $1;
     ḅ            - break from a loop that is before this command and that does not have a break.
     Ḅ            - a = path.top() if a != undefined && a.is_truthy().value == 1 => path.top(a) else => ḅ
-    ɱ            - path.top(NUMBER(get_containing_loop_token().loop_count))
+    ɱ            - [0] Pushes on the current loop count (starting from zero).
     ọ(\k*)       - a = NUMBER(1); while(path.first().is_truthy().value == 1) a.value = 0 $1; path.top(a);
     Ọ(\k*)       - a = NUMBER(1); while(path.top().is_truthy().value == 1) a.value = 0 $1; path.top(a);
     ƙ            - loop = get_containing_loop__token() if loop.array != undefined => path.top(loop.array.access(loop_count).copy())
+    ṭ(\k*)       - [0] If top is an array, loop over each item.
+                   [0] If top is a string, turn into an array and loop over each item.
+                   [N] If top is a number grab the next N items and make an array pushing on the new array. Then loop over each item.
+    Ṭ(\k*)       - [1] If top is an array, loop over each item removing the array.
+                   [1] If top is a string, turn into an array and loop over each item.
+                   [N] If top is a number grab the next N items and make an array. Then loop over each item.
 
 --- Time ---
     ḍ              - a = path.top() delay_ms(a.integerify().value)
