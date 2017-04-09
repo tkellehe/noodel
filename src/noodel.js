@@ -243,13 +243,20 @@ noodel.commandify = function(cmd) {
 noodel.make_error = function(o, path) {
   path.exceptions.back(new STRING("¶[EXCEPTION]:")).back(o);
 };
+
+noodel.least_significant = function(value) {
+  return Math.pow(1, -((value+"").indexOf(".")));
+};
   
 noodel.random = function(min, max) {
-  return ((max - min) * Math.random()) + min
+  // Forces max to be in the range but along with some other values.
+  return ((max - min + 0.000000001) * Math.random()) + min
 };
   
 noodel.random_int = function(min, max) {
-  return Math.floor(noodel.random(Math.ceil(min), Math.floor(max)))
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor((max - min + 1) * Math.random()) + min
 };
   
 noodel.encode = function(string) {
