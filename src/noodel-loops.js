@@ -13,8 +13,8 @@ Command.is_loop = function(literal) {
          literal === characters.correct("Ṇ") ||
          literal === characters.correct("ọ") ||
          literal === characters.correct("Ọ") ||
-         literal === characters.correct("ṭ") ||
-         literal === characters.correct("Ṭ");
+         literal === characters.correct("ḟ") ||
+         literal === characters.correct("Ḟ");
 }
   
 Command.is_break = function(literal) {
@@ -442,7 +442,7 @@ Command.add(0, noodel.commandify(characters.correct("Ọ")), function(cmd) {
  
 //------------------------------------------------------------------------------------------------------------
 /// Loops the given code as a foreach loop.
-Command.add(0, noodel.commandify(characters.correct("ṭ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("ḟ")), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn;
     // If first time coming to the loop, set everything up.
@@ -493,7 +493,7 @@ Command.add(0, noodel.commandify(characters.correct("ṭ")), function(cmd) {
  
 //------------------------------------------------------------------------------------------------------------
 /// Loops the given code as a foreach loop.
-Command.add(0, noodel.commandify(characters.correct("Ṭ")), function(cmd) {
+Command.add(0, noodel.commandify(characters.correct("Ḟ")), function(cmd) {
   cmd.exec = function(path) {
     var tkn = this.tkn;
     // If first time coming to the loop, set everything up.
