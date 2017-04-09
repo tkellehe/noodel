@@ -248,7 +248,7 @@ noodel.make_error = function(o, path) {
 noodel.highest_precision = function(value) {
   var string = value+"", decimal = string.indexOf(".");
   if(decimal === -1) return 1;
-  return Math.pow(1, decimal + 1 - string.length);
+  return Math.pow(10, decimal + 1 - string.length);
 };
   
 noodel.random = function(min, max) {
