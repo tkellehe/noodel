@@ -428,5 +428,13 @@ Command.add(0, noodel.commandify(characters.correct("ɲ") + "T"), function(cmd) 
     }
   }
 });
+  
+//------------------------------------------------------------------------------------------------------------
+/// Toggles the auto popping at the end of the script.
+Command.add(0, noodel.commandify(characters.correct("¥")), function(cmd) {
+  cmd.exec = function(path) {
+    path.auto_popping = !path.auto_popping;
+  }
+});
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
