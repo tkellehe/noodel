@@ -12,7 +12,9 @@ Command.is_loop = function(literal) {
          literal === characters.correct("ṇ") ||
          literal === characters.correct("Ṇ") ||
          literal === characters.correct("ọ") ||
-         literal === characters.correct("Ọ");
+         literal === characters.correct("Ọ") ||
+         literal === characters.correct("ṭ") ||
+         literal === characters.correct("Ṭ");
 }
   
 Command.is_break = function(literal) {
@@ -437,6 +439,57 @@ Command.add(0, noodel.commandify(characters.correct("Ọ")), function(cmd) {
     return old.call(this);
   };
 });
+ 
+//------------------------------------------------------------------------------------------------------------
+/// Loops the given code as a foreach loop.
+Command.add(0, noodel.commandify(characters.correct("ṭ")), function(cmd) {
+  cmd.exec = function(path) {
+    var tkn = this.tkn;
+    // If first time coming to the loop, set everything up.
+    if(this.tkn.loop_count === undefined) {
+      var f = path.first();
+      tkn.next = function() { return tkn.sub_path.start }
+      this.tkn.loop_count = 0;
+      // Get the loop_array.
+      if(f.type === "ARRAY") this.tkn.loop_array = f;
+      else if(f.type === "STRING") {
+        path.top(path.top().arrayify());
+        this.tkn.loop_array = path.first();
+      } else if(f.type === "NUMBER") {
+        var a = [];
+        f = path.top();
+        for(var i = 0; i < f.value && path.first(); ++i) {
+          a.push(path.top());
+        }
+        path.top(new ARRAY(a));
+        this.tkn.loop_array = path.first();
+      }
+    // As long as the loop_count is less then the array length, keep looping.
+    } else if(this.tkn.loop_count < this.tkn.loop_array.length) {
+      ++this.tkn.loop_count;
+    // Else we have reached the end of the array.
+    } else {
+      // Have to make sure account for if the end if the sub_path is the end of the prgm.
+      tkn.next = function() { var f = tkn.branches.first(); return f === tkn.sub_path.start ? undefined : f };
+      this.tkn.loop_count = undefined;
+      this.tkn.loop_array = undefined;
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var tkn = this.tkn;
+    
+    tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
+    tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
+    
+    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.branches.front(tkn.sub_path.start);
+    tkn.sub_path.end.branches.front(tkn);
+    
+    return old.call(this);
+  };
+});
 
 //------------------------------------------------------------------------------------------------------------
 /// Breaks out of a looping command.
@@ -464,7 +517,7 @@ Command.add(0, noodel.commandify(characters.correct("ḅ")), function(cmd) {
   cmd.exec = function(path) {
     path.top(this.tkn.looper.ran_or_not);
     this.tkn.looper.ran_or_not = undefined;
-  }
+  };
 });
 
 //------------------------------------------------------------------------------------------------------------
