@@ -234,6 +234,7 @@ global.noodel = function noodel(code) {
     return path;
   }
 };
+  
 noodel.commandify = function(cmd) {
   if(arguments.length > 1)
     cmd = Array.prototype.join.call(arguments, ")(");
@@ -244,19 +245,24 @@ noodel.make_error = function(o, path) {
   path.exceptions.back(new STRING("¶[EXCEPTION]:")).back(o);
 };
 
-noodel.least_significant = function(value) {
-  return Math.pow(1, -((value+"").indexOf(".")));
+noodel.highest_precision = function(value) {
+  var string = value+"", decimal = string.indexOf(".");
+  if(decimal === -1) return 1;
+  return Math.pow(1, decimal + 1 - string.length);
 };
   
 noodel.random = function(min, max) {
-  // Forces max to be in the range but along with some other values.
-  return ((max - min + 0.000000001) * Math.random()) + min
+  // By adding the small delta allows the max to be included
+  // but if the max is large (extremely large) then might have a problem.
+  
+  // By taking the min of the random and max prevents from getting numbers outside of range
+  // BUT does mess up the even distribution.
+  return Math.min(max,((max - min + 0.000000001) * Math.random()) + min);
 };
   
 noodel.random_int = function(min, max) {
   min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor((max - min + 1) * Math.random()) + min
+  return Math.floor((Math.floor(max) - min + 1) * Math.random()) + min;
 };
   
 noodel.encode = function(string) {
