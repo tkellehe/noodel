@@ -4,7 +4,7 @@ textarea.noodel-editor {
   box-sizing: border-box;         /* For IE and modern versions of Chrome */
   -moz-box-sizing: border-box;    /* For Firefox                          */
   -webkit-box-sizing: border-box; /* For Safari                           */
-  resize: none;
+  resize: vertical;
   font-family: monospace;
   outline: none;
   color: white;
@@ -32,7 +32,7 @@ textarea.noodel-input {
   box-sizing: border-box;         /* For IE and modern versions of Chrome */
   -moz-box-sizing: border-box;    /* For Firefox                          */
   -webkit-box-sizing: border-box; /* For Safari                           */
-  resize: none;
+  resize: vertical;
   font-family: monospace;
   outline: none;
   color: white;
