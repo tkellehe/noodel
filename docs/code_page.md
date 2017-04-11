@@ -1,4 +1,4 @@
-[HOME](README.md)
+[HOME](https://tkellehe.github.io/noodel/)
 
 # Code Page
 
