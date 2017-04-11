@@ -60,7 +60,7 @@ Command.add(0, new RegExp("^(" + characters.correct("ḷ") + ")$"), function(cmd
     tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
     tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
-    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.sub_path = new Path(tkn.params[0], tkn, tkn.path);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
@@ -117,7 +117,7 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")$"), function(cmd
     tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
     tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
-    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.sub_path = new Path(tkn.params[0], tkn, tkn.path);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
@@ -169,7 +169,7 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters
     tkn.params[1] = Command.collect_loop(tkn.start+1, tkn.code);
     tkn.end = tkn.params[1].length + tkn.start + tkn.literal.length - 1;
     
-    tkn.sub_path = new Path(tkn.params[1], tkn);
+    tkn.sub_path = new Path(tkn.params[1], tkn, tkn.path);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
@@ -210,7 +210,7 @@ Command.add(0, new RegExp("^(" + characters.correct("Ḷ") + ")(\\d+)$"), functi
     tkn.params[1] = Command.collect_loop(tkn.start + 1 + tkn.params[0].length, tkn.code);
     tkn.end = tkn.params[1].length + tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
-    tkn.sub_path = new Path(tkn.params[1], tkn);
+    tkn.sub_path = new Path(tkn.params[1], tkn, tkn.path);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
@@ -248,7 +248,7 @@ Command.add(0, noodel.commandify(characters.correct("ṃ")), function(cmd) {
     tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
     tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
-    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.sub_path = new Path(tkn.params[0], tkn, tkn.path);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
@@ -282,7 +282,7 @@ Command.add(0, noodel.commandify(characters.correct("Ṃ")), function(cmd) {
     tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
     tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
-    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.sub_path = new Path(tkn.params[0], tkn, tkn.path);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
@@ -317,7 +317,7 @@ Command.add(0, noodel.commandify(characters.correct("ṇ")), function(cmd) {
     tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
     tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
-    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.sub_path = new Path(tkn.params[0], tkn, tkn.path);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
@@ -352,7 +352,7 @@ Command.add(0, noodel.commandify(characters.correct("Ṇ")), function(cmd) {
     tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
     tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
-    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.sub_path = new Path(tkn.params[0], tkn, tkn.path);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
@@ -392,7 +392,7 @@ Command.add(0, noodel.commandify(characters.correct("ọ")), function(cmd) {
     tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
     tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
-    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.sub_path = new Path(tkn.params[0], tkn, tkn.path);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
@@ -432,7 +432,7 @@ Command.add(0, noodel.commandify(characters.correct("Ọ")), function(cmd) {
     tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
     tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
-    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.sub_path = new Path(tkn.params[0], tkn, tkn.path);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
@@ -483,7 +483,7 @@ Command.add(0, noodel.commandify(characters.correct("ḟ")), function(cmd) {
     tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
     tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
-    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.sub_path = new Path(tkn.params[0], tkn, tkn.path);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
@@ -531,7 +531,7 @@ Command.add(0, noodel.commandify(characters.correct("Ḟ")), function(cmd) {
     tkn.params[0] = Command.collect_loop(tkn.start+1, tkn.code);
     tkn.end = tkn.params[0].length + tkn.start + tkn.literal.length - 1;
     
-    tkn.sub_path = new Path(tkn.params[0], tkn);
+    tkn.sub_path = new Path(tkn.params[0], tkn, tkn.path);
     tkn.branches.front(tkn.sub_path.start);
     tkn.sub_path.end.branches.front(tkn);
     
