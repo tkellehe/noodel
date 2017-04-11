@@ -286,7 +286,7 @@ noodel.decode = function(string) {
 
 //------------------------------------------------------------------------------------------------------------
 /// NOPs
-Command.add(0, noodel.commandify("[ \n]"), function(cmd) {});
+Command.add(0, noodel.commandify(" "), function(cmd) {});
 Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", " "), function(cmd) {
   cmd.exec = function(path) {
     if(this.tkn.count === undefined) {
@@ -309,6 +309,21 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", " "), func
     this.tkn.params[0] = +characters.tiny_num_to_num(this.tkn.params[0]);
     var tkn = this.tkn;
     this.tkn.old_next = function() { return tkn };
+    return old.call(this);
+  }
+});
+
+Command.add(0, noodel.commandify("\n"), function(cmd) {
+ cmd.exec = function(path) {
+   console.log(path.lines);
+ }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    var parent_path = this.tkn.path;
+    while(parent_path.parent) parent_path = parent_path.parent;
+    if(parent_path.lines === undefined) parent_path.lines = [];
+    parent_path.lines.push(this.tkn);
     return old.call(this);
   }
 });
