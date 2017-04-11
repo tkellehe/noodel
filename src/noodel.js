@@ -227,6 +227,8 @@ global.noodel = function noodel(code) {
     path.onstart = function() { while(this.stdin.first()) this.top(this.stdin.front()) };
     path.onend = function() { if(this.first() && this.auto_popping) this.stdout.back(this.top()) };
     
+    path.call_stack = [];
+    
     for(var i = 1; i < arguments.length; ++i) {
       var item = parseJsObject(arguments[i]);
       if(item) path.stdin.back(item);
@@ -310,5 +312,5 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", " "), func
     return old.call(this);
   }
 });
-
+  
 })(this, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
