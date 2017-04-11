@@ -2,6 +2,7 @@
 
 function Path(code, tkn, parent) {
   this.code = code;
+  this.parent = parent;
   this.start = new Token(0, this.code, tkn);
   this.start.path = this;
   this.current = this.start;
@@ -14,7 +15,6 @@ function Path(code, tkn, parent) {
   this.timeout = undefined;
   this.rate = 0;
   this.kill_this = false;
-  this.parent = parent;
   
   var self = this;
   function invoke_onsteps() { for(var i = 0, l = self.onsteps.length; i < l; ++i) self.onsteps[i].call(self) };
