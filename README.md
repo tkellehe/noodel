@@ -16,7 +16,7 @@
 
 ---
 
-Since the language is for challenges visit the [issues page](https://github.com/tkellehe/noodel/issues) and post challenges where _Noodel_ was used. This will allow others to learn how to _Noodel_ as well as notice features that could be added to assist with challenges ([Learn more](docs/posting_challenges.md)). This language is still under construction and since I like to do code for _Noodel_ from the online editor things may randomly break in the [prototyping editor](https://tkellehe.github.io/noodel/editor-proto.html), features disappear/change, zero comments made on commits, or random issues appear for myself. If there is a need to use an older version of _Noodel_ that was good enough before, visit the [release directory](https://github.com/tkellehe/noodel/tree/master/release) for a list off all of the versions.
+Since the language is for challenges visit the [issues page](https://github.com/tkellehe/noodel/issues) and post challenges where _Noodel_ was used. This will allow others to learn how to _Noodel_ as well as notice features that could be added to assist with challenges ([Learn more](docs/posting_challenges.md)). This language is still under construction and since I like to code for _Noodel_ from the online editor things may randomly break in the [prototyping editor](https://tkellehe.github.io/noodel/editor-proto.html), features disappear/change, zero comments made on commits, or random issues appear for myself. If there is a need to use an older version of _Noodel_ that was good enough before, visit the [release directory](https://github.com/tkellehe/noodel/tree/master/release) for a list of all of the versions.
 
 
 ## Introduction
@@ -25,7 +25,7 @@ _Noodel_ has three main data types: `NUMBER`, `STRING`, and `ARRAY`. `ARRAY` obj
 
 A _"Hello World"_ in [_Noodel_](https://tkellehe.github.io/noodel#introduction) is pretty simple: `Hello,¤World!`
 
-The `STRING` literal is created and placed onto the stack. At the very end, whatever is on the top of the stack gets printed. Therein, the `Hello,¤World!` gets printed. But what happened to the `¤`? The `¤` is used to represent a space when handling `STRING` types. This allows for the space character to act as a NOP to seperate commands. The same was done with the line feed character which is represented by `¶` [(...)](docs/string_compression.md)
+The `STRING` literal is created and placed onto the stack which can be done with any of the [_printable_](docs/code_page.md) characters. At the very end, whatever is on the top of the stack gets printed. Therein, the `Hello,¤World!` gets printed. But what happened to the `¤`? The `¤` is used to represent a space when handling `STRING` types. This allows for the space character to act as a NOP to seperate commands. The same was done with the line feed character which is represented by `¶` [(...)](docs/string_compression.md)
 
 ---
 
