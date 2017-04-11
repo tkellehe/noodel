@@ -25,6 +25,7 @@ Command.is_break = function(literal) {
 Command.is_loop_end = function(literal) {
   return literal === characters.correct("ḅ") ||
          literal === characters.correct("Ḅ") ||
+         literal === characters.correct("\n") ||
          literal === characters.correct("€")
 }
   
