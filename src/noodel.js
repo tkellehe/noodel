@@ -230,7 +230,8 @@ global.noodel = function noodel(code) {
     path.call_stack = [];
     
     if(path.lines === undefined) path.lines = [path.start];
-    else path.lines.push(path.start);
+    else path.lines.unshift(path.start);
+    path.lines.reverse();
     path.start = path.lines[0];
     path.current = path.start;
     
