@@ -445,6 +445,7 @@ Command.add(0, noodel.commandify(characters.correct("¦"), characters.regex.a_pr
     var tkn = this.tkn;
     this.tkn.next = function() {
       var goto = path.lines[tkn.params[0]], result = tkn.old_next();
+      path.call_stack.push(result);
       if(goto) {
         result = goto;
       }
