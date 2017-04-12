@@ -436,5 +436,29 @@ Command.add(0, noodel.commandify(characters.correct("¥")), function(cmd) {
     path.auto_popping = !path.auto_popping;
   }
 });
+  
+//------------------------------------------------------------------------------------------------------------
+/// Jumps to a particular line and start running it.
+Command.add(0, noodel.commandify(characters.correct("¦"), characters.regex.a_printable + "+"), function(cmd) {
+  cmd.exec = function(path) {
+    this.tkn.old_next = this.tkn.next;
+    var tkn = this.tkn;
+    this.tkn.next = function() {
+      var goto = path.lines[tkn.params[0]], result = tkn.old_next();
+      if(goto) {
+        result = goto;
+      }
+      tkn.next = tkn.old_next;
+      return result;
+    }
+  }
+  
+  var old = cmd.tokenize;
+  cmd.tokenize = function() {
+    this.tkn.params[0] = from_base_98(this.tkn.params[0]);
+    
+    return old.call(this);
+  }
+});
 
 })(this, this.noodel, this.Pipe, this.Command, this.Token, this.Path, this.characters, this.NUMBER, this.STRING, this.ARRAY)
