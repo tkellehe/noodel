@@ -231,7 +231,8 @@ global.noodel = function noodel(code) {
     
     if(path.lines === undefined) path.lines = [path.start];
     else path.lines.push(path.start);
-    path.current = path.lines[0];
+    path.start = path.lines[0];
+    path.current = path.start;
     
     for(var i = 1; i < arguments.length; ++i) {
       var item = parseJsObject(arguments[i]);
