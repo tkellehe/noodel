@@ -321,9 +321,7 @@ Command.add(0, noodel.commandify("\n"), function(cmd) {
   var old = cmd.tokenize;
   cmd.tokenize = function() {
     var parent_path = this.tkn.path;
-    console.log("path = ", this.tkn.path);
     while(parent_path.parent) parent_path = parent_path.parent;
-    console.log("parent path = ", parent_path);
     if(parent_path.lines === undefined) parent_path.lines = [];
     parent_path.lines.push(this.tkn);
     return old.call(this);
