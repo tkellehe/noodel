@@ -231,11 +231,11 @@ global.noodel = function noodel(code) {
     
     if(path.lines === undefined) path.lines = [path.start];
     else path.lines.unshift(path.start);
-    path.current = path.lines[0];
+    path.current = path.lines[path.lines.length - 1];
     
     for(var i = 1; i < arguments.length; ++i) {
       var item = parseJsObject(arguments[i]);
-      if(!path.cannot_read_in && item) path.stdin.back(item);
+      if(item) path.stdin.back(item);
     }
     
     return path;
