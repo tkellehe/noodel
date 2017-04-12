@@ -229,9 +229,13 @@ global.noodel = function noodel(code) {
     
     path.call_stack = [];
     
+    if(path.lines === undefined) path.lines = [path.start];
+    else path.lines.unshift(path.start);
+    path.current = path.lines[0];
+    
     for(var i = 1; i < arguments.length; ++i) {
       var item = parseJsObject(arguments[i]);
-      if(item) path.stdin.back(item);
+      if(!path.cannot_read_in && item) path.stdin.back(item);
     }
     
     return path;
