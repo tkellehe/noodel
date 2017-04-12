@@ -255,7 +255,7 @@ Command.add(0, noodel.commandify(characters.correct("Ø")), function(cmd) {
   cmd.exec = function(path) {
     var f = path.top();
     // If the first token then consume everything in stdin.
-    if(path.start == this.tkn) {
+    if(path.lines[0] === this.tkn) {
       while(f) {
         path.stdin.front(f);
         f = path.top();
