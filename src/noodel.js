@@ -230,8 +230,8 @@ global.noodel = function noodel(code) {
     path.call_stack = [];
     
     if(path.lines === undefined) path.lines = [path.start];
-    else path.lines.unshift(path.start);
-    path.current = path.lines[path.lines.length - 1];
+    else path.lines.push(path.start);
+    path.current = path.lines[0];
     
     for(var i = 1; i < arguments.length; ++i) {
       var item = parseJsObject(arguments[i]);
@@ -319,7 +319,12 @@ Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", " "), func
 
 Command.add(0, noodel.commandify("\n"), function(cmd) {
  cmd.exec = function(path) {
-   console.log(path.lines);
+   var ret = path.call_stack.pop();
+   if(ret) {
+     this.tkn.next = function() { return ret }
+   } else {
+     this.tkn.next = function() { return undefined }
+   }
  }
   
   var old = cmd.tokenize;
@@ -327,8 +332,9 @@ Command.add(0, noodel.commandify("\n"), function(cmd) {
     var parent_path = this.tkn.path;
     while(parent_path.parent) parent_path = parent_path.parent;
     if(parent_path.lines === undefined) parent_path.lines = [];
-    parent_path.lines.push(this.tkn);
-    return old.call(this);
+    var result = old.call(this);
+    parent_path.lines.push(this.tkn.next());
+    return result;
   }
 });
   
