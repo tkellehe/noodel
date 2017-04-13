@@ -201,6 +201,17 @@ Path.prototype.timer = function(clear) {
   return end;
 }
 
+// Run time call only.
+Path.prototype.current_line = function(tkn) {
+  var parent = tkn, count = 0;
+  while(parent.parent) {
+    if(parent.literal === "\n") ++count;
+    parent = parent.parent;
+  }
+  
+  return this.lines.length - count - 1;
+}
+
 function parseJsObject(JS) {
   if(typeof JS === "string") {
     return new STRING(characters.deprintify_string(JS));
