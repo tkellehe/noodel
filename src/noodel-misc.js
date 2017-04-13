@@ -439,7 +439,7 @@ Command.add(0, noodel.commandify(characters.correct("¥")), function(cmd) {
   
 //------------------------------------------------------------------------------------------------------------
 /// Jumps to a particular line and start running it.
-Command.add(0, noodel.commandify(characters.correct("¦"), characters.regex.a_printable + "+"), function(cmd) {
+Command.add(1, noodel.commandify(characters.regex.a_tiny_digit + "+", characters.correct("¦")), function(cmd) {
   cmd.exec = function(path) {
     this.tkn.old_next = this.tkn.next;
     var tkn = this.tkn;
@@ -456,7 +456,7 @@ Command.add(0, noodel.commandify(characters.correct("¦"), characters.regex.a_pr
   
   var old = cmd.tokenize;
   cmd.tokenize = function() {
-    this.tkn.params[0] = from_base_98(this.tkn.params[0]);
+    this.tkn.params[0] = +characters.tiny_num_to_num(this.tkn.params[0]);
     
     return old.call(this);
   }
