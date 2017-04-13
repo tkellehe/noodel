@@ -63,7 +63,9 @@
     ɲt          - [0] If the top of the stack is truthy, push on "True" else push on "False".
     ɲT          - [0] If the top of the stack is the string "true" (case insensitive) push on 1 and same for "false" except push on 0.
     ¥           - [0] Toggles turning on auto popping to the display at the end of the script.
-    ¦(\p+)      - [0] Jump to specified location where the provided string is in base 98 and 0 represents the bottom line.
+    (\m+)¦      - [0] Jump to specified location where the preceding value specifies (0 represents the bottom line).
+                      If the line cannot be found, the program will terminate.
+    ¦           - [0] Jump to the line above. If there is no line above then go to bottom line.
 
 --- Literals ---
  -- String --
