@@ -23,16 +23,17 @@ and/or new feature.
 Here is a simple `Hello, World!` in _Noodel_:
 
 ```
-Hello, World!
+Hello,¤World!
 ```
 
 To get started _Noodel_ uses the following characters as the __printable__ characters:
 
 ```
-<newline><space>!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+ð¬¶¤!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 ```
 
-These characters are what are used to create string literals in _Noodel_.
+These characters are what are used to create string literals in _Noodel_. The character `¤` represents a space and the character
+`¶` represents a newline.
 
 # Memory Model
 
