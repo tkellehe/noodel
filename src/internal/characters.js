@@ -177,7 +177,6 @@ characters.debitify_string = function(a) {
 };
   
 characters.compress_basic = function(s) {
-characters.compress_basic = function(s) {
   var a = [], packed_count = 0;
   // Every 9th character will get compressed into the previous 7 characters where the 1st
   // gets a bit set indicating that the next seven have a character hidden within.
@@ -204,7 +203,6 @@ characters.compress_basic = function(s) {
     }
   }
   return characters.debitify_string(a);
-};
 };
   
 characters.decompress_basic = function(s) {
@@ -254,7 +252,7 @@ characters.compress_bitpack = function(N, string) {
     // Get the character in its bit format.
     var bits = characters.bitify_char(string[i]),
     // Used to determine whether or not the character must be packed into the previous N+1 characters.
-        is_compressed = false;
+    is_compressed = false;
     
     // 7 - N characters can be packed into the previous N+1 characters.
     var j = 7 - N;
