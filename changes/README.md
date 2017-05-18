@@ -10,7 +10,8 @@ what _Noodel_ will look like:)
 
 ## Introduction
 
-[_Noodel_]() is a language designed for code-golfing ASCII-Animation challenges. You can go [here]() for different versions of _Noodel_.
+[_Noodel_]() is a language designed for code-golfing ASCII-Animation challenges. The name _Noodel_ was supposed to be Noodle, but
+I mistyped the name, laughed, and then went with _Noodel_. You can go [here]() for different versions of _Noodel_.
 There is an online interpreter for _Noodel_ [here](). You can also find a list of commands [here]().
 
 ## Versions?
