@@ -1,7 +1,39 @@
+chars = ð¬¶¤!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ẠḄḌẸḤỊḲḶṂṆỌṚṢṬỤṾẈỴẒȦḂĊḊĖḞĠḢİĿṀṄȮṖṘṠṪẆẊẎŻạḅḍẹḥịḳḷṃṇọṛṣṭụṿẉỵẓȧḃċḋėḟġḣŀṁṅȯṗṙṡṫẇẋẏżƁƇƊƑƓƘƝƤƬƲȤɓƈɗƒɠɦƙɱɲƥʠɼʂƭʋȥÆÇÐÑØŒÞßæçıȷñøœþ€¢£¥…µ¡¿×÷¦©®«»‘’“”°¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾<space><newline>
+
 ASCII = !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
-printables = ð¬¶¤!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+specials = ð¬¶¤°¹²³⁴⁵⁶⁷⁸⁹
 
 
-------------------------------  Literals ------------------------------
+----------------------------------- Literals -----------------------------------
 
- - [ASCII]
+- ((?:[ASCII]*[specials]+[ASCII]*)+)
+    Instantiates a string with the provided characters where the characters ð¬¶¤°¹²³⁴⁵⁶⁷⁸⁹ get translated.
+    ð : Unused...
+    ¬ : Unused...
+    ¶ : Produces a new line.
+    ¤ : Produces a space.us
+    
+    ⁽⁾ : Group a set of characters (open/close not need if can infer the end/start of the string)
+    °¹²³⁴⁵⁶⁷⁸⁹ : Repeat the previous set of character(s).
+
+------------------------------------- Misc -------------------------------------
+
+- <space>
+    A do nothing command.
+
+- <newline>
+    Exit the current function and return to the function that invoked this one.
+
+- ¦
+    Invoke function directly below the one currently executing.
+
+- ¥
+    Turn off auto popping. If ran again will ???
+
+------------------------------------- Stack ------------------------------------
+
+- 
+
+------------------------------------- Print ------------------------------------
+
+- 
