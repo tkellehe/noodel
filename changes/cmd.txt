@@ -13,7 +13,7 @@ specials = ð¬¶¤°¹²³⁴⁵⁶⁷⁸⁹
     ¶ : Produces a new line.
     ¤ : Produces a space.us
     
-    ⁽⁾ : Group a set of characters (open/close not need if can infer the end/start of the string)
+    ⁽⁾ : Group a set of characters (open/close not needed if can infer the end/start of the string)
     °¹²³⁴⁵⁶⁷⁸⁹ : Repeat the previous set of character(s).
 
 ------------------------------------- Misc -------------------------------------
