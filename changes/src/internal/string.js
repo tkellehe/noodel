@@ -32,27 +32,27 @@ STRING.prototype.toArray = function() {
 
 
 //----------------------------------------------------------------------------------------
-STRING.prototype.add_onto_the_right = function(other) {
-    return new STRING(this.value + other.toString());
+STRING.prototype.add_item_onto_the_right = function(item) {
+    return new STRING(this.value + item.toString());
 }
 
 
 //----------------------------------------------------------------------------------------
-STRING.prototype.add_onto_the_left = function(other) {
-    return new STRING(other.toString() + this.value);
+STRING.prototype.add_item_onto_the_left = function(item) {
+    return new STRING(item.toString() + this.value);
 }
 
 
 //----------------------------------------------------------------------------------------
-STRING.prototype.remove_from_the_right = function(other) {
-    return new STRING(this.value.replace(other.toString(), ""));
+STRING.prototype.remove_item_from_the_right = function(item) {
+    // This is done such that is removed in the same as the item.
+    return new STRING(characters.reverse_string(characters.reverse_string(this.value).replace(characters.reverse_string(item.toString()), "")));
 }
 
 
 //----------------------------------------------------------------------------------------
-STRING.prototype.remove_from_the_left = function(other) {
-    // This is done such that is removed in the same as the other.
-    return new STRING(characters.reverse_string(characters.reverse_string(this.value).replace(characters.reverse_string(other.toString()), "")));
+STRING.prototype.remove_item_from_the_left = function(item) {
+    return new STRING(this.value.replace(item.toString(), ""));
 }
 
 

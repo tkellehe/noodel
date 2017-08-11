@@ -218,6 +218,7 @@ global.characters = {
     debitify_string: debitify_string,
     pad_n: pad_n,
     char_array: char_array,
+    reverse_string: reverse_string,
 }
 
 
