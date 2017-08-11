@@ -168,6 +168,12 @@ function pad0_4(num)
 }
 
 
+//----------------------------------------------------------------------------------------  
+function char_array(s) {
+    return s.split(/(?=(?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]))/);
+}
+    
+
 //----------------------------------------------------------------------------------------
 global.characters = {
     encode: encode,
@@ -203,6 +209,7 @@ global.characters = {
     debitify_char: debitify_char,
     debitify_string: debitify_string,
     pad_n: pad_n,
+    char_array: char_array,
 }
 
 
