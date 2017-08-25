@@ -53,26 +53,26 @@ STRING.prototype.flip = function() {
 /// These functions are basic operators that can be used with other Noodel types.
 //----------------------------------------------------------------------------------------
 STRING.prototype.add_item_onto_the_right = function(item) {
-    return new STRING(this.value + item.toString());
+    return new STRING(this.value + item.to_string());
 }
 
 
 //----------------------------------------------------------------------------------------
 STRING.prototype.add_item_onto_the_left = function(item) {
-    return new STRING(item.toString() + this.value);
+    return new STRING(item.to_string() + this.value);
 }
 
 
 //----------------------------------------------------------------------------------------
 STRING.prototype.remove_item_from_the_right = function(item) {
     // This is done such that is removed in the same as the item.
-    return new STRING(characters.reverse_string(characters.reverse_string(this.value).replace(characters.reverse_string(item.toString()), "")));
+    return new STRING(characters.reverse_string(characters.reverse_string(this.value).replace(characters.reverse_string(item.to_string()), "")));
 }
 
 
 //----------------------------------------------------------------------------------------
 STRING.prototype.remove_item_from_the_left = function(item) {
-    return new STRING(this.value.replace(item.toString(), ""));
+    return new STRING(this.value.replace(item.to_string(), ""));
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
