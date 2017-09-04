@@ -5,10 +5,10 @@
 var to_base95 = function(x) {
     x = Math.abs(x)
     if(x == 0)
-        return characters.int_to_char(0)
+        return characters.printables[0]
     var digits = []
     while(x) {
-        digits.push(characters.int_to_char(x % 95))
+        digits.push(characters.printables[x % 95])
         x = Math.floor(x /= 95)
     }
     digits.reverse()
